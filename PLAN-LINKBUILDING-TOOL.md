@@ -1,4 +1,4 @@
-# Projektplan: Linkbuilding Tool WebApp (v2 — Final)
+# Projektplan: Linkbuilding Tool WebApp (v3 — Final)
 
 **Ziel:** Professionelles Linkbuilding-Management-Tool mit Enterprise-Grade Security
 **Subdomain:** pr.leadsite.de
@@ -130,7 +130,7 @@ const securityHeaders = [
 
 ### Ebene 3: Authentifizierung & Autorisierung
 
-**Auth.js v5** (ehemals NextAuth.js) mit Defense-in-Depth:
+**Better Auth** (Nachfolger von Auth.js — das Auth.js-Team ist Sept. 2025 zu Better Auth gewechselt) mit Defense-in-Depth:
 
 ```
                     ┌─────────────────┐
@@ -152,7 +152,9 @@ const securityHeaders = [
                     └─────────────────┘
 ```
 
-**Wichtig — CVE-2025-29927 beachtet:**
+**Wichtig — CVE-2025-29927 + CVE-2025-66478 beachtet:**
+- Next.js auf mindestens 14.2.25 patchen (CVE-2025-29927 Middleware Bypass)
+- CVE-2025-66478 (React2Shell RCE) ebenfalls patchen
 - Next.js Middleware ist NICHT die einzige Auth-Schicht
 - Jeder API-Endpoint verifiziert Session eigenständig
 - Data Access Layer Pattern: Auth-Check vor jedem DB-Query
@@ -714,18 +716,31 @@ Input: { projectId, targetDomain, competitorDomains[] }
 ```json
 {
   "dependencies": {
-    "next-auth": "^5.0.0-beta.25",  // Auth.js v5 (aktuellste Version)
+    "better-auth": "^1.2.0",        // Auth (Nachfolger von Auth.js, mit built-in RBAC + MFA)
     "bcryptjs": "^2.4.3",           // Passwort-Hashing
     "recharts": "^2.12.0",          // Charts
     "@tanstack/react-table": "^8.20.0", // Sortierbare/filterbare Tabellen
     "file-saver": "^2.0.5",         // CSV/VCF Export
-    "eventsource": "^2.0.2"         // SSE Client für Firehose (optional)
+    "eventsource": "^2.0.2",        // SSE Client für Firehose (optional)
+    "@arcjet/next": "^1.0.0",       // WAF + Bot Protection + Rate Limiting
+    "@nosecone/next": "^1.0.0",     // Security Headers (CSP, HSTS, etc.)
+    "pino": "^9.0.0",               // Structured Logging
+    "@sentry/nextjs": "^8.0.0"      // Error Monitoring + Performance
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
-    "@types/file-saver": "^2.0.7"
+    "@types/file-saver": "^2.0.7",
+    "pino-pretty": "^11.0.0"        // Dev-Logging Formatter
   }
 }
+
+// Warum Better Auth statt Auth.js/NextAuth?
+// - Auth.js Team ist offiziell zu Better Auth gewechselt (Sept 2025)
+// - Built-in RBAC mit Organizations, Teams, Roles
+// - Built-in MFA (TOTP, Passkeys)
+// - Database-Sessions (sofortige Revocation)
+// - Kein Vendor Lock-in
+```
 ```
 
 ---
@@ -901,7 +916,7 @@ n8n.leadsite.de {
 
 | Phase | Inhalt |
 |-------|--------|
-| **Phase 1** | PostgreSQL Setup + Auth.js v5 + RBAC + Audit-Log + Security Headers |
+| **Phase 1** | PostgreSQL Setup + Better Auth + RBAC + Audit-Log + Security Headers + Arcjet WAF |
 | **Phase 2** | Projekt-CRUD + Sidebar Navigation + Projekt-Dashboard |
 | **Phase 3** | Backlinkprofil: DataForSEO Integration + Tabelle + Charts + AI-Kategorisierung |
 | **Phase 4** | Gap-Analyse: Wettbewerber + AI-Empfehlung + Domain Intersection |
