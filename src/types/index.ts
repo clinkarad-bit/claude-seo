@@ -155,3 +155,52 @@ export interface CreateTopicClusterForm {
   exampleEnger: string;
   exampleFerner: string;
 }
+
+// === Linkbuilding Types ===
+export type UserRole = 'admin' | 'employee';
+export type LBProjectStatus = 'active' | 'paused' | 'completed';
+export type LBLinkType = 'dofollow' | 'nofollow' | 'ugc' | 'sponsored';
+export type LBBacklinkCategory = 'PR' | 'Gastbeitrag' | 'Verzeichnis' | 'Forum' | 'Blog' | 'Social' | 'News' | 'Andere';
+export type LBMentionStatus = 'new' | 'contacted' | 'converted' | 'ignored';
+export type LBBrokenLinkStatus = 'found' | 'contacted' | 'replaced' | 'ignored';
+export type LBOutreachStatus = 'new' | 'contacted' | 'replied' | 'converted' | 'rejected';
+
+// Linkbuilding status labels and colors (German)
+export const LB_STATUS_LABELS: Record<string, string> = {
+  active: 'Aktiv',
+  paused: 'Pausiert',
+  completed: 'Abgeschlossen',
+  new: 'Neu',
+  contacted: 'Kontaktiert',
+  converted: 'Konvertiert',
+  ignored: 'Ignoriert',
+  found: 'Gefunden',
+  replaced: 'Ersetzt',
+  replied: 'Geantwortet',
+  rejected: 'Abgelehnt',
+};
+
+export const LB_STATUS_COLORS: Record<string, string> = {
+  active: 'bg-green-100 text-green-800',
+  paused: 'bg-yellow-100 text-yellow-800',
+  completed: 'bg-gray-100 text-gray-800',
+  new: 'bg-blue-100 text-blue-800',
+  contacted: 'bg-purple-100 text-purple-800',
+  converted: 'bg-green-100 text-green-800',
+  ignored: 'bg-gray-100 text-gray-800',
+  found: 'bg-orange-100 text-orange-800',
+  replaced: 'bg-green-100 text-green-800',
+  replied: 'bg-indigo-100 text-indigo-800',
+  rejected: 'bg-red-100 text-red-800',
+};
+
+export const LB_CATEGORY_LABELS: Record<string, string> = {
+  PR: 'PR / Pressemitteilung',
+  Gastbeitrag: 'Gastbeitrag',
+  Verzeichnis: 'Verzeichnis',
+  Forum: 'Forum / Community',
+  Blog: 'Blog / Kommentar',
+  Social: 'Social Media',
+  News: 'News / Presse',
+  Andere: 'Andere',
+};

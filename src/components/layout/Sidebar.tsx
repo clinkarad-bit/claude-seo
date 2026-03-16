@@ -10,6 +10,13 @@ import {
   PenLine,
   BarChart3,
   Sparkles,
+  Link2,
+  FolderKanban,
+  ArrowUpRight,
+  GitCompare,
+  AtSign,
+  Link as LinkIcon,
+  Contact,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +27,16 @@ const navItems = [
   { href: "/outlines", label: "Outlines", icon: FileText },
   { href: "/content", label: "Content Pieces", icon: PenLine },
   { href: "/performance", label: "Performance", icon: BarChart3 },
+];
+
+const lbNavItems = [
+  { href: "/linkbuilding", label: "LB Dashboard", icon: Link2 },
+  { href: "/linkbuilding/projekte", label: "Projekte", icon: FolderKanban },
+  { href: "/linkbuilding/backlinks", label: "Backlinks", icon: ArrowUpRight },
+  { href: "/linkbuilding/gap-analyse", label: "Gap-Analyse", icon: GitCompare },
+  { href: "/linkbuilding/mentions", label: "Brand Mentions", icon: AtSign },
+  { href: "/linkbuilding/broken-links", label: "Broken Links", icon: LinkIcon },
+  { href: "/linkbuilding/kontakte", label: "Kontakte", icon: Contact },
 ];
 
 export function Sidebar() {
@@ -45,6 +62,37 @@ export function Sidebar() {
           const isActive =
             item.href === "/"
               ? pathname === "/"
+              : pathname.startsWith(item.href);
+
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+            >
+              <Icon className="h-4 w-4 shrink-0" />
+              {item.label}
+            </Link>
+          );
+        })}
+
+        {/* Linkbuilding Separator */}
+        <div className="flex items-center gap-2 px-3 pb-1 pt-4">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-xs font-medium text-muted-foreground">Linkbuilding</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        {lbNavItems.map((item) => {
+          const Icon = item.icon;
+          const isActive =
+            item.href === "/linkbuilding"
+              ? pathname === "/linkbuilding"
               : pathname.startsWith(item.href);
 
           return (

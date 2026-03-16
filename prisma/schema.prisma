@@ -7,6 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ========== EXISTING SEO MODELS ==========
+
 model Customer {
   id              String   @id @default(cuid())
   companyName     String
@@ -21,6 +23,7 @@ model Customer {
   updatedAt       DateTime @updatedAt
 
   topicClusters TopicCluster[]
+  lbProjects    LBProject[]
 }
 
 model TopicCluster {
@@ -123,4 +126,180 @@ model PerformanceHistory {
   contentPiece     ContentPiece @relation(fields: [contentPieceId], references: [id], onDelete: Cascade)
   performanceScore Int
   measuredAt       DateTime     @default(now())
+}
+
+// ========== AUTH MODELS ==========
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String
+  role          String    @default("employee")
+  isActive      Boolean   @default(true)
+  failedLogins  Int       @default(0)
+  lockedUntil   DateTime?
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions      UserSession[]
+  auditLogs     AuditLog[]
+  projectMembers LBProjectMember[]
+}
+
+model UserSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  entity    String?
+  entityId  String?
+  metadata  String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+// ========== LINKBUILDING MODELS ==========
+
+model LBProject {
+  id            String   @id @default(cuid())
+  name          String
+  domain        String
+  url           String
+  brandKeywords String?
+  customerId    String?
+  customer      Customer? @relation(fields: [customerId], references: [id])
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  members       LBProjectMember[]
+  backlinks     LBBacklink[]
+  competitors   LBCompetitor[]
+  mentions      LBBrandMention[]
+  brokenLinks   LBBrokenLink[]
+  contacts      LBContact[]
+  snapshots     LBBacklinkSnapshot[]
+}
+
+model LBProjectMember {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  projectId String
+  project   LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  role      String    @default("member")
+
+  @@unique([userId, projectId])
+}
+
+model LBBacklink {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sourceUrl    String
+  sourceDomain String
+  targetUrl    String
+  anchorText   String?
+  linkType     String   @default("dofollow")
+  category     String?
+  domainRating Float?
+  pageRating   Float?
+  isActive     Boolean  @default(true)
+  firstSeen    DateTime @default(now())
+  lastChecked  DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model LBBacklinkSnapshot {
+  id               String    @id @default(cuid())
+  projectId        String
+  project          LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date             DateTime  @default(now())
+  totalBacklinks   Int
+  dofollowCount    Int
+  nofollowCount    Int
+  avgDR            Float?
+  referringDomains Int
+  newBacklinks     Int       @default(0)
+  lostBacklinks    Int       @default(0)
+}
+
+model LBCompetitor {
+  id             String    @id @default(cuid())
+  projectId      String
+  project        LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  domain         String
+  domainRating   Float?
+  totalBacklinks Int?
+  isAISuggested  Boolean   @default(false)
+  gapData        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model LBBrandMention {
+  id           String    @id @default(cuid())
+  projectId    String
+  project      LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sourceUrl    String
+  sourceDomain String
+  title        String?
+  snippet      String?
+  hasLink      Boolean   @default(false)
+  mentionDate  DateTime?
+  source       String?
+  status       String    @default("new")
+  createdAt    DateTime  @default(now())
+
+  @@unique([projectId, sourceUrl])
+}
+
+model LBBrokenLink {
+  id             String    @id @default(cuid())
+  projectId      String
+  project        LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sourceUrl      String
+  sourceDomain   String
+  brokenUrl      String
+  anchorText     String?
+  topicRelevance Float?
+  suggestedUrl   String?
+  httpStatus     Int?
+  domainRating   Float?
+  status         String    @default("found")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model LBContact {
+  id             String    @id @default(cuid())
+  projectId      String
+  project        LBProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  domain         String
+  pageUrl        String?
+  name           String?
+  email          String?
+  phone          String?
+  position       String?
+  source         String?
+  linkedinUrl    String?
+  outreachStatus String    @default("new")
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
