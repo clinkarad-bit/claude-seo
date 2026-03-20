@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
   const topic = await prisma.topic.findUnique({
     where: { id: parsed.data.topicId },
     include: {
+      outline: { select: { id: true } },
       keywords: { where: { relevant: true }, orderBy: { searchVolume: "desc" } },
       topicCluster: { include: { customer: true } },
     },

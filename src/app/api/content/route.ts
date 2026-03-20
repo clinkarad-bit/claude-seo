@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 import { z } from "zod";
 import { generateSectionContent, generateMeta } from "@/lib/ai";
 import { parseJSON } from "@/lib/utils";
-import type { OutlineSection } from "@/types";
+import type { OutlineSection as AIOutlineSection } from "@/lib/ai";
 
 const createSchema = z.object({
   outlineId: z.string().min(1),
@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
   const outline = await prisma.outline.findUnique({
     where: { id: parsed.data.outlineId },
     include: {
+      contentPiece: { select: { id: true } },
       topic: {
         include: {
           keywords: { where: { relevant: true } },
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest) {
   }
 
   const customer = outline.topic.topicCluster.customer;
-  const outlineContent = parseJSON<{ suggestedTitle: string; sections: OutlineSection[] }>(
+  const outlineContent = parseJSON<{ suggestedTitle: string; sections: AIOutlineSection[] }>(
     outline.content,
     { suggestedTitle: outline.topic.title, sections: [] }
   );
