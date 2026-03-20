@@ -7,8 +7,10 @@ import { extractTextFromPDF } from "@/lib/pdf";
 
 const createSchema = z.object({
   companyName: z.string().min(1),
-  description: z.string().min(1),
-  domain: z.string().url().optional().or(z.literal("")),
+  description: z.string().optional().default(""),
+  domain: z.string().optional().or(z.literal("")),
+  projectStart: z.string().optional(),
+  urls: z.array(z.string()).optional(),
 });
 
 export async function GET() {
@@ -37,12 +39,33 @@ export async function POST(req: NextRequest) {
   const customer = await prisma.customer.create({
     data: {
       companyName: parsed.data.companyName,
-      description: parsed.data.description,
+      description: parsed.data.description || "",
       domain: parsed.data.domain || null,
+      projectStart: parsed.data.projectStart ? new Date(parsed.data.projectStart) : new Date(),
     },
   });
 
-  return NextResponse.json(customer, { status: 201 });
+  // Create associated URLs if provided
+  if (parsed.data.urls && parsed.data.urls.length > 0) {
+    await prisma.customerUrl.createMany({
+      data: parsed.data.urls
+        .filter((url: string) => url.trim().length > 0)
+        .map((url: string) => ({
+          customerId: customer.id,
+          url: url.trim(),
+        })),
+    });
+  }
+
+  const result = await prisma.customer.findUnique({
+    where: { id: customer.id },
+    include: {
+      _count: { select: { topicClusters: true } },
+      urls: true,
+    },
+  });
+
+  return NextResponse.json(result, { status: 201 });
 }
 
 async function handleFormDataPost(req: NextRequest) {

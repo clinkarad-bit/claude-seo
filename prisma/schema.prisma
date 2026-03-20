@@ -7,24 +7,440 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ========== EXISTING SEO MODELS ==========
+// ========== AUTH & USER MANAGEMENT ==========
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  firstName     String    @default("")
+  lastName      String    @default("")
+  name          String
+  role          String    @default("employee") // admin | employee | viewer
+  position      String?
+  isActive      Boolean   @default(true)
+  failedLogins  Int       @default(0)
+  lockedUntil   DateTime?
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions        UserSession[]
+  auditLogs       AuditLog[]
+  projectMembers  LBProjectMember[]
+  invitedBy       UserInvite[]      @relation("InvitedBy")
+}
+
+model UserSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model UserInvite {
+  id            String   @id @default(cuid())
+  email         String
+  firstName     String
+  lastName      String
+  position      String?
+  role          String   @default("employee")
+  tempPassword  String
+  invitedById   String
+  invitedBy     User     @relation("InvitedBy", fields: [invitedById], references: [id])
+  accepted      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  entity    String?
+  entityId  String?
+  metadata  String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+// ========== AGENCY & SETTINGS ==========
+
+model Agency {
+  id              String   @id @default(cuid())
+  name            String   @default("Meine Agentur")
+  defaultLanguage String   @default("de-DE")
+  timezone        String   @default("Europe/Berlin")
+  logoUrl         String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model APIConnection {
+  id          String   @id @default(cuid())
+  service     String   @unique // anthropic | perplexity | dataforseo | n8n | gsc | openai
+  label       String
+  description String?
+  apiKey      String?
+  apiSecret   String?
+  isConnected Boolean  @default(false)
+  config      String?  // JSON additional config
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ========== CUSTOMER / PROJECT ==========
 
 model Customer {
   id              String   @id @default(cuid())
   companyName     String
-  description     String
+  description     String   @default("")
   domain          String?
   logoUrl         String?
+  projectStart    DateTime @default(now())
   guidelinesPdf   String?
   exampleTextPdf  String?
   guidelinesText  String?
   exampleText     String?
+  // SEO Metrics (auto-fetched)
+  organicTraffic    Int?
+  totalBacklinks    Int?
+  domainRating      Float?
+  domainAuthority   Float?
+  referringDomains  Int?
+  indexedPages      Int?
+  sitemapUrl        String?
+  metricsUpdatedAt  DateTime?
+  // Writing style & image style config
+  writingStyle      String?  // JSON: tone, rules, etc.
+  imageStyle        String?  // JSON: style preferences for images
+  articleRequirements String? // JSON: customer-specific requirements for every article
+  // CMS connections
+  wpSiteUrl         String?
+  wpApiKey          String?
+  wpConnected       Boolean  @default(false)
+  webflowSiteId     String?
+  webflowApiKey     String?
+  webflowConnected  Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  topicClusters TopicCluster[]
-  lbProjects    LBProject[]
+  topicClusters   TopicCluster[]
+  lbProjects      LBProject[]
+  personas        WriterPersona[]
+  keywordMaps     KeywordMap[]
+  articles        Article[]
+  competitors     Competitor[]
+  contentGaps     ContentGap[]
+  rankTrackers    RankTracker[]
+  reports         Report[]
+  urls            CustomerUrl[]
 }
+
+model CustomerUrl {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  url        String
+  title      String?
+  status     String   @default("active") // active | inactive | redirect
+  createdAt  DateTime @default(now())
+}
+
+model WriterPersona {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  name        String
+  description String   // tone, style, rules etc.
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ========== KEYWORD MAP ==========
+
+model KeywordMap {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  name        String
+  seedKeywords String  @default("") // comma-separated seeds
+  status      String   @default("generating") // generating | ready | error
+  totalKeywords Int    @default(0)
+  coveredKeywords Int  @default(0)
+  coverageScore Float  @default(0) // percentage 0-100
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  hubs        KeywordHub[]
+}
+
+model KeywordHub {
+  id            String     @id @default(cuid())
+  keywordMapId  String
+  keywordMap    KeywordMap @relation(fields: [keywordMapId], references: [id], onDelete: Cascade)
+  name          String
+  totalVolume   Int        @default(0)
+  keywordCount  Int        @default(0)
+  coveredCount  Int        @default(0)
+  coverageScore Float      @default(0)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  keywords      KeywordEntry[]
+}
+
+model KeywordEntry {
+  id              String     @id @default(cuid())
+  hubId           String
+  hub             KeywordHub @relation(fields: [hubId], references: [id], onDelete: Cascade)
+  keyword         String
+  searchVolume    Int        @default(0)
+  cpc             Float      @default(0)
+  searchIntent    String     @default("informational") // informational | navigational | commercial | transactional
+  funnelLevel     String     @default("top") // top | middle | bottom
+  difficulty      Float?
+  isCovered       Boolean    @default(false) // already covered by existing page
+  coveredUrl      String?    // URL that covers this keyword
+  isMainVariant   Boolean    @default(true) // primary keyword vs. variant
+  parentKeywordId String?    // groups variants under main keyword
+  articleId       String?    // linked article if generated
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+// ========== ARTICLE GENERATOR ==========
+
+model Article {
+  id              String   @id @default(cuid())
+  customerId      String
+  customer        Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  keyword         String   // main keyword
+  keywordEntryId  String?  // optional link to keyword map entry
+  status          String   @default("outline") // outline | outline_approved | writing | draft | review | approved | published | refresh
+  // Meta
+  title           String?
+  metaDescription String?
+  permalink       String?
+  // Outline
+  outlineContent  String?  // JSON: sections with H2s, bullets, keywords
+  outlineFeedback String?  // JSON: array of feedback + AI responses
+  // Article content
+  content         String?  // markdown
+  contentFeedback String?  // JSON: array of feedback + AI responses
+  // Comments on specific sections
+  comments        String?  // JSON: array of {selection, comment, resolved}
+  // SERP analysis data
+  serpAnalysis     String?  // JSON: top 10 results analysis
+  paaQuestions     String?  // JSON: people also ask
+  wdfIdfData       String?  // JSON: WDF*IDF analysis
+  searchIntent     String?
+  funnelLevel      String?
+  // Images
+  images          String?  // JSON: array of {url, alt, position}
+  featuredImage   String?
+  // Persona used
+  personaId       String?
+  // Publishing
+  publishedUrl    String?
+  publishedAt     DateTime?
+  wordCount       Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  rankings        ArticleRanking[]
+  seoTasks        SEOTask[]
+}
+
+model ArticleRanking {
+  id          String   @id @default(cuid())
+  articleId   String
+  article     Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  keyword     String
+  position    Float?
+  prevPosition Float?
+  clicks      Int      @default(0)
+  impressions Int      @default(0)
+  ctr         Float    @default(0)
+  url         String?
+  measuredAt  DateTime @default(now())
+}
+
+// ========== RANK TRACKER ==========
+
+model RankTracker {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  keyword     String
+  url         String?
+  currentPosition Float?
+  previousPosition Float?
+  bestPosition  Float?
+  worstPosition Float?
+  trend         String?  // up | down | stable | new
+  trendDays     Int?     // how many days trending
+  articleId     String?  // link to article if exists
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  history     RankHistory[]
+}
+
+model RankHistory {
+  id            String      @id @default(cuid())
+  rankTrackerId String
+  rankTracker   RankTracker @relation(fields: [rankTrackerId], references: [id], onDelete: Cascade)
+  position      Float?
+  clicks        Int         @default(0)
+  impressions   Int         @default(0)
+  ctr           Float       @default(0)
+  measuredAt    DateTime    @default(now())
+}
+
+model SEOTask {
+  id          String   @id @default(cuid())
+  articleId   String?
+  article     Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  customerId  String?
+  type        String   // content_update | meta_update | internal_link | technical | new_content
+  title       String
+  description String
+  priority    String   @default("medium") // low | medium | high | critical
+  status      String   @default("open")   // open | in_progress | done | dismissed
+  analysis    String?  // JSON: what the AI recommends
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ========== CONTENT GAP ANALYSIS ==========
+
+model ContentGap {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  keyword     String
+  searchVolume Int     @default(0)
+  difficulty  Float?
+  competitorUrl String? // which competitor ranks
+  competitorDomain String?
+  opportunity String?  // high | medium | low
+  status      String   @default("open") // open | planned | created | dismissed
+  articleId   String?  // if article was created for this gap
+  lastChecked DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ========== COMPETITORS ==========
+
+model Competitor {
+  id                String   @id @default(cuid())
+  customerId        String
+  customer          Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  domain            String
+  domainRating      Float?
+  totalBacklinks    Int?
+  organicTraffic    Int?
+  isAISuggested     Boolean  @default(false)
+  isManuallyAdded   Boolean  @default(false)
+  isActive          Boolean  @default(true)
+  lastScreenedAt    DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  updates           CompetitorUpdate[]
+  backlinks         CompetitorBacklink[]
+  topPages          CompetitorTopPage[]
+  brokenLinks       CompetitorBrokenLink[]
+}
+
+model CompetitorUpdate {
+  id           String     @id @default(cuid())
+  competitorId String
+  competitor   Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
+  month        String     // "2026-03"
+  summary      String     // what they did this month
+  newContent   String?    // JSON: array of new pages
+  backlinksGained Int?
+  backlinksLost   Int?
+  trafficChange   Float?  // percentage
+  createdAt    DateTime   @default(now())
+}
+
+model CompetitorBacklink {
+  id              String     @id @default(cuid())
+  competitorId    String
+  competitor      Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
+  sourceUrl       String
+  sourceDomain    String
+  anchorText      String?
+  linkType        String     @default("dofollow")
+  domainRating    Float?
+  isNew           Boolean    @default(true)
+  isLost          Boolean    @default(false)
+  firstSeen       DateTime   @default(now())
+  lastSeen        DateTime   @default(now())
+  createdAt       DateTime   @default(now())
+}
+
+model CompetitorTopPage {
+  id              String     @id @default(cuid())
+  competitorId    String
+  competitor      Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
+  url             String
+  title           String?
+  estimatedTraffic Int?
+  keywords        String?    // JSON: top keywords for this page
+  backlinks       Int?
+  createdAt       DateTime   @default(now())
+}
+
+model CompetitorBrokenLink {
+  id              String     @id @default(cuid())
+  competitorId    String
+  competitor      Competitor @relation(fields: [competitorId], references: [id], onDelete: Cascade)
+  brokenUrl       String
+  sourceUrl       String?
+  anchorText      String?
+  topicRelevant   Boolean    @default(false)
+  httpStatus      Int?
+  createdAt       DateTime   @default(now())
+}
+
+// ========== REPORTS ==========
+
+model Report {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  type        String   // weekly_rank | monthly_competitor | content_gap | custom
+  title       String
+  data        String   // JSON: report data
+  emailSent   Boolean  @default(false)
+  sentAt      DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model ReportConfig {
+  id              String  @id @default(cuid())
+  customerId      String?
+  reportType      String  // weekly_rank | monthly_competitor
+  recipientEmails String  // JSON: array of emails
+  isActive        Boolean @default(true)
+  dayOfWeek       Int     @default(1) // 0=Sun, 1=Mon
+  hourOfDay       Int     @default(9)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ========== EXISTING SEO MODELS (kept for backwards compat) ==========
 
 model TopicCluster {
   id         String   @id @default(cuid())
@@ -126,50 +542,6 @@ model PerformanceHistory {
   contentPiece     ContentPiece @relation(fields: [contentPieceId], references: [id], onDelete: Cascade)
   performanceScore Int
   measuredAt       DateTime     @default(now())
-}
-
-// ========== AUTH MODELS ==========
-
-model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  passwordHash  String
-  name          String
-  role          String    @default("employee")
-  isActive      Boolean   @default(true)
-  failedLogins  Int       @default(0)
-  lockedUntil   DateTime?
-  lastLoginAt   DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  sessions      UserSession[]
-  auditLogs     AuditLog[]
-  projectMembers LBProjectMember[]
-}
-
-model UserSession {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  token     String   @unique
-  expiresAt DateTime
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
-}
-
-model AuditLog {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  action    String
-  entity    String?
-  entityId  String?
-  metadata  String?
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
 }
 
 // ========== LINKBUILDING MODELS ==========

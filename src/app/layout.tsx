@@ -3,16 +3,18 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { CustomerProvider } from "@/components/providers/CustomerProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Claude SEO",
-    default: "Claude SEO – Content Marketing Automation",
+    template: "%s | SEOPilot",
+    default: "SEOPilot – SEO & Content Automation",
   },
   description:
-    "Vollständiges SEO & Content Marketing Automation Tool für professionelles Content-Management",
+    "Vollständige SEO-Plattform: Keyword-Research, Content-Generierung, Rank-Tracking & Wettbewerbsanalyse",
 };
 
 export default function RootLayout({
@@ -21,17 +23,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
+    <html lang="de" suppressHydrationWarning>
       <body className={inter.className}>
-        <div className="flex h-screen overflow-hidden bg-background">
-          <Sidebar />
-          <main className="flex-1 overflow-y-auto">
-            <div className="container mx-auto max-w-7xl p-6 lg:p-8">
-              {children}
+        <ThemeProvider>
+          <CustomerProvider>
+            <div className="flex h-screen overflow-hidden bg-background">
+              <Sidebar />
+              <main className="flex-1 overflow-y-auto">
+                <div className="mx-auto max-w-7xl p-6 lg:p-8">
+                  {children}
+                </div>
+              </main>
             </div>
-          </main>
-        </div>
-        <Toaster />
+            <Toaster />
+          </CustomerProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

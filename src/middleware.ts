@@ -7,25 +7,30 @@ export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.delete("x-middleware-subrequest");
 
-  // Protect linkbuilding routes — require session cookie
-  if (pathname.startsWith("/linkbuilding")) {
-    const sessionToken = request.cookies.get("lb-session")?.value;
-    if (!sessionToken) {
-      const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("redirect", pathname);
-      return NextResponse.redirect(loginUrl);
-    }
+  // Public routes that don't need auth
+  const publicPaths = ["/login", "/api/lb/auth/login", "/api/lb/auth/register"];
+  const isPublic = publicPaths.some((p) => pathname.startsWith(p));
+  if (isPublic) {
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
-  // Protect LB API routes (except login)
-  if (
-    pathname.startsWith("/api/lb/") &&
-    !pathname.startsWith("/api/lb/auth/login")
-  ) {
-    const sessionToken = request.cookies.get("lb-session")?.value;
-    if (!sessionToken) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // Protect all app routes — require session cookie
+  const sessionToken = request.cookies.get("lb-session")?.value;
+
+  // Protect pages
+  if (!pathname.startsWith("/api/") && !sessionToken) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Protect API routes (except public ones)
+  if (pathname.startsWith("/api/") && !sessionToken) {
+    // Allow customer API without auth for initial setup
+    if (pathname.startsWith("/api/customers")) {
+      return NextResponse.next({ request: { headers: requestHeaders } });
     }
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   return NextResponse.next({
@@ -34,5 +39,7 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/linkbuilding/:path*", "/api/lb/:path*"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|uploads).*)",
+  ],
 };
