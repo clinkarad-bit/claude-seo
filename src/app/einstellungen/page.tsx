@@ -1017,3 +1017,106 @@ function PersonaForm({
     </form>
   );
 }
+
+// --------------- User Invite Form ---------------
+
+function UserInviteForm({
+  onSave,
+  onCancel,
+  saving,
+}: {
+  onSave: (data: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    position: string;
+    role: string;
+  }) => void;
+  onCancel: () => void;
+  saving: boolean;
+}) {
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [position, setPosition] = useState("");
+  const [role, setRole] = useState("employee");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !firstName || !lastName) return;
+    onSave({ email, firstName, lastName, position, role });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-2">
+          <Label htmlFor="user-first">Vorname</Label>
+          <Input
+            id="user-first"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="Max"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="user-last">Nachname</Label>
+          <Input
+            id="user-last"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Mustermann"
+            required
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="user-email">E-Mail</Label>
+        <Input
+          id="user-email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="max@firma.de"
+          required
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="user-position">Position (optional)</Label>
+        <Input
+          id="user-position"
+          value={position}
+          onChange={(e) => setPosition(e.target.value)}
+          placeholder="z.B. SEO Manager"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="user-role">Rolle</Label>
+        <Select value={role} onValueChange={setRole}>
+          <SelectTrigger id="user-role">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="admin">Admin - Vollzugriff</SelectItem>
+            <SelectItem value="employee">Mitarbeiter - Lesen & Bearbeiten</SelectItem>
+            <SelectItem value="viewer">Betrachter - Nur Lesen</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="flex justify-end gap-2 pt-2">
+        <Button type="button" variant="outline" onClick={onCancel}>
+          Abbrechen
+        </Button>
+        <Button type="submit" disabled={saving || !email || !firstName || !lastName}>
+          {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Einladen
+        </Button>
+      </div>
+    </form>
+  );
+}
