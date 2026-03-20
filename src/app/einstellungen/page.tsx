@@ -680,6 +680,138 @@ export default function EinstellungenPage() {
             </CardContent>
           </Card>
 
+          {/* User Management */}
+          <Card className="border-border/60">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-muted-foreground" />
+                  <CardTitle className="text-lg">Benutzerverwaltung</CardTitle>
+                </div>
+                <Dialog
+                  open={userDialogOpen}
+                  onOpenChange={(open) => {
+                    setUserDialogOpen(open);
+                    if (!open) setTempPasswordInfo(null);
+                  }}
+                >
+                  <DialogTrigger asChild>
+                    <Button size="sm" className="gap-1">
+                      <UserPlus className="h-4 w-4" />
+                      Einladen
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Neuen Benutzer einladen</DialogTitle>
+                    </DialogHeader>
+                    <UserInviteForm
+                      onSave={handleCreateUser}
+                      onCancel={() => setUserDialogOpen(false)}
+                      saving={savingUser}
+                    />
+                  </DialogContent>
+                </Dialog>
+              </div>
+              <CardDescription>
+                Team-Mitglieder verwalten und einladen
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Temp password notification */}
+              {tempPasswordInfo && (
+                <div className="mb-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-800 p-3">
+                  <p className="text-sm font-medium text-green-800 dark:text-green-200">
+                    Temporaeres Passwort fuer {tempPasswordInfo.email}:
+                  </p>
+                  <code className="mt-1 block rounded bg-white dark:bg-green-900 px-2 py-1 text-sm font-mono text-green-900 dark:text-green-100">
+                    {tempPasswordInfo.password}
+                  </code>
+                  <p className="mt-1 text-xs text-green-600 dark:text-green-400">
+                    Bitte teilen Sie dieses Passwort sicher mit dem Benutzer.
+                  </p>
+                </div>
+              )}
+
+              {users.length === 0 ? (
+                <div className="rounded-lg border border-dashed border-border/60 p-6 text-center">
+                  <Users className="mx-auto h-8 w-8 text-muted-foreground/50" />
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Noch keine Benutzer vorhanden.
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Laden Sie Teammitglieder ein, um loszulegen.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {users.map((user) => {
+                    const RoleIcon = ROLE_ICONS[user.role] || Shield;
+                    return (
+                      <div
+                        key={user.id}
+                        className={`flex items-center justify-between rounded-lg border border-border/60 p-3 transition-colors hover:bg-muted/30 ${
+                          !user.isActive ? "opacity-60" : ""
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold">
+                            {user.firstName[0]}{user.lastName[0]}
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <p className="text-sm font-medium truncate">{user.name}</p>
+                              {!user.isActive && (
+                                <span className="text-[10px] rounded bg-red-100 text-red-700 px-1.5 py-0">
+                                  Inaktiv
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                            {user.position && (
+                              <p className="text-xs text-muted-foreground">{user.position}</p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0 ml-2">
+                          <Select
+                            value={user.role}
+                            onValueChange={(role) => handleUpdateUserRole(user.id, role)}
+                          >
+                            <SelectTrigger className="h-7 w-[120px] text-xs">
+                              <div className="flex items-center gap-1">
+                                <RoleIcon className="h-3 w-3" />
+                                <SelectValue />
+                              </div>
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="admin">Admin</SelectItem>
+                              <SelectItem value="employee">Mitarbeiter</SelectItem>
+                              <SelectItem value="viewer">Betrachter</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleToggleUserActive(user)}
+                            className="text-xs h-7 px-2"
+                            title={user.isActive ? "Deaktivieren" : "Aktivieren"}
+                          >
+                            {user.isActive ? (
+                              <UserX className="h-3.5 w-3.5 text-muted-foreground" />
+                            ) : (
+                              <UserCheck className="h-3.5 w-3.5 text-green-600" />
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
           {/* Agency Settings */}
           <Card className="border-border/60">
             <CardHeader>
