@@ -237,6 +237,90 @@ export default function EinstellungenPage() {
     fetchData();
   }, [fetchData]);
 
+  // Create user
+  const handleCreateUser = async (formData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    position: string;
+    role: string;
+  }) => {
+    setSavingUser(true);
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Benutzer konnte nicht erstellt werden");
+      }
+      const data = await res.json();
+      setTempPasswordInfo({ email: data.user.email, password: data.tempPassword });
+      toast({
+        title: "Benutzer erstellt",
+        description: `Einladung fuer ${data.user.email} wurde erstellt.`,
+      });
+      setUserDialogOpen(false);
+      fetchData();
+    } catch (err) {
+      toast({
+        title: "Fehler",
+        description: err instanceof Error ? err.message : "Benutzer konnte nicht erstellt werden.",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingUser(false);
+    }
+  };
+
+  // Toggle user active status
+  const handleToggleUserActive = async (user: UserInfo) => {
+    try {
+      const res = await fetch(`/api/users/${user.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: !user.isActive }),
+      });
+      if (!res.ok) throw new Error("Failed to update");
+      toast({
+        title: user.isActive ? "Deaktiviert" : "Aktiviert",
+        description: `${user.name} wurde ${user.isActive ? "deaktiviert" : "aktiviert"}.`,
+      });
+      fetchData();
+    } catch {
+      toast({
+        title: "Fehler",
+        description: "Status konnte nicht geaendert werden.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Update user role
+  const handleUpdateUserRole = async (userId: string, role: string) => {
+    try {
+      const res = await fetch(`/api/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role }),
+      });
+      if (!res.ok) throw new Error("Failed to update");
+      toast({
+        title: "Rolle aktualisiert",
+        description: `Benutzerrolle wurde auf ${ROLE_LABELS[role] || role} geaendert.`,
+      });
+      fetchData();
+    } catch {
+      toast({
+        title: "Fehler",
+        description: "Rolle konnte nicht geaendert werden.",
+        variant: "destructive",
+      });
+    }
+  };
+
   // Save agency settings
   const handleSaveAgency = async () => {
     setSavingAgency(true);
