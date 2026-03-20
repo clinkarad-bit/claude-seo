@@ -10,6 +10,13 @@ import {
   Pencil,
   Check,
   Loader2,
+  UserPlus,
+  Shield,
+  ShieldCheck,
+  Eye,
+  MoreVertical,
+  UserX,
+  UserCheck,
 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import {

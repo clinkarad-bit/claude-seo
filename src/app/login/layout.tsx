@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Anmelden | SEOPilot",
+  description: "Melden Sie sich bei SEOPilot an",
+};
+
 export default function LoginLayout({
   children,
 }: {
