@@ -86,6 +86,37 @@ interface Customer {
   companyName: string;
 }
 
+interface UserInfo {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  name: string;
+  role: string;
+  position: string | null;
+  isActive: boolean;
+  lastLoginAt: string | null;
+  createdAt: string;
+}
+
+const ROLE_LABELS: Record<string, string> = {
+  admin: "Admin",
+  employee: "Mitarbeiter",
+  viewer: "Betrachter",
+};
+
+const ROLE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  admin: ShieldCheck,
+  employee: Shield,
+  viewer: Eye,
+};
+
+const ROLE_BADGE_CLASSES: Record<string, string> = {
+  admin: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+  employee: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+  viewer: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+};
+
 // --------------- Default API services ---------------
 
 const DEFAULT_SERVICES: Omit<APIConnection, "id" | "createdAt" | "updatedAt">[] = [
@@ -152,6 +183,10 @@ export default function EinstellungenPage() {
     timezone: "Europe/Berlin",
     logoUrl: null,
   });
+  const [users, setUsers] = useState<UserInfo[]>([]);
+  const [userDialogOpen, setUserDialogOpen] = useState(false);
+  const [savingUser, setSavingUser] = useState(false);
+  const [tempPasswordInfo, setTempPasswordInfo] = useState<{ email: string; password: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [savingAgency, setSavingAgency] = useState(false);
   const [personaDialogOpen, setPersonaDialogOpen] = useState(false);
@@ -160,19 +195,21 @@ export default function EinstellungenPage() {
   // Fetch data
   const fetchData = useCallback(async () => {
     try {
-      const [connRes, personaRes, agencyRes, customerRes] = await Promise.all([
+      const [connRes, personaRes, agencyRes, customerRes, usersRes] = await Promise.all([
         fetch("/api/settings/connections"),
         fetch("/api/settings/personas"),
         fetch("/api/settings/agency"),
         fetch("/api/customers"),
+        fetch("/api/users"),
       ]);
 
-      const [connData, personaData, agencyData, customerData] =
+      const [connData, personaData, agencyData, customerData, usersData] =
         await Promise.all([
           connRes.json(),
           personaRes.json(),
           agencyRes.json(),
           customerRes.json(),
+          usersRes.ok ? usersRes.json() : [],
         ]);
 
       // Merge default services with saved connections
@@ -188,6 +225,7 @@ export default function EinstellungenPage() {
       setPersonas(Array.isArray(personaData) ? personaData : []);
       if (agencyData && agencyData.id) setAgency(agencyData);
       setCustomers(Array.isArray(customerData) ? customerData : []);
+      setUsers(Array.isArray(usersData) ? usersData : []);
     } catch (error) {
       console.error("Failed to fetch settings:", error);
     } finally {
