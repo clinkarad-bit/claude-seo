@@ -14,13 +14,13 @@
             {
               "id": "cfg-0002",
               "name": "dataforseo_login",
-              "value": "YOUR_DATAFORSEO_LOGIN",
+              "value": "carlos@casoa.de",
               "type": "string"
             },
             {
               "id": "cfg-0003",
               "name": "dataforseo_password",
-              "value": "YOUR_DATAFORSEO_PASSWORD",
+              "value": "2a1de2583f071e15",
               "type": "string"
             },
             {
@@ -186,7 +186,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "CREDENTIAL_DATAFORSEO",
+          "id": "SPY88wAVgbTtS9xU",
           "name": "DataForSEO"
         }
       },
@@ -231,7 +231,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "CREDENTIAL_DATAFORSEO",
+          "id": "SPY88wAVgbTtS9xU",
           "name": "DataForSEO"
         }
       },
@@ -276,7 +276,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "CREDENTIAL_DATAFORSEO",
+          "id": "SPY88wAVgbTtS9xU",
           "name": "DataForSEO"
         }
       },
@@ -485,7 +485,7 @@
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "CREDENTIAL_CLICKUP",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       },
