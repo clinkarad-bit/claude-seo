@@ -1,5 +1,5 @@
 {
-  "name": "00 - Keyword Research (Topic → Google Sheet + ClickUp Tasks)",
+  "name": "COVAGO 00 - Keyword Research",
   "nodes": [
     {
       "parameters": {
@@ -85,58 +85,71 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "clickup-keyword-research",
-        "options": {}
+        "events": [
+          "taskUpdated"
+        ],
+        "filters": {}
       },
       "id": "kr-node-002",
-      "name": "ClickUp Webhook Trigger",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [20, 300],
+      "name": "ClickUp Trigger",
+      "type": "n8n-nodes-base.clickUpTrigger",
+      "typeVersion": 1,
+      "position": [-220, 300],
       "webhookId": "kr-webhook-001",
+      "credentials": {
+        "clickUpApi": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
       "notesInFlow": true,
-      "notes": "Webhook wird aufgerufen wenn 'Keyword-Research starten' in ClickUp geklickt wird"
+      "notes": "Triggert bei jeder Task-Änderung. Der nächste Node filtert auf 'Keyword-Research starten' Custom Field."
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "ext-0001",
-              "name": "seed_keyword",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_name || $('ClickUp Webhook Trigger').item.json.body.payload?.task_name || '' }}",
-              "type": "string"
-            },
-            {
-              "id": "ext-0002",
-              "name": "task_id",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_id || $('ClickUp Webhook Trigger').item.json.body.payload?.task_id || '' }}",
-              "type": "string"
-            },
-            {
-              "id": "ext-0003",
-              "name": "kunde",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task?.tags?.[0]?.name || $('ClickUp Webhook Trigger').item.json.body.payload?.tags?.[0]?.name || 'unknown' }}",
-              "type": "string"
-            },
-            {
-              "id": "ext-0004",
-              "name": "themen_cluster",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_name || $('ClickUp Webhook Trigger').item.json.body.payload?.task_name || '' }}",
-              "type": "string"
-            }
-          ]
-        },
+        "method": "GET",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "options": {}
+      },
+      "id": "kr-node-019",
+      "name": "Fetch Task Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [0, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Volle Task-Daten laden inkl. Custom Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prüfe ob 'Keyword-Research starten' Custom Field gesetzt ist\nconst task = $input.first().json;\nconst customFields = task.custom_fields || [];\n\n// Finde das 'Keyword-Research starten' Feld\nconst krField = customFields.find(\n  f => f.name && f.name.toLowerCase().includes('keyword-research starten')\n);\n\n// Prüfe ob das Feld einen Wert hat (Label ausgewählt)\nconst hasValue = krField && (\n  (krField.type_config?.options && krField.value !== undefined && krField.value !== null && krField.value !== '' && Number(krField.value) >= 0) ||\n  (krField.value && krField.value !== '' && krField.value !== '0' && krField.value !== 'false')\n);\n\nif (!hasValue) {\n  // Kein Keyword-Research-Trigger → Workflow stoppen\n  return [];\n}\n\n// Task-Daten weitergeben\nreturn [{\n  json: {\n    task_id: task.id,\n    task_name: task.name,\n    tags: task.tags || [],\n    custom_fields: customFields,\n    status: task.status?.status || ''\n  }\n}];"
+      },
+      "id": "kr-node-020",
+      "name": "Filter: Keyword-Research starten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "notesInFlow": true,
+      "notes": "Nur weiter wenn 'Keyword-Research starten' Custom Field gesetzt ist. Sonst → leere Ausgabe = Workflow stoppt."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Task-Daten aus dem gefilterten Ergebnis extrahieren\nconst task = $('Filter: Keyword-Research starten').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster aus Custom Field oder Task Name\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\nconst themenCluster = (clusterField?.value) || task.task_name || '';\n\n// Kunde aus Tags (erster Tag) — Fallback 'covago'\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\nreturn [{\n  json: {\n    seed_keyword: task.task_name,\n    task_id: task.task_id,\n    kunde: kunde,\n    themen_cluster: themenCluster\n  }\n}];"
       },
       "id": "kr-node-003",
       "name": "Extract Task Data",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [500, 300],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300],
       "notesInFlow": true,
-      "notes": "Seed Keyword = Task Name, Kunde = erster Tag, Themen-Cluster = Task Name"
+      "notes": "Seed Keyword = Task Name, Kunde = erster Tag (default: covago), Themen-Cluster = Custom Field oder Task Name"
     },
     {
       "parameters": {
@@ -360,7 +373,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"name\": \"{{ $json.keyword }}\",\n  \"status\": \"{{ $('Config').item.json.clickup_status_keyword }}\",\n  \"tags\": [\"{{ $json.kunde }}\"],\n  \"custom_fields\": [\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_search_volume }}\",\n      \"value\": {{ $json.search_volume }}\n    },\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_search_intent }}\",\n      \"value\": \"{{ $json.search_intent }}\"\n    },\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_themen_cluster }}\",\n      \"value\": \"{{ $json.themen_cluster }}\"\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"name\": \"{{ $json.keyword }}\",\n  \"status\": \"{{ $('Config').item.json.clickup_status_keyword }}\",\n  \"tags\": [\"covago\"],\n  \"custom_fields\": [\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_search_volume }}\",\n      \"value\": {{ $json.search_volume }}\n    },\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_search_intent }}\",\n      \"value\": \"{{ $json.search_intent }}\"\n    },\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_themen_cluster }}\",\n      \"value\": \"{{ $json.themen_cluster }}\"\n    }\n  ]\n}",
         "options": {
           "batching": {
             "batch": {
@@ -448,7 +461,29 @@
     }
   ],
   "connections": {
-    "ClickUp Webhook Trigger": {
+    "ClickUp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Fetch Task Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Task Details": {
+      "main": [
+        [
+          {
+            "node": "Filter: Keyword-Research starten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Keyword-Research starten": {
       "main": [
         [
           {
@@ -650,5 +685,12 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "staticData": null
+  "staticData": null,
+  "tags": [
+    {
+      "name": "COVAGO",
+      "createdAt": "2026-03-24T00:00:00.000Z",
+      "updatedAt": "2026-03-24T00:00:00.000Z"
+    }
+  ]
 }

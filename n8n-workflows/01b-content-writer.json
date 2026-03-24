@@ -1,5 +1,5 @@
 {
-  "name": "01b - Content Writer (Outline → Full Article)",
+  "name": "COVAGO 01b - Content Writer",
   "nodes": [
     {
       "parameters": {
@@ -1005,5 +1005,12 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "staticData": null
+  "staticData": null,
+  "tags": [
+    {
+      "name": "COVAGO",
+      "createdAt": "2026-03-24T00:00:00.000Z",
+      "updatedAt": "2026-03-24T00:00:00.000Z"
+    }
+  ]
 }

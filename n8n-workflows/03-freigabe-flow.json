@@ -1,5 +1,5 @@
 {
-  "name": "03 - Freigabe Flow (ClickUp \u2192 Google Drive \u2192 Sheets)",
+  "name": "COVAGO 03 - Freigabe Flow",
   "nodes": [
     {
       "parameters": {
@@ -317,12 +317,9 @@
   "staticData": null,
   "tags": [
     {
-      "name": "SEO Automation",
-      "id": "tag-seo-automation"
-    },
-    {
-      "name": "Freigabe",
-      "id": "tag-freigabe"
+      "name": "COVAGO",
+      "createdAt": "2026-03-24T00:00:00.000Z",
+      "updatedAt": "2026-03-24T00:00:00.000Z"
     }
   ],
   "triggerCount": 1,

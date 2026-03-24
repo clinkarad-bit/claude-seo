@@ -1,5 +1,5 @@
 {
-  "name": "04 - WordPress Publish from ClickUp",
+  "name": "COVAGO 04 - WordPress Publish",
   "nodes": [
     {
       "parameters": {
@@ -1002,16 +1002,9 @@
   "staticData": null,
   "tags": [
     {
-      "name": "SEO",
-      "id": "1"
-    },
-    {
-      "name": "WordPress",
-      "id": "2"
-    },
-    {
-      "name": "Publishing",
-      "id": "3"
+      "name": "COVAGO",
+      "createdAt": "2026-03-24T00:00:00.000Z",
+      "updatedAt": "2026-03-24T00:00:00.000Z"
     }
   ],
   "triggerCount": 1,
