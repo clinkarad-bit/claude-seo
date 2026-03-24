@@ -1,0 +1,654 @@
+{
+  "name": "00 - Keyword Research (Topic → Google Sheet + ClickUp Tasks)",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-0001",
+              "name": "dataforseo_login",
+              "value": "YOUR_DATAFORSEO_LOGIN",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0002",
+              "name": "dataforseo_password",
+              "value": "YOUR_DATAFORSEO_PASSWORD",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0003",
+              "name": "target_language",
+              "value": "de",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0004",
+              "name": "target_location_code",
+              "value": "2276",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0005",
+              "name": "target_location_name",
+              "value": "Germany",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0006",
+              "name": "clickup_list_id",
+              "value": "YOUR_CLICKUP_LIST_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0007",
+              "name": "clickup_custom_field_search_volume",
+              "value": "YOUR_CUSTOM_FIELD_ID_SUCHVOLUMEN",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0008",
+              "name": "clickup_custom_field_search_intent",
+              "value": "YOUR_CUSTOM_FIELD_ID_SEARCH_INTENT",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0009",
+              "name": "clickup_custom_field_themen_cluster",
+              "value": "YOUR_CUSTOM_FIELD_ID_THEMEN_CLUSTER",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0010",
+              "name": "google_drive_folder_id",
+              "value": "YOUR_GOOGLE_DRIVE_FOLDER_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0011",
+              "name": "clickup_status_keyword",
+              "value": "keyword",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "kr-node-001",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [260, 300],
+      "notesInFlow": true,
+      "notes": "Alle Konfigurationsvariablen: DataForSEO, ClickUp IDs, Google Drive Folder"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clickup-keyword-research",
+        "options": {}
+      },
+      "id": "kr-node-002",
+      "name": "ClickUp Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [20, 300],
+      "webhookId": "kr-webhook-001",
+      "notesInFlow": true,
+      "notes": "Webhook wird aufgerufen wenn 'Keyword-Research starten' in ClickUp geklickt wird"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ext-0001",
+              "name": "seed_keyword",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_name || $('ClickUp Webhook Trigger').item.json.body.payload?.task_name || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0002",
+              "name": "task_id",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_id || $('ClickUp Webhook Trigger').item.json.body.payload?.task_id || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0003",
+              "name": "kunde",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task?.tags?.[0]?.name || $('ClickUp Webhook Trigger').item.json.body.payload?.tags?.[0]?.name || 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0004",
+              "name": "themen_cluster",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_name || $('ClickUp Webhook Trigger').item.json.body.payload?.task_name || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "kr-node-003",
+      "name": "Extract Task Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [500, 300],
+      "notesInFlow": true,
+      "notes": "Seed Keyword = Task Name, Kunde = erster Tag, Themen-Cluster = Task Name"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_suggestions/live",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"include_seed_keyword\": true,\n    \"include_serp_info\": false,\n    \"limit\": 700,\n    \"filters\": [\n      \"keyword_info.search_volume\", \">\", 10\n    ]\n  }\n]",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "kr-node-004",
+      "name": "DataForSEO: Keyword Suggestions",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [740, 200],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "CREDENTIAL_DATAFORSEO",
+          "name": "DataForSEO"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Keyword Suggestions API — bis zu 700 Keywords mit SV > 10"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/related_keywords/live",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $('Extract Task Data').item.json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"limit\": 300,\n    \"filters\": [\n      \"keyword_data.keyword_info.search_volume\", \">\", 10\n    ]\n  }\n]",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "kr-node-005",
+      "name": "DataForSEO: Related Keywords",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [740, 420],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "CREDENTIAL_DATAFORSEO",
+          "name": "DataForSEO"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Related Keywords API — bis zu 300 verwandte Keywords"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Keywords aus beiden API-Antworten zusammenführen\nconst suggestionsRaw = $('DataForSEO: Keyword Suggestions').item.json;\nconst relatedRaw = $('DataForSEO: Related Keywords').item.json;\n\nconst allKeywords = [];\n\n// Suggestions parsen\nconst sugTasks = suggestionsRaw.tasks || [];\nfor (const task of sugTasks) {\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kw = item.keyword_data || item;\n    allKeywords.push({\n      keyword: (kw.keyword || item.keyword || '').toLowerCase().trim(),\n      search_volume: kw.keyword_info?.search_volume || item.keyword_info?.search_volume || 0,\n      cpc: kw.keyword_info?.cpc || item.keyword_info?.cpc || 0,\n      competition: kw.keyword_info?.competition || item.keyword_info?.competition || 0,\n      search_intent: (kw.search_intent_info?.main_intent || item.search_intent_info?.main_intent || 'informational').toLowerCase(),\n      source: 'suggestions'\n    });\n  }\n}\n\n// Related parsen\nconst relTasks = relatedRaw.tasks || [];\nfor (const task of relTasks) {\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kd = item.keyword_data || {};\n    allKeywords.push({\n      keyword: (kd.keyword || '').toLowerCase().trim(),\n      search_volume: kd.keyword_info?.search_volume || 0,\n      cpc: kd.keyword_info?.cpc || 0,\n      competition: kd.keyword_info?.competition || 0,\n      search_intent: (kd.search_intent_info?.main_intent || 'informational').toLowerCase(),\n      source: 'related'\n    });\n    // Auch Related Keywords aus dem Cluster hinzufügen\n    const related = item.related_keywords || [];\n    for (const rel of related) {\n      allKeywords.push({\n        keyword: (rel.keyword || '').toLowerCase().trim(),\n        search_volume: rel.keyword_info?.search_volume || 0,\n        cpc: rel.keyword_info?.cpc || 0,\n        competition: rel.keyword_info?.competition || 0,\n        search_intent: (rel.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'related_cluster'\n      });\n    }\n  }\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\nreturn [{ json: { all_keywords: filtered, total_raw: filtered.length } }];"
+      },
+      "id": "kr-node-006",
+      "name": "Merge All Keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 300],
+      "notesInFlow": true,
+      "notes": "Keywords aus Suggestions + Related zusammenführen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiche Wörter, andere Reihenfolge) werden gruppiert\n// Pro Gruppe → das Keyword mit höchstem Suchvolumen wird Hauptkeyword\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\n// Hilfsfunktion: Wörter sortieren für Vergleich\nfunction normalizeForGrouping(keyword) {\n  return keyword\n    .toLowerCase()\n    .replace(/[^a-zäöüß0-9\\s]/g, '')\n    .split(/\\s+/)\n    .filter(w => w.length > 0)\n    .sort()\n    .join(' ');\n}\n\n// Duplikate entfernen (exakt gleiche Keywords → höchstes SV behalten)\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  const existing = deduped.get(kw.keyword);\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(kw.keyword, kw);\n  }\n}\n\n// Komplette Keywordliste (Worksheet 2)\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Keywords nach normalisierten Wörtern gruppieren\nconst groups = new Map();\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!groups.has(normalized)) {\n    groups.set(normalized, []);\n  }\n  groups.get(normalized).push(kw);\n}\n\n// Pro Gruppe: Hauptkeyword = höchstes Suchvolumen\nconst cleanedList = [];\nconst groupMapping = [];\n\nlet groupId = 1;\nfor (const [normalizedKey, keywords] of groups) {\n  // Sortiere nach SV absteigend\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n  \n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length\n  });\n\n  // Alle Keywords der Gruppe für Worksheet 3\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\n// Nach Suchvolumen sortieren\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length\n    }\n  }\n}];"
+      },
+      "id": "kr-node-007",
+      "name": "Deduplicate & Group Keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1240, 300],
+      "notesInFlow": true,
+      "notes": "Keywords gruppieren: gleiche Wörter in anderer Reihenfolge → eine Gruppe. Pro Gruppe das Keyword mit höchstem SV als Hauptkeyword"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"Keyword Research — {{ $('Extract Task Data').item.json.seed_keyword }} ({{ $('Extract Task Data').item.json.kunde }})\",\n  \"mimeType\": \"application/vnd.google-apps.spreadsheet\",\n  \"parents\": [\"{{ $('Config').item.json.google_drive_folder_id }}\"]\n}",
+        "options": {}
+      },
+      "id": "kr-node-008",
+      "name": "Create Google Sheet",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1480, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE_OAUTH",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Neues Google Sheet im Drive-Ordner erstellen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sheet ID extrahieren und Worksheet-Namen vorbereiten\nconst sheetResponse = $input.all()[0].json;\nconst spreadsheetId = sheetResponse.id;\nconst spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;\n\nreturn [{\n  json: {\n    spreadsheet_id: spreadsheetId,\n    spreadsheet_url: spreadsheetUrl\n  }\n}];"
+      },
+      "id": "kr-node-009",
+      "name": "Extract Sheet ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1720, 300],
+      "notesInFlow": true,
+      "notes": "Spreadsheet ID und URL extrahieren"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $json.spreadsheet_id }}:batchUpdate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"updateSheetProperties\": {\n        \"properties\": {\n          \"sheetId\": 0,\n          \"title\": \"Bereinigte Keywordliste\"\n        },\n        \"fields\": \"title\"\n      }\n    },\n    {\n      \"addSheet\": {\n        \"properties\": {\n          \"title\": \"Komplette Keywordliste\"\n        }\n      }\n    },\n    {\n      \"addSheet\": {\n        \"properties\": {\n          \"title\": \"Keyword-Gruppen\"\n        }\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "kr-node-010",
+      "name": "Create Worksheets",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1960, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE_OAUTH",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "3 Worksheets anlegen: Bereinigte Keywordliste, Komplette Keywordliste, Keyword-Gruppen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Daten für alle 3 Worksheets als Sheets API values vorbereiten\nconst data = $('Deduplicate & Group Keywords').item.json;\nconst spreadsheetId = $('Extract Sheet ID').item.json.spreadsheet_id;\n\n// Worksheet 1: Bereinigte Keywordliste (1 Keyword pro Gruppe)\nconst sheet1Header = ['Keyword', 'Suchvolumen', 'Search Intent', 'CPC', 'Competition', 'Status', 'Keyword-Gruppe', 'Variationen'];\nconst sheet1Rows = data.cleaned_keywords.map(kw => [\n  kw.keyword,\n  kw.search_volume,\n  kw.search_intent,\n  kw.cpc,\n  kw.competition,\n  kw.status,\n  kw.group_id,\n  kw.variations_count\n]);\n\n// Worksheet 2: Komplette Keywordliste (alle Keywords inkl. Variationen)\nconst sheet2Header = ['Keyword', 'Suchvolumen', 'Search Intent', 'CPC', 'Competition'];\nconst sheet2Rows = data.complete_keywords.map(kw => [\n  kw.keyword,\n  kw.search_volume,\n  kw.search_intent,\n  kw.cpc,\n  kw.competition\n]);\n\n// Worksheet 3: Keyword-Gruppen (zeigt Zuordnung: welche Keywords gehören zusammen)\nconst sheet3Header = ['Gruppen-ID', 'Hauptkeyword', 'Keyword-Variation', 'Suchvolumen', 'Search Intent', 'Ist Hauptkeyword'];\nconst sheet3Rows = data.keyword_groups.map(g => [\n  g.group_id,\n  g.primary_keyword,\n  g.keyword,\n  g.search_volume,\n  g.search_intent,\n  g.is_primary ? 'Ja' : 'Nein'\n]);\n\nreturn [{\n  json: {\n    spreadsheet_id: spreadsheetId,\n    batch_data: {\n      valueInputOption: 'RAW',\n      data: [\n        {\n          range: 'Bereinigte Keywordliste!A1',\n          values: [sheet1Header, ...sheet1Rows]\n        },\n        {\n          range: 'Komplette Keywordliste!A1',\n          values: [sheet2Header, ...sheet2Rows]\n        },\n        {\n          range: 'Keyword-Gruppen!A1',\n          values: [sheet3Header, ...sheet3Rows]\n        }\n      ]\n    },\n    stats: data.stats\n  }\n}];"
+      },
+      "id": "kr-node-011",
+      "name": "Prepare Sheet Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2200, 300],
+      "notesInFlow": true,
+      "notes": "Alle 3 Worksheets als Batch-Daten vorbereiten"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $json.spreadsheet_id }}/values:batchUpdate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.batch_data) }}",
+        "options": {}
+      },
+      "id": "kr-node-012",
+      "name": "Write All Sheet Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2440, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE_OAUTH",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Alle 3 Worksheets in einem Batch-Request beschreiben"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Extract Sheet ID').item.json.spreadsheet_id }}:batchUpdate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"repeatCell\": {\n        \"range\": { \"sheetId\": 0, \"startRowIndex\": 0, \"endRowIndex\": 1 },\n        \"cell\": {\n          \"userEnteredFormat\": {\n            \"backgroundColor\": { \"red\": 0.2, \"green\": 0.2, \"blue\": 0.2 },\n            \"textFormat\": { \"bold\": true, \"foregroundColor\": { \"red\": 1, \"green\": 1, \"blue\": 1 } }\n          }\n        },\n        \"fields\": \"userEnteredFormat(backgroundColor,textFormat)\"\n      }\n    },\n    {\n      \"setBasicFilter\": {\n        \"filter\": {\n          \"range\": {\n            \"sheetId\": 0,\n            \"startRowIndex\": 0,\n            \"startColumnIndex\": 0,\n            \"endColumnIndex\": 8\n          }\n        }\n      }\n    },\n    {\n      \"autoResizeDimensions\": {\n        \"dimensions\": {\n          \"sheetId\": 0,\n          \"dimension\": \"COLUMNS\",\n          \"startIndex\": 0,\n          \"endIndex\": 8\n        }\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "kr-node-013",
+      "name": "Format Sheet Headers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2680, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE_OAUTH",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Headers fett + dunkler Hintergrund, Auto-Filter aktivieren, Spaltenbreiten anpassen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Bereinigte Keywords als einzelne Items für den Loop vorbereiten\nconst data = $('Deduplicate & Group Keywords').item.json;\nconst cleanedKeywords = data.cleaned_keywords;\nconst themenCluster = $('Extract Task Data').item.json.themen_cluster;\nconst kunde = $('Extract Task Data').item.json.kunde;\n\n// Pro Keyword ein Item erstellen\nreturn cleanedKeywords.map(kw => ({\n  json: {\n    keyword: kw.keyword,\n    search_volume: kw.search_volume,\n    search_intent: kw.search_intent,\n    themen_cluster: themenCluster,\n    kunde: kunde,\n    status: 'keyword'\n  }\n}));"
+      },
+      "id": "kr-node-014",
+      "name": "Split Keywords for Tasks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2920, 300],
+      "notesInFlow": true,
+      "notes": "Jedes Keyword als separates Item für ClickUp Task-Erstellung"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/list/{{ $('Config').item.json.clickup_list_id }}/task",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $json.keyword }}\",\n  \"status\": \"{{ $('Config').item.json.clickup_status_keyword }}\",\n  \"tags\": [\"{{ $json.kunde }}\"],\n  \"custom_fields\": [\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_search_volume }}\",\n      \"value\": {{ $json.search_volume }}\n    },\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_search_intent }}\",\n      \"value\": \"{{ $json.search_intent }}\"\n    },\n    {\n      \"id\": \"{{ $('Config').item.json.clickup_custom_field_themen_cluster }}\",\n      \"value\": \"{{ $json.themen_cluster }}\"\n    }\n  ]\n}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 5,
+              "batchInterval": 1000
+            }
+          }
+        }
+      },
+      "id": "kr-node-015",
+      "name": "Create ClickUp Tasks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3160, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_CLICKUP",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Pro Keyword einen ClickUp Task erstellen mit Status KEYWORD, Tag=Kunde, Custom Fields ausgefüllt"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"status\": \"keyword\"\n}",
+        "options": {}
+      },
+      "id": "kr-node-016",
+      "name": "Update Original Task Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3400, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_CLICKUP",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Original-Task Status auf KEYWORD setzen"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_themen_cluster }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"value\": \"{{ $('Extract Sheet ID').item.json.spreadsheet_url }}\"\n}",
+        "options": {}
+      },
+      "id": "kr-node-017",
+      "name": "Link Sheet to Original Task",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3400, 400],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_CLICKUP",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Google Sheet URL als Custom Field im Original-Task hinterlegen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Zusammenfassung der Ergebnisse\nconst stats = $('Deduplicate & Group Keywords').item.json.stats;\nconst sheetUrl = $('Extract Sheet ID').item.json.spreadsheet_url;\nconst seedKeyword = $('Extract Task Data').item.json.seed_keyword;\n\nreturn [{\n  json: {\n    success: true,\n    seed_keyword: seedKeyword,\n    total_raw_keywords: stats.total_raw,\n    total_unique_keywords: stats.total_unique,\n    total_keyword_groups: stats.total_groups,\n    google_sheet_url: sheetUrl,\n    tasks_created: stats.total_groups,\n    message: `Keyword Research abgeschlossen: ${stats.total_groups} Keywords als ClickUp Tasks erstellt. Sheet: ${sheetUrl}`\n  }\n}];"
+      },
+      "id": "kr-node-018",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3640, 300],
+      "notesInFlow": true,
+      "notes": "Zusammenfassung: Wie viele Keywords gefunden, gruppiert, Tasks erstellt"
+    }
+  ],
+  "connections": {
+    "ClickUp Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Extract Task Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Task Data": {
+      "main": [
+        [
+          {
+            "node": "DataForSEO: Keyword Suggestions",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "DataForSEO: Related Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DataForSEO: Keyword Suggestions": {
+      "main": [
+        [
+          {
+            "node": "Merge All Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DataForSEO: Related Keywords": {
+      "main": [
+        [
+          {
+            "node": "Merge All Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge All Keywords": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate & Group Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplicate & Group Keywords": {
+      "main": [
+        [
+          {
+            "node": "Create Google Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Google Sheet": {
+      "main": [
+        [
+          {
+            "node": "Extract Sheet ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Sheet ID": {
+      "main": [
+        [
+          {
+            "node": "Create Worksheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Worksheets": {
+      "main": [
+        [
+          {
+            "node": "Prepare Sheet Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Sheet Data": {
+      "main": [
+        [
+          {
+            "node": "Write All Sheet Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write All Sheet Data": {
+      "main": [
+        [
+          {
+            "node": "Format Sheet Headers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Sheet Headers": {
+      "main": [
+        [
+          {
+            "node": "Split Keywords for Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Keywords for Tasks": {
+      "main": [
+        [
+          {
+            "node": "Create ClickUp Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create ClickUp Tasks": {
+      "main": [
+        [
+          {
+            "node": "Update Original Task Status",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Link Sheet to Original Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Original Task Status": {
+      "main": [
+        [
+          {
+            "node": "Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Link Sheet to Original Task": {
+      "main": [
+        [
+          {
+            "node": "Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null
+}
