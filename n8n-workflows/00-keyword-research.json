@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T16:36:53.966Z",
+  "updatedAt": "2026-03-24T17:25:06.382Z",
   "createdAt": "2026-03-24T14:39:45.409Z",
   "id": "Vgq0ER1amLUyI1ws",
   "name": "COVAGO 00 - Keyword Research",
@@ -7,6 +7,64 @@
   "active": true,
   "isArchived": false,
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "covago-keyword-research",
+        "options": {}
+      },
+      "id": "kr-node-002",
+      "name": "ClickUp Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        300
+      ],
+      "webhookId": "kr-webhook-001",
+      "notesInFlow": true,
+      "notes": "Empfaengt ClickUp Webhook wenn Keyword-Research starten geklickt wird"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prüfe ob der Webhook vom \"Keyword-Research starten\" Button kommt\n// Unterstützt zwei Formate:\n// 1. ClickUp Webhook: { event: \"taskUpdated\", task_id: \"xxx\", history_items: [...] }\n// 2. Manueller Call: { task_id: \"xxx\" }\n\nconst body = $input.first().json.body || $input.first().json;\n\n// Format 1: ClickUp Webhook\nif (body.event === 'taskUpdated' && body.history_items) {\n  // Prüfe ob der \"Keyword-Research starten\" Button geklickt wurde\n  const buttonClicked = body.history_items.some(item =>\n    item.field === 'custom_field' &&\n    item.custom_field_id === '12522be1-6428-4575-a635-8374e971c0ee'\n  );\n\n  if (!buttonClicked) {\n    // Nicht der richtige Button → Workflow stoppen\n    return [];\n  }\n\n  return [{ json: { task_id: body.task_id, source: 'clickup_webhook' } }];\n}\n\n// Format 2: Manueller Webhook-Call mit task_id\nif (body.task_id) {\n  return [{ json: { task_id: body.task_id, source: 'manual' } }];\n}\n\n// Kein gültiges Format → stoppen\nreturn [];"
+      },
+      "id": "kr-node-020",
+      "name": "Filter: Keyword-Research starten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Nur weiter wenn 'Keyword-Research starten' Custom Field gesetzt ist. Sonst → leere Ausgabe = Workflow stoppt."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "kr-node-019",
+      "name": "Fetch Task Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Volle Task-Daten laden inkl. Custom Fields"
+    },
     {
       "parameters": {
         "assignments": {
@@ -94,64 +152,6 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "covago-keyword-research",
-        "options": {}
-      },
-      "id": "kr-node-002",
-      "name": "ClickUp Webhook Trigger",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -220,
-        300
-      ],
-      "webhookId": "kr-webhook-001",
-      "notesInFlow": true,
-      "notes": "Empfaengt ClickUp Webhook wenn Keyword-Research starten geklickt wird"
-    },
-    {
-      "parameters": {
-        "method": "GET",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "options": {}
-      },
-      "id": "kr-node-019",
-      "name": "Fetch Task Details",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        220,
-        300
-      ],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "wwbq6Yxnr2EpmrFv",
-          "name": "ClickUp API"
-        }
-      },
-      "notesInFlow": true,
-      "notes": "Volle Task-Daten laden inkl. Custom Fields"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Prüfe ob der Webhook vom \"Keyword-Research starten\" Button kommt\n// Unterstützt zwei Formate:\n// 1. ClickUp Webhook: { event: \"taskUpdated\", task_id: \"xxx\", history_items: [...] }\n// 2. Manueller Call: { task_id: \"xxx\" }\n\nconst body = $input.first().json.body || $input.first().json;\n\n// Format 1: ClickUp Webhook\nif (body.event === 'taskUpdated' && body.history_items) {\n  // Prüfe ob der \"Keyword-Research starten\" Button geklickt wurde\n  const buttonClicked = body.history_items.some(item =>\n    item.field === 'custom_field' &&\n    item.custom_field_id === '12522be1-6428-4575-a635-8374e971c0ee'\n  );\n\n  if (!buttonClicked) {\n    // Nicht der richtige Button → Workflow stoppen\n    return [];\n  }\n\n  return [{ json: { task_id: body.task_id, source: 'clickup_webhook' } }];\n}\n\n// Format 2: Manueller Webhook-Call mit task_id\nif (body.task_id) {\n  return [{ json: { task_id: body.task_id, source: 'manual' } }];\n}\n\n// Kein gültiges Format → stoppen\nreturn [];"
-      },
-      "id": "kr-node-020",
-      "name": "Filter: Keyword-Research starten",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        0,
-        300
-      ],
-      "notesInFlow": true,
-      "notes": "Nur weiter wenn 'Keyword-Research starten' Custom Field gesetzt ist. Sonst → leere Ausgabe = Workflow stoppt."
-    },
-    {
-      "parameters": {
         "jsCode": "// Task-Daten extrahieren + Seed-Keyword für DataForSEO optimieren\nconst task = $('Fetch Task Details').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\nconst themenClusterValue = clusterField?.value ?? null;\nconst themenClusterOptions = clusterField?.type_config?.options || [];\n\nlet themenClusterName = '';\nif (themenClusterValue !== null && themenClusterOptions.length > 0) {\n  const opt = themenClusterOptions.find(o => o.orderindex === themenClusterValue);\n  if (opt) themenClusterName = opt.name;\n}\n\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\n// Seed-Keyword: DataForSEO braucht kurze Keywords (2-3 Wörter)\n// Strategie: Stoppwörter entfernen, max 3 bedeutungsvolle Wörter\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum'\n]);\n\nconst fullName = task.name;\nconst words = fullName.split(/\\s+/).filter(w => w.length > 0);\nconst meaningful = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));\n\n// Max 3 bedeutungsvolle Wörter für DataForSEO\nconst seedKeyword = meaningful.slice(0, 3).join(' ');\n\nreturn [{\n  json: {\n    seed_keyword: seedKeyword,\n    original_task_name: fullName,\n    task_id: task.id,\n    kunde: kunde,\n    themen_cluster: themenClusterName,\n    themen_cluster_value: themenClusterValue,\n    themen_cluster_options: themenClusterOptions\n  }\n}];"
       },
       "id": "kr-node-003",
@@ -167,81 +167,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_suggestions/live",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBasicAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"include_seed_keyword\": true,\n    \"include_serp_info\": false,\n    \"limit\": 700,\n    \"filters\": [\n      \"keyword_info.search_volume\", \">\", 10\n    ]\n  }\n]",
-        "options": {
-          "timeout": 60000
-        }
-      },
-      "id": "kr-node-004",
-      "name": "DataForSEO: Keyword Suggestions",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        740,
-        200
-      ],
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "SPY88wAVgbTtS9xU",
-          "name": "DataForSEO"
-        }
-      },
-      "notesInFlow": true,
-      "notes": "Keyword Suggestions API — bis zu 700 Keywords mit SV > 10"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/related_keywords/live",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBasicAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $('Extract Task Data').item.json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"limit\": 300,\n    \"filters\": [\n      \"keyword_data.keyword_info.search_volume\", \">\", 10\n    ]\n  }\n]",
-        "options": {
-          "timeout": 60000
-        }
-      },
-      "id": "kr-node-005",
-      "name": "DataForSEO: Related Keywords",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        740,
-        420
-      ],
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "SPY88wAVgbTtS9xU",
-          "name": "DataForSEO"
-        }
-      },
-      "notesInFlow": true,
-      "notes": "Related Keywords API — bis zu 300 verwandte Keywords"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Alle Keywords aus beiden API-Antworten zusammenführen\nconst suggestionsRaw = $('DataForSEO: Keyword Suggestions').item.json;\nconst relatedRaw = $('DataForSEO: Related Keywords').item.json;\n\nconst allKeywords = [];\n\n// Suggestions parsen\nconst sugTasks = suggestionsRaw.tasks || [];\nfor (const task of sugTasks) {\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kw = item.keyword_data || item;\n    allKeywords.push({\n      keyword: (kw.keyword || item.keyword || '').toLowerCase().trim(),\n      search_volume: kw.keyword_info?.search_volume || item.keyword_info?.search_volume || 0,\n      cpc: kw.keyword_info?.cpc || item.keyword_info?.cpc || 0,\n      competition: kw.keyword_info?.competition || item.keyword_info?.competition || 0,\n      search_intent: (kw.search_intent_info?.main_intent || item.search_intent_info?.main_intent || 'informational').toLowerCase(),\n      source: 'suggestions'\n    });\n  }\n}\n\n// Related parsen\nconst relTasks = relatedRaw.tasks || [];\nfor (const task of relTasks) {\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kd = item.keyword_data || {};\n    allKeywords.push({\n      keyword: (kd.keyword || '').toLowerCase().trim(),\n      search_volume: kd.keyword_info?.search_volume || 0,\n      cpc: kd.keyword_info?.cpc || 0,\n      competition: kd.keyword_info?.competition || 0,\n      search_intent: (kd.search_intent_info?.main_intent || 'informational').toLowerCase(),\n      source: 'related'\n    });\n    // Auch Related Keywords aus dem Cluster hinzufügen\n    const related = item.related_keywords || [];\n    for (const rel of related) {\n      allKeywords.push({\n        keyword: (rel.keyword || '').toLowerCase().trim(),\n        search_volume: rel.keyword_info?.search_volume || 0,\n        cpc: rel.keyword_info?.cpc || 0,\n        competition: rel.keyword_info?.competition || 0,\n        search_intent: (rel.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'related_cluster'\n      });\n    }\n  }\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\nreturn [{ json: { all_keywords: filtered, total_raw: filtered.length } }];"
-      },
-      "id": "kr-node-006",
-      "name": "Merge All Keywords",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1000,
-        300
-      ],
-      "notesInFlow": true,
-      "notes": "Keywords aus Suggestions + Related zusammenführen"
-    },
-    {
-      "parameters": {
         "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiches Thema, andere Reihenfolge/Stoppwörter/Bindestriche) werden gruppiert\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit', 'während',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum',\n  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',\n  'sich', 'man', 'auch', 'noch', 'schon', 'so', 'sehr',\n  'nur', 'nicht', 'kein', 'keine', 'keinen', 'keiner',\n  'zu', 'ab', 'ob', 'wenn', 'weil', 'dass', 'damit'\n]);\n\n// Normalisierung: Bindestriche→Leerzeichen, Stoppwörter raus, sortieren\nfunction normalizeForGrouping(keyword) {\n  const words = keyword\n    .toLowerCase()\n    .replace(/[-–—]/g, ' ')           // Bindestriche → Leerzeichen\n    .replace(/[^a-zäöüß0-9\\s]/g, '')  // Sonderzeichen weg\n    .split(/\\s+/)\n    .filter(w => w.length > 1 && !STOP_WORDS.has(w));\n\n  // Einfaches Stemming\n  const stemmed = words.map(w => {\n    if (w.length > 5) {\n      if (w.endsWith('ungen')) return w.slice(0, -5);\n      if (w.endsWith('ung')) return w.slice(0, -3);\n      if (w.endsWith('heit')) return w.slice(0, -4);\n      if (w.endsWith('keit')) return w.slice(0, -4);\n      if (w.endsWith('isch')) return w.slice(0, -4);\n      if (w.endsWith('lich')) return w.slice(0, -4);\n      if (w.endsWith('ieren')) return w.slice(0, -5);\n      if (w.endsWith('en')) return w.slice(0, -2);\n      if (w.endsWith('er')) return w.slice(0, -2);\n      if (w.endsWith('es')) return w.slice(0, -2);\n      if (w.endsWith('em')) return w.slice(0, -2);\n      if (w.endsWith('te')) return w.slice(0, -2);\n      if (w.endsWith('st')) return w.slice(0, -2);\n      if (w.endsWith('e')) return w.slice(0, -1);\n      if (w.endsWith('s')) return w.slice(0, -1);\n    }\n    return w;\n  }).filter(w => w.length > 1);\n\n  return stemmed.sort().join(' ');\n}\n\n// Prüfe ob zwei Keys zusammengehören (70%+ Wort-Overlap)\nfunction shouldMerge(key1, key2) {\n  if (key1 === key2) return true;\n  const words1 = new Set(key1.split(' '));\n  const words2 = new Set(key2.split(' '));\n  const intersection = [...words1].filter(w => words2.has(w));\n  const maxLen = Math.max(words1.size, words2.size);\n  if (maxLen === 0) return false;\n  return intersection.length / maxLen >= 0.7;\n}\n\n// Phase 1: Exakte Duplikate\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  // Auch Bindestriche bei Dedup normalisieren\n  const key = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ').trim().replace(/\\s+/g, ' ');\n  const existing = deduped.get(key);\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(key, kw);\n  }\n}\n\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Phase 2: Normalisierte Gruppen\nconst normalizedMap = new Map();\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!normalizedMap.has(normalized)) {\n    normalizedMap.set(normalized, []);\n  }\n  normalizedMap.get(normalized).push(kw);\n}\n\n// Phase 3: Fuzzy-Merge\nconst groupKeys = Array.from(normalizedMap.keys());\nconst merged = new Map();\nconst keyMapping = new Map();\n\nfor (const key of groupKeys) {\n  if (keyMapping.has(key)) continue;\n  let bestMatch = null;\n  for (const [existingKey] of merged) {\n    if (shouldMerge(key, existingKey)) {\n      bestMatch = existingKey;\n      break;\n    }\n  }\n  if (bestMatch) {\n    merged.get(bestMatch).push(...normalizedMap.get(key));\n    keyMapping.set(key, bestMatch);\n  } else {\n    merged.set(key, [...normalizedMap.get(key)]);\n    keyMapping.set(key, key);\n  }\n}\n\n// Phase 4: Pro Gruppe bestes Keyword\nconst cleanedList = [];\nconst groupMapping = [];\nlet groupId = 1;\n\nfor (const [normalizedKey, keywords] of merged) {\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n  const totalSV = keywords.reduce((sum, kw) => sum + (kw.search_volume || 0), 0);\n\n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    total_group_volume: totalSV,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length,\n    variations: keywords.slice(0, 10).map(k => k.keyword).join(', ')\n  });\n\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length,\n      reduction_pct: completeList.length > 0\n        ? Math.round((1 - cleanedList.length / completeList.length) * 100) + '%'\n        : '0%'\n    }\n  }\n}];"
       },
       "id": "kr-node-007",
@@ -249,7 +174,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1240,
+        2200,
         300
       ],
       "notesInFlow": true,
@@ -271,7 +196,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1480,
+        2420,
         300
       ],
       "credentials": {
@@ -292,7 +217,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1720,
+        2640,
         300
       ],
       "notesInFlow": true,
@@ -314,7 +239,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1960,
+        2860,
         300
       ],
       "credentials": {
@@ -335,7 +260,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2200,
+        3080,
         300
       ],
       "notesInFlow": true,
@@ -357,7 +282,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2440,
+        3300,
         300
       ],
       "credentials": {
@@ -385,7 +310,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2680,
+        3520,
         300
       ],
       "credentials": {
@@ -399,14 +324,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Pro Keyword-GRUPPE eine ClickUp-Aufgabe erstellen\nconst data = $('Deduplicate & Group Keywords').item.json;\nconst cleanedKeywords = data.cleaned_keywords;\nconst extractData = $('Extract Task Data').item.json;\nconst themenCluster = extractData.themen_cluster;\nconst themenClusterValue = extractData.themen_cluster_value;\nconst kunde = extractData.kunde;\n\n// Pro Gruppe EIN Task (Hauptkeyword = Task-Name)\nreturn cleanedKeywords.map(kw => ({\n  json: {\n    keyword: kw.keyword,\n    search_volume: kw.search_volume,\n    search_intent: kw.search_intent,\n    themen_cluster: themenCluster,\n    themen_cluster_value: themenClusterValue,\n    kunde: kunde,\n    status: 'keyword',\n    variations: kw.variations || '',\n    variations_count: kw.variations_count || 1\n  }\n}));"
+        "jsCode": "// Pro Keyword-GRUPPE eine ClickUp-Aufgabe erstellen\n// NUR für Keywords mit Suchvolumen > 0\nconst data = $('Deduplicate & Group Keywords').item.json;\nconst cleanedKeywords = data.cleaned_keywords;\nconst extractData = $('Extract Task Data').item.json;\nconst themenCluster = extractData.themen_cluster;\nconst themenClusterValue = extractData.themen_cluster_value;\nconst kunde = extractData.kunde;\n\n// Filter: Nur Keywords mit SV > 0 werden zu Tasks\nconst withVolume = cleanedKeywords.filter(kw => kw.search_volume > 0);\n\nreturn withVolume.map(kw => ({\n  json: {\n    keyword: kw.keyword,\n    search_volume: kw.search_volume,\n    search_intent: kw.search_intent,\n    themen_cluster: themenCluster,\n    themen_cluster_value: themenClusterValue,\n    kunde: kunde,\n    status: 'keyword',\n    variations: kw.variations || '',\n    variations_count: kw.variations_count || 1\n  }\n}));"
       },
       "id": "kr-node-014",
       "name": "Split Keywords for Tasks",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2920,
+        3740,
         300
       ],
       "notesInFlow": true,
@@ -424,7 +349,7 @@
         "options": {
           "batching": {
             "batch": {
-              "batchSize": 10,
+              "batchSize": 5,
               "batchInterval": 1000
             }
           }
@@ -435,7 +360,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3160,
+        3960,
         300
       ],
       "credentials": {
@@ -455,11 +380,17 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"status\": \"keyword\"\n}",
+        "jsonBody": "={{ JSON.stringify({\n  \"description\": \"✅ Keyword-Research abgeschlossen\\n\" +\n    \"Keywords: \" + $('Deduplicate & Group Keywords').item.json.stats.total_groups + \" Gruppen\\n\" +\n    \"Tasks erstellt: \" + $('Split Keywords for Tasks').all().length + \" (mit SV > 0)\\n\" +\n    \"Google Sheet: \" + ($('Extract Sheet ID').item.json.spreadsheet_url || 'N/A')\n}) }}",
         "options": {
           "retry": {
             "maxTries": 3,
             "waitBetweenTries": 2000
+          },
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
           }
         }
       },
@@ -468,7 +399,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3400,
+        4180,
         200
       ],
       "credentials": {
@@ -493,6 +424,12 @@
           "retry": {
             "maxTries": 3,
             "waitBetweenTries": 2000
+          },
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 500
+            }
           }
         }
       },
@@ -501,7 +438,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3400,
+        4180,
         400
       ],
       "credentials": {
@@ -522,7 +459,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3640,
+        4400,
         300
       ],
       "notesInFlow": true,
@@ -530,21 +467,235 @@
     },
     {
       "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": `Du bist ein SEO-Experte für Keyword-Recherche. Generiere 12 verschiedene Seed-Keywords für eine Keyword-Recherche zum Thema:\n\n\"${$('Extract Task Data').item.json.original_task_name}\"\n\nWICHTIGE REGELN:\n1. Jedes Keyword MUSS direkt mit dem Hauptthema zu tun haben\n2. KEINE allgemeinen/breiten Keywords die auch für andere Themen gelten (z.B. NICHT \"Versicherungsvergleich\" wenn das Thema \"D&O Versicherung\" ist)\n3. Decke verschiedene Aspekte ab: Synonyme, Fachbegriffe, Kosten, Vergleich, Anbieter, Typen, Zielgruppen, häufige Fragen\n4. 1-3 Wörter pro Keyword\n5. Das erste Keyword = der Kernbegriff (1-2 Wörter)\n6. NUR deutsche Keywords\n7. Ein Keyword pro Zeile, KEINE Nummerierung, KEINE Erklärungen\n\nBeispiel für \"PKV für Beamte\":\npkv beamte\nprivate krankenversicherung beamte\nbeamten pkv\nbeihilfe versicherung\npkv beamte kosten\npkv beamte vergleich\ndienstunfähigkeit beamte\nheilfürsorge beamte\npkv beamtenanwärter\nrestkostenversicherung\nbeamte gesetzliche krankenversicherung\npkv beamte test`\n  }]\n}) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "ai-seeds",
+      "name": "AI: Generate Seed Keywords",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uYDWYxVRAB3CZ6Jo",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// AI-Antwort parsen und Seed-Keywords extrahieren\nconst response = $input.first().json;\nconst content = response.content?.[0]?.text || '';\n\n// Seeds aus Text extrahieren (eine pro Zeile)\nconst seeds = content\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(line => line.length > 0 && line.length < 60)\n  .filter(line => !line.match(/^\\d+[.):]/))  // Nummerierung entfernen\n  .map(line => line.replace(/^[-•*]\\s*/, '').trim())  // Aufzählungszeichen\n  .filter(line => line.length > 1);\n\n// Maximal 15 Seeds\nconst finalSeeds = seeds.slice(0, 15);\n\n// Seed-Keyword aus Extract Task Data als Fallback\nconst mainSeed = $('Extract Task Data').item.json.seed_keyword;\nif (!finalSeeds.includes(mainSeed) && !finalSeeds.some(s => s.toLowerCase() === mainSeed.toLowerCase())) {\n  finalSeeds.unshift(mainSeed);\n}\n\n// Jedes Seed als eigenes Item\nreturn finalSeeds.map((seed, i) => ({\n  json: {\n    seed_keyword: seed,\n    seed_index: i,\n    total_seeds: finalSeeds.length\n  }\n}));"
+      },
+      "id": "parse-seeds",
+      "name": "Parse AI Seeds",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_suggestions/live",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"include_seed_keyword\": true,\n    \"include_serp_info\": false,\n    \"limit\": 700\n  }\n]",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 3,
+              "batchInterval": 1000
+            }
+          },
+          "timeout": 30000
+        }
+      },
+      "id": "batch-suggestions",
+      "name": "DataForSEO: Batch Suggestions",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        200
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "SPY88wAVgbTtS9xU",
+          "name": "DataForSEO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/related_keywords/live",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $('Extract Task Data').item.json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"limit\": 500,\n    \"depth\": 3\n  }\n]",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "related-kw",
+      "name": "DataForSEO: Related Keywords",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        500
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "SPY88wAVgbTtS9xU",
+          "name": "DataForSEO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Batch-Suggestion-Ergebnisse sammeln\nconst allItems = $input.all();\nconst allKeywords = [];\n\nfor (const response of allItems) {\n  const tasks = response.json.tasks || [];\n  for (const task of tasks) {\n    if (task.status_code !== 20000) continue;\n    const items = task?.result?.[0]?.items || [];\n    for (const item of items) {\n      const kw = item.keyword_data || item;\n      const keyword = (kw.keyword || item.keyword || '').toLowerCase().trim();\n      if (!keyword) continue;\n      allKeywords.push({\n        keyword: keyword,\n        search_volume: kw.keyword_info?.search_volume || item.keyword_info?.search_volume || 0,\n        cpc: kw.keyword_info?.cpc || item.keyword_info?.cpc || 0,\n        competition: kw.keyword_info?.competition || item.keyword_info?.competition || 0,\n        search_intent: (kw.search_intent_info?.main_intent || item.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'suggestions'\n      });\n    }\n  }\n}\n\nreturn [{ json: { keywords: allKeywords, count: allKeywords.length } }];"
+      },
+      "id": "collect-batch",
+      "name": "Collect Batch Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Related Keywords parsen\nconst response = $input.first().json;\nconst allKeywords = [];\nconst tasks = response.tasks || [];\n\nfor (const task of tasks) {\n  if (task.status_code !== 20000) continue;\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kd = item.keyword_data || {};\n    const keyword = (kd.keyword || '').toLowerCase().trim();\n    if (keyword) {\n      allKeywords.push({\n        keyword: keyword,\n        search_volume: kd.keyword_info?.search_volume || 0,\n        cpc: kd.keyword_info?.cpc || 0,\n        competition: kd.keyword_info?.competition || 0,\n        search_intent: (kd.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'related'\n      });\n    }\n    // Related keywords aus dem Cluster\n    const related = item.related_keywords || [];\n    for (const rel of related) {\n      const rKw = (rel.keyword || '').toLowerCase().trim();\n      if (rKw) {\n        allKeywords.push({\n          keyword: rKw,\n          search_volume: rel.keyword_info?.search_volume || 0,\n          cpc: rel.keyword_info?.cpc || 0,\n          competition: rel.keyword_info?.competition || 0,\n          search_intent: (rel.search_intent_info?.main_intent || 'informational').toLowerCase(),\n          source: 'related_cluster'\n        });\n      }\n    }\n  }\n}\n\nreturn [{ json: { keywords: allKeywords, count: allKeywords.length } }];"
+      },
+      "id": "parse-related",
+      "name": "Parse Related Keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        500
+      ]
+    },
+    {
+      "parameters": {
         "mode": "combine",
         "combineBy": "combineAll",
         "options": {}
       },
-      "id": "merge-wait-node",
-      "name": "Wait for Both APIs",
+      "id": "wait-both",
+      "name": "Wait for All Results",
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        800,
+        1760,
         300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Keywords zusammenführen + Relevanzfilter\nconst allInputs = $input.all();\nconst allKeywords = [];\n\nfor (const input of allInputs) {\n  const kws = input.json.keywords || [];\n  allKeywords.push(...kws);\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\n// RELEVANZFILTER: Nur Keywords die thematisch zum Hauptthema passen\n// Kernwörter aus dem Task-Namen extrahieren\nconst taskName = $('Extract Task Data').item.json.original_task_name.toLowerCase();\nconst seeds = $('Parse AI Seeds').all().map(s => s.json.seed_keyword.toLowerCase());\n\n// Kernwörter = alle bedeutungsvollen Wörter aus Task-Name + Seeds\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine',\n  'und', 'oder', 'für', 'mit', 'von', 'in', 'im', 'auf', 'aus',\n  'zu', 'bei', 'nach', 'über', 'unter', 'vor', 'an', 'am'\n]);\n\nconst coreWords = new Set();\n// Aus Task-Name\ntaskName.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n  if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n});\n// Aus allen Seeds\nseeds.forEach(seed => {\n  seed.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n    if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n  });\n});\n\n// Keyword ist relevant wenn es mindestens 1 Kernwort enthält\nconst relevant = filtered.filter(kw => {\n  const kwLower = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ');\n  return [...coreWords].some(core => kwLower.includes(core));\n});\n\nreturn [{ json: {\n  all_keywords: relevant,\n  total_raw: filtered.length,\n  total_relevant: relevant.length,\n  core_words: [...coreWords],\n  filtered_out: filtered.length - relevant.length\n} }];"
+      },
+      "id": "merge-all-new",
+      "name": "Merge All Keywords",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1980,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nur 1x ausführen (nicht pro Keyword-Task)\nreturn [$input.first()];"
+      },
+      "id": "take-first-update",
+      "name": "Take First (Update)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4180,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nur 1x ausführen (nicht pro Keyword-Task)\nreturn [$input.first()];"
+      },
+      "id": "take-first-link",
+      "name": "Take First (Link)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4180,
+        400
       ]
     }
   ],
   "connections": {
+    "ClickUp Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter: Keyword-Research starten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Keyword-Research starten": {
+      "main": [
+        [
+          {
+            "node": "Fetch Task Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Task Details": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Config": {
       "main": [
         [
@@ -560,7 +711,7 @@
       "main": [
         [
           {
-            "node": "DataForSEO: Keyword Suggestions",
+            "node": "AI: Generate Seed Keywords",
             "type": "main",
             "index": 0
           },
@@ -572,11 +723,33 @@
         ]
       ]
     },
-    "DataForSEO: Keyword Suggestions": {
+    "AI: Generate Seed Keywords": {
       "main": [
         [
           {
-            "node": "Wait for Both APIs",
+            "node": "Parse AI Seeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Seeds": {
+      "main": [
+        [
+          {
+            "node": "DataForSEO: Batch Suggestions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DataForSEO: Batch Suggestions": {
+      "main": [
+        [
+          {
+            "node": "Collect Batch Results",
             "type": "main",
             "index": 0
           }
@@ -587,9 +760,42 @@
       "main": [
         [
           {
-            "node": "Wait for Both APIs",
+            "node": "Parse Related Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Batch Results": {
+      "main": [
+        [
+          {
+            "node": "Wait for All Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Related Keywords": {
+      "main": [
+        [
+          {
+            "node": "Wait for All Results",
             "type": "main",
             "index": 1
+          }
+        ]
+      ]
+    },
+    "Wait for All Results": {
+      "main": [
+        [
+          {
+            "node": "Merge All Keywords",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -697,12 +903,12 @@
       "main": [
         [
           {
-            "node": "Update Original Task Status",
+            "node": "Take First (Update)",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Link Sheet to Original Task",
+            "node": "Take First (Link)",
             "type": "main",
             "index": 0
           }
@@ -726,49 +932,27 @@
           {
             "node": "Summary",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
     },
-    "Wait for Both APIs": {
+    "Take First (Update)": {
       "main": [
         [
           {
-            "node": "Merge All Keywords",
+            "node": "Update Original Task Status",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "ClickUp Webhook Trigger": {
+    "Take First (Link)": {
       "main": [
         [
           {
-            "node": "Filter: Keyword-Research starten",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter: Keyword-Research starten": {
-      "main": [
-        [
-          {
-            "node": "Fetch Task Details",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Fetch Task Details": {
-      "main": [
-        [
-          {
-            "node": "Config",
+            "node": "Link Sheet to Original Task",
             "type": "main",
             "index": 0
           }
@@ -784,9 +968,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
-  "activeVersionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
-  "versionCounter": 45,
+  "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
+  "activeVersionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
+  "versionCounter": 57,
   "triggerCount": 1,
   "shared": [
     {
@@ -809,11 +993,69 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-24T16:36:53.968Z",
-    "createdAt": "2026-03-24T16:36:53.968Z",
-    "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
+    "updatedAt": "2026-03-24T17:25:06.384Z",
+    "createdAt": "2026-03-24T17:25:06.384Z",
+    "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
     "workflowId": "Vgq0ER1amLUyI1ws",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "covago-keyword-research",
+          "options": {}
+        },
+        "id": "kr-node-002",
+        "name": "ClickUp Webhook Trigger",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          -220,
+          300
+        ],
+        "webhookId": "kr-webhook-001",
+        "notesInFlow": true,
+        "notes": "Empfaengt ClickUp Webhook wenn Keyword-Research starten geklickt wird"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Prüfe ob der Webhook vom \"Keyword-Research starten\" Button kommt\n// Unterstützt zwei Formate:\n// 1. ClickUp Webhook: { event: \"taskUpdated\", task_id: \"xxx\", history_items: [...] }\n// 2. Manueller Call: { task_id: \"xxx\" }\n\nconst body = $input.first().json.body || $input.first().json;\n\n// Format 1: ClickUp Webhook\nif (body.event === 'taskUpdated' && body.history_items) {\n  // Prüfe ob der \"Keyword-Research starten\" Button geklickt wurde\n  const buttonClicked = body.history_items.some(item =>\n    item.field === 'custom_field' &&\n    item.custom_field_id === '12522be1-6428-4575-a635-8374e971c0ee'\n  );\n\n  if (!buttonClicked) {\n    // Nicht der richtige Button → Workflow stoppen\n    return [];\n  }\n\n  return [{ json: { task_id: body.task_id, source: 'clickup_webhook' } }];\n}\n\n// Format 2: Manueller Webhook-Call mit task_id\nif (body.task_id) {\n  return [{ json: { task_id: body.task_id, source: 'manual' } }];\n}\n\n// Kein gültiges Format → stoppen\nreturn [];"
+        },
+        "id": "kr-node-020",
+        "name": "Filter: Keyword-Research starten",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Nur weiter wenn 'Keyword-Research starten' Custom Field gesetzt ist. Sonst → leere Ausgabe = Workflow stoppt."
+      },
+      {
+        "parameters": {
+          "method": "GET",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "options": {}
+        },
+        "id": "kr-node-019",
+        "name": "Fetch Task Details",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          220,
+          300
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Volle Task-Daten laden inkl. Custom Fields"
+      },
       {
         "parameters": {
           "assignments": {
@@ -901,64 +1143,6 @@
       },
       {
         "parameters": {
-          "httpMethod": "POST",
-          "path": "covago-keyword-research",
-          "options": {}
-        },
-        "id": "kr-node-002",
-        "name": "ClickUp Webhook Trigger",
-        "type": "n8n-nodes-base.webhook",
-        "typeVersion": 2,
-        "position": [
-          -220,
-          300
-        ],
-        "webhookId": "kr-webhook-001",
-        "notesInFlow": true,
-        "notes": "Empfaengt ClickUp Webhook wenn Keyword-Research starten geklickt wird"
-      },
-      {
-        "parameters": {
-          "method": "GET",
-          "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
-          "options": {}
-        },
-        "id": "kr-node-019",
-        "name": "Fetch Task Details",
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.2,
-        "position": [
-          220,
-          300
-        ],
-        "credentials": {
-          "httpHeaderAuth": {
-            "id": "wwbq6Yxnr2EpmrFv",
-            "name": "ClickUp API"
-          }
-        },
-        "notesInFlow": true,
-        "notes": "Volle Task-Daten laden inkl. Custom Fields"
-      },
-      {
-        "parameters": {
-          "jsCode": "// Prüfe ob der Webhook vom \"Keyword-Research starten\" Button kommt\n// Unterstützt zwei Formate:\n// 1. ClickUp Webhook: { event: \"taskUpdated\", task_id: \"xxx\", history_items: [...] }\n// 2. Manueller Call: { task_id: \"xxx\" }\n\nconst body = $input.first().json.body || $input.first().json;\n\n// Format 1: ClickUp Webhook\nif (body.event === 'taskUpdated' && body.history_items) {\n  // Prüfe ob der \"Keyword-Research starten\" Button geklickt wurde\n  const buttonClicked = body.history_items.some(item =>\n    item.field === 'custom_field' &&\n    item.custom_field_id === '12522be1-6428-4575-a635-8374e971c0ee'\n  );\n\n  if (!buttonClicked) {\n    // Nicht der richtige Button → Workflow stoppen\n    return [];\n  }\n\n  return [{ json: { task_id: body.task_id, source: 'clickup_webhook' } }];\n}\n\n// Format 2: Manueller Webhook-Call mit task_id\nif (body.task_id) {\n  return [{ json: { task_id: body.task_id, source: 'manual' } }];\n}\n\n// Kein gültiges Format → stoppen\nreturn [];"
-        },
-        "id": "kr-node-020",
-        "name": "Filter: Keyword-Research starten",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          0,
-          300
-        ],
-        "notesInFlow": true,
-        "notes": "Nur weiter wenn 'Keyword-Research starten' Custom Field gesetzt ist. Sonst → leere Ausgabe = Workflow stoppt."
-      },
-      {
-        "parameters": {
           "jsCode": "// Task-Daten extrahieren + Seed-Keyword für DataForSEO optimieren\nconst task = $('Fetch Task Details').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\nconst themenClusterValue = clusterField?.value ?? null;\nconst themenClusterOptions = clusterField?.type_config?.options || [];\n\nlet themenClusterName = '';\nif (themenClusterValue !== null && themenClusterOptions.length > 0) {\n  const opt = themenClusterOptions.find(o => o.orderindex === themenClusterValue);\n  if (opt) themenClusterName = opt.name;\n}\n\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\n// Seed-Keyword: DataForSEO braucht kurze Keywords (2-3 Wörter)\n// Strategie: Stoppwörter entfernen, max 3 bedeutungsvolle Wörter\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum'\n]);\n\nconst fullName = task.name;\nconst words = fullName.split(/\\s+/).filter(w => w.length > 0);\nconst meaningful = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));\n\n// Max 3 bedeutungsvolle Wörter für DataForSEO\nconst seedKeyword = meaningful.slice(0, 3).join(' ');\n\nreturn [{\n  json: {\n    seed_keyword: seedKeyword,\n    original_task_name: fullName,\n    task_id: task.id,\n    kunde: kunde,\n    themen_cluster: themenClusterName,\n    themen_cluster_value: themenClusterValue,\n    themen_cluster_options: themenClusterOptions\n  }\n}];"
         },
         "id": "kr-node-003",
@@ -974,81 +1158,6 @@
       },
       {
         "parameters": {
-          "method": "POST",
-          "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_suggestions/live",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpBasicAuth",
-          "sendBody": true,
-          "specifyBody": "json",
-          "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"include_seed_keyword\": true,\n    \"include_serp_info\": false,\n    \"limit\": 700,\n    \"filters\": [\n      \"keyword_info.search_volume\", \">\", 10\n    ]\n  }\n]",
-          "options": {
-            "timeout": 60000
-          }
-        },
-        "id": "kr-node-004",
-        "name": "DataForSEO: Keyword Suggestions",
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.2,
-        "position": [
-          740,
-          200
-        ],
-        "credentials": {
-          "httpBasicAuth": {
-            "id": "SPY88wAVgbTtS9xU",
-            "name": "DataForSEO"
-          }
-        },
-        "notesInFlow": true,
-        "notes": "Keyword Suggestions API — bis zu 700 Keywords mit SV > 10"
-      },
-      {
-        "parameters": {
-          "method": "POST",
-          "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/related_keywords/live",
-          "authentication": "genericCredentialType",
-          "genericAuthType": "httpBasicAuth",
-          "sendBody": true,
-          "specifyBody": "json",
-          "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $('Extract Task Data').item.json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"limit\": 300,\n    \"filters\": [\n      \"keyword_data.keyword_info.search_volume\", \">\", 10\n    ]\n  }\n]",
-          "options": {
-            "timeout": 60000
-          }
-        },
-        "id": "kr-node-005",
-        "name": "DataForSEO: Related Keywords",
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.2,
-        "position": [
-          740,
-          420
-        ],
-        "credentials": {
-          "httpBasicAuth": {
-            "id": "SPY88wAVgbTtS9xU",
-            "name": "DataForSEO"
-          }
-        },
-        "notesInFlow": true,
-        "notes": "Related Keywords API — bis zu 300 verwandte Keywords"
-      },
-      {
-        "parameters": {
-          "jsCode": "// Alle Keywords aus beiden API-Antworten zusammenführen\nconst suggestionsRaw = $('DataForSEO: Keyword Suggestions').item.json;\nconst relatedRaw = $('DataForSEO: Related Keywords').item.json;\n\nconst allKeywords = [];\n\n// Suggestions parsen\nconst sugTasks = suggestionsRaw.tasks || [];\nfor (const task of sugTasks) {\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kw = item.keyword_data || item;\n    allKeywords.push({\n      keyword: (kw.keyword || item.keyword || '').toLowerCase().trim(),\n      search_volume: kw.keyword_info?.search_volume || item.keyword_info?.search_volume || 0,\n      cpc: kw.keyword_info?.cpc || item.keyword_info?.cpc || 0,\n      competition: kw.keyword_info?.competition || item.keyword_info?.competition || 0,\n      search_intent: (kw.search_intent_info?.main_intent || item.search_intent_info?.main_intent || 'informational').toLowerCase(),\n      source: 'suggestions'\n    });\n  }\n}\n\n// Related parsen\nconst relTasks = relatedRaw.tasks || [];\nfor (const task of relTasks) {\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kd = item.keyword_data || {};\n    allKeywords.push({\n      keyword: (kd.keyword || '').toLowerCase().trim(),\n      search_volume: kd.keyword_info?.search_volume || 0,\n      cpc: kd.keyword_info?.cpc || 0,\n      competition: kd.keyword_info?.competition || 0,\n      search_intent: (kd.search_intent_info?.main_intent || 'informational').toLowerCase(),\n      source: 'related'\n    });\n    // Auch Related Keywords aus dem Cluster hinzufügen\n    const related = item.related_keywords || [];\n    for (const rel of related) {\n      allKeywords.push({\n        keyword: (rel.keyword || '').toLowerCase().trim(),\n        search_volume: rel.keyword_info?.search_volume || 0,\n        cpc: rel.keyword_info?.cpc || 0,\n        competition: rel.keyword_info?.competition || 0,\n        search_intent: (rel.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'related_cluster'\n      });\n    }\n  }\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\nreturn [{ json: { all_keywords: filtered, total_raw: filtered.length } }];"
-        },
-        "id": "kr-node-006",
-        "name": "Merge All Keywords",
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1000,
-          300
-        ],
-        "notesInFlow": true,
-        "notes": "Keywords aus Suggestions + Related zusammenführen"
-      },
-      {
-        "parameters": {
           "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiches Thema, andere Reihenfolge/Stoppwörter/Bindestriche) werden gruppiert\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit', 'während',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum',\n  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',\n  'sich', 'man', 'auch', 'noch', 'schon', 'so', 'sehr',\n  'nur', 'nicht', 'kein', 'keine', 'keinen', 'keiner',\n  'zu', 'ab', 'ob', 'wenn', 'weil', 'dass', 'damit'\n]);\n\n// Normalisierung: Bindestriche→Leerzeichen, Stoppwörter raus, sortieren\nfunction normalizeForGrouping(keyword) {\n  const words = keyword\n    .toLowerCase()\n    .replace(/[-–—]/g, ' ')           // Bindestriche → Leerzeichen\n    .replace(/[^a-zäöüß0-9\\s]/g, '')  // Sonderzeichen weg\n    .split(/\\s+/)\n    .filter(w => w.length > 1 && !STOP_WORDS.has(w));\n\n  // Einfaches Stemming\n  const stemmed = words.map(w => {\n    if (w.length > 5) {\n      if (w.endsWith('ungen')) return w.slice(0, -5);\n      if (w.endsWith('ung')) return w.slice(0, -3);\n      if (w.endsWith('heit')) return w.slice(0, -4);\n      if (w.endsWith('keit')) return w.slice(0, -4);\n      if (w.endsWith('isch')) return w.slice(0, -4);\n      if (w.endsWith('lich')) return w.slice(0, -4);\n      if (w.endsWith('ieren')) return w.slice(0, -5);\n      if (w.endsWith('en')) return w.slice(0, -2);\n      if (w.endsWith('er')) return w.slice(0, -2);\n      if (w.endsWith('es')) return w.slice(0, -2);\n      if (w.endsWith('em')) return w.slice(0, -2);\n      if (w.endsWith('te')) return w.slice(0, -2);\n      if (w.endsWith('st')) return w.slice(0, -2);\n      if (w.endsWith('e')) return w.slice(0, -1);\n      if (w.endsWith('s')) return w.slice(0, -1);\n    }\n    return w;\n  }).filter(w => w.length > 1);\n\n  return stemmed.sort().join(' ');\n}\n\n// Prüfe ob zwei Keys zusammengehören (70%+ Wort-Overlap)\nfunction shouldMerge(key1, key2) {\n  if (key1 === key2) return true;\n  const words1 = new Set(key1.split(' '));\n  const words2 = new Set(key2.split(' '));\n  const intersection = [...words1].filter(w => words2.has(w));\n  const maxLen = Math.max(words1.size, words2.size);\n  if (maxLen === 0) return false;\n  return intersection.length / maxLen >= 0.7;\n}\n\n// Phase 1: Exakte Duplikate\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  // Auch Bindestriche bei Dedup normalisieren\n  const key = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ').trim().replace(/\\s+/g, ' ');\n  const existing = deduped.get(key);\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(key, kw);\n  }\n}\n\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Phase 2: Normalisierte Gruppen\nconst normalizedMap = new Map();\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!normalizedMap.has(normalized)) {\n    normalizedMap.set(normalized, []);\n  }\n  normalizedMap.get(normalized).push(kw);\n}\n\n// Phase 3: Fuzzy-Merge\nconst groupKeys = Array.from(normalizedMap.keys());\nconst merged = new Map();\nconst keyMapping = new Map();\n\nfor (const key of groupKeys) {\n  if (keyMapping.has(key)) continue;\n  let bestMatch = null;\n  for (const [existingKey] of merged) {\n    if (shouldMerge(key, existingKey)) {\n      bestMatch = existingKey;\n      break;\n    }\n  }\n  if (bestMatch) {\n    merged.get(bestMatch).push(...normalizedMap.get(key));\n    keyMapping.set(key, bestMatch);\n  } else {\n    merged.set(key, [...normalizedMap.get(key)]);\n    keyMapping.set(key, key);\n  }\n}\n\n// Phase 4: Pro Gruppe bestes Keyword\nconst cleanedList = [];\nconst groupMapping = [];\nlet groupId = 1;\n\nfor (const [normalizedKey, keywords] of merged) {\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n  const totalSV = keywords.reduce((sum, kw) => sum + (kw.search_volume || 0), 0);\n\n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    total_group_volume: totalSV,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length,\n    variations: keywords.slice(0, 10).map(k => k.keyword).join(', ')\n  });\n\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length,\n      reduction_pct: completeList.length > 0\n        ? Math.round((1 - cleanedList.length / completeList.length) * 100) + '%'\n        : '0%'\n    }\n  }\n}];"
         },
         "id": "kr-node-007",
@@ -1056,7 +1165,7 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1240,
+          2200,
           300
         ],
         "notesInFlow": true,
@@ -1078,7 +1187,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          1480,
+          2420,
           300
         ],
         "credentials": {
@@ -1099,7 +1208,7 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1720,
+          2640,
           300
         ],
         "notesInFlow": true,
@@ -1121,7 +1230,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          1960,
+          2860,
           300
         ],
         "credentials": {
@@ -1142,7 +1251,7 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2200,
+          3080,
           300
         ],
         "notesInFlow": true,
@@ -1164,7 +1273,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          2440,
+          3300,
           300
         ],
         "credentials": {
@@ -1192,7 +1301,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          2680,
+          3520,
           300
         ],
         "credentials": {
@@ -1206,14 +1315,14 @@
       },
       {
         "parameters": {
-          "jsCode": "// Pro Keyword-GRUPPE eine ClickUp-Aufgabe erstellen\nconst data = $('Deduplicate & Group Keywords').item.json;\nconst cleanedKeywords = data.cleaned_keywords;\nconst extractData = $('Extract Task Data').item.json;\nconst themenCluster = extractData.themen_cluster;\nconst themenClusterValue = extractData.themen_cluster_value;\nconst kunde = extractData.kunde;\n\n// Pro Gruppe EIN Task (Hauptkeyword = Task-Name)\nreturn cleanedKeywords.map(kw => ({\n  json: {\n    keyword: kw.keyword,\n    search_volume: kw.search_volume,\n    search_intent: kw.search_intent,\n    themen_cluster: themenCluster,\n    themen_cluster_value: themenClusterValue,\n    kunde: kunde,\n    status: 'keyword',\n    variations: kw.variations || '',\n    variations_count: kw.variations_count || 1\n  }\n}));"
+          "jsCode": "// Pro Keyword-GRUPPE eine ClickUp-Aufgabe erstellen\n// NUR für Keywords mit Suchvolumen > 0\nconst data = $('Deduplicate & Group Keywords').item.json;\nconst cleanedKeywords = data.cleaned_keywords;\nconst extractData = $('Extract Task Data').item.json;\nconst themenCluster = extractData.themen_cluster;\nconst themenClusterValue = extractData.themen_cluster_value;\nconst kunde = extractData.kunde;\n\n// Filter: Nur Keywords mit SV > 0 werden zu Tasks\nconst withVolume = cleanedKeywords.filter(kw => kw.search_volume > 0);\n\nreturn withVolume.map(kw => ({\n  json: {\n    keyword: kw.keyword,\n    search_volume: kw.search_volume,\n    search_intent: kw.search_intent,\n    themen_cluster: themenCluster,\n    themen_cluster_value: themenClusterValue,\n    kunde: kunde,\n    status: 'keyword',\n    variations: kw.variations || '',\n    variations_count: kw.variations_count || 1\n  }\n}));"
         },
         "id": "kr-node-014",
         "name": "Split Keywords for Tasks",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2920,
+          3740,
           300
         ],
         "notesInFlow": true,
@@ -1231,7 +1340,7 @@
           "options": {
             "batching": {
               "batch": {
-                "batchSize": 10,
+                "batchSize": 5,
                 "batchInterval": 1000
               }
             }
@@ -1242,7 +1351,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          3160,
+          3960,
           300
         ],
         "credentials": {
@@ -1262,11 +1371,17 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"status\": \"keyword\"\n}",
+          "jsonBody": "={{ JSON.stringify({\n  \"description\": \"✅ Keyword-Research abgeschlossen\\n\" +\n    \"Keywords: \" + $('Deduplicate & Group Keywords').item.json.stats.total_groups + \" Gruppen\\n\" +\n    \"Tasks erstellt: \" + $('Split Keywords for Tasks').all().length + \" (mit SV > 0)\\n\" +\n    \"Google Sheet: \" + ($('Extract Sheet ID').item.json.spreadsheet_url || 'N/A')\n}) }}",
           "options": {
             "retry": {
               "maxTries": 3,
               "waitBetweenTries": 2000
+            },
+            "batching": {
+              "batch": {
+                "batchSize": 1,
+                "batchInterval": 500
+              }
             }
           }
         },
@@ -1275,7 +1390,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          3400,
+          4180,
           200
         ],
         "credentials": {
@@ -1300,6 +1415,12 @@
             "retry": {
               "maxTries": 3,
               "waitBetweenTries": 2000
+            },
+            "batching": {
+              "batch": {
+                "batchSize": 1,
+                "batchInterval": 500
+              }
             }
           }
         },
@@ -1308,7 +1429,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          3400,
+          4180,
           400
         ],
         "credentials": {
@@ -1329,7 +1450,7 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          3640,
+          4400,
           300
         ],
         "notesInFlow": true,
@@ -1337,21 +1458,235 @@
       },
       {
         "parameters": {
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "anthropic-version",
+                "value": "2023-06-01"
+              },
+              {
+                "name": "content-type",
+                "value": "application/json"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": `Du bist ein SEO-Experte für Keyword-Recherche. Generiere 12 verschiedene Seed-Keywords für eine Keyword-Recherche zum Thema:\n\n\"${$('Extract Task Data').item.json.original_task_name}\"\n\nWICHTIGE REGELN:\n1. Jedes Keyword MUSS direkt mit dem Hauptthema zu tun haben\n2. KEINE allgemeinen/breiten Keywords die auch für andere Themen gelten (z.B. NICHT \"Versicherungsvergleich\" wenn das Thema \"D&O Versicherung\" ist)\n3. Decke verschiedene Aspekte ab: Synonyme, Fachbegriffe, Kosten, Vergleich, Anbieter, Typen, Zielgruppen, häufige Fragen\n4. 1-3 Wörter pro Keyword\n5. Das erste Keyword = der Kernbegriff (1-2 Wörter)\n6. NUR deutsche Keywords\n7. Ein Keyword pro Zeile, KEINE Nummerierung, KEINE Erklärungen\n\nBeispiel für \"PKV für Beamte\":\npkv beamte\nprivate krankenversicherung beamte\nbeamten pkv\nbeihilfe versicherung\npkv beamte kosten\npkv beamte vergleich\ndienstunfähigkeit beamte\nheilfürsorge beamte\npkv beamtenanwärter\nrestkostenversicherung\nbeamte gesetzliche krankenversicherung\npkv beamte test`\n  }]\n}) }}",
+          "options": {
+            "timeout": 30000
+          }
+        },
+        "id": "ai-seeds",
+        "name": "AI: Generate Seed Keywords",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          880,
+          300
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "uYDWYxVRAB3CZ6Jo",
+            "name": "Anthropic API"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// AI-Antwort parsen und Seed-Keywords extrahieren\nconst response = $input.first().json;\nconst content = response.content?.[0]?.text || '';\n\n// Seeds aus Text extrahieren (eine pro Zeile)\nconst seeds = content\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(line => line.length > 0 && line.length < 60)\n  .filter(line => !line.match(/^\\d+[.):]/))  // Nummerierung entfernen\n  .map(line => line.replace(/^[-•*]\\s*/, '').trim())  // Aufzählungszeichen\n  .filter(line => line.length > 1);\n\n// Maximal 15 Seeds\nconst finalSeeds = seeds.slice(0, 15);\n\n// Seed-Keyword aus Extract Task Data als Fallback\nconst mainSeed = $('Extract Task Data').item.json.seed_keyword;\nif (!finalSeeds.includes(mainSeed) && !finalSeeds.some(s => s.toLowerCase() === mainSeed.toLowerCase())) {\n  finalSeeds.unshift(mainSeed);\n}\n\n// Jedes Seed als eigenes Item\nreturn finalSeeds.map((seed, i) => ({\n  json: {\n    seed_keyword: seed,\n    seed_index: i,\n    total_seeds: finalSeeds.length\n  }\n}));"
+        },
+        "id": "parse-seeds",
+        "name": "Parse AI Seeds",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1100,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/keyword_suggestions/live",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"include_seed_keyword\": true,\n    \"include_serp_info\": false,\n    \"limit\": 700\n  }\n]",
+          "options": {
+            "batching": {
+              "batch": {
+                "batchSize": 3,
+                "batchInterval": 1000
+              }
+            },
+            "timeout": 30000
+          }
+        },
+        "id": "batch-suggestions",
+        "name": "DataForSEO: Batch Suggestions",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1320,
+          200
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "SPY88wAVgbTtS9xU",
+            "name": "DataForSEO"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.dataforseo.com/v3/dataforseo_labs/google/related_keywords/live",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $('Extract Task Data').item.json.seed_keyword }}\",\n    \"location_code\": {{ $('Config').item.json.target_location_code }},\n    \"language_name\": \"German\",\n    \"limit\": 500,\n    \"depth\": 3\n  }\n]",
+          "options": {
+            "timeout": 30000
+          }
+        },
+        "id": "related-kw",
+        "name": "DataForSEO: Related Keywords",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1320,
+          500
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "SPY88wAVgbTtS9xU",
+            "name": "DataForSEO"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Alle Batch-Suggestion-Ergebnisse sammeln\nconst allItems = $input.all();\nconst allKeywords = [];\n\nfor (const response of allItems) {\n  const tasks = response.json.tasks || [];\n  for (const task of tasks) {\n    if (task.status_code !== 20000) continue;\n    const items = task?.result?.[0]?.items || [];\n    for (const item of items) {\n      const kw = item.keyword_data || item;\n      const keyword = (kw.keyword || item.keyword || '').toLowerCase().trim();\n      if (!keyword) continue;\n      allKeywords.push({\n        keyword: keyword,\n        search_volume: kw.keyword_info?.search_volume || item.keyword_info?.search_volume || 0,\n        cpc: kw.keyword_info?.cpc || item.keyword_info?.cpc || 0,\n        competition: kw.keyword_info?.competition || item.keyword_info?.competition || 0,\n        search_intent: (kw.search_intent_info?.main_intent || item.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'suggestions'\n      });\n    }\n  }\n}\n\nreturn [{ json: { keywords: allKeywords, count: allKeywords.length } }];"
+        },
+        "id": "collect-batch",
+        "name": "Collect Batch Results",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1540,
+          200
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "// Related Keywords parsen\nconst response = $input.first().json;\nconst allKeywords = [];\nconst tasks = response.tasks || [];\n\nfor (const task of tasks) {\n  if (task.status_code !== 20000) continue;\n  const items = task?.result?.[0]?.items || [];\n  for (const item of items) {\n    const kd = item.keyword_data || {};\n    const keyword = (kd.keyword || '').toLowerCase().trim();\n    if (keyword) {\n      allKeywords.push({\n        keyword: keyword,\n        search_volume: kd.keyword_info?.search_volume || 0,\n        cpc: kd.keyword_info?.cpc || 0,\n        competition: kd.keyword_info?.competition || 0,\n        search_intent: (kd.search_intent_info?.main_intent || 'informational').toLowerCase(),\n        source: 'related'\n      });\n    }\n    // Related keywords aus dem Cluster\n    const related = item.related_keywords || [];\n    for (const rel of related) {\n      const rKw = (rel.keyword || '').toLowerCase().trim();\n      if (rKw) {\n        allKeywords.push({\n          keyword: rKw,\n          search_volume: rel.keyword_info?.search_volume || 0,\n          cpc: rel.keyword_info?.cpc || 0,\n          competition: rel.keyword_info?.competition || 0,\n          search_intent: (rel.search_intent_info?.main_intent || 'informational').toLowerCase(),\n          source: 'related_cluster'\n        });\n      }\n    }\n  }\n}\n\nreturn [{ json: { keywords: allKeywords, count: allKeywords.length } }];"
+        },
+        "id": "parse-related",
+        "name": "Parse Related Keywords",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1540,
+          500
+        ]
+      },
+      {
+        "parameters": {
           "mode": "combine",
           "combineBy": "combineAll",
           "options": {}
         },
-        "id": "merge-wait-node",
-        "name": "Wait for Both APIs",
+        "id": "wait-both",
+        "name": "Wait for All Results",
         "type": "n8n-nodes-base.merge",
         "typeVersion": 3,
         "position": [
-          800,
+          1760,
           300
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "// Alle Keywords zusammenführen + Relevanzfilter\nconst allInputs = $input.all();\nconst allKeywords = [];\n\nfor (const input of allInputs) {\n  const kws = input.json.keywords || [];\n  allKeywords.push(...kws);\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\n// RELEVANZFILTER: Nur Keywords die thematisch zum Hauptthema passen\n// Kernwörter aus dem Task-Namen extrahieren\nconst taskName = $('Extract Task Data').item.json.original_task_name.toLowerCase();\nconst seeds = $('Parse AI Seeds').all().map(s => s.json.seed_keyword.toLowerCase());\n\n// Kernwörter = alle bedeutungsvollen Wörter aus Task-Name + Seeds\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine',\n  'und', 'oder', 'für', 'mit', 'von', 'in', 'im', 'auf', 'aus',\n  'zu', 'bei', 'nach', 'über', 'unter', 'vor', 'an', 'am'\n]);\n\nconst coreWords = new Set();\n// Aus Task-Name\ntaskName.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n  if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n});\n// Aus allen Seeds\nseeds.forEach(seed => {\n  seed.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n    if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n  });\n});\n\n// Keyword ist relevant wenn es mindestens 1 Kernwort enthält\nconst relevant = filtered.filter(kw => {\n  const kwLower = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ');\n  return [...coreWords].some(core => kwLower.includes(core));\n});\n\nreturn [{ json: {\n  all_keywords: relevant,\n  total_raw: filtered.length,\n  total_relevant: relevant.length,\n  core_words: [...coreWords],\n  filtered_out: filtered.length - relevant.length\n} }];"
+        },
+        "id": "merge-all-new",
+        "name": "Merge All Keywords",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1980,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "// Nur 1x ausführen (nicht pro Keyword-Task)\nreturn [$input.first()];"
+        },
+        "id": "take-first-update",
+        "name": "Take First (Update)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4180,
+          200
+        ]
+      },
+      {
+        "parameters": {
+          "jsCode": "// Nur 1x ausführen (nicht pro Keyword-Task)\nreturn [$input.first()];"
+        },
+        "id": "take-first-link",
+        "name": "Take First (Link)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4180,
+          400
         ]
       }
     ],
     "connections": {
+      "ClickUp Webhook Trigger": {
+        "main": [
+          [
+            {
+              "node": "Filter: Keyword-Research starten",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Filter: Keyword-Research starten": {
+        "main": [
+          [
+            {
+              "node": "Fetch Task Details",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Fetch Task Details": {
+        "main": [
+          [
+            {
+              "node": "Config",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Config": {
         "main": [
           [
@@ -1367,7 +1702,7 @@
         "main": [
           [
             {
-              "node": "DataForSEO: Keyword Suggestions",
+              "node": "AI: Generate Seed Keywords",
               "type": "main",
               "index": 0
             },
@@ -1379,11 +1714,33 @@
           ]
         ]
       },
-      "DataForSEO: Keyword Suggestions": {
+      "AI: Generate Seed Keywords": {
         "main": [
           [
             {
-              "node": "Wait for Both APIs",
+              "node": "Parse AI Seeds",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Parse AI Seeds": {
+        "main": [
+          [
+            {
+              "node": "DataForSEO: Batch Suggestions",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "DataForSEO: Batch Suggestions": {
+        "main": [
+          [
+            {
+              "node": "Collect Batch Results",
               "type": "main",
               "index": 0
             }
@@ -1394,9 +1751,42 @@
         "main": [
           [
             {
-              "node": "Wait for Both APIs",
+              "node": "Parse Related Keywords",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Collect Batch Results": {
+        "main": [
+          [
+            {
+              "node": "Wait for All Results",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Parse Related Keywords": {
+        "main": [
+          [
+            {
+              "node": "Wait for All Results",
               "type": "main",
               "index": 1
+            }
+          ]
+        ]
+      },
+      "Wait for All Results": {
+        "main": [
+          [
+            {
+              "node": "Merge All Keywords",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -1504,12 +1894,12 @@
         "main": [
           [
             {
-              "node": "Update Original Task Status",
+              "node": "Take First (Update)",
               "type": "main",
               "index": 0
             },
             {
-              "node": "Link Sheet to Original Task",
+              "node": "Take First (Link)",
               "type": "main",
               "index": 0
             }
@@ -1533,49 +1923,27 @@
             {
               "node": "Summary",
               "type": "main",
-              "index": 0
+              "index": 1
             }
           ]
         ]
       },
-      "Wait for Both APIs": {
+      "Take First (Update)": {
         "main": [
           [
             {
-              "node": "Merge All Keywords",
+              "node": "Update Original Task Status",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "ClickUp Webhook Trigger": {
+      "Take First (Link)": {
         "main": [
           [
             {
-              "node": "Filter: Keyword-Research starten",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Filter: Keyword-Research starten": {
-        "main": [
-          [
-            {
-              "node": "Fetch Task Details",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Fetch Task Details": {
-        "main": [
-          [
-            {
-              "node": "Config",
+              "node": "Link Sheet to Original Task",
               "type": "main",
               "index": 0
             }
@@ -1589,18 +1957,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-24T16:36:54.047Z",
-        "id": 90,
+        "createdAt": "2026-03-24T17:25:06.458Z",
+        "id": 98,
         "workflowId": "Vgq0ER1amLUyI1ws",
-        "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
+        "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-24T16:36:54.031Z",
-        "id": 89,
+        "createdAt": "2026-03-24T17:25:06.437Z",
+        "id": 97,
         "workflowId": "Vgq0ER1amLUyI1ws",
-        "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
+        "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
