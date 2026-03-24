@@ -1,0 +1,567 @@
+{
+  "name": "01a - Outline Generation (Keyword → SEO Outline)",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-0001",
+              "name": "google_sheet_id",
+              "value": "YOUR_GOOGLE_SHEET_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0002",
+              "name": "dataforseo_login",
+              "value": "YOUR_DATAFORSEO_LOGIN",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0003",
+              "name": "dataforseo_password",
+              "value": "YOUR_DATAFORSEO_PASSWORD",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0004",
+              "name": "target_language",
+              "value": "de",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0005",
+              "name": "target_location",
+              "value": "Germany",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0006",
+              "name": "clickup_space_id",
+              "value": "YOUR_CLICKUP_SPACE_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0007",
+              "name": "clickup_list_id",
+              "value": "YOUR_CLICKUP_LIST_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ol-node-001",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [260, 300],
+      "notesInFlow": true,
+      "notes": "Alle konfigurierbaren Variablen: API Keys, Sheet IDs, Ordner IDs"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clickup-copywriting-webhook",
+        "options": {}
+      },
+      "id": "ol-node-002",
+      "name": "ClickUp Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [20, 300],
+      "webhookId": "ol-webhook-001",
+      "notesInFlow": true,
+      "notes": "Empfängt ClickUp Webhook wenn Task auf COPYWRITING gesetzt wird"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "cond-0001",
+              "leftValue": "={{ $json.body.history_items[0].after.status }}",
+              "rightValue": "copywriting",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ol-node-003",
+      "name": "Check Status = COPYWRITING",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [500, 300],
+      "notesInFlow": true,
+      "notes": "Nur weitermachen wenn Status wirklich COPYWRITING ist"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ext-0001",
+              "name": "keyword",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_name || $('ClickUp Webhook Trigger').item.json.body.history_items[0].parent_id }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0002",
+              "name": "task_id",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0003",
+              "name": "kunde",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task?.tags?.[0]?.name || 'unknown' }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0004",
+              "name": "themen_cluster",
+              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task?.custom_fields?.find(f => f.name === 'Themen-Cluster')?.value || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ol-node-004",
+      "name": "Extract Task Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [740, 300],
+      "notesInFlow": true,
+      "notes": "Keyword (=Task Name), Kunde (=Tag), Themen-Cluster (=Custom Field)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/serp/google/organic/live/advanced",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"os\": \"windows\",\n    \"depth\": 10\n  }\n]",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "ol-node-005",
+      "name": "SERP Analysis (DataForSEO)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [980, 300],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "CREDENTIAL_DATAFORSEO",
+          "name": "DataForSEO"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Top 10 Google-Ergebnisse für das Keyword abrufen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// SERP-Daten extrahieren\nconst response = $input.all()[0].json;\nconst tasks = response.tasks || [];\nconst results = tasks[0]?.result?.[0]?.items || [];\n\nconst organic = results\n  .filter(item => item.type === 'organic')\n  .slice(0, 10)\n  .map((item, i) => ({\n    position: i + 1,\n    title: item.title || '',\n    url: item.url || '',\n    description: item.description || '',\n    domain: item.domain || ''\n  }));\n\n// People Also Ask extrahieren\nconst paa = results\n  .filter(item => item.type === 'people_also_ask')\n  .flatMap(item => item.items || [])\n  .map(item => item.title || item.question || '')\n  .filter(Boolean);\n\nreturn [{\n  json: {\n    top10_results: organic,\n    top10_urls: organic.map(r => r.url),\n    people_also_ask: paa,\n    serp_summary: organic.map(r => `${r.position}. ${r.title} — ${r.description}`).join('\\n')\n  }\n}];"
+      },
+      "id": "ol-node-006",
+      "name": "Extract SERP Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1220, 300],
+      "notesInFlow": true,
+      "notes": "Top 10 Ergebnisse + People Also Ask parsen"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/on_page/content_parsing/live",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.top10_urls.map(url => ({ url, store_raw_html: false }))) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "ol-node-007",
+      "name": "Fetch Top 10 Content (DataForSEO)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1460, 300],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "CREDENTIAL_DATAFORSEO",
+          "name": "DataForSEO"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Inhalte der Top 10 URLs für WDF*IDF Analyse abrufen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// WDF*IDF Berechnung aus den Top-10-Seiteninhalten\nconst response = $input.all()[0].json;\nconst tasks = response.tasks || [];\nconst docs = [];\n\nfor (const task of tasks) {\n  const result = task?.result?.[0];\n  if (result?.items) {\n    for (const item of result.items) {\n      const text = (item.page_content?.body?.plain_text_word_count > 0)\n        ? item.page_content.body.plain_text\n        : '';\n      if (text) docs.push(text.toLowerCase());\n    }\n  }\n}\n\nif (docs.length === 0) {\n  return [{ json: { wdf_idf_terms: [], error: 'Keine Inhalte gefunden' } }];\n}\n\n// Stopwörter (deutsch)\nconst stopwords = new Set(['der','die','das','und','in','von','zu','für','mit','auf','den','des','dem','ein','eine','ist','im','an','es','als','auch','sich','nicht','aus','er','hat','sind','war','bei','wird','nach','oder','wie','einer','seine','kann','bis','über','so','zum','aber','nur','noch','da','ihr','wenn','was','vom','durch','zur','haben','mehr','um','diese','dieser','eines','keine','damit','schon','vor','einen','andere','andere','anderen','seinem','seinem','man','doch','wurde','werden','dass','wir','alle','kein','sehr','muss','zwischen','sein','unter','neue','seit','ihre','diese','selbst']);\n\n// Terme zählen pro Dokument\nconst docTermCounts = docs.map(doc => {\n  const words = doc.match(/[a-zäöüß]{3,}/g) || [];\n  const counts = {};\n  for (const w of words) {\n    if (!stopwords.has(w)) counts[w] = (counts[w] || 0) + 1;\n  }\n  return { counts, total: words.length };\n});\n\n// IDF berechnen\nconst N = docs.length;\nconst allTerms = new Set();\nfor (const dtc of docTermCounts) {\n  for (const t of Object.keys(dtc.counts)) allTerms.add(t);\n}\n\nconst termScores = {};\nfor (const term of allTerms) {\n  // Dokumentfrequenz\n  let df = 0;\n  for (const dtc of docTermCounts) {\n    if (dtc.counts[term]) df++;\n  }\n  const idf = Math.log(N / df);\n\n  // Durchschnittlicher WDF\n  let wdfSum = 0;\n  let wdfCount = 0;\n  for (const dtc of docTermCounts) {\n    if (dtc.counts[term]) {\n      const tf = dtc.counts[term] / dtc.total;\n      const wdf = Math.log(1 + tf) / Math.log(1 + dtc.total);\n      wdfSum += wdf;\n      wdfCount++;\n    }\n  }\n  const avgWdf = wdfCount > 0 ? wdfSum / wdfCount : 0;\n  termScores[term] = Math.round(avgWdf * idf * 10000) / 10000;\n}\n\n// Top 50 sortiert\nconst top50 = Object.entries(termScores)\n  .sort((a, b) => b[1] - a[1])\n  .slice(0, 50)\n  .map(([term, score]) => ({ term, score }));\n\nreturn [{\n  json: {\n    wdf_idf_terms: top50,\n    wdf_idf_summary: top50.map(t => `${t.term} (${t.score})`).join(', ')\n  }\n}];"
+      },
+      "id": "ol-node-008",
+      "name": "WDF*IDF Calculator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1700, 300],
+      "notesInFlow": true,
+      "notes": "WDF*IDF Termgewichtung aus Top 10 Inhalten berechnen — Top 50 Terme"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.dataforseo.com/v3/serp/google/organic/live/advanced",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=[\n  {\n    \"keyword\": \"site:reddit.com {{ $('Extract Task Data').item.json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"depth\": 10\n  }\n]",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "ol-node-009",
+      "name": "Reddit & PAA Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1940, 300],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "CREDENTIAL_DATAFORSEO",
+          "name": "DataForSEO"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Reddit-Diskussionen + zusätzliche People Also Ask zum Keyword suchen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Reddit-Ergebnisse und PAA extrahieren\nconst response = $input.all()[0].json;\nconst tasks = response.tasks || [];\nconst items = tasks[0]?.result?.[0]?.items || [];\n\nconst redditResults = items\n  .filter(item => item.type === 'organic' && (item.url || '').includes('reddit.com'))\n  .slice(0, 5)\n  .map(item => ({\n    title: item.title || '',\n    url: item.url || '',\n    description: item.description || ''\n  }));\n\nconst paa = items\n  .filter(item => item.type === 'people_also_ask')\n  .flatMap(item => item.items || [])\n  .map(item => item.title || item.question || '')\n  .filter(Boolean);\n\n// Merge mit bereits vorhandenen PAA\nconst existingPAA = $('Extract SERP Data').item.json.people_also_ask || [];\nconst allPAA = [...new Set([...existingPAA, ...paa])];\n\nreturn [{\n  json: {\n    reddit_discussions: redditResults,\n    reddit_summary: redditResults.map(r => `- ${r.title}: ${r.description}`).join('\\n'),\n    all_paa_questions: allPAA\n  }\n}];"
+      },
+      "id": "ol-node-010",
+      "name": "Extract Reddit & PAA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2180, 300],
+      "notesInFlow": true,
+      "notes": "Reddit-Fragen und alle People Also Ask zusammenführen"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Experte für umfassende Themenrecherche. Recherchiere gründlich mit aktuellen, verifizierten Daten aus autoritativen Quellen. Gib alle Fakten mit Quellenangabe an. Antworte auf Deutsch.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "ol-node-011",
+      "name": "Perplexity Deep Research",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2420, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_PERPLEXITY",
+          "name": "Perplexity API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Perplexity sonar-deep-research für umfassende Faktenrecherche mit Quellen"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Config').item.json.google_sheet_id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Keyword Map",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Hub/Cluster",
+              "lookupValue": "={{ $('Extract Task Data').item.json.themen_cluster }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ol-node-012",
+      "name": "Read Keyword Map (Google Sheets)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [2660, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Keyword Map lesen: andere Artikel im gleichen Hub/Cluster für interne Verlinkung"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Interne Verlinkungsdaten aufbereiten\nconst sheetRows = $input.all().map(item => item.json);\nconst currentKeyword = $('Extract Task Data').item.json.keyword;\n\nconst hubArticles = sheetRows\n  .filter(row => row['Keyword'] !== currentKeyword)\n  .map(row => ({\n    keyword: row['Keyword'] || '',\n    url: row['WordPress URL'] || row['Google Doc Link'] || '',\n    status: row['Status'] || '',\n    is_pillar: (row['Pillar Article URL'] || '').length > 0,\n    pillar_url: row['Pillar Article URL'] || ''\n  }));\n\nconst publishedArticles = hubArticles.filter(a => a.status === 'veröffentlicht' && a.url);\nconst pillarArticle = hubArticles.find(a => a.is_pillar);\n\nreturn [{\n  json: {\n    hub_articles: hubArticles,\n    published_articles: publishedArticles,\n    pillar_article: pillarArticle || null,\n    internal_linking_summary: publishedArticles.length > 0\n      ? publishedArticles.map(a => `- \"${a.keyword}\": ${a.url}`).join('\\n')\n      : 'Noch keine veröffentlichten Artikel im Hub.'\n  }\n}];"
+      },
+      "id": "ol-node-013",
+      "name": "Prepare Internal Linking Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2900, 300],
+      "notesInFlow": true,
+      "notes": "Interne Verlinkungsdaten für den Outline-Prompt aufbereiten"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $credentials.anthropicApi?.apiKey || 'YOUR_ANTHROPIC_API_KEY' }}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Struktur für Generative Engine Optimization vorbereiten\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "ol-node-014",
+      "name": "Claude: Generate Outline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [3140, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_ANTHROPIC",
+          "name": "Anthropic API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Claude generiert Skyscraper-Outline mit FAQs, interner Verlinkung, Infografik-Platzierungen"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Claude-Antwort parsen und Outline extrahieren\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet outline;\ntry {\n  // Versuche JSON direkt zu parsen\n  outline = JSON.parse(content);\n} catch (e) {\n  // Falls in Markdown-Codeblock verpackt\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    outline = JSON.parse(jsonMatch[1].trim());\n  } else {\n    throw new Error('Konnte Outline-JSON nicht parsen: ' + content.substring(0, 200));\n  }\n}\n\nreturn [{\n  json: {\n    outline: outline,\n    outline_json: JSON.stringify(outline, null, 2),\n    title_suggestion: outline.title_suggestion || '',\n    search_intent: outline.search_intent || '',\n    section_count: (outline.sections || []).length,\n    faq_count: (outline.faq_section || []).length,\n    has_infographics: (outline.sections || []).some(s => s.infographic)\n  }\n}];"
+      },
+      "id": "ol-node-015",
+      "name": "Parse Outline Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3380, 300],
+      "notesInFlow": true,
+      "notes": "Claude JSON-Antwort parsen und Outline-Struktur extrahieren"
+    }
+  ],
+  "connections": {
+    "ClickUp Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Check Status = COPYWRITING",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status = COPYWRITING": {
+      "main": [
+        [
+          {
+            "node": "Extract Task Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Task Data": {
+      "main": [
+        [
+          {
+            "node": "SERP Analysis (DataForSEO)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SERP Analysis (DataForSEO)": {
+      "main": [
+        [
+          {
+            "node": "Extract SERP Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract SERP Data": {
+      "main": [
+        [
+          {
+            "node": "Fetch Top 10 Content (DataForSEO)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Top 10 Content (DataForSEO)": {
+      "main": [
+        [
+          {
+            "node": "WDF*IDF Calculator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WDF*IDF Calculator": {
+      "main": [
+        [
+          {
+            "node": "Reddit & PAA Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reddit & PAA Search": {
+      "main": [
+        [
+          {
+            "node": "Extract Reddit & PAA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Reddit & PAA": {
+      "main": [
+        [
+          {
+            "node": "Perplexity Deep Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity Deep Research": {
+      "main": [
+        [
+          {
+            "node": "Read Keyword Map (Google Sheets)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Keyword Map (Google Sheets)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Internal Linking Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Internal Linking Data": {
+      "main": [
+        [
+          {
+            "node": "Claude: Generate Outline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude: Generate Outline": {
+      "main": [
+        [
+          {
+            "node": "Parse Outline Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "SEO Pipeline",
+      "createdAt": "2026-03-24T00:00:00.000Z",
+      "updatedAt": "2026-03-24T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-03-24T00:00:00.000Z",
+  "versionId": "ol-v1"
+}
