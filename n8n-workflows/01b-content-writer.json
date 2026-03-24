@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-24T15:32:27.583Z",
+  "createdAt": "2026-03-24T14:39:47.055Z",
+  "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -8,13 +14,13 @@
             {
               "id": "cfg-0001",
               "name": "google_sheet_id",
-              "value": "YOUR_GOOGLE_SHEET_ID",
+              "value": "18vjusF-0N5vLsN6eiEo-qYbTdxp13nkv7Yf2RSWfMcc",
               "type": "string"
             },
             {
               "id": "cfg-0002",
               "name": "google_drive_folder_id",
-              "value": "YOUR_GOOGLE_DRIVE_FOLDER_ID",
+              "value": "15e0VJk-_hh5GB7MBnomd0wOXd1QSWKP9",
               "type": "string"
             },
             {
@@ -355,12 +361,12 @@
       "parameters": {
         "method": "POST",
         "url": "https://www.googleapis.com/drive/v3/files",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "oAuth2Api",
+        "authentication": "predefinedCredentialType",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"name\": \"{{ $('Extract Input Data').item.json.keyword }} — Content Draft\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.google_drive_folder_id }}\"]\n}",
-        "options": {}
+        "options": {},
+        "nodeCredentialType": "googleOAuth2Api"
       },
       "id": "cw-node-013",
       "name": "Create Google Doc",
@@ -371,9 +377,9 @@
         300
       ],
       "credentials": {
-        "oAuth2Api": {
-          "id": "CREDENTIAL_GOOGLE",
-          "name": "Google OAuth2"
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
         }
       },
       "notesInFlow": true,
@@ -398,12 +404,12 @@
       "parameters": {
         "method": "POST",
         "url": "=https://docs.googleapis.com/v1/documents/{{ $json.doc_id }}:batchUpdate",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "oAuth2Api",
+        "authentication": "predefinedCredentialType",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"requests\": [\n    {\n      \"insertText\": {\n        \"location\": { \"index\": 1 },\n        \"text\": {{ JSON.stringify($json.full_text) }}\n      }\n    }\n  ]\n}",
-        "options": {}
+        "options": {},
+        "nodeCredentialType": "googleOAuth2Api"
       },
       "id": "cw-node-015",
       "name": "Write Content to Google Doc",
@@ -414,9 +420,9 @@
         300
       ],
       "credentials": {
-        "oAuth2Api": {
-          "id": "CREDENTIAL_GOOGLE",
-          "name": "Google OAuth2"
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
         }
       },
       "notesInFlow": true,
@@ -856,7 +862,7 @@
       "main": [
         [
           {
-            "node": "Update ClickUp Status → REVIEW",
+            "node": "Update ClickUp Status → REVIEW BEIM KUNDEN",
             "type": "main",
             "index": 0
           },
@@ -1003,14 +1009,1063 @@
   },
   "settings": {
     "executionOrder": "v1",
-    "callerPolicy": "workflowsFromSameOwner"
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
   },
   "staticData": null,
-  "tags": [
+  "meta": null,
+  "pinData": null,
+  "versionId": "3722ebb7-919b-4a02-b1a0-46a072c168a6",
+  "activeVersionId": "3722ebb7-919b-4a02-b1a0-46a072c168a6",
+  "versionCounter": 14,
+  "triggerCount": 1,
+  "shared": [
     {
-      "name": "COVAGO",
-      "createdAt": "2026-03-24T00:00:00.000Z",
-      "updatedAt": "2026-03-24T00:00:00.000Z"
+      "updatedAt": "2026-03-24T14:39:47.058Z",
+      "createdAt": "2026-03-24T14:39:47.058Z",
+      "role": "workflow:owner",
+      "workflowId": "Qm2j4ZECEwa9jTdp",
+      "projectId": "ARFgyYnfsAM8gxSD",
+      "project": {
+        "updatedAt": "2026-03-24T00:25:43.398Z",
+        "createdAt": "2026-03-23T23:46:41.795Z",
+        "id": "ARFgyYnfsAM8gxSD",
+        "name": "Carlos Arad <ca@carlosarad.de>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      }
     }
-  ]
+  ],
+  "tags": [],
+  "activeVersion": {
+    "updatedAt": "2026-03-24T15:32:27.584Z",
+    "createdAt": "2026-03-24T15:32:27.584Z",
+    "versionId": "3722ebb7-919b-4a02-b1a0-46a072c168a6",
+    "workflowId": "Qm2j4ZECEwa9jTdp",
+    "nodes": [
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "cfg-0001",
+                "name": "google_sheet_id",
+                "value": "18vjusF-0N5vLsN6eiEo-qYbTdxp13nkv7Yf2RSWfMcc",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0002",
+                "name": "google_drive_folder_id",
+                "value": "15e0VJk-_hh5GB7MBnomd0wOXd1QSWKP9",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0003",
+                "name": "clickup_list_id",
+                "value": "901522351430",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0004",
+                "name": "brand_voice",
+                "value": "Professionell aber zugänglich. Duzen. Kurze Sätze. Aktive Sprache. Fachbegriffe erklären.",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0005",
+                "name": "target_word_count",
+                "value": "2500",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0006",
+                "name": "clickup_custom_field_meta_title",
+                "value": "d8071083-aba1-402c-9562-79a105c82f53",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0007",
+                "name": "clickup_custom_field_meta_desc",
+                "value": "7d25d61a-e040-4737-83eb-69ae1d056a17",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0008",
+                "name": "clickup_custom_field_link",
+                "value": "3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "cw-node-001",
+        "name": "Config",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          260,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Konfiguration: Google IDs, Brand Voice, ClickUp Custom Field IDs"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "clickup-content-writer",
+          "options": {}
+        },
+        "id": "cw-node-002",
+        "name": "Webhook Trigger",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          20,
+          300
+        ],
+        "webhookId": "cw-webhook-001",
+        "notesInFlow": true,
+        "notes": "Wird von 01a Outline-Workflow aufgerufen oder direkt per ClickUp Webhook"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "ext-0001",
+                "name": "keyword",
+                "value": "={{ $json.body.keyword || $json.body.task_name || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0002",
+                "name": "task_id",
+                "value": "={{ $json.body.task_id || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0003",
+                "name": "kunde",
+                "value": "={{ $json.body.kunde || $json.body.task?.tags?.[0]?.name || 'unknown' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0004",
+                "name": "outline_json",
+                "value": "={{ $json.body.outline_json || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0005",
+                "name": "wdf_idf_terms",
+                "value": "={{ $json.body.wdf_idf_summary || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0006",
+                "name": "perplexity_research",
+                "value": "={{ $json.body.perplexity_research || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0007",
+                "name": "internal_links",
+                "value": "={{ $json.body.internal_linking_summary || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0008",
+                "name": "wdf_idf_terms_json",
+                "value": "={{ $json.body.wdf_idf_terms ? JSON.stringify($json.body.wdf_idf_terms) : '[]' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0009",
+                "name": "serp_summary",
+                "value": "={{ $json.body.serp_summary || '' }}",
+                "type": "string"
+              },
+              {
+                "id": "ext-0010",
+                "name": "people_also_ask",
+                "value": "={{ $json.body.people_also_ask ? JSON.stringify($json.body.people_also_ask) : '[]' }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "cw-node-003",
+        "name": "Extract Input Data",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          500,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Keyword, Outline JSON, WDF*IDF, Research-Daten aus Webhook extrahieren"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Outline JSON parsen und Sektionen als einzelne Items aufbereiten\nconst input = $input.all()[0].json;\nlet outline;\ntry {\n  outline = typeof input.outline_json === 'string' ? JSON.parse(input.outline_json) : input.outline_json;\n} catch(e) {\n  // Fallback: versuche aus Markdown-Block zu parsen\n  const match = (input.outline_json || '').match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  outline = match ? JSON.parse(match[1].trim()) : { sections: [], title_suggestion: input.keyword };\n}\n\nconst sections = outline.sections || [];\nconst totalSections = sections.length;\n\n// Jede Sektion als separates Item für den Loop\nreturn sections.map((section, index) => ({\n  json: {\n    section_index: index,\n    total_sections: totalSections,\n    h2: section.h2 || '',\n    h3_subsections: JSON.stringify(section.h3_subsections || []),\n    infographic: JSON.stringify(section.infographic || null),\n    key_points: JSON.stringify((section.h3_subsections || []).flatMap(s => s.key_points || [])),\n    wdf_idf_terms_section: JSON.stringify((section.h3_subsections || []).flatMap(s => s.wdf_idf_terms || [])),\n    internal_link: JSON.stringify((section.h3_subsections || []).map(s => s.internal_link).filter(Boolean)),\n    title_suggestion: outline.title_suggestion || '',\n    faq_section: JSON.stringify(outline.faq_section || []),\n    all_internal_links: JSON.stringify(outline.internal_links || [])\n  }\n}));"
+        },
+        "id": "cw-node-004",
+        "name": "Parse Outline & Split Sections",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          740,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Outline JSON parsen → jede H2-Sektion wird ein separates Item für den Section Loop"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein erfahrener SEO-Content-Writer. Schreibe Sektion {{ $json.section_index + 1 }} von {{ $json.total_sections }} eines umfassenden Blogartikels.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## BRAND VOICE\\n{{ $('Config').item.json.brand_voice }}\\n\\n## DIESE SEKTION\\nH2: {{ $json.h2 }}\\nUntersektionen: {{ $json.h3_subsections }}\\nKernpunkte: {{ $json.key_points }}\\nWDF*IDF Terme für diese Sektion: {{ $json.wdf_idf_terms_section }}\\nInterne Links: {{ $json.internal_link }}\\n\\n## INFOGRAFIK-PLATZIERUNG\\n{{ $json.infographic }}\\n\\n## ZUSÄTZLICHER KONTEXT\\nWDF*IDF Terme gesamt: {{ $('Extract Input Data').item.json.wdf_idf_terms }}\\n\\nPerplexity Research (Fakten & Quellen):\\n{{ $('Extract Input Data').item.json.perplexity_research }}\\n\\n## ANFORDERUNGEN\\n1. Schreibe NUR diese eine Sektion (H2 + alle H3-Untersektionen)\\n2. Ca. {{ Math.round(parseInt($('Config').item.json.target_word_count) / $json.total_sections) }} Wörter für diese Sektion\\n3. Integriere die WDF*IDF Terme natürlich in den Text\\n4. Verwende Fakten aus der Perplexity-Recherche mit konkreten Zahlen/Daten\\n5. Baue interne Links als Markdown-Links ein: [Ankertext](URL)\\n6. Bei Infografik-Platzierung: Füge einen Platzhalter ein: <!-- INFOGRAFIK: Beschreibung -->\\n7. Schreibe in Markdown (H2 = ##, H3 = ###)\\n8. Benutze Aufzählungen, Tabellen oder Infoboxen wo sinnvoll\\n9. KEIN Fazit am Ende der Sektion (außer es ist die letzte)\\n10. KEINE Einleitung die den ganzen Artikel zusammenfasst\\n\\nSchreibe NUR den Markdown-Content dieser Sektion, keine Erklärungen.\"\n    }\n  ]\n}",
+          "options": {
+            "timeout": 120000,
+            "batching": {
+              "batch": {
+                "batchSize": 2,
+                "batchInterval": 2000
+              }
+            }
+          }
+        },
+        "id": "cw-node-005",
+        "name": "Claude: Write Section (Pass 1 — Content)",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1000,
+          300
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "uYDWYxVRAB3CZ6Jo",
+            "name": "Anthropic API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Pass 1: Claude schreibt jede Sektion einzeln mit Fakten, WDF*IDF Termen und internen Links"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Claude-Antwort extrahieren\nconst items = $input.all();\nreturn items.map((item, index) => {\n  const content = item.json.content?.[0]?.text || item.json.choices?.[0]?.message?.content || '';\n  return {\n    json: {\n      section_index: index,\n      section_content: content\n    }\n  };\n});"
+        },
+        "id": "cw-node-006",
+        "name": "Extract Section Content",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1240,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Claude-Antworten für jede Sektion extrahieren"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Alle Sektionen zu einem Gesamtartikel zusammenfügen\nconst sections = $input.all()\n  .sort((a, b) => a.json.section_index - b.json.section_index)\n  .map(item => item.json.section_content);\n\nconst fullDraft = sections.join('\\n\\n---\\n\\n');\n\nreturn [{ json: { full_draft: fullDraft, section_count: sections.length } }];"
+        },
+        "id": "cw-node-007",
+        "name": "Assemble Full Draft",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1480,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Alle Sektionen zum vollständigen Artikel-Draft zusammenfügen"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein erfahrener Lektor und SEO-Experte. Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## BRAND VOICE\\n{{ $('Config').item.json.brand_voice }}\\n\\n## WDF*IDF TERME (müssen im Text vorkommen)\\n{{ $('Extract Input Data').item.json.wdf_idf_terms }}\\n\\n## DRAFT\\n{{ $json.full_draft }}\\n\\n## AUFGABEN\\n1. **Kohärenz:** Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\\n2. **Brand Voice:** Passe den Ton durchgängig an die Brand Voice an\\n3. **WDF*IDF Check:** Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\\n4. **Redundanzen entfernen:** Streiche Wiederholungen zwischen Sektionen\\n5. **Einleitung hinzufügen:** Schreibe eine packende Einleitung (3-4 Sätze) mit dem Hauptkeyword\\n6. **Fazit:** Schreibe ein kurzes, handlungsorientiertes Fazit\\n7. **Formatierung:** Sauberes Markdown, sinnvolle Nutzung von Listen, Tabellen, Fettdruck\\n8. **Trennlinien (---) zwischen Sektionen entfernen** — der Artikel soll fließend sein\\n9. Behalte alle internen Links bei\\n10. Behalte alle Infografik-Platzhalter bei\\n\\nGib den KOMPLETTEN überarbeiteten Artikel als Markdown aus. Keine Erklärungen, nur der Artikel.\"\n    }\n  ]\n}",
+          "options": {
+            "timeout": 180000
+          }
+        },
+        "id": "cw-node-008",
+        "name": "Claude: Style & Cohesion Pass (Pass 2)",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1720,
+          300
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "uYDWYxVRAB3CZ6Jo",
+            "name": "Anthropic API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Pass 2: Stil-Überarbeitung, Kohärenz, Einleitung + Fazit, WDF*IDF Check, Brand Voice"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Finalen Artikel extrahieren\nconst response = $input.all()[0].json;\nconst finalArticle = response.content?.[0]?.text || '';\n\nreturn [{ json: { final_article: finalArticle } }];"
+        },
+        "id": "cw-node-009",
+        "name": "Extract Final Article",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1960,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Finalen Artikel-Text aus Claude-Antwort extrahieren"
+      },
+      {
+        "parameters": {
+          "jsCode": "// FAQ-Sektion aus dem Outline generieren (falls vorhanden)\nconst outlineJson = $('Extract Input Data').item.json.outline_json;\nlet outline;\ntry {\n  outline = typeof outlineJson === 'string' ? JSON.parse(outlineJson) : outlineJson;\n} catch(e) { outline = { faq_section: [] }; }\n\nconst faqItems = outline.faq_section || [];\nif (faqItems.length === 0) {\n  return [{ json: { faq_markdown: '', has_faq: false } }];\n}\n\nlet faqMd = '\\n\\n## Häufig gestellte Fragen (FAQ)\\n\\n';\nfor (const faq of faqItems) {\n  faqMd += `### ${faq.question}\\n\\n${faq.answer_outline}\\n\\n`;\n}\n\nreturn [{ json: { faq_markdown: faqMd, has_faq: true, faq_count: faqItems.length } }];"
+        },
+        "id": "cw-node-010",
+        "name": "Build FAQ Section",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1960,
+          500
+        ],
+        "notesInFlow": true,
+        "notes": "FAQ-Sektion aus Outline-Daten als Markdown aufbauen"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL (erste 500 Zeichen)\\n{{ $('Extract Final Article').item.json.final_article.substring(0, 500) }}\\n\\n## ANFORDERUNGEN\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"Max 60 Zeichen, Keyword vorne, emotional/klickstark\\\",\\n  \\\"meta_description\\\": \\\"Max 155 Zeichen, Keyword enthalten, Call-to-Action\\\",\\n  \\\"url_slug\\\": \\\"keyword-basiert-ohne-stoppwoerter\\\",\\n  \\\"og_title\\\": \\\"Für Social Media optimiert, max 70 Zeichen\\\",\\n  \\\"focus_keyword\\\": \\\"Das exakte Hauptkeyword\\\"\\n}\\n\\nNur JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+          "options": {
+            "timeout": 60000
+          }
+        },
+        "id": "cw-node-011",
+        "name": "Claude: Generate Meta Data",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          2200,
+          300
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "uYDWYxVRAB3CZ6Jo",
+            "name": "Anthropic API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Meta Title, Meta Description, URL Slug, OG Title generieren"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Meta-Daten parsen\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet meta;\ntry {\n  meta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  meta = jsonMatch ? JSON.parse(jsonMatch[1].trim()) : {\n    meta_title: $('Extract Input Data').item.json.keyword,\n    meta_description: '',\n    url_slug: $('Extract Input Data').item.json.keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    og_title: $('Extract Input Data').item.json.keyword,\n    focus_keyword: $('Extract Input Data').item.json.keyword\n  };\n}\n\n// FAQ-Daten\nconst faqData = $('Build FAQ Section').item.json;\n\n// Artikel: bevorzuge optimierten, sonst original\nlet finalArticle;\ntry {\n  finalArticle = $('Merge Article (Original or Optimized)').item.json.final_article;\n} catch(e) {\n  finalArticle = $('Extract Final Article').item.json.final_article;\n}\n\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
+        },
+        "id": "cw-node-012",
+        "name": "Parse Meta & Assemble Final",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2440,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Meta JSON parsen, FAQ anhängen, finalen Artikel zusammensetzen"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://www.googleapis.com/drive/v3/files",
+          "authentication": "predefinedCredentialType",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"name\": \"{{ $('Extract Input Data').item.json.keyword }} — Content Draft\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.google_drive_folder_id }}\"]\n}",
+          "options": {},
+          "nodeCredentialType": "googleOAuth2Api"
+        },
+        "id": "cw-node-013",
+        "name": "Create Google Doc",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          2680,
+          300
+        ],
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Google Doc im Drive-Ordner erstellen"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Google Doc ID und URL extrahieren\nconst docResponse = $input.all()[0].json;\nconst docId = docResponse.id;\nconst docUrl = `https://docs.google.com/document/d/${docId}/edit`;\n\n// Content für Google Docs API vorbereiten\n// Wir schreiben den Markdown-Content als Plain Text in das Doc\nconst content = $('Parse Meta & Assemble Final').item.json.full_content;\nconst meta = $('Parse Meta & Assemble Final').item.json.meta;\n\n// Header mit Meta-Daten + Content\nconst fullText = `META TITLE: ${meta.meta_title}\\nMETA DESCRIPTION: ${meta.meta_description}\\nURL SLUG: ${meta.url_slug}\\nFOCUS KEYWORD: ${meta.focus_keyword}\\n\\n${'='.repeat(60)}\\n\\n${content}`;\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    full_text: fullText\n  }\n}];"
+        },
+        "id": "cw-node-014",
+        "name": "Prepare Doc Content",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2920,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Doc ID extrahieren, Meta-Header + Artikel-Content für Google Doc vorbereiten"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://docs.googleapis.com/v1/documents/{{ $json.doc_id }}:batchUpdate",
+          "authentication": "predefinedCredentialType",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"requests\": [\n    {\n      \"insertText\": {\n        \"location\": { \"index\": 1 },\n        \"text\": {{ JSON.stringify($json.full_text) }}\n      }\n    }\n  ]\n}",
+          "options": {},
+          "nodeCredentialType": "googleOAuth2Api"
+        },
+        "id": "cw-node-015",
+        "name": "Write Content to Google Doc",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3160,
+          300
+        ],
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Artikel-Content + Meta-Daten in das Google Doc schreiben"
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"status\": \"review beim kunden\"\n}",
+          "options": {}
+        },
+        "id": "cw-node-016",
+        "name": "Update ClickUp Status → REVIEW BEIM KUNDEN",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3400,
+          200
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Task Status auf REVIEW BEIM KUNDEN setzen nach Content-Erstellung"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/d8071083-aba1-402c-9562-79a105c82f53",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"value\": {{ JSON.stringify($(\"Parse Meta & Assemble Final\").item.json.meta.meta_title || \"\") }}\n}",
+          "options": {}
+        },
+        "id": "cw-node-017",
+        "name": "Set Meta Title in ClickUp",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3400,
+          350
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Meta Title Custom Field in ClickUp setzen"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/7d25d61a-e040-4737-83eb-69ae1d056a17",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"value\": {{ JSON.stringify($(\"Parse Meta & Assemble Final\").item.json.meta.meta_description || \"\") }}\n}",
+          "options": {}
+        },
+        "id": "cw-node-018",
+        "name": "Set Meta Description in ClickUp",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3400,
+          500
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Meta Description Custom Field in ClickUp setzen"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"value\": \"{{ $(\"Prepare Doc Content\").item.json.doc_url }}\"\n}",
+          "options": {}
+        },
+        "id": "cw-node-019",
+        "name": "Set Doc Link in ClickUp",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3400,
+          650
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Link zum Google Doc als Custom Field in ClickUp setzen"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Zusammenfassung\nconst meta = $('Parse Meta & Assemble Final').item.json.meta;\nconst wordCount = $('Parse Meta & Assemble Final').item.json.word_count;\nconst docUrl = $('Prepare Doc Content').item.json.doc_url;\nconst keyword = $('Extract Input Data').item.json.keyword;\n\nreturn [{\n  json: {\n    success: true,\n    keyword: keyword,\n    meta_title: meta.meta_title,\n    meta_description: meta.meta_description,\n    url_slug: meta.url_slug,\n    word_count: wordCount,\n    google_doc_url: docUrl,\n    message: `Content für \"${keyword}\" erstellt (${wordCount} Wörter). Doc: ${docUrl}`\n  }\n}];"
+        },
+        "id": "cw-node-020",
+        "name": "Summary",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3640,
+          400
+        ],
+        "notesInFlow": true,
+        "notes": "Zusammenfassung: Keyword, Meta, Wortanzahl, Google Doc URL"
+      },
+      {
+        "parameters": {
+          "jsCode": "// WDF*IDF Abdeckungsprüfung für den gesamten Beitrag\nconst article = $('Extract Final Article').item.json.final_article.toLowerCase();\nconst wdfTermsRaw = $('Extract Input Data').item.json.wdf_idf_terms_json;\nlet wdfTerms;\ntry {\n  wdfTerms = typeof wdfTermsRaw === 'string' ? JSON.parse(wdfTermsRaw) : wdfTermsRaw;\n} catch(e) { wdfTerms = []; }\n\nif (!wdfTerms || wdfTerms.length === 0) {\n  return [{ json: { wdf_idf_check: 'Keine WDF*IDF Terme vorhanden', coverage_pct: 0, missing_terms: [], found_terms: [] } }];\n}\n\nconst found = [];\nconst missing = [];\nfor (const t of wdfTerms) {\n  const term = (t.term || t).toLowerCase();\n  if (article.includes(term)) {\n    found.push({ term, score: t.score || 0 });\n  } else {\n    missing.push({ term, score: t.score || 0 });\n  }\n}\n\nconst coveragePct = Math.round((found.length / wdfTerms.length) * 100);\n\n// Top 15 fehlende Terme (nach Score sortiert)\nconst topMissing = missing.sort((a, b) => b.score - a.score).slice(0, 15);\n\nreturn [{\n  json: {\n    coverage_pct: coveragePct,\n    found_count: found.length,\n    total_terms: wdfTerms.length,\n    missing_count: missing.length,\n    top_missing_terms: topMissing.map(t => `${t.term} (${t.score})`).join(', '),\n    found_terms: found.map(t => t.term),\n    needs_optimization: coveragePct < 60\n  }\n}];"
+        },
+        "id": "cw-node-021",
+        "name": "WDF*IDF Coverage Check",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2200,
+          500
+        ],
+        "notesInFlow": true,
+        "notes": "Prüft WDF*IDF Abdeckung im Gesamtartikel — fehlende Top-Terme identifizieren"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": false,
+              "leftValue": "",
+              "typeValidation": "loose"
+            },
+            "conditions": [
+              {
+                "id": "cond-wdf-001",
+                "leftValue": "={{ $json.needs_optimization }}",
+                "rightValue": "true",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "id": "cw-node-022",
+        "name": "WDF*IDF Coverage OK?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          2440,
+          500
+        ],
+        "notesInFlow": true,
+        "notes": "Prüft ob WDF*IDF Abdeckung >= 60% ist, sonst Optimierungspass"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung ({{ $('WDF*IDF Coverage Check').item.json.coverage_pct }}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n{{ $('WDF*IDF Coverage Check').item.json.top_missing_terms }}\\n\\n## ARTIKEL\\n{{ $('Extract Final Article').item.json.final_article }}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden. Die Terme müssen organisch in den Text fließen, nicht einfach aufgelistet werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Der Text soll weiterhin natürlich und gut lesbar sein\\n5. Erweitere Absätze wo nötig statt neue hinzuzufügen\\n\\nGib den KOMPLETTEN überarbeiteten Artikel zurück. Nur Markdown, keine Erklärungen.\"\n    }\n  ]\n}",
+          "options": {
+            "timeout": 180000
+          }
+        },
+        "id": "cw-node-023",
+        "name": "Claude: WDF*IDF Optimization (Pass 3)",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          2680,
+          600
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "uYDWYxVRAB3CZ6Jo",
+            "name": "Anthropic API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Pass 3 (optional): Fehlende WDF*IDF Terme natürlich in den Artikel einbauen"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Optimierten Artikel extrahieren und als final_article ersetzen\nconst response = $input.all()[0].json;\nconst optimizedArticle = response.content?.[0]?.text || $('Extract Final Article').item.json.final_article;\n\n// Überschreibe final_article für die nachfolgenden Nodes\nreturn [{ json: { final_article: optimizedArticle } }];"
+        },
+        "id": "cw-node-024",
+        "name": "Extract Optimized Article",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2920,
+          600
+        ],
+        "notesInFlow": true,
+        "notes": "WDF*IDF-optimierten Artikel extrahieren"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Merge: nimmt optimierten Artikel falls vorhanden, sonst Original\nconst items = $input.all();\n// Der letzte Input ist der richtige (entweder optimiert oder original)\nconst finalArticle = items[items.length - 1].json.final_article \n  || $('Extract Final Article').item.json.final_article;\n\nreturn [{ json: { final_article: finalArticle } }];"
+        },
+        "id": "cw-node-025",
+        "name": "Merge Article (Original or Optimized)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3160,
+          500
+        ],
+        "notesInFlow": true,
+        "notes": "Nimmt optimierten Artikel (Pass 3) oder Original (Pass 2)"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/c9c8eaa6-5be9-4952-b8ba-2013c4c9d673",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"value\": {{ JSON.stringify($(\"Parse Meta & Assemble Final\").item.json.meta.focus_keyword || \"\") }}\n}",
+          "options": {}
+        },
+        "id": "cw-node-026",
+        "name": "Set Search-Intent in ClickUp",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3400,
+          800
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Search-Intent Custom Field in ClickUp setzen"
+      }
+    ],
+    "connections": {
+      "Webhook Trigger": {
+        "main": [
+          [
+            {
+              "node": "Config",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Config": {
+        "main": [
+          [
+            {
+              "node": "Extract Input Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Input Data": {
+        "main": [
+          [
+            {
+              "node": "Parse Outline & Split Sections",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Parse Outline & Split Sections": {
+        "main": [
+          [
+            {
+              "node": "Claude: Write Section (Pass 1 — Content)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Claude: Write Section (Pass 1 — Content)": {
+        "main": [
+          [
+            {
+              "node": "Extract Section Content",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Section Content": {
+        "main": [
+          [
+            {
+              "node": "Assemble Full Draft",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Assemble Full Draft": {
+        "main": [
+          [
+            {
+              "node": "Claude: Style & Cohesion Pass (Pass 2)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Claude: Style & Cohesion Pass (Pass 2)": {
+        "main": [
+          [
+            {
+              "node": "Extract Final Article",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Final Article": {
+        "main": [
+          [
+            {
+              "node": "Claude: Generate Meta Data",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Build FAQ Section",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "WDF*IDF Coverage Check",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Claude: Generate Meta Data": {
+        "main": [
+          [
+            {
+              "node": "Parse Meta & Assemble Final",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build FAQ Section": {
+        "main": [
+          [
+            {
+              "node": "Parse Meta & Assemble Final",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Parse Meta & Assemble Final": {
+        "main": [
+          [
+            {
+              "node": "Create Google Doc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create Google Doc": {
+        "main": [
+          [
+            {
+              "node": "Prepare Doc Content",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare Doc Content": {
+        "main": [
+          [
+            {
+              "node": "Write Content to Google Doc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Write Content to Google Doc": {
+        "main": [
+          [
+            {
+              "node": "Update ClickUp Status → REVIEW BEIM KUNDEN",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Set Meta Title in ClickUp",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Set Meta Description in ClickUp",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Set Doc Link in ClickUp",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Set Search-Intent in ClickUp",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update ClickUp Status → REVIEW": {
+        "main": [
+          [
+            {
+              "node": "Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Meta Title in ClickUp": {
+        "main": [
+          [
+            {
+              "node": "Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Meta Description in ClickUp": {
+        "main": [
+          [
+            {
+              "node": "Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Doc Link in ClickUp": {
+        "main": [
+          [
+            {
+              "node": "Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "WDF*IDF Coverage Check": {
+        "main": [
+          [
+            {
+              "node": "WDF*IDF Coverage OK?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "WDF*IDF Coverage OK?": {
+        "main": [
+          [
+            {
+              "node": "Claude: WDF*IDF Optimization (Pass 3)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Merge Article (Original or Optimized)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Claude: WDF*IDF Optimization (Pass 3)": {
+        "main": [
+          [
+            {
+              "node": "Extract Optimized Article",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Optimized Article": {
+        "main": [
+          [
+            {
+              "node": "Merge Article (Original or Optimized)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge Article (Original or Optimized)": {
+        "main": [
+          [
+            {
+              "node": "Parse Meta & Assemble Final",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Search-Intent in ClickUp": {
+        "main": [
+          [
+            {
+              "node": "Summary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Carlos Arad",
+    "name": null,
+    "description": null,
+    "autosaved": false,
+    "workflowPublishHistory": [
+      {
+        "createdAt": "2026-03-24T15:32:27.625Z",
+        "id": 59,
+        "workflowId": "Qm2j4ZECEwa9jTdp",
+        "versionId": "3722ebb7-919b-4a02-b1a0-46a072c168a6",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-24T15:32:27.610Z",
+        "id": 58,
+        "workflowId": "Qm2j4ZECEwa9jTdp",
+        "versionId": "3722ebb7-919b-4a02-b1a0-46a072c168a6",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      }
+    ]
+  }
 }

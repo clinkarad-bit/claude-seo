@@ -1,31 +1,27 @@
 {
+  "updatedAt": "2026-03-24T15:43:49.985Z",
+  "createdAt": "2026-03-24T14:39:49.973Z",
+  "id": "p4ptjNCZqDESIfJb",
   "name": "COVAGO 04 - WordPress Publish",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
-        "events": [
-          "taskStatusUpdated"
-        ],
-        "filters": {
-          "status": "IN WORDPRESS ANLEGEN"
-        }
+        "httpMethod": "POST",
+        "path": "covago-wordpress-publish",
+        "options": {}
       },
       "id": "a1b2c3d4-1001-4000-a000-000000000001",
-      "name": "ClickUp Trigger",
-      "type": "n8n-nodes-base.clickUpTrigger",
-      "typeVersion": 1,
+      "name": "ClickUp Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
       "position": [
         -200,
         300
       ],
-      "webhookId": "wordpress-publish-trigger",
-      "credentials": {
-        "clickUpApi": {
-          "id": "wwbq6Yxnr2EpmrFv",
-          "name": "ClickUp API"
-        }
-      },
-      "notes": "Triggers when a ClickUp task status changes to 'IN WORDPRESS ANLEGEN'"
+      "webhookId": "wordpress-publish-trigger"
     },
     {
       "parameters": {
@@ -64,16 +60,16 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Trigger').item.json.task_id }}",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "clickUpApi",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
+        "authentication": "genericCredentialType",
         "options": {
           "response": {
             "response": {
               "responseFormat": "json"
             }
           }
-        }
+        },
+        "genericAuthType": "httpHeaderAuth"
       },
       "id": "a1b2c3d4-1001-4000-a000-000000000003",
       "name": "Get Task Details",
@@ -84,7 +80,7 @@
         300
       ],
       "credentials": {
-        "clickUpApi": {
+        "httpHeaderAuth": {
           "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
@@ -129,8 +125,8 @@
       ],
       "credentials": {
         "googleDocsOAuth2Api": {
-          "id": "CREDENTIAL_GOOGLE",
-          "name": "Google OAuth2"
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
         }
       },
       "notes": "Read the Google Doc content as JSON via Google Docs API"
@@ -186,7 +182,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WP_COVAGO",
+          "id": "O6BnpqrBfY1KaPV8",
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
@@ -276,7 +272,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WP_COVAGO",
+          "id": "O6BnpqrBfY1KaPV8",
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
@@ -430,7 +426,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WP_COVAGO",
+          "id": "O6BnpqrBfY1KaPV8",
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
@@ -506,7 +502,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WP_COVAGO",
+          "id": "O6BnpqrBfY1KaPV8",
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
@@ -541,7 +537,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WP_COVAGO",
+          "id": "O6BnpqrBfY1KaPV8",
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
@@ -576,7 +572,7 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WP_COVAGO",
+          "id": "O6BnpqrBfY1KaPV8",
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
@@ -620,8 +616,8 @@
       ],
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "CREDENTIAL_GOOGLE",
-          "name": "Google OAuth2"
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
         }
       },
       "notes": "Move Google Doc from 'Freigegeben' folder to 'WordPress Angelegt' folder via Google Drive API"
@@ -662,8 +658,8 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "CREDENTIAL_GOOGLE",
-          "name": "Google OAuth2"
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
         }
       },
       "notes": "Update Google Sheet: set status to 'in_wordpress' and add the WordPress post URL"
@@ -672,8 +668,7 @@
       "parameters": {
         "method": "PUT",
         "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Data').item.json.task_id }}/field/{{ $env.CLICKUP_WORDPRESS_URL_FIELD_ID || 'wordpress_url_field_id' }}",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "clickUpApi",
+        "authentication": "genericCredentialType",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"value\": {{ JSON.stringify($('Create WordPress Post').item.json.link || '') }}\n}",
@@ -684,7 +679,8 @@
             }
           },
           "never_error": true
-        }
+        },
+        "genericAuthType": "httpHeaderAuth"
       },
       "id": "a1b2c3d4-1001-4000-a000-000000000026",
       "name": "Update ClickUp Task",
@@ -695,7 +691,7 @@
         200
       ],
       "credentials": {
-        "clickUpApi": {
+        "httpHeaderAuth": {
           "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
@@ -705,17 +701,6 @@
     }
   ],
   "connections": {
-    "ClickUp Trigger": {
-      "main": [
-        [
-          {
-            "node": "Config",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Config": {
       "main": [
         [
@@ -993,21 +978,1062 @@
           }
         ]
       ]
+    },
+    "ClickUp Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
   },
   "staticData": null,
-  "tags": [
+  "meta": null,
+  "pinData": null,
+  "versionId": "366d5159-40bf-45d8-a7a5-802f8ccb351d",
+  "activeVersionId": "366d5159-40bf-45d8-a7a5-802f8ccb351d",
+  "versionCounter": 12,
+  "triggerCount": 1,
+  "shared": [
     {
-      "name": "COVAGO",
-      "createdAt": "2026-03-24T00:00:00.000Z",
-      "updatedAt": "2026-03-24T00:00:00.000Z"
+      "updatedAt": "2026-03-24T14:39:49.975Z",
+      "createdAt": "2026-03-24T14:39:49.975Z",
+      "role": "workflow:owner",
+      "workflowId": "p4ptjNCZqDESIfJb",
+      "projectId": "ARFgyYnfsAM8gxSD",
+      "project": {
+        "updatedAt": "2026-03-24T00:25:43.398Z",
+        "createdAt": "2026-03-23T23:46:41.795Z",
+        "id": "ARFgyYnfsAM8gxSD",
+        "name": "Carlos Arad <ca@carlosarad.de>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      }
     }
   ],
-  "triggerCount": 1,
-  "updatedAt": "2026-03-24T00:00:00.000Z",
-  "versionId": "1"
+  "tags": [],
+  "activeVersion": {
+    "updatedAt": "2026-03-24T15:43:49.987Z",
+    "createdAt": "2026-03-24T15:43:49.987Z",
+    "versionId": "366d5159-40bf-45d8-a7a5-802f8ccb351d",
+    "workflowId": "p4ptjNCZqDESIfJb",
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "covago-wordpress-publish",
+          "options": {}
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000001",
+        "name": "ClickUp Webhook Trigger",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          -200,
+          300
+        ],
+        "webhookId": "wordpress-publish-trigger"
+      },
+      {
+        "parameters": {
+          "values": {
+            "string": [
+              {
+                "name": "wordpress_url",
+                "value": "https://covago.de"
+              },
+              {
+                "name": "freigegeben_folder_id",
+                "value": "={{ $env.GOOGLE_DRIVE_FREIGEGEBEN_FOLDER_ID || '' }}"
+              },
+              {
+                "name": "wordpress_folder_id",
+                "value": "={{ $env.GOOGLE_DRIVE_WORDPRESS_FOLDER_ID || '' }}"
+              },
+              {
+                "name": "google_sheet_id",
+                "value": "={{ $env.GOOGLE_SHEET_ID || '' }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000002",
+        "name": "Config",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          40,
+          300
+        ],
+        "notes": "Configuration: wordpress_url, freigegeben_folder_id, wordpress_folder_id, google_sheet_id"
+      },
+      {
+        "parameters": {
+          "method": "GET",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
+          "authentication": "genericCredentialType",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          },
+          "genericAuthType": "httpHeaderAuth"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000003",
+        "name": "Get Task Details",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          280,
+          300
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notes": "GET ClickUp task to retrieve custom fields: Link zum Beitrag, Meta Title, Meta Description, Themen-Cluster"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Extract custom fields from ClickUp task\nconst task = $input.first().json;\nconst customFields = task.custom_fields || [];\n\nfunction getFieldValue(fields, fieldName) {\n  const field = fields.find(f => f.name === fieldName);\n  if (!field) return '';\n  // Text fields\n  if (field.type === 'short_text' || field.type === 'text' || field.type === 'url') {\n    return field.value || '';\n  }\n  // Drop-down fields\n  if (field.type === 'drop_down' && field.type_config && field.type_config.options) {\n    const selected = field.type_config.options.find(o => o.orderindex === field.value);\n    return selected ? selected.name : '';\n  }\n  return field.value || '';\n}\n\nconst googleDocUrl = getFieldValue(customFields, 'Link zum Beitrag');\nconst metaTitle = getFieldValue(customFields, 'Meta Title');\nconst metaDescription = getFieldValue(customFields, 'Meta Description');\nconst themenCluster = getFieldValue(customFields, 'Themen-Cluster');\n\n// Extract Google Doc ID from URL\n// Format: https://docs.google.com/document/d/DOC_ID/edit\nlet googleDocId = '';\nif (googleDocUrl) {\n  const match = googleDocUrl.match(/\\/document\\/d\\/([a-zA-Z0-9_-]+)/);\n  if (match) {\n    googleDocId = match[1];\n  }\n}\n\n// Extract featured image URL from task description if present\nlet featuredImageUrl = '';\nif (task.description) {\n  const imgMatch = task.description.match(/!\\[.*?\\]\\((https?:\\/\\/[^)]+)\\)/);\n  if (imgMatch) {\n    featuredImageUrl = imgMatch[1];\n  } else {\n    const urlMatch = task.description.match(/(https?:\\/\\/[^\\s]+\\.(?:jpg|jpeg|png|gif|webp))/i);\n    if (urlMatch) {\n      featuredImageUrl = urlMatch[1];\n    }\n  }\n}\n\nreturn [{\n  json: {\n    task_id: task.id,\n    task_name: task.name,\n    google_doc_url: googleDocUrl,\n    google_doc_id: googleDocId,\n    meta_title: metaTitle,\n    meta_description: metaDescription,\n    themen_cluster: themenCluster,\n    featured_image_url: featuredImageUrl\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000004",
+        "name": "Extract Data",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          520,
+          300
+        ],
+        "notes": "Extract Google Doc ID, meta_title, meta_description, themen_cluster from ClickUp task custom fields"
+      },
+      {
+        "parameters": {
+          "method": "GET",
+          "url": "=https://docs.googleapis.com/v1/documents/{{ $('Extract Data').item.json.google_doc_id }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleDocsOAuth2Api",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000005",
+        "name": "Read Google Doc",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          760,
+          300
+        ],
+        "credentials": {
+          "googleDocsOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        },
+        "notes": "Read the Google Doc content as JSON via Google Docs API"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Convert Google Docs JSON content to clean HTML for WordPress\nconst doc = $input.first().json;\nconst content = doc.body?.content || [];\n\nlet html = '';\nlet listStack = [];\n\nfunction getTextStyle(style) {\n  let prefix = '';\n  let suffix = '';\n  if (style?.bold) { prefix += '<strong>'; suffix = '</strong>' + suffix; }\n  if (style?.italic) { prefix += '<em>'; suffix = '</em>' + suffix; }\n  if (style?.underline) { prefix += '<u>'; suffix = '</u>' + suffix; }\n  if (style?.strikethrough) { prefix += '<del>'; suffix = '</del>' + suffix; }\n  return { prefix, suffix };\n}\n\nfunction escapeHtml(text) {\n  return text\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;');\n}\n\nfor (const element of content) {\n  if (element.paragraph) {\n    const para = element.paragraph;\n    const style = para.paragraphStyle?.namedStyleType || 'NORMAL_TEXT';\n    let text = '';\n\n    for (const elem of (para.elements || [])) {\n      if (elem.textRun) {\n        const ts = getTextStyle(elem.textRun.textStyle || {});\n        let runText = escapeHtml(elem.textRun.content || '');\n\n        // Handle links\n        if (elem.textRun.textStyle?.link?.url) {\n          const url = elem.textRun.textStyle.link.url;\n          runText = `<a href=\"${url}\">${runText}</a>`;\n        }\n\n        text += ts.prefix + runText + ts.suffix;\n      }\n      if (elem.inlineObjectElement) {\n        // Inline images - reference by object ID\n        const objId = elem.inlineObjectElement.inlineObjectId;\n        const inlineObj = doc.inlineObjects?.[objId];\n        if (inlineObj) {\n          const imgProps = inlineObj.inlineObjectProperties?.embeddedObject;\n          if (imgProps?.imageProperties?.contentUri) {\n            const alt = imgProps.title || imgProps.description || '';\n            text += `<img src=\"${imgProps.imageProperties.contentUri}\" alt=\"${escapeHtml(alt)}\" />`;\n          }\n        }\n      }\n    }\n\n    // Trim trailing newline\n    text = text.replace(/\\n$/, '');\n\n    if (!text.trim()) {\n      continue;\n    }\n\n    // Handle list items\n    if (para.bullet) {\n      const listId = para.bullet.listId;\n      const nestingLevel = para.bullet.nestingLevel || 0;\n      const listType = doc.lists?.[listId]?.listProperties?.nestingLevels?.[nestingLevel]?.glyphType\n        ? 'ol' : 'ul';\n\n      if (listStack.length === 0 || listStack[listStack.length - 1].listId !== listId) {\n        html += `<${listType}>`;\n        listStack.push({ listId, type: listType });\n      }\n      html += `<li>${text}</li>`;\n      continue;\n    }\n\n    // Close any open lists\n    while (listStack.length > 0) {\n      const last = listStack.pop();\n      html += `</${last.type}>`;\n    }\n\n    // Map heading styles\n    switch (style) {\n      case 'HEADING_1':\n        html += `<h1>${text}</h1>`;\n        break;\n      case 'HEADING_2':\n        html += `<h2>${text}</h2>`;\n        break;\n      case 'HEADING_3':\n        html += `<h3>${text}</h3>`;\n        break;\n      case 'HEADING_4':\n        html += `<h4>${text}</h4>`;\n        break;\n      case 'HEADING_5':\n        html += `<h5>${text}</h5>`;\n        break;\n      case 'HEADING_6':\n        html += `<h6>${text}</h6>`;\n        break;\n      default:\n        html += `<p>${text}</p>`;\n        break;\n    }\n  }\n\n  if (element.table) {\n    html += '<table>';\n    for (const row of (element.table.tableRows || [])) {\n      html += '<tr>';\n      for (const cell of (row.tableCells || [])) {\n        let cellText = '';\n        for (const cp of (cell.content || [])) {\n          if (cp.paragraph) {\n            for (const elem of (cp.paragraph.elements || [])) {\n              if (elem.textRun) {\n                cellText += escapeHtml(elem.textRun.content || '').replace(/\\n$/, '');\n              }\n            }\n          }\n        }\n        html += `<td>${cellText}</td>`;\n      }\n      html += '</tr>';\n    }\n    html += '</table>';\n  }\n}\n\n// Close remaining open lists\nwhile (listStack.length > 0) {\n  const last = listStack.pop();\n  html += `</${last.type}>`;\n}\n\nreturn [{\n  json: {\n    html_content: html\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000006",
+        "name": "Convert Doc to HTML",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1000,
+          300
+        ],
+        "notes": "Convert Google Docs JSON content to clean HTML suitable for WordPress"
+      },
+      {
+        "parameters": {
+          "method": "GET",
+          "url": "={{ $('Config').item.json.wordpress_url }}/wp-json/wp/v2/categories",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "search",
+                "value": "={{ $('Extract Data').item.json.themen_cluster }}"
+              },
+              {
+                "name": "per_page",
+                "value": "100"
+              }
+            ]
+          },
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000007",
+        "name": "Search WordPress Category",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1240,
+          200
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "O6BnpqrBfY1KaPV8",
+            "name": "WordPress Basic Auth (covago.de)"
+          }
+        },
+        "notes": "Search for Themen-Cluster category in WordPress"
+      },
+      {
+        "parameters": {
+          "jsCode": "const categories = $input.first().json;\nconst themenCluster = $('Extract Data').item.json.themen_cluster;\n\n// Check if exact match exists\nlet categoryId = null;\nif (Array.isArray(categories)) {\n  const match = categories.find(\n    c => c.name.toLowerCase() === themenCluster.toLowerCase()\n  );\n  if (match) {\n    categoryId = match.id;\n  }\n}\n\nreturn [{\n  json: {\n    category_id: categoryId,\n    category_name: themenCluster,\n    needs_creation: categoryId === null\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000008",
+        "name": "Check Category Exists",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1480,
+          200
+        ],
+        "notes": "Check if the WordPress category was found or needs to be created"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "condition-category-exists",
+                "leftValue": "={{ $json.needs_creation }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000009",
+        "name": "Category Exists?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          1720,
+          200
+        ],
+        "notes": "Route: true = needs creation, false = category already exists"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Config').item.json.wordpress_url }}/wp-json/wp/v2/categories",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "name",
+                "value": "={{ $('Extract Data').item.json.themen_cluster }}"
+              },
+              {
+                "name": "slug",
+                "value": "={{ $('Extract Data').item.json.themen_cluster.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }}"
+              }
+            ]
+          },
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000010",
+        "name": "Create WordPress Category",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1960,
+          100
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "O6BnpqrBfY1KaPV8",
+            "name": "WordPress Basic Auth (covago.de)"
+          }
+        },
+        "notes": "Create the Themen-Cluster as a new WordPress category"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Merge category ID from either the existing lookup or the newly created category\nconst checkNode = $('Check Category Exists').item.json;\nconst ifNode = $('Category Exists?');\n\nlet categoryId;\ntry {\n  // If category was created\n  const created = $input.first().json;\n  categoryId = created.id || checkNode.category_id;\n} catch (e) {\n  categoryId = checkNode.category_id;\n}\n\nreturn [{\n  json: {\n    category_id: categoryId\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000011",
+        "name": "Merge Category ID (Created)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2200,
+          100
+        ],
+        "notes": "Extract the category ID from the newly created category"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Pass through existing category ID\nconst checkNode = $('Check Category Exists').item.json;\n\nreturn [{\n  json: {\n    category_id: checkNode.category_id\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000012",
+        "name": "Merge Category ID (Existing)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2200,
+          300
+        ],
+        "notes": "Pass through the existing category ID"
+      },
+      {
+        "parameters": {
+          "mode": "chooseBranch",
+          "output": "empty"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000013",
+        "name": "Merge Category",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3,
+        "position": [
+          2440,
+          200
+        ],
+        "notes": "Merge the two category branches back together"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Determine the category_id from whichever branch ran\nlet categoryId = null;\n\ntry {\n  const created = $('Merge Category ID (Created)').item.json;\n  if (created && created.category_id) categoryId = created.category_id;\n} catch(e) {}\n\nif (!categoryId) {\n  try {\n    const existing = $('Merge Category ID (Existing)').item.json;\n    if (existing && existing.category_id) categoryId = existing.category_id;\n  } catch(e) {}\n}\n\nconst featuredImageUrl = $('Extract Data').item.json.featured_image_url || '';\n\nreturn [{\n  json: {\n    category_id: categoryId,\n    has_featured_image: featuredImageUrl.length > 0,\n    featured_image_url: featuredImageUrl\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000014",
+        "name": "Prepare Post Data",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2680,
+          200
+        ],
+        "notes": "Consolidate category ID and check for featured image"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "condition-has-image",
+                "leftValue": "={{ $json.has_featured_image }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "equals",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000015",
+        "name": "Has Featured Image?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          2920,
+          200
+        ],
+        "notes": "Check if there is a featured image URL to upload"
+      },
+      {
+        "parameters": {
+          "method": "GET",
+          "url": "={{ $('Prepare Post Data').item.json.featured_image_url }}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "file"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000016",
+        "name": "Download Featured Image",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3160,
+          100
+        ],
+        "notes": "Download the featured image from the URL found in the ClickUp task"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Config').item.json.wordpress_url }}/wp-json/wp/v2/media",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Content-Disposition",
+                "value": "attachment; filename=\"featured-image.jpg\""
+              }
+            ]
+          },
+          "sendBody": true,
+          "contentType": "binaryData",
+          "inputDataFieldName": "data",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000017",
+        "name": "Upload Featured Image",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          3400,
+          100
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "O6BnpqrBfY1KaPV8",
+            "name": "WordPress Basic Auth (covago.de)"
+          }
+        },
+        "notes": "Upload the featured image to WordPress media library"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Extract the media ID from the uploaded image\nconst media = $input.first().json;\nreturn [{\n  json: {\n    featured_media_id: media.id || 0\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000018",
+        "name": "Extract Media ID",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3640,
+          100
+        ],
+        "notes": "Extract the WordPress media ID from the upload response"
+      },
+      {
+        "parameters": {
+          "jsCode": "// No featured image - set media ID to 0\nreturn [{\n  json: {\n    featured_media_id: 0\n  }\n}];"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000019",
+        "name": "No Image",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3640,
+          300
+        ],
+        "notes": "No featured image available - set media ID to 0"
+      },
+      {
+        "parameters": {
+          "mode": "chooseBranch",
+          "output": "empty"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000020",
+        "name": "Merge Image",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3,
+        "position": [
+          3880,
+          200
+        ],
+        "notes": "Merge image upload branches back together"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Config').item.json.wordpress_url }}/wp-json/wp/v2/posts",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"title\": {{ JSON.stringify($('Extract Data').item.json.task_name) }},\n  \"content\": {{ JSON.stringify($('Convert Doc to HTML').item.json.html_content) }},\n  \"status\": \"draft\",\n  \"categories\": [{{ $('Prepare Post Data').item.json.category_id || 1 }}],\n  \"featured_media\": {{ (() => { try { return $('Extract Media ID').item.json.featured_media_id || 0; } catch(e) { return 0; } })() }}\n}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000021",
+        "name": "Create WordPress Post",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4120,
+          200
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "O6BnpqrBfY1KaPV8",
+            "name": "WordPress Basic Auth (covago.de)"
+          }
+        },
+        "notes": "Create a new WordPress post as draft with the content from Google Docs, category, and featured image"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Config').item.json.wordpress_url }}/wp-json/rankmath/v1/updateMeta",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"objectID\": {{ $('Create WordPress Post').item.json.id }},\n  \"objectType\": \"post\",\n  \"meta\": {\n    \"rank_math_title\": {{ JSON.stringify($('Extract Data').item.json.meta_title) }},\n    \"rank_math_description\": {{ JSON.stringify($('Extract Data').item.json.meta_description) }},\n    \"rank_math_focus_keyword\": {{ JSON.stringify($('Extract Data').item.json.task_name) }}\n  }\n}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            },
+            "allowUnauthorizedCerts": false,
+            "never_error": true
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000022",
+        "name": "Set RankMath Meta",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4360,
+          200
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "O6BnpqrBfY1KaPV8",
+            "name": "WordPress Basic Auth (covago.de)"
+          }
+        },
+        "notes": "Set RankMath SEO meta (title, description, focus keyword) on the created post. Falls back gracefully if RankMath API is not available.",
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "={{ $('Config').item.json.wordpress_url }}/wp-json/wp/v2/posts/{{ $('Create WordPress Post').item.json.id }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpBasicAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"meta\": {\n    \"rank_math_title\": {{ JSON.stringify($('Extract Data').item.json.meta_title) }},\n    \"rank_math_description\": {{ JSON.stringify($('Extract Data').item.json.meta_description) }},\n    \"rank_math_focus_keyword\": {{ JSON.stringify($('Extract Data').item.json.task_name) }}\n  }\n}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            },
+            "never_error": true
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000023",
+        "name": "Set RankMath Meta Fallback",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4600,
+          200
+        ],
+        "credentials": {
+          "httpBasicAuth": {
+            "id": "O6BnpqrBfY1KaPV8",
+            "name": "WordPress Basic Auth (covago.de)"
+          }
+        },
+        "notes": "Fallback: Update post meta directly via WP REST API if RankMath endpoint is unavailable",
+        "onError": "continueRegularOutput"
+      },
+      {
+        "parameters": {
+          "method": "PATCH",
+          "url": "=https://www.googleapis.com/drive/v3/files/{{ $('Extract Data').item.json.google_doc_id }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleDriveOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "addParents",
+                "value": "={{ $('Config').item.json.wordpress_folder_id }}"
+              },
+              {
+                "name": "removeParents",
+                "value": "={{ $('Config').item.json.freigegeben_folder_id }}"
+              }
+            ]
+          },
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000024",
+        "name": "Move Google Doc",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          4840,
+          200
+        ],
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        },
+        "notes": "Move Google Doc from 'Freigegeben' folder to 'WordPress Angelegt' folder via Google Drive API"
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Config').item.json.google_sheet_id }}/values/Status!A:Z",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleSheetsOAuth2Api",
+          "sendQuery": true,
+          "queryParameters": {
+            "parameters": [
+              {
+                "name": "valueInputOption",
+                "value": "USER_ENTERED"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"range\": \"Status!A:Z\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [\n      {{ JSON.stringify($('Extract Data').item.json.task_name) }},\n      \"in_wordpress\",\n      {{ JSON.stringify($('Create WordPress Post').item.json.link || '') }},\n      {{ JSON.stringify(new Date().toISOString().split('T')[0]) }}\n    ]\n  ]\n}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000025",
+        "name": "Update Google Sheet",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          5080,
+          200
+        ],
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        },
+        "notes": "Update Google Sheet: set status to 'in_wordpress' and add the WordPress post URL"
+      },
+      {
+        "parameters": {
+          "method": "PUT",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Data').item.json.task_id }}/field/{{ $env.CLICKUP_WORDPRESS_URL_FIELD_ID || 'wordpress_url_field_id' }}",
+          "authentication": "genericCredentialType",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"value\": {{ JSON.stringify($('Create WordPress Post').item.json.link || '') }}\n}",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            },
+            "never_error": true
+          },
+          "genericAuthType": "httpHeaderAuth"
+        },
+        "id": "a1b2c3d4-1001-4000-a000-000000000026",
+        "name": "Update ClickUp Task",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          5320,
+          200
+        ],
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        },
+        "notes": "Set the 'wordpress_url' custom field on the ClickUp task with the WordPress post URL",
+        "onError": "continueRegularOutput"
+      }
+    ],
+    "connections": {
+      "Config": {
+        "main": [
+          [
+            {
+              "node": "Get Task Details",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Get Task Details": {
+        "main": [
+          [
+            {
+              "node": "Extract Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Data": {
+        "main": [
+          [
+            {
+              "node": "Read Google Doc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Read Google Doc": {
+        "main": [
+          [
+            {
+              "node": "Convert Doc to HTML",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Convert Doc to HTML": {
+        "main": [
+          [
+            {
+              "node": "Search WordPress Category",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Search WordPress Category": {
+        "main": [
+          [
+            {
+              "node": "Check Category Exists",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Check Category Exists": {
+        "main": [
+          [
+            {
+              "node": "Category Exists?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Category Exists?": {
+        "main": [
+          [
+            {
+              "node": "Create WordPress Category",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Merge Category ID (Existing)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create WordPress Category": {
+        "main": [
+          [
+            {
+              "node": "Merge Category ID (Created)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge Category ID (Created)": {
+        "main": [
+          [
+            {
+              "node": "Merge Category",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge Category ID (Existing)": {
+        "main": [
+          [
+            {
+              "node": "Merge Category",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Merge Category": {
+        "main": [
+          [
+            {
+              "node": "Prepare Post Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare Post Data": {
+        "main": [
+          [
+            {
+              "node": "Has Featured Image?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Has Featured Image?": {
+        "main": [
+          [
+            {
+              "node": "Download Featured Image",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "No Image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Download Featured Image": {
+        "main": [
+          [
+            {
+              "node": "Upload Featured Image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Upload Featured Image": {
+        "main": [
+          [
+            {
+              "node": "Extract Media ID",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Media ID": {
+        "main": [
+          [
+            {
+              "node": "Merge Image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "No Image": {
+        "main": [
+          [
+            {
+              "node": "Merge Image",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Merge Image": {
+        "main": [
+          [
+            {
+              "node": "Create WordPress Post",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create WordPress Post": {
+        "main": [
+          [
+            {
+              "node": "Set RankMath Meta",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set RankMath Meta": {
+        "main": [
+          [
+            {
+              "node": "Set RankMath Meta Fallback",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set RankMath Meta Fallback": {
+        "main": [
+          [
+            {
+              "node": "Move Google Doc",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Move Google Doc": {
+        "main": [
+          [
+            {
+              "node": "Update Google Sheet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update Google Sheet": {
+        "main": [
+          [
+            {
+              "node": "Update ClickUp Task",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ClickUp Webhook Trigger": {
+        "main": [
+          [
+            {
+              "node": "Config",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Carlos Arad",
+    "name": null,
+    "description": null,
+    "autosaved": false,
+    "workflowPublishHistory": [
+      {
+        "createdAt": "2026-03-24T15:43:50.065Z",
+        "id": 65,
+        "workflowId": "p4ptjNCZqDESIfJb",
+        "versionId": "366d5159-40bf-45d8-a7a5-802f8ccb351d",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-24T15:43:50.047Z",
+        "id": 64,
+        "workflowId": "p4ptjNCZqDESIfJb",
+        "versionId": "366d5159-40bf-45d8-a7a5-802f8ccb351d",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      }
+    ]
+  }
 }
