@@ -19,7 +19,7 @@
       "webhookId": "f8e7d6c5-2222-4bbb-cccc-000000000001",
       "credentials": {
         "clickUpApi": {
-          "id": "CLICKUP_CREDENTIAL_ID",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       }
@@ -71,8 +71,8 @@
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "CLICKUP_HEADER_AUTH_CREDENTIAL_ID",
-          "name": "ClickUp Header Auth"
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
         }
       }
     },
@@ -163,7 +163,7 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "GOOGLE_OAUTH2_CREDENTIAL_ID",
+          "id": "CREDENTIAL_GOOGLE",
           "name": "Google OAuth2"
         }
       }
@@ -230,8 +230,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "WORDPRESS_CREDENTIAL_ID",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       }
     },

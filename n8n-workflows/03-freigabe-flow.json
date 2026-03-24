@@ -19,7 +19,7 @@
       "webhookId": "freigabe-clickup-webhook",
       "credentials": {
         "clickUpApi": {
-          "id": "CLICKUP_CREDENTIAL_ID",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       },
@@ -122,8 +122,8 @@
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "CLICKUP_HTTP_HEADER_CREDENTIAL_ID",
-          "name": "ClickUp Header Auth"
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
         }
       },
       "notes": "Fetch the full ClickUp task to access custom fields, including 'Link zum Beitrag'."
@@ -175,7 +175,7 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "GOOGLE_OAUTH2_CREDENTIAL_ID",
+          "id": "CREDENTIAL_GOOGLE",
           "name": "Google OAuth2"
         }
       },
@@ -235,8 +235,8 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
-          "name": "Google Sheets OAuth2"
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
         }
       },
       "notes": "Update the keyword map spreadsheet: set Status to 'freigegeben' for the matching topic (Thema)."

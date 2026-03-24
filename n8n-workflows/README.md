@@ -32,23 +32,37 @@ ClickUp Board (Blogpipeline)
 
 ## Workflows
 
-### 01 - Main Content Pipeline (`01-main-content-pipeline.json`)
+### 00 - Keyword Research (`00-keyword-research.json`)
+**Trigger:** ClickUp Webhook → Seed Keyword
+- DataForSEO: Keyword Suggestions + Related Keywords (700+ Keywords)
+- Deduplizieren & Gruppieren
+- Google Sheet erstellen mit 3 Worksheets
+- ClickUp Tasks pro Keyword anlegen
+
+### 01a - Outline Generation (`01a-outline-generation.json`)
 **Trigger:** ClickUp Task Status → "COPYWRITING"
 
 Ablauf:
-1. **SERP Analyse** - Top 10 Google-Ergebnisse analysieren
-2. **WDF*IDF Analyse** - Termgewichtung der Top 10
-3. **People Also Ask + Reddit** - FAQ-Fragen sammeln
-4. **Perplexity Deep Research** - Umfassende Themenrecherche
-5. **Claude: Outline** - Struktur mit FAQs, interner Verlinkung
-6. **Claude: Content Writing** - Skyscraper-Artikel schreiben
-7. **Claude: GEO Optimierung** - Struktur & Formulierungen für GEO/SEO
-8. **Claude: Sprachstil + Humanizer** - KI-Sprache entfernen, Kundenstil einbauen
-9. **Claude: Meta Title & Description** - SEO Meta-Daten
-10. **Gemini: Bilder** - 3 Bildvarianten generieren
-11. **Google Doc erstellen** - Artikel in Google Drive ablegen
-12. **Google Sheet updaten** - Status + Link eintragen
-13. **ClickUp updaten** - Google Doc Link + Bilder in Task
+1. **SERP Analyse** (DataForSEO) - Top 10 Google-Ergebnisse
+2. **Content Parsing** (DataForSEO) - Volltext der Top 10 laden
+3. **WDF*IDF Calculator** - Top 50 Terme berechnen
+4. **People Also Ask + Reddit** - FAQ-Fragen sammeln
+5. **Perplexity Deep Research** - Aktuelle Fakten & Quellen
+6. **Keyword Map lesen** (Google Sheets) - Interne Verlinkung
+7. **Claude: Outline generieren** - Struktur mit H2/H3, FAQs, WDF*IDF-Terme
+8. **Trigger 01b** - Alle Daten an Content Writer übergeben
+
+### 01b - Content Writer (`01b-content-writer.json`)
+**Trigger:** Webhook von 01a
+
+Ablauf:
+1. **Pass 1: Section Writing** - Jede H2-Sektion einzeln mit Claude schreiben
+2. **Pass 2: Style & Cohesion** - Übergänge, Brand Voice, Intro + Fazit
+3. **WDF*IDF Coverage Check** - Prüfen ob ≥60% der Top-50-Terme im Artikel
+4. **Pass 3: WDF*IDF Optimization** (optional) - Fehlende Terme einbauen
+5. **Claude: Meta Data** - Title, Description, Slug generieren
+6. **Google Doc erstellen** - Artikel in Google Drive ablegen
+7. **ClickUp updaten** - Meta-Daten + Doc-Link in Custom Fields
 
 ### 02 - Review Flow (`02-review-flow.json`)
 **Trigger:** ClickUp Task Status → "REVIEW BEIM KUNDEN"
@@ -79,8 +93,7 @@ Ablauf:
 | Google OAuth2 | OAuth2 | Für Drive, Docs, Sheets |
 | Anthropic (Claude) | API Key | Claude API für Content |
 | Perplexity | API Key | Deep Research |
-| Google Gemini | API Key | Bildgenerierung |
-| WordPress | App Password | WordPress REST API |
+| WordPress (covago.de) | HTTP Basic Auth | WordPress REST API + RankMath |
 | DataForSEO | Login/Pass | SERP & WDF*IDF Daten |
 
 ## Setup-Anleitung
@@ -111,11 +124,11 @@ Ablauf:
 1. n8n → Credentials → Add → Google Gemini (PaLM) API
 2. API Key von: ai.google.dev
 
-#### WordPress
-1. WordPress → Users → Application Passwords
-2. n8n → Credentials → Add → WordPress
-3. URL: `https://kundenwebsite.de`
-4. Username + Application Password
+#### WordPress (covago.de)
+1. n8n → Credentials → Add → HTTP Basic Auth
+2. Name: `WordPress Basic Auth (covago.de)`
+3. Username: `web-admin`
+4. Password: (Application Password aus WordPress → Users → Application Passwords)
 
 #### DataForSEO
 1. n8n → Credentials → Add → HTTP Basic Auth

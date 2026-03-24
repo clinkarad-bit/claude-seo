@@ -100,7 +100,7 @@
       ],
       "credentials": {
         "clickUpApi": {
-          "id": "CLICKUP_CREDENTIAL_ID",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       },
@@ -149,7 +149,7 @@
       ],
       "credentials": {
         "googleOAuth2Api": {
-          "id": "GOOGLE_OAUTH2_CREDENTIAL_ID",
+          "id": "CREDENTIAL_GOOGLE",
           "name": "Google OAuth2"
         }
       },

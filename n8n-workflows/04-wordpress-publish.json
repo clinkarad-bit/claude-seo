@@ -21,7 +21,7 @@
       "webhookId": "wordpress-publish-trigger",
       "credentials": {
         "clickUpApi": {
-          "id": "1",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       },
@@ -33,7 +33,7 @@
           "string": [
             {
               "name": "wordpress_url",
-              "value": "={{ $env.WORDPRESS_URL || 'https://example.com' }}"
+              "value": "https://covago.de"
             },
             {
               "name": "freigegeben_folder_id",
@@ -85,7 +85,7 @@
       ],
       "credentials": {
         "clickUpApi": {
-          "id": "1",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       },
@@ -129,8 +129,8 @@
       ],
       "credentials": {
         "googleDocsOAuth2Api": {
-          "id": "2",
-          "name": "Google Docs OAuth2"
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
         }
       },
       "notes": "Read the Google Doc content as JSON via Google Docs API"
@@ -186,8 +186,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "3",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       },
       "notes": "Search for Themen-Cluster category in WordPress"
@@ -276,8 +276,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "3",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       },
       "notes": "Create the Themen-Cluster as a new WordPress category"
@@ -430,8 +430,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "3",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       },
       "notes": "Upload the featured image to WordPress media library"
@@ -506,8 +506,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "3",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       },
       "notes": "Create a new WordPress post as draft with the content from Google Docs, category, and featured image"
@@ -541,8 +541,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "3",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       },
       "notes": "Set RankMath SEO meta (title, description, focus keyword) on the created post. Falls back gracefully if RankMath API is not available.",
@@ -576,8 +576,8 @@
       ],
       "credentials": {
         "httpBasicAuth": {
-          "id": "3",
-          "name": "WordPress Basic Auth"
+          "id": "WP_COVAGO",
+          "name": "WordPress Basic Auth (covago.de)"
         }
       },
       "notes": "Fallback: Update post meta directly via WP REST API if RankMath endpoint is unavailable",
@@ -620,8 +620,8 @@
       ],
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "4",
-          "name": "Google Drive OAuth2"
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
         }
       },
       "notes": "Move Google Doc from 'Freigegeben' folder to 'WordPress Angelegt' folder via Google Drive API"
@@ -662,8 +662,8 @@
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "5",
-          "name": "Google Sheets OAuth2"
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
         }
       },
       "notes": "Update Google Sheet: set status to 'in_wordpress' and add the WordPress post URL"
@@ -696,7 +696,7 @@
       ],
       "credentials": {
         "clickUpApi": {
-          "id": "1",
+          "id": "wwbq6Yxnr2EpmrFv",
           "name": "ClickUp API"
         }
       },
