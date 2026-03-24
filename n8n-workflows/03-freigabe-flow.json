@@ -1,0 +1,331 @@
+{
+  "name": "03 - Freigabe Flow (ClickUp \u2192 Google Drive \u2192 Sheets)",
+  "nodes": [
+    {
+      "parameters": {
+        "events": [
+          "taskStatusUpdated"
+        ],
+        "filters": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000001",
+      "name": "ClickUp Trigger",
+      "type": "n8n-nodes-base.clickUpTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "freigabe-clickup-webhook",
+      "credentials": {
+        "clickUpApi": {
+          "id": "CLICKUP_CREDENTIAL_ID",
+          "name": "ClickUp API"
+        }
+      },
+      "notes": "Triggers when a ClickUp task status changes. The workflow filters for status 'FREIGEGEBEN' in the next step."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-freigegeben",
+              "leftValue": "={{ $json.history_items[0].after.status }}",
+              "rightValue": "freigegeben",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000002",
+      "name": "Filter: FREIGEGEBEN",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "notes": "Only continue if the new status is 'FREIGEGEBEN'."
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "review_folder_id",
+              "value": "YOUR_GOOGLE_DRIVE_REVIEW_FOLDER_ID"
+            },
+            {
+              "name": "freigegeben_folder_id",
+              "value": "YOUR_GOOGLE_DRIVE_FREIGEGEBEN_FOLDER_ID"
+            },
+            {
+              "name": "clickup_api_token",
+              "value": "YOUR_CLICKUP_API_TOKEN"
+            },
+            {
+              "name": "spreadsheet_id",
+              "value": "YOUR_GOOGLE_SHEETS_SPREADSHEET_ID"
+            },
+            {
+              "name": "sheet_name",
+              "value": "Keyword Map"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000003",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        680,
+        300
+      ],
+      "notes": "Configuration: Set your Google Drive folder IDs, ClickUp API token, and Google Sheets spreadsheet ID here."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Trigger').item.json.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ $('Config').item.json.clickup_api_token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000004",
+      "name": "Get Task Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CLICKUP_HTTP_HEADER_CREDENTIAL_ID",
+          "name": "ClickUp Header Auth"
+        }
+      },
+      "notes": "Fetch the full ClickUp task to access custom fields, including 'Link zum Beitrag'."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract the Google Doc ID from the 'Link zum Beitrag' custom field\nconst task = $input.first().json;\nconst customFields = task.custom_fields || [];\n\n// Find the custom field named 'Link zum Beitrag'\nconst linkField = customFields.find(\n  (field) => field.name === 'Link zum Beitrag'\n);\n\nif (!linkField || !linkField.value) {\n  throw new Error(\n    \"Custom field 'Link zum Beitrag' not found or empty on task: \" + task.id\n  );\n}\n\nconst url = typeof linkField.value === 'string' ? linkField.value : linkField.value.url || linkField.value;\n\n// Extract Google Doc ID from various URL formats:\n// https://docs.google.com/document/d/{ID}/edit\n// https://drive.google.com/file/d/{ID}/view\n// https://docs.google.com/document/d/{ID}\nconst match = url.match(/\\/d\\/([a-zA-Z0-9_-]+)/);\n\nif (!match) {\n  throw new Error('Could not extract Google Doc ID from URL: ' + url);\n}\n\nconst docId = match[1];\nconst taskName = task.name || '';\n\nreturn [\n  {\n    json: {\n      doc_id: docId,\n      doc_url: url,\n      task_id: task.id,\n      task_name: taskName\n    }\n  }\n];\n"
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000005",
+      "name": "Extract Doc ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ],
+      "notes": "Parse the Google Doc/Drive URL from the 'Link zum Beitrag' custom field and extract the file ID."
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.doc_id }}?addParents={{ $('Config').item.json.freigegeben_folder_id }}&removeParents={{ $('Config').item.json.review_folder_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": false
+            }
+          }
+        }
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000006",
+      "name": "Google Drive: Move to Freigegeben",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        300
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "GOOGLE_OAUTH2_CREDENTIAL_ID",
+          "name": "Google OAuth2"
+        }
+      },
+      "notes": "Move the Google Doc from the Review folder to the Freigegeben folder using Google Drive API v3."
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Config').item.json.spreadsheet_id }}"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Config').item.json.sheet_name }}"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "freigegeben"
+          },
+          "matchingColumns": [
+            "Thema"
+          ],
+          "schema": [
+            {
+              "id": "Thema",
+              "displayName": "Thema",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-b111-000000000007",
+      "name": "Google Sheets: Update Status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1560,
+        300
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets OAuth2"
+        }
+      },
+      "notes": "Update the keyword map spreadsheet: set Status to 'freigegeben' for the matching topic (Thema)."
+    }
+  ],
+  "connections": {
+    "ClickUp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter: FREIGEGEBEN",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: FREIGEGEBEN": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Get Task Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Task Details": {
+      "main": [
+        [
+          {
+            "node": "Extract Doc ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Doc ID": {
+      "main": [
+        [
+          {
+            "node": "Google Drive: Move to Freigegeben",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive: Move to Freigegeben": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets: Update Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "SEO Automation",
+      "id": "tag-seo-automation"
+    },
+    {
+      "name": "Freigabe",
+      "id": "tag-freigabe"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-03-24T00:00:00.000Z",
+  "versionId": "v1-freigabe-flow"
+}

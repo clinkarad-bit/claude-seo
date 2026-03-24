@@ -1,0 +1,334 @@
+{
+  "name": "05 - Veröffentlicht Sync",
+  "nodes": [
+    {
+      "parameters": {
+        "events": [
+          "taskStatusUpdated"
+        ],
+        "filters": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000001",
+      "name": "ClickUp Trigger",
+      "type": "n8n-nodes-base.clickUpTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "f8e7d6c5-2222-4bbb-cccc-000000000001",
+      "credentials": {
+        "clickUpApi": {
+          "id": "CLICKUP_CREDENTIAL_ID",
+          "name": "ClickUp API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "google_sheet_id",
+              "value": "YOUR_GOOGLE_SHEET_ID"
+            },
+            {
+              "name": "sheet_name",
+              "value": "Keyword Map"
+            },
+            {
+              "name": "clickup_api_token",
+              "value": "YOUR_CLICKUP_API_TOKEN"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000002",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Trigger').item.json.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000003",
+      "name": "Get Task Details",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        680,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CLICKUP_HEADER_AUTH_CREDENTIAL_ID",
+          "name": "ClickUp Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "keyword",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "kunde",
+              "value": "={{ $json.tags && $json.tags.length > 0 ? $json.tags[0].name : '' }}"
+            },
+            {
+              "name": "wordpress_url",
+              "value": "={{ ($json.custom_fields || []).find(f => f.name === 'Link zum Beitrag')?.value || '' }}"
+            },
+            {
+              "name": "wordpress_post_id",
+              "value": "={{ ($json.custom_fields || []).find(f => f.name === 'WordPress Post ID')?.value || '' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000004",
+      "name": "Extract Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Config').item.json.google_sheet_id }}"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{ $('Config').item.json.sheet_name }}"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "veröffentlicht"
+          },
+          "matchingColumns": [
+            "Keyword"
+          ],
+          "schema": [
+            {
+              "id": "Keyword",
+              "displayName": "Keyword",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000005",
+      "name": "Google Sheets: Update Status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1120,
+        200
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_OAUTH2_CREDENTIAL_ID",
+          "name": "Google OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition_wp_url",
+              "leftValue": "={{ $json.wordpress_url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            },
+            {
+              "id": "condition_wp_post_id",
+              "leftValue": "={{ $json.wordpress_post_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000006",
+      "name": "Has WordPress Info?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Extract Data').item.json.wordpress_url }}/wp-json/wp/v2/posts/{{ $('Extract Data').item.json.wordpress_post_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"status\": \"publish\"\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000007",
+      "name": "WordPress: Publish Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        400
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "WORDPRESS_CREDENTIAL_ID",
+          "name": "WordPress Basic Auth"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "a1b2c3d4-1111-4aaa-bbbb-000000000008",
+      "name": "No WordPress - Skip",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        560
+      ]
+    }
+  ],
+  "connections": {
+    "ClickUp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Get Task Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Task Details": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Data": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets: Update Status",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Has WordPress Info?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has WordPress Info?": {
+      "main": [
+        [
+          {
+            "node": "WordPress: Publish Post",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No WordPress - Skip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "Content Pipeline",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-03-24T00:00:00.000Z",
+  "versionId": "b3c4d5e6-3333-4ccc-dddd-000000000001"
+}
