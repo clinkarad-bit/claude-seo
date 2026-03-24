@@ -1,0 +1,339 @@
+{
+  "name": "COVAGO Setup - Google Drive Ordner anlegen",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "setup-001",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-200, 300],
+      "notesInFlow": true,
+      "notes": "1x klicken → alle Ordner werden automatisch angelegt"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ordnerstruktur definieren\nreturn [{\n  json: {\n    kunde: 'COVAGO',\n    root_folder_name: 'Content Pipeline',\n    subfolders: ['Entwurf', 'Review', 'Freigegeben', 'WordPress Angelegt']\n  }\n}];"
+      },
+      "id": "setup-002",
+      "name": "Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [20, 300],
+      "notesInFlow": true,
+      "notes": "Kunden-Name und Ordnerstruktur definieren"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $json.root_folder_name }}\",\n  \"mimeType\": \"application/vnd.google-apps.folder\"\n}",
+        "options": {}
+      },
+      "id": "setup-003",
+      "name": "Create Root: Content Pipeline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [260, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Hauptordner 'Content Pipeline' in Google Drive erstellen"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rootId = $input.first().json.id;\nconst kunde = $('Config').first().json.kunde;\nreturn [{ json: { root_folder_id: rootId, kunde: kunde } }];"
+      },
+      "id": "setup-004",
+      "name": "Extract Root ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $json.kunde }}\",\n  \"mimeType\": \"application/vnd.google-apps.folder\",\n  \"parents\": [\"{{ $json.root_folder_id }}\"]\n}",
+        "options": {}
+      },
+      "id": "setup-005",
+      "name": "Create Folder: COVAGO",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [740, 300],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Kunden-Unterordner 'COVAGO' erstellen"
+    },
+    {
+      "parameters": {
+        "jsCode": "const kundeId = $input.first().json.id;\nconst rootId = $('Extract Root ID').first().json.root_folder_id;\nreturn [{ json: { kunde_folder_id: kundeId, root_folder_id: rootId } }];"
+      },
+      "id": "setup-006",
+      "name": "Extract Kunde ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"Entwurf\",\n  \"mimeType\": \"application/vnd.google-apps.folder\",\n  \"parents\": [\"{{ $json.kunde_folder_id }}\"]\n}",
+        "options": {}
+      },
+      "id": "setup-007",
+      "name": "Create: Entwurf",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1260, 100],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"Review\",\n  \"mimeType\": \"application/vnd.google-apps.folder\",\n  \"parents\": [\"{{ $json.kunde_folder_id }}\"]\n}",
+        "options": {}
+      },
+      "id": "setup-008",
+      "name": "Create: Review",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1260, 260],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"Freigegeben\",\n  \"mimeType\": \"application/vnd.google-apps.folder\",\n  \"parents\": [\"{{ $json.kunde_folder_id }}\"]\n}",
+        "options": {}
+      },
+      "id": "setup-009",
+      "name": "Create: Freigegeben",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1260, 420],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"WordPress Angelegt\",\n  \"mimeType\": \"application/vnd.google-apps.folder\",\n  \"parents\": [\"{{ $json.kunde_folder_id }}\"]\n}",
+        "options": {}
+      },
+      "id": "setup-010",
+      "name": "Create: WordPress Angelegt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1260, 580],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "CREDENTIAL_GOOGLE",
+          "name": "Google OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Alle Ordner-IDs zusammenfassen\nconst entwurfId = $('Create: Entwurf').first().json.id;\nconst reviewId = $('Create: Review').first().json.id;\nconst freigegebenId = $('Create: Freigegeben').first().json.id;\nconst wpId = $('Create: WordPress Angelegt').first().json.id;\nconst kundeId = $('Extract Kunde ID').first().json.kunde_folder_id;\nconst rootId = $('Extract Kunde ID').first().json.root_folder_id;\n\nconst output = {\n  success: true,\n  message: '✅ Alle Google Drive Ordner für COVAGO wurden erstellt!',\n  ordner_ids: {\n    root_content_pipeline: rootId,\n    covago_hauptordner: kundeId,\n    entwurf: entwurfId,\n    review: reviewId,\n    freigegeben: freigegebenId,\n    wordpress_angelegt: wpId\n  },\n  anleitung: [\n    '--- DIESE IDs IN DIE WORKFLOWS EINTRAGEN ---',\n    '',\n    'Workflow 00 (Keyword Research):',\n    `  google_drive_folder_id = ${kundeId}`,\n    '',\n    'Workflow 01b (Content Writer):',\n    `  google_drive_folder_id = ${entwurfId}`,\n    '',\n    'Workflow 02 (Review Flow):',\n    `  entwurf_folder_id = ${entwurfId}`,\n    `  review_folder_id = ${reviewId}`,\n    '',\n    'Workflow 03 (Freigabe Flow):',\n    `  review_folder_id = ${reviewId}`,\n    `  freigegeben_folder_id = ${freigegebenId}`,\n    '',\n    'Workflow 04 (WordPress Publish):',\n    `  freigegeben_folder_id = ${freigegebenId}`,\n    `  wordpress_folder_id = ${wpId}`\n  ]\n};\n\nreturn [{ json: output }];"
+      },
+      "id": "setup-011",
+      "name": "Summary: Alle Ordner-IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1540, 300],
+      "notesInFlow": true,
+      "notes": "Zeigt alle erstellten Ordner-IDs + wo sie eingetragen werden müssen"
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Create Root: Content Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Root: Content Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Extract Root ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Root ID": {
+      "main": [
+        [
+          {
+            "node": "Create Folder: COVAGO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Folder: COVAGO": {
+      "main": [
+        [
+          {
+            "node": "Extract Kunde ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Kunde ID": {
+      "main": [
+        [
+          {
+            "node": "Create: Entwurf",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create: Review",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create: Freigegeben",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create: WordPress Angelegt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create: Entwurf": {
+      "main": [
+        [
+          {
+            "node": "Summary: Alle Ordner-IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create: Review": {
+      "main": [
+        [
+          {
+            "node": "Summary: Alle Ordner-IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create: Freigegeben": {
+      "main": [
+        [
+          {
+            "node": "Summary: Alle Ordner-IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create: WordPress Angelegt": {
+      "main": [
+        [
+          {
+            "node": "Summary: Alle Ordner-IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "COVAGO",
+      "createdAt": "2026-03-24T00:00:00.000Z",
+      "updatedAt": "2026-03-24T00:00:00.000Z"
+    }
+  ]
+}
