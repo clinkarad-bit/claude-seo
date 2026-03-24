@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T17:25:06.382Z",
+  "updatedAt": "2026-03-24T17:30:18.043Z",
   "createdAt": "2026-03-24T14:39:45.409Z",
   "id": "Vgq0ER1amLUyI1ws",
   "name": "COVAGO 00 - Keyword Research",
@@ -486,7 +486,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": `Du bist ein SEO-Experte für Keyword-Recherche. Generiere 12 verschiedene Seed-Keywords für eine Keyword-Recherche zum Thema:\n\n\"${$('Extract Task Data').item.json.original_task_name}\"\n\nWICHTIGE REGELN:\n1. Jedes Keyword MUSS direkt mit dem Hauptthema zu tun haben\n2. KEINE allgemeinen/breiten Keywords die auch für andere Themen gelten (z.B. NICHT \"Versicherungsvergleich\" wenn das Thema \"D&O Versicherung\" ist)\n3. Decke verschiedene Aspekte ab: Synonyme, Fachbegriffe, Kosten, Vergleich, Anbieter, Typen, Zielgruppen, häufige Fragen\n4. 1-3 Wörter pro Keyword\n5. Das erste Keyword = der Kernbegriff (1-2 Wörter)\n6. NUR deutsche Keywords\n7. Ein Keyword pro Zeile, KEINE Nummerierung, KEINE Erklärungen\n\nBeispiel für \"PKV für Beamte\":\npkv beamte\nprivate krankenversicherung beamte\nbeamten pkv\nbeihilfe versicherung\npkv beamte kosten\npkv beamte vergleich\ndienstunfähigkeit beamte\nheilfürsorge beamte\npkv beamtenanwärter\nrestkostenversicherung\nbeamte gesetzliche krankenversicherung\npkv beamte test`\n  }]\n}) }}",
+        "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1500,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": `Du bist ein SEO-Experte. Ich brauche zwei Dinge für das Thema:\n\n\"${$('Extract Task Data').item.json.original_task_name}\"\n\n=== TEIL 1: TOPIC-FILTER ===\nGib 5-10 Wörter/Phrasen die JEDES relevante Keyword enthalten MUSS (mindestens eines davon).\nDiese Wörter definieren das Thema EXAKT und grenzen es von anderen Themen ab.\n\nBeispiel für \"PKV für Beamte\": pkv, private krankenversicherung, beamtenversicherung, beihilfe, dienstunfähigkeit\nBeispiel für \"D&O Versicherung\": d&o, d o, directors officers, organhaftung, managerhaftpflicht, geschäftsführerhaftpflicht, vermögensschadenhaftpflicht\n\nWICHTIG:\n- KEINE generischen Wörter wie \"versicherung\", \"kosten\", \"vergleich\" — diese allein reichen NICHT um das Thema zu definieren\n- Nur Wörter die SPEZIFISCH für dieses eine Thema sind\n- Auch Abkürzungen und alternative Schreibweisen\n\nFormat: FILTER: wort1, wort2, wort3, ...\n\n=== TEIL 2: SEED-KEYWORDS ===\nGib 12 verschiedene Seed-Keywords für die DataForSEO Keyword-Recherche.\nJedes Keyword MUSS direkt mit dem Hauptthema zu tun haben.\n1-3 Wörter pro Keyword, NUR Deutsch.\n\nFormat: SEEDS:\nkeyword1\nkeyword2\n...`\n  }]\n}) }}",
         "options": {
           "timeout": 30000
         }
@@ -508,7 +508,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// AI-Antwort parsen und Seed-Keywords extrahieren\nconst response = $input.first().json;\nconst content = response.content?.[0]?.text || '';\n\n// Seeds aus Text extrahieren (eine pro Zeile)\nconst seeds = content\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(line => line.length > 0 && line.length < 60)\n  .filter(line => !line.match(/^\\d+[.):]/))  // Nummerierung entfernen\n  .map(line => line.replace(/^[-•*]\\s*/, '').trim())  // Aufzählungszeichen\n  .filter(line => line.length > 1);\n\n// Maximal 15 Seeds\nconst finalSeeds = seeds.slice(0, 15);\n\n// Seed-Keyword aus Extract Task Data als Fallback\nconst mainSeed = $('Extract Task Data').item.json.seed_keyword;\nif (!finalSeeds.includes(mainSeed) && !finalSeeds.some(s => s.toLowerCase() === mainSeed.toLowerCase())) {\n  finalSeeds.unshift(mainSeed);\n}\n\n// Jedes Seed als eigenes Item\nreturn finalSeeds.map((seed, i) => ({\n  json: {\n    seed_keyword: seed,\n    seed_index: i,\n    total_seeds: finalSeeds.length\n  }\n}));"
+        "jsCode": "// AI-Antwort parsen: Topic-Filter + Seeds\nconst response = $input.first().json;\nconst content = response.content?.[0]?.text || '';\n\n// Topic-Filter extrahieren\nlet filterWords = [];\nconst filterMatch = content.match(/FILTER:\\s*(.+?)(?:\\n|$)/i);\nif (filterMatch) {\n  filterWords = filterMatch[1]\n    .split(',')\n    .map(w => w.trim().toLowerCase())\n    .filter(w => w.length > 1);\n}\n\n// Seeds extrahieren (nach \"SEEDS:\")\nconst seedsMatch = content.match(/SEEDS:\\s*\\n([\\s\\S]+?)$/i);\nlet seeds = [];\nif (seedsMatch) {\n  seeds = seedsMatch[1]\n    .split('\\n')\n    .map(line => line.trim().replace(/^[-•*\\d.):]+\\s*/, '').trim())\n    .filter(line => line.length > 1 && line.length < 60);\n}\n\n// Fallback: wenn keine Seeds gefunden, alle Zeilen als Seeds behandeln\nif (seeds.length === 0) {\n  seeds = content\n    .split('\\n')\n    .map(line => line.trim().replace(/^[-•*\\d.):]+\\s*/, '').trim())\n    .filter(line => line.length > 1 && line.length < 60 && !line.startsWith('FILTER') && !line.startsWith('SEEDS') && !line.includes(':'));\n}\n\n// Seed aus Extract Task Data als Fallback\nconst mainSeed = $('Extract Task Data').item.json.seed_keyword;\nif (!seeds.some(s => s.toLowerCase() === mainSeed.toLowerCase())) {\n  seeds.unshift(mainSeed);\n}\n\n// Max 15 Seeds\nconst finalSeeds = seeds.slice(0, 15);\n\n// Topic-Filter als erstes Item, dann Seeds\nconst items = finalSeeds.map((seed, i) => ({\n  json: {\n    seed_keyword: seed,\n    seed_index: i,\n    total_seeds: finalSeeds.length,\n    topic_filter: filterWords\n  }\n}));\n\nreturn items;"
       },
       "id": "parse-seeds",
       "name": "Parse AI Seeds",
@@ -624,7 +624,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Alle Keywords zusammenführen + Relevanzfilter\nconst allInputs = $input.all();\nconst allKeywords = [];\n\nfor (const input of allInputs) {\n  const kws = input.json.keywords || [];\n  allKeywords.push(...kws);\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\n// RELEVANZFILTER: Nur Keywords die thematisch zum Hauptthema passen\n// Kernwörter aus dem Task-Namen extrahieren\nconst taskName = $('Extract Task Data').item.json.original_task_name.toLowerCase();\nconst seeds = $('Parse AI Seeds').all().map(s => s.json.seed_keyword.toLowerCase());\n\n// Kernwörter = alle bedeutungsvollen Wörter aus Task-Name + Seeds\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine',\n  'und', 'oder', 'für', 'mit', 'von', 'in', 'im', 'auf', 'aus',\n  'zu', 'bei', 'nach', 'über', 'unter', 'vor', 'an', 'am'\n]);\n\nconst coreWords = new Set();\n// Aus Task-Name\ntaskName.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n  if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n});\n// Aus allen Seeds\nseeds.forEach(seed => {\n  seed.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n    if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n  });\n});\n\n// Keyword ist relevant wenn es mindestens 1 Kernwort enthält\nconst relevant = filtered.filter(kw => {\n  const kwLower = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ');\n  return [...coreWords].some(core => kwLower.includes(core));\n});\n\nreturn [{ json: {\n  all_keywords: relevant,\n  total_raw: filtered.length,\n  total_relevant: relevant.length,\n  core_words: [...coreWords],\n  filtered_out: filtered.length - relevant.length\n} }];"
+        "jsCode": "// Alle Keywords zusammenführen + STRENGER Relevanzfilter\nconst allInputs = $input.all();\nconst allKeywords = [];\n\nfor (const input of allInputs) {\n  const kws = input.json.keywords || [];\n  allKeywords.push(...kws);\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\n// ===== TOPIC-FILTER: Nur themenrelevante Keywords =====\n// Topic-Filter-Wörter aus AI-Output\nconst topicFilter = $('Parse AI Seeds').first().json.topic_filter || [];\n\n// Fallback: Kernwörter aus Task-Name (nur spezifische, keine generischen)\nconst taskName = $('Extract Task Data').item.json.original_task_name.toLowerCase();\nconst GENERIC_WORDS = new Set([\n  'versicherung', 'versicherungen', 'kosten', 'vergleich', 'test',\n  'erfahrungen', 'anbieter', 'online', 'rechner', 'berechnen',\n  'deutschland', 'österreich', 'schweiz', 'beste', 'besten',\n  'günstig', 'günstige', 'billig', 'preis', 'preise', 'tarif',\n  'kündigen', 'wechseln', 'abschließen', 'beantragen',\n  'insurance', 'cost', 'compare', 'best', 'review',\n  'the', 'and', 'for', 'with', 'from'\n]);\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine',\n  'und', 'oder', 'für', 'mit', 'von', 'in', 'im', 'auf', 'aus',\n  'zu', 'bei', 'nach', 'über', 'unter', 'vor', 'an', 'am'\n]);\n\n// Kernwörter aus Task-Name als Backup-Filter\nconst taskCoreWords = taskName\n  .replace(/[-–—]/g, ' ')\n  .split(/\\s+/)\n  .filter(w => w.length > 2 && !STOP_WORDS.has(w) && !GENERIC_WORDS.has(w));\n\n// Kombiniere AI-Filter + Task-Kernwörter\nconst allFilterTerms = [...new Set([...topicFilter, ...taskCoreWords])];\n\n// Keyword ist relevant wenn es mindestens einen Filter-Term enthält\nconst relevant = filtered.filter(kw => {\n  const kwLower = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ');\n\n  // MUSS mindestens einen Topic-Filter-Term enthalten\n  const matchesTopic = allFilterTerms.some(term => kwLower.includes(term));\n  if (!matchesTopic) return false;\n\n  // Englische Keywords rausfiltern (einfache Heuristik)\n  const englishWords = ['insurance', 'liability', 'coverage', 'policy', 'claim',\n    'premium', 'officer', 'director', 'company', 'business', 'management',\n    'protection', 'risk', 'what', 'how', 'best', 'top', 'review', 'guide',\n    'the', 'and', 'for', 'with', 'from', 'about', 'which', 'does'];\n  const words = kwLower.split(/\\s+/);\n  const englishCount = words.filter(w => englishWords.includes(w)).length;\n  if (englishCount >= 2 || (englishCount >= 1 && words.length <= 2)) return false;\n\n  return true;\n});\n\nreturn [{ json: {\n  all_keywords: relevant,\n  total_raw: filtered.length,\n  total_relevant: relevant.length,\n  topic_filter_terms: allFilterTerms,\n  filtered_out: filtered.length - relevant.length\n} }];"
       },
       "id": "merge-all-new",
       "name": "Merge All Keywords",
@@ -968,9 +968,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
-  "activeVersionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
-  "versionCounter": 57,
+  "versionId": "f3195e04-8e70-4d68-acb0-7fc8813708ea",
+  "activeVersionId": "f3195e04-8e70-4d68-acb0-7fc8813708ea",
+  "versionCounter": 60,
   "triggerCount": 1,
   "shared": [
     {
@@ -993,9 +993,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-24T17:25:06.384Z",
-    "createdAt": "2026-03-24T17:25:06.384Z",
-    "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
+    "updatedAt": "2026-03-24T17:30:18.048Z",
+    "createdAt": "2026-03-24T17:30:18.048Z",
+    "versionId": "f3195e04-8e70-4d68-acb0-7fc8813708ea",
     "workflowId": "Vgq0ER1amLUyI1ws",
     "nodes": [
       {
@@ -1477,7 +1477,7 @@
           },
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": `Du bist ein SEO-Experte für Keyword-Recherche. Generiere 12 verschiedene Seed-Keywords für eine Keyword-Recherche zum Thema:\n\n\"${$('Extract Task Data').item.json.original_task_name}\"\n\nWICHTIGE REGELN:\n1. Jedes Keyword MUSS direkt mit dem Hauptthema zu tun haben\n2. KEINE allgemeinen/breiten Keywords die auch für andere Themen gelten (z.B. NICHT \"Versicherungsvergleich\" wenn das Thema \"D&O Versicherung\" ist)\n3. Decke verschiedene Aspekte ab: Synonyme, Fachbegriffe, Kosten, Vergleich, Anbieter, Typen, Zielgruppen, häufige Fragen\n4. 1-3 Wörter pro Keyword\n5. Das erste Keyword = der Kernbegriff (1-2 Wörter)\n6. NUR deutsche Keywords\n7. Ein Keyword pro Zeile, KEINE Nummerierung, KEINE Erklärungen\n\nBeispiel für \"PKV für Beamte\":\npkv beamte\nprivate krankenversicherung beamte\nbeamten pkv\nbeihilfe versicherung\npkv beamte kosten\npkv beamte vergleich\ndienstunfähigkeit beamte\nheilfürsorge beamte\npkv beamtenanwärter\nrestkostenversicherung\nbeamte gesetzliche krankenversicherung\npkv beamte test`\n  }]\n}) }}",
+          "jsonBody": "={{ JSON.stringify({\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1500,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": `Du bist ein SEO-Experte. Ich brauche zwei Dinge für das Thema:\n\n\"${$('Extract Task Data').item.json.original_task_name}\"\n\n=== TEIL 1: TOPIC-FILTER ===\nGib 5-10 Wörter/Phrasen die JEDES relevante Keyword enthalten MUSS (mindestens eines davon).\nDiese Wörter definieren das Thema EXAKT und grenzen es von anderen Themen ab.\n\nBeispiel für \"PKV für Beamte\": pkv, private krankenversicherung, beamtenversicherung, beihilfe, dienstunfähigkeit\nBeispiel für \"D&O Versicherung\": d&o, d o, directors officers, organhaftung, managerhaftpflicht, geschäftsführerhaftpflicht, vermögensschadenhaftpflicht\n\nWICHTIG:\n- KEINE generischen Wörter wie \"versicherung\", \"kosten\", \"vergleich\" — diese allein reichen NICHT um das Thema zu definieren\n- Nur Wörter die SPEZIFISCH für dieses eine Thema sind\n- Auch Abkürzungen und alternative Schreibweisen\n\nFormat: FILTER: wort1, wort2, wort3, ...\n\n=== TEIL 2: SEED-KEYWORDS ===\nGib 12 verschiedene Seed-Keywords für die DataForSEO Keyword-Recherche.\nJedes Keyword MUSS direkt mit dem Hauptthema zu tun haben.\n1-3 Wörter pro Keyword, NUR Deutsch.\n\nFormat: SEEDS:\nkeyword1\nkeyword2\n...`\n  }]\n}) }}",
           "options": {
             "timeout": 30000
           }
@@ -1499,7 +1499,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// AI-Antwort parsen und Seed-Keywords extrahieren\nconst response = $input.first().json;\nconst content = response.content?.[0]?.text || '';\n\n// Seeds aus Text extrahieren (eine pro Zeile)\nconst seeds = content\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(line => line.length > 0 && line.length < 60)\n  .filter(line => !line.match(/^\\d+[.):]/))  // Nummerierung entfernen\n  .map(line => line.replace(/^[-•*]\\s*/, '').trim())  // Aufzählungszeichen\n  .filter(line => line.length > 1);\n\n// Maximal 15 Seeds\nconst finalSeeds = seeds.slice(0, 15);\n\n// Seed-Keyword aus Extract Task Data als Fallback\nconst mainSeed = $('Extract Task Data').item.json.seed_keyword;\nif (!finalSeeds.includes(mainSeed) && !finalSeeds.some(s => s.toLowerCase() === mainSeed.toLowerCase())) {\n  finalSeeds.unshift(mainSeed);\n}\n\n// Jedes Seed als eigenes Item\nreturn finalSeeds.map((seed, i) => ({\n  json: {\n    seed_keyword: seed,\n    seed_index: i,\n    total_seeds: finalSeeds.length\n  }\n}));"
+          "jsCode": "// AI-Antwort parsen: Topic-Filter + Seeds\nconst response = $input.first().json;\nconst content = response.content?.[0]?.text || '';\n\n// Topic-Filter extrahieren\nlet filterWords = [];\nconst filterMatch = content.match(/FILTER:\\s*(.+?)(?:\\n|$)/i);\nif (filterMatch) {\n  filterWords = filterMatch[1]\n    .split(',')\n    .map(w => w.trim().toLowerCase())\n    .filter(w => w.length > 1);\n}\n\n// Seeds extrahieren (nach \"SEEDS:\")\nconst seedsMatch = content.match(/SEEDS:\\s*\\n([\\s\\S]+?)$/i);\nlet seeds = [];\nif (seedsMatch) {\n  seeds = seedsMatch[1]\n    .split('\\n')\n    .map(line => line.trim().replace(/^[-•*\\d.):]+\\s*/, '').trim())\n    .filter(line => line.length > 1 && line.length < 60);\n}\n\n// Fallback: wenn keine Seeds gefunden, alle Zeilen als Seeds behandeln\nif (seeds.length === 0) {\n  seeds = content\n    .split('\\n')\n    .map(line => line.trim().replace(/^[-•*\\d.):]+\\s*/, '').trim())\n    .filter(line => line.length > 1 && line.length < 60 && !line.startsWith('FILTER') && !line.startsWith('SEEDS') && !line.includes(':'));\n}\n\n// Seed aus Extract Task Data als Fallback\nconst mainSeed = $('Extract Task Data').item.json.seed_keyword;\nif (!seeds.some(s => s.toLowerCase() === mainSeed.toLowerCase())) {\n  seeds.unshift(mainSeed);\n}\n\n// Max 15 Seeds\nconst finalSeeds = seeds.slice(0, 15);\n\n// Topic-Filter als erstes Item, dann Seeds\nconst items = finalSeeds.map((seed, i) => ({\n  json: {\n    seed_keyword: seed,\n    seed_index: i,\n    total_seeds: finalSeeds.length,\n    topic_filter: filterWords\n  }\n}));\n\nreturn items;"
         },
         "id": "parse-seeds",
         "name": "Parse AI Seeds",
@@ -1615,7 +1615,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Alle Keywords zusammenführen + Relevanzfilter\nconst allInputs = $input.all();\nconst allKeywords = [];\n\nfor (const input of allInputs) {\n  const kws = input.json.keywords || [];\n  allKeywords.push(...kws);\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\n// RELEVANZFILTER: Nur Keywords die thematisch zum Hauptthema passen\n// Kernwörter aus dem Task-Namen extrahieren\nconst taskName = $('Extract Task Data').item.json.original_task_name.toLowerCase();\nconst seeds = $('Parse AI Seeds').all().map(s => s.json.seed_keyword.toLowerCase());\n\n// Kernwörter = alle bedeutungsvollen Wörter aus Task-Name + Seeds\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine',\n  'und', 'oder', 'für', 'mit', 'von', 'in', 'im', 'auf', 'aus',\n  'zu', 'bei', 'nach', 'über', 'unter', 'vor', 'an', 'am'\n]);\n\nconst coreWords = new Set();\n// Aus Task-Name\ntaskName.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n  if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n});\n// Aus allen Seeds\nseeds.forEach(seed => {\n  seed.replace(/[-–—]/g, ' ').split(/\\s+/).forEach(w => {\n    if (w.length > 2 && !STOP_WORDS.has(w)) coreWords.add(w);\n  });\n});\n\n// Keyword ist relevant wenn es mindestens 1 Kernwort enthält\nconst relevant = filtered.filter(kw => {\n  const kwLower = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ');\n  return [...coreWords].some(core => kwLower.includes(core));\n});\n\nreturn [{ json: {\n  all_keywords: relevant,\n  total_raw: filtered.length,\n  total_relevant: relevant.length,\n  core_words: [...coreWords],\n  filtered_out: filtered.length - relevant.length\n} }];"
+          "jsCode": "// Alle Keywords zusammenführen + STRENGER Relevanzfilter\nconst allInputs = $input.all();\nconst allKeywords = [];\n\nfor (const input of allInputs) {\n  const kws = input.json.keywords || [];\n  allKeywords.push(...kws);\n}\n\n// Leere Keywords entfernen\nconst filtered = allKeywords.filter(kw => kw.keyword && kw.keyword.length > 0);\n\n// ===== TOPIC-FILTER: Nur themenrelevante Keywords =====\n// Topic-Filter-Wörter aus AI-Output\nconst topicFilter = $('Parse AI Seeds').first().json.topic_filter || [];\n\n// Fallback: Kernwörter aus Task-Name (nur spezifische, keine generischen)\nconst taskName = $('Extract Task Data').item.json.original_task_name.toLowerCase();\nconst GENERIC_WORDS = new Set([\n  'versicherung', 'versicherungen', 'kosten', 'vergleich', 'test',\n  'erfahrungen', 'anbieter', 'online', 'rechner', 'berechnen',\n  'deutschland', 'österreich', 'schweiz', 'beste', 'besten',\n  'günstig', 'günstige', 'billig', 'preis', 'preise', 'tarif',\n  'kündigen', 'wechseln', 'abschließen', 'beantragen',\n  'insurance', 'cost', 'compare', 'best', 'review',\n  'the', 'and', 'for', 'with', 'from'\n]);\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine',\n  'und', 'oder', 'für', 'mit', 'von', 'in', 'im', 'auf', 'aus',\n  'zu', 'bei', 'nach', 'über', 'unter', 'vor', 'an', 'am'\n]);\n\n// Kernwörter aus Task-Name als Backup-Filter\nconst taskCoreWords = taskName\n  .replace(/[-–—]/g, ' ')\n  .split(/\\s+/)\n  .filter(w => w.length > 2 && !STOP_WORDS.has(w) && !GENERIC_WORDS.has(w));\n\n// Kombiniere AI-Filter + Task-Kernwörter\nconst allFilterTerms = [...new Set([...topicFilter, ...taskCoreWords])];\n\n// Keyword ist relevant wenn es mindestens einen Filter-Term enthält\nconst relevant = filtered.filter(kw => {\n  const kwLower = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ');\n\n  // MUSS mindestens einen Topic-Filter-Term enthalten\n  const matchesTopic = allFilterTerms.some(term => kwLower.includes(term));\n  if (!matchesTopic) return false;\n\n  // Englische Keywords rausfiltern (einfache Heuristik)\n  const englishWords = ['insurance', 'liability', 'coverage', 'policy', 'claim',\n    'premium', 'officer', 'director', 'company', 'business', 'management',\n    'protection', 'risk', 'what', 'how', 'best', 'top', 'review', 'guide',\n    'the', 'and', 'for', 'with', 'from', 'about', 'which', 'does'];\n  const words = kwLower.split(/\\s+/);\n  const englishCount = words.filter(w => englishWords.includes(w)).length;\n  if (englishCount >= 2 || (englishCount >= 1 && words.length <= 2)) return false;\n\n  return true;\n});\n\nreturn [{ json: {\n  all_keywords: relevant,\n  total_raw: filtered.length,\n  total_relevant: relevant.length,\n  topic_filter_terms: allFilterTerms,\n  filtered_out: filtered.length - relevant.length\n} }];"
         },
         "id": "merge-all-new",
         "name": "Merge All Keywords",
@@ -1957,18 +1957,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-24T17:25:06.458Z",
-        "id": 98,
+        "createdAt": "2026-03-24T17:30:18.110Z",
+        "id": 100,
         "workflowId": "Vgq0ER1amLUyI1ws",
-        "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
+        "versionId": "f3195e04-8e70-4d68-acb0-7fc8813708ea",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-24T17:25:06.437Z",
-        "id": 97,
+        "createdAt": "2026-03-24T17:30:18.096Z",
+        "id": 99,
         "workflowId": "Vgq0ER1amLUyI1ws",
-        "versionId": "b0ef17df-9b9b-4fb6-9203-ef338f3285dc",
+        "versionId": "f3195e04-8e70-4d68-acb0-7fc8813708ea",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
