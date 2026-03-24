@@ -46,6 +46,12 @@
               "name": "clickup_list_id",
               "value": "YOUR_CLICKUP_LIST_ID",
               "type": "string"
+            },
+            {
+              "id": "cfg-0008",
+              "name": "content_writer_webhook_url",
+              "value": "https://n8n.carlosarad.de/webhook/clickup-content-writer",
+              "type": "string"
             }
           ]
         },
@@ -55,7 +61,10 @@
       "name": "Config",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [260, 300],
+      "position": [
+        260,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Alle konfigurierbaren Variablen: API Keys, Sheet IDs, Ordner IDs"
     },
@@ -69,7 +78,10 @@
       "name": "ClickUp Webhook Trigger",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [20, 300],
+      "position": [
+        20,
+        300
+      ],
       "webhookId": "ol-webhook-001",
       "notesInFlow": true,
       "notes": "Empfängt ClickUp Webhook wenn Task auf COPYWRITING gesetzt wird"
@@ -101,7 +113,10 @@
       "name": "Check Status = COPYWRITING",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [500, 300],
+      "position": [
+        500,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Nur weitermachen wenn Status wirklich COPYWRITING ist"
     },
@@ -141,7 +156,10 @@
       "name": "Extract Task Data",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [740, 300],
+      "position": [
+        740,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Keyword (=Task Name), Kunde (=Tag), Themen-Cluster (=Custom Field)"
     },
@@ -162,7 +180,10 @@
       "name": "SERP Analysis (DataForSEO)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [980, 300],
+      "position": [
+        980,
+        300
+      ],
       "credentials": {
         "httpBasicAuth": {
           "id": "CREDENTIAL_DATAFORSEO",
@@ -180,7 +201,10 @@
       "name": "Extract SERP Data",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1220, 300],
+      "position": [
+        1220,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Top 10 Ergebnisse + People Also Ask parsen"
     },
@@ -201,7 +225,10 @@
       "name": "Fetch Top 10 Content (DataForSEO)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1460, 300],
+      "position": [
+        1460,
+        300
+      ],
       "credentials": {
         "httpBasicAuth": {
           "id": "CREDENTIAL_DATAFORSEO",
@@ -219,7 +246,10 @@
       "name": "WDF*IDF Calculator",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1700, 300],
+      "position": [
+        1700,
+        300
+      ],
       "notesInFlow": true,
       "notes": "WDF*IDF Termgewichtung aus Top 10 Inhalten berechnen — Top 50 Terme"
     },
@@ -240,7 +270,10 @@
       "name": "Reddit & PAA Search",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1940, 300],
+      "position": [
+        1940,
+        300
+      ],
       "credentials": {
         "httpBasicAuth": {
           "id": "CREDENTIAL_DATAFORSEO",
@@ -258,7 +291,10 @@
       "name": "Extract Reddit & PAA",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2180, 300],
+      "position": [
+        2180,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Reddit-Fragen und alle People Also Ask zusammenführen"
     },
@@ -279,7 +315,10 @@
       "name": "Perplexity Deep Research",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2420, 300],
+      "position": [
+        2420,
+        300
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "CREDENTIAL_PERPLEXITY",
@@ -316,7 +355,10 @@
       "name": "Read Keyword Map (Google Sheets)",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [2660, 300],
+      "position": [
+        2660,
+        300
+      ],
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "CREDENTIAL_GOOGLE",
@@ -334,7 +376,10 @@
       "name": "Prepare Internal Linking Data",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2900, 300],
+      "position": [
+        2900,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Interne Verlinkungsdaten für den Outline-Prompt aufbereiten"
     },
@@ -370,7 +415,10 @@
       "name": "Claude: Generate Outline",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [3140, 300],
+      "position": [
+        3140,
+        300
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "CREDENTIAL_ANTHROPIC",
@@ -388,9 +436,34 @@
       "name": "Parse Outline Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [3380, 300],
+      "position": [
+        3380,
+        300
+      ],
       "notesInFlow": true,
       "notes": "Claude JSON-Antwort parsen und Outline-Struktur extrahieren"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "ol-node-016",
+      "name": "Trigger Content Writer (01b)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3620,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Ruft 01b Content Writer auf mit: Outline, WDF*IDF (gesamter Beitrag), Perplexity Research, interne Links"
     }
   ],
   "connections": {
@@ -542,6 +615,17 @@
         [
           {
             "node": "Parse Outline Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Outline Response": {
+      "main": [
+        [
+          {
+            "node": "Trigger Content Writer (01b)",
             "type": "main",
             "index": 0
           }
