@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T16:04:45.006Z",
+  "updatedAt": "2026-03-24T16:36:53.966Z",
   "createdAt": "2026-03-24T14:39:45.409Z",
   "id": "Vgq0ER1amLUyI1ws",
   "name": "COVAGO 00 - Keyword Research",
@@ -86,7 +86,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        260,
+        440,
         300
       ],
       "notesInFlow": true,
@@ -113,7 +113,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $json.body.task_id }}",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "options": {}
@@ -123,7 +123,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        0,
+        220,
         300
       ],
       "credentials": {
@@ -137,14 +137,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Der Webhook wird nur vom \"Keyword-Research starten\" Button aufgerufen.\n// Daher reicht es, die Task-Daten einfach durchzureichen.\nconst task = $input.first().json;\nconst customFields = task.custom_fields || [];\n\n// Prüfe ob der Task im richtigen Status ist (optional safety check)\nconst status = task.status?.status?.toLowerCase() || '';\n\nreturn [{\n  json: {\n    task_id: task.id,\n    task_name: task.name,\n    tags: task.tags || [],\n    custom_fields: customFields,\n    status: status\n  }\n}];"
+        "jsCode": "// Prüfe ob der Webhook vom \"Keyword-Research starten\" Button kommt\n// Unterstützt zwei Formate:\n// 1. ClickUp Webhook: { event: \"taskUpdated\", task_id: \"xxx\", history_items: [...] }\n// 2. Manueller Call: { task_id: \"xxx\" }\n\nconst body = $input.first().json.body || $input.first().json;\n\n// Format 1: ClickUp Webhook\nif (body.event === 'taskUpdated' && body.history_items) {\n  // Prüfe ob der \"Keyword-Research starten\" Button geklickt wurde\n  const buttonClicked = body.history_items.some(item =>\n    item.field === 'custom_field' &&\n    item.custom_field_id === '12522be1-6428-4575-a635-8374e971c0ee'\n  );\n\n  if (!buttonClicked) {\n    // Nicht der richtige Button → Workflow stoppen\n    return [];\n  }\n\n  return [{ json: { task_id: body.task_id, source: 'clickup_webhook' } }];\n}\n\n// Format 2: Manueller Webhook-Call mit task_id\nif (body.task_id) {\n  return [{ json: { task_id: body.task_id, source: 'manual' } }];\n}\n\n// Kein gültiges Format → stoppen\nreturn [];"
       },
       "id": "kr-node-020",
       "name": "Filter: Keyword-Research starten",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        220,
+        0,
         300
       ],
       "notesInFlow": true,
@@ -152,14 +152,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Task-Daten aus dem gefilterten Ergebnis extrahieren\nconst task = $('Filter: Keyword-Research starten').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster: Dropdown-Wert ist ein orderindex oder UUID\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\n\n// Dropdown value = orderindex (0,1,2,3) wenn gesetzt, sonst null\n// Auch die Options-Liste für die Zuordnung weitergeben\nconst themenClusterValue = clusterField?.value ?? null;\nconst themenClusterOptions = clusterField?.type_config?.options || [];\n\n// Cluster-Name für Labels (aus Option oder Task Name)\nlet themenClusterName = task.task_name || '';\nif (themenClusterValue !== null && themenClusterOptions.length > 0) {\n  const opt = themenClusterOptions.find(o => o.orderindex === themenClusterValue);\n  if (opt) themenClusterName = opt.name;\n}\n\n// Kunde aus Tags (erster Tag) — Fallback 'covago'\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\nreturn [{\n  json: {\n    seed_keyword: task.task_name,\n    task_id: task.task_id,\n    kunde: kunde,\n    themen_cluster: themenClusterName,\n    themen_cluster_value: themenClusterValue,\n    themen_cluster_options: themenClusterOptions\n  }\n}];"
+        "jsCode": "// Task-Daten extrahieren + Seed-Keyword für DataForSEO optimieren\nconst task = $('Fetch Task Details').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\nconst themenClusterValue = clusterField?.value ?? null;\nconst themenClusterOptions = clusterField?.type_config?.options || [];\n\nlet themenClusterName = '';\nif (themenClusterValue !== null && themenClusterOptions.length > 0) {\n  const opt = themenClusterOptions.find(o => o.orderindex === themenClusterValue);\n  if (opt) themenClusterName = opt.name;\n}\n\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\n// Seed-Keyword: DataForSEO braucht kurze Keywords (2-3 Wörter)\n// Strategie: Stoppwörter entfernen, max 3 bedeutungsvolle Wörter\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum'\n]);\n\nconst fullName = task.name;\nconst words = fullName.split(/\\s+/).filter(w => w.length > 0);\nconst meaningful = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));\n\n// Max 3 bedeutungsvolle Wörter für DataForSEO\nconst seedKeyword = meaningful.slice(0, 3).join(' ');\n\nreturn [{\n  json: {\n    seed_keyword: seedKeyword,\n    original_task_name: fullName,\n    task_id: task.id,\n    kunde: kunde,\n    themen_cluster: themenClusterName,\n    themen_cluster_value: themenClusterValue,\n    themen_cluster_options: themenClusterOptions\n  }\n}];"
       },
       "id": "kr-node-003",
       "name": "Extract Task Data",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        460,
+        660,
         300
       ],
       "notesInFlow": true,
@@ -242,7 +242,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiches Thema, andere Reihenfolge/Stoppwörter) werden gruppiert\n// Pro Gruppe → das Keyword mit höchstem Suchvolumen wird Hauptkeyword\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\n// Deutsche Stoppwörter die beim Gruppieren ignoriert werden\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit', 'während',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum',\n  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',\n  'mein', 'dein', 'sein', 'ihr', 'unser', 'euer',\n  'sich', 'man', 'auch', 'noch', 'schon', 'so', 'sehr',\n  'nur', 'nicht', 'kein', 'keine', 'keinen', 'keiner',\n  'ja', 'nein', 'doch', 'wohl', 'mal', 'denn',\n  'zu', 'ab', 'ob', 'wenn', 'weil', 'dass', 'damit'\n]);\n\n// Normalisierung: Stoppwörter entfernen, Wörter sortieren\nfunction normalizeForGrouping(keyword) {\n  const words = keyword\n    .toLowerCase()\n    .replace(/[^a-zäöüß0-9\\s]/g, '')\n    .split(/\\s+/)\n    .filter(w => w.length > 1 && !STOP_WORDS.has(w));\n\n  // Einfaches Stemming: häufige deutsche Endungen entfernen\n  const stemmed = words.map(w => {\n    if (w.length > 5) {\n      // Plural/Flexion entfernen\n      if (w.endsWith('ungen')) return w.slice(0, -5);\n      if (w.endsWith('ung')) return w.slice(0, -3);\n      if (w.endsWith('heit')) return w.slice(0, -4);\n      if (w.endsWith('keit')) return w.slice(0, -4);\n      if (w.endsWith('isch')) return w.slice(0, -4);\n      if (w.endsWith('lich')) return w.slice(0, -4);\n      if (w.endsWith('ieren')) return w.slice(0, -5);\n      if (w.endsWith('en')) return w.slice(0, -2);\n      if (w.endsWith('er')) return w.slice(0, -2);\n      if (w.endsWith('es')) return w.slice(0, -2);\n      if (w.endsWith('em')) return w.slice(0, -2);\n      if (w.endsWith('te')) return w.slice(0, -2);\n      if (w.endsWith('st')) return w.slice(0, -2);\n      if (w.endsWith('e')) return w.slice(0, -1);\n      if (w.endsWith('s')) return w.slice(0, -1);\n    }\n    return w;\n  }).filter(w => w.length > 1);\n\n  return stemmed.sort().join(' ');\n}\n\n// Prüfe ob zwei normalisierte Keys zusammengehören (80%+ Wort-Overlap)\nfunction shouldMerge(key1, key2) {\n  if (key1 === key2) return true;\n  const words1 = new Set(key1.split(' '));\n  const words2 = new Set(key2.split(' '));\n\n  // Alle gleich aber eins hat ein Wort mehr → zusammen\n  const intersection = [...words1].filter(w => words2.has(w));\n  const maxLen = Math.max(words1.size, words2.size);\n  const minLen = Math.min(words1.size, words2.size);\n\n  if (minLen === 0) return false;\n\n  // Wenn mindestens 80% der Wörter übereinstimmen → zusammenführen\n  const overlap = intersection.length / maxLen;\n  return overlap >= 0.8;\n}\n\n// Phase 1: Exakte Duplikate entfernen\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  const existing = deduped.get(kw.keyword.toLowerCase().trim());\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(kw.keyword.toLowerCase().trim(), kw);\n  }\n}\n\n// Komplette Keywordliste (für Google Sheet)\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Phase 2: Keywords nach normalisierten Wörtern gruppieren\nconst normalizedMap = new Map(); // normalizedKey → [keywords]\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!normalizedMap.has(normalized)) {\n    normalizedMap.set(normalized, []);\n  }\n  normalizedMap.get(normalized).push(kw);\n}\n\n// Phase 3: Fuzzy-Merge — ähnliche Gruppen zusammenführen\nconst groupKeys = Array.from(normalizedMap.keys());\nconst merged = new Map(); // finalKey → [keywords]\nconst keyMapping = new Map(); // originalKey → finalKey\n\nfor (const key of groupKeys) {\n  // Prüfe ob dieser Key schon in eine bestehende Gruppe gemerged wurde\n  if (keyMapping.has(key)) continue;\n\n  // Finde alle ähnlichen Keys\n  let bestMatch = null;\n  for (const [existingKey] of merged) {\n    if (shouldMerge(key, existingKey)) {\n      bestMatch = existingKey;\n      break;\n    }\n  }\n\n  if (bestMatch) {\n    // Zu bestehender Gruppe hinzufügen\n    merged.get(bestMatch).push(...normalizedMap.get(key));\n    keyMapping.set(key, bestMatch);\n  } else {\n    // Neue Gruppe erstellen\n    merged.set(key, [...normalizedMap.get(key)]);\n    keyMapping.set(key, key);\n  }\n}\n\n// Phase 4: Pro Gruppe das beste Keyword wählen\nconst cleanedList = [];\nconst groupMapping = [];\n\nlet groupId = 1;\nfor (const [normalizedKey, keywords] of merged) {\n  // Sortiere nach SV absteigend\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n\n  // Gesamtes Suchvolumen der Gruppe\n  const totalSV = keywords.reduce((sum, kw) => sum + (kw.search_volume || 0), 0);\n\n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    total_group_volume: totalSV,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length,\n    variations: keywords.slice(0, 10).map(k => k.keyword).join(', ')\n  });\n\n  // Alle Keywords der Gruppe fürs Sheet\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\n// Nach Suchvolumen sortieren\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length,\n      reduction_pct: completeList.length > 0\n        ? Math.round((1 - cleanedList.length / completeList.length) * 100) + '%'\n        : '0%'\n    }\n  }\n}];"
+        "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiches Thema, andere Reihenfolge/Stoppwörter/Bindestriche) werden gruppiert\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit', 'während',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum',\n  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',\n  'sich', 'man', 'auch', 'noch', 'schon', 'so', 'sehr',\n  'nur', 'nicht', 'kein', 'keine', 'keinen', 'keiner',\n  'zu', 'ab', 'ob', 'wenn', 'weil', 'dass', 'damit'\n]);\n\n// Normalisierung: Bindestriche→Leerzeichen, Stoppwörter raus, sortieren\nfunction normalizeForGrouping(keyword) {\n  const words = keyword\n    .toLowerCase()\n    .replace(/[-–—]/g, ' ')           // Bindestriche → Leerzeichen\n    .replace(/[^a-zäöüß0-9\\s]/g, '')  // Sonderzeichen weg\n    .split(/\\s+/)\n    .filter(w => w.length > 1 && !STOP_WORDS.has(w));\n\n  // Einfaches Stemming\n  const stemmed = words.map(w => {\n    if (w.length > 5) {\n      if (w.endsWith('ungen')) return w.slice(0, -5);\n      if (w.endsWith('ung')) return w.slice(0, -3);\n      if (w.endsWith('heit')) return w.slice(0, -4);\n      if (w.endsWith('keit')) return w.slice(0, -4);\n      if (w.endsWith('isch')) return w.slice(0, -4);\n      if (w.endsWith('lich')) return w.slice(0, -4);\n      if (w.endsWith('ieren')) return w.slice(0, -5);\n      if (w.endsWith('en')) return w.slice(0, -2);\n      if (w.endsWith('er')) return w.slice(0, -2);\n      if (w.endsWith('es')) return w.slice(0, -2);\n      if (w.endsWith('em')) return w.slice(0, -2);\n      if (w.endsWith('te')) return w.slice(0, -2);\n      if (w.endsWith('st')) return w.slice(0, -2);\n      if (w.endsWith('e')) return w.slice(0, -1);\n      if (w.endsWith('s')) return w.slice(0, -1);\n    }\n    return w;\n  }).filter(w => w.length > 1);\n\n  return stemmed.sort().join(' ');\n}\n\n// Prüfe ob zwei Keys zusammengehören (70%+ Wort-Overlap)\nfunction shouldMerge(key1, key2) {\n  if (key1 === key2) return true;\n  const words1 = new Set(key1.split(' '));\n  const words2 = new Set(key2.split(' '));\n  const intersection = [...words1].filter(w => words2.has(w));\n  const maxLen = Math.max(words1.size, words2.size);\n  if (maxLen === 0) return false;\n  return intersection.length / maxLen >= 0.7;\n}\n\n// Phase 1: Exakte Duplikate\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  // Auch Bindestriche bei Dedup normalisieren\n  const key = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ').trim().replace(/\\s+/g, ' ');\n  const existing = deduped.get(key);\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(key, kw);\n  }\n}\n\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Phase 2: Normalisierte Gruppen\nconst normalizedMap = new Map();\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!normalizedMap.has(normalized)) {\n    normalizedMap.set(normalized, []);\n  }\n  normalizedMap.get(normalized).push(kw);\n}\n\n// Phase 3: Fuzzy-Merge\nconst groupKeys = Array.from(normalizedMap.keys());\nconst merged = new Map();\nconst keyMapping = new Map();\n\nfor (const key of groupKeys) {\n  if (keyMapping.has(key)) continue;\n  let bestMatch = null;\n  for (const [existingKey] of merged) {\n    if (shouldMerge(key, existingKey)) {\n      bestMatch = existingKey;\n      break;\n    }\n  }\n  if (bestMatch) {\n    merged.get(bestMatch).push(...normalizedMap.get(key));\n    keyMapping.set(key, bestMatch);\n  } else {\n    merged.set(key, [...normalizedMap.get(key)]);\n    keyMapping.set(key, key);\n  }\n}\n\n// Phase 4: Pro Gruppe bestes Keyword\nconst cleanedList = [];\nconst groupMapping = [];\nlet groupId = 1;\n\nfor (const [normalizedKey, keywords] of merged) {\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n  const totalSV = keywords.reduce((sum, kw) => sum + (kw.search_volume || 0), 0);\n\n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    total_group_volume: totalSV,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length,\n    variations: keywords.slice(0, 10).map(k => k.keyword).join(', ')\n  });\n\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length,\n      reduction_pct: completeList.length > 0\n        ? Math.round((1 - cleanedList.length / completeList.length) * 100) + '%'\n        : '0%'\n    }\n  }\n}];"
       },
       "id": "kr-node-007",
       "name": "Deduplicate & Group Keywords",
@@ -483,7 +483,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_themen_cluster }}",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -545,28 +545,6 @@
     }
   ],
   "connections": {
-    "Fetch Task Details": {
-      "main": [
-        [
-          {
-            "node": "Filter: Keyword-Research starten",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter: Keyword-Research starten": {
-      "main": [
-        [
-          {
-            "node": "Config",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Config": {
       "main": [
         [
@@ -753,7 +731,29 @@
         ]
       ]
     },
+    "Wait for Both APIs": {
+      "main": [
+        [
+          {
+            "node": "Merge All Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "ClickUp Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter: Keyword-Research starten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Keyword-Research starten": {
       "main": [
         [
           {
@@ -764,11 +764,11 @@
         ]
       ]
     },
-    "Wait for Both APIs": {
+    "Fetch Task Details": {
       "main": [
         [
           {
-            "node": "Merge All Keywords",
+            "node": "Config",
             "type": "main",
             "index": 0
           }
@@ -784,9 +784,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "27b6f8b8-646e-4340-8ae6-b3d62156c7e4",
-  "activeVersionId": "27b6f8b8-646e-4340-8ae6-b3d62156c7e4",
-  "versionCounter": 27,
+  "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
+  "activeVersionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
+  "versionCounter": 45,
   "triggerCount": 1,
   "shared": [
     {
@@ -809,9 +809,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-24T16:04:45.008Z",
-    "createdAt": "2026-03-24T16:04:45.008Z",
-    "versionId": "27b6f8b8-646e-4340-8ae6-b3d62156c7e4",
+    "updatedAt": "2026-03-24T16:36:53.968Z",
+    "createdAt": "2026-03-24T16:36:53.968Z",
+    "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
     "workflowId": "Vgq0ER1amLUyI1ws",
     "nodes": [
       {
@@ -893,7 +893,7 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          260,
+          440,
           300
         ],
         "notesInFlow": true,
@@ -920,7 +920,7 @@
       {
         "parameters": {
           "method": "GET",
-          "url": "=https://api.clickup.com/api/v2/task/{{ $json.body.task_id }}",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $json.task_id }}",
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
           "options": {}
@@ -930,7 +930,7 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
-          0,
+          220,
           300
         ],
         "credentials": {
@@ -944,14 +944,14 @@
       },
       {
         "parameters": {
-          "jsCode": "// Der Webhook wird nur vom \"Keyword-Research starten\" Button aufgerufen.\n// Daher reicht es, die Task-Daten einfach durchzureichen.\nconst task = $input.first().json;\nconst customFields = task.custom_fields || [];\n\n// Prüfe ob der Task im richtigen Status ist (optional safety check)\nconst status = task.status?.status?.toLowerCase() || '';\n\nreturn [{\n  json: {\n    task_id: task.id,\n    task_name: task.name,\n    tags: task.tags || [],\n    custom_fields: customFields,\n    status: status\n  }\n}];"
+          "jsCode": "// Prüfe ob der Webhook vom \"Keyword-Research starten\" Button kommt\n// Unterstützt zwei Formate:\n// 1. ClickUp Webhook: { event: \"taskUpdated\", task_id: \"xxx\", history_items: [...] }\n// 2. Manueller Call: { task_id: \"xxx\" }\n\nconst body = $input.first().json.body || $input.first().json;\n\n// Format 1: ClickUp Webhook\nif (body.event === 'taskUpdated' && body.history_items) {\n  // Prüfe ob der \"Keyword-Research starten\" Button geklickt wurde\n  const buttonClicked = body.history_items.some(item =>\n    item.field === 'custom_field' &&\n    item.custom_field_id === '12522be1-6428-4575-a635-8374e971c0ee'\n  );\n\n  if (!buttonClicked) {\n    // Nicht der richtige Button → Workflow stoppen\n    return [];\n  }\n\n  return [{ json: { task_id: body.task_id, source: 'clickup_webhook' } }];\n}\n\n// Format 2: Manueller Webhook-Call mit task_id\nif (body.task_id) {\n  return [{ json: { task_id: body.task_id, source: 'manual' } }];\n}\n\n// Kein gültiges Format → stoppen\nreturn [];"
         },
         "id": "kr-node-020",
         "name": "Filter: Keyword-Research starten",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          220,
+          0,
           300
         ],
         "notesInFlow": true,
@@ -959,14 +959,14 @@
       },
       {
         "parameters": {
-          "jsCode": "// Task-Daten aus dem gefilterten Ergebnis extrahieren\nconst task = $('Filter: Keyword-Research starten').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster: Dropdown-Wert ist ein orderindex oder UUID\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\n\n// Dropdown value = orderindex (0,1,2,3) wenn gesetzt, sonst null\n// Auch die Options-Liste für die Zuordnung weitergeben\nconst themenClusterValue = clusterField?.value ?? null;\nconst themenClusterOptions = clusterField?.type_config?.options || [];\n\n// Cluster-Name für Labels (aus Option oder Task Name)\nlet themenClusterName = task.task_name || '';\nif (themenClusterValue !== null && themenClusterOptions.length > 0) {\n  const opt = themenClusterOptions.find(o => o.orderindex === themenClusterValue);\n  if (opt) themenClusterName = opt.name;\n}\n\n// Kunde aus Tags (erster Tag) — Fallback 'covago'\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\nreturn [{\n  json: {\n    seed_keyword: task.task_name,\n    task_id: task.task_id,\n    kunde: kunde,\n    themen_cluster: themenClusterName,\n    themen_cluster_value: themenClusterValue,\n    themen_cluster_options: themenClusterOptions\n  }\n}];"
+          "jsCode": "// Task-Daten extrahieren + Seed-Keyword für DataForSEO optimieren\nconst task = $('Fetch Task Details').item.json;\nconst customFields = task.custom_fields || [];\n\n// Themen-Cluster\nconst clusterField = customFields.find(f => f.name && f.name.toLowerCase().includes('themen-cluster'));\nconst themenClusterValue = clusterField?.value ?? null;\nconst themenClusterOptions = clusterField?.type_config?.options || [];\n\nlet themenClusterName = '';\nif (themenClusterValue !== null && themenClusterOptions.length > 0) {\n  const opt = themenClusterOptions.find(o => o.orderindex === themenClusterValue);\n  if (opt) themenClusterName = opt.name;\n}\n\nconst kunde = (task.tags && task.tags.length > 0) ? task.tags[0].name : 'covago';\n\n// Seed-Keyword: DataForSEO braucht kurze Keywords (2-3 Wörter)\n// Strategie: Stoppwörter entfernen, max 3 bedeutungsvolle Wörter\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum'\n]);\n\nconst fullName = task.name;\nconst words = fullName.split(/\\s+/).filter(w => w.length > 0);\nconst meaningful = words.filter(w => !STOP_WORDS.has(w.toLowerCase()));\n\n// Max 3 bedeutungsvolle Wörter für DataForSEO\nconst seedKeyword = meaningful.slice(0, 3).join(' ');\n\nreturn [{\n  json: {\n    seed_keyword: seedKeyword,\n    original_task_name: fullName,\n    task_id: task.id,\n    kunde: kunde,\n    themen_cluster: themenClusterName,\n    themen_cluster_value: themenClusterValue,\n    themen_cluster_options: themenClusterOptions\n  }\n}];"
         },
         "id": "kr-node-003",
         "name": "Extract Task Data",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          460,
+          660,
           300
         ],
         "notesInFlow": true,
@@ -1049,7 +1049,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiches Thema, andere Reihenfolge/Stoppwörter) werden gruppiert\n// Pro Gruppe → das Keyword mit höchstem Suchvolumen wird Hauptkeyword\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\n// Deutsche Stoppwörter die beim Gruppieren ignoriert werden\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit', 'während',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum',\n  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',\n  'mein', 'dein', 'sein', 'ihr', 'unser', 'euer',\n  'sich', 'man', 'auch', 'noch', 'schon', 'so', 'sehr',\n  'nur', 'nicht', 'kein', 'keine', 'keinen', 'keiner',\n  'ja', 'nein', 'doch', 'wohl', 'mal', 'denn',\n  'zu', 'ab', 'ob', 'wenn', 'weil', 'dass', 'damit'\n]);\n\n// Normalisierung: Stoppwörter entfernen, Wörter sortieren\nfunction normalizeForGrouping(keyword) {\n  const words = keyword\n    .toLowerCase()\n    .replace(/[^a-zäöüß0-9\\s]/g, '')\n    .split(/\\s+/)\n    .filter(w => w.length > 1 && !STOP_WORDS.has(w));\n\n  // Einfaches Stemming: häufige deutsche Endungen entfernen\n  const stemmed = words.map(w => {\n    if (w.length > 5) {\n      // Plural/Flexion entfernen\n      if (w.endsWith('ungen')) return w.slice(0, -5);\n      if (w.endsWith('ung')) return w.slice(0, -3);\n      if (w.endsWith('heit')) return w.slice(0, -4);\n      if (w.endsWith('keit')) return w.slice(0, -4);\n      if (w.endsWith('isch')) return w.slice(0, -4);\n      if (w.endsWith('lich')) return w.slice(0, -4);\n      if (w.endsWith('ieren')) return w.slice(0, -5);\n      if (w.endsWith('en')) return w.slice(0, -2);\n      if (w.endsWith('er')) return w.slice(0, -2);\n      if (w.endsWith('es')) return w.slice(0, -2);\n      if (w.endsWith('em')) return w.slice(0, -2);\n      if (w.endsWith('te')) return w.slice(0, -2);\n      if (w.endsWith('st')) return w.slice(0, -2);\n      if (w.endsWith('e')) return w.slice(0, -1);\n      if (w.endsWith('s')) return w.slice(0, -1);\n    }\n    return w;\n  }).filter(w => w.length > 1);\n\n  return stemmed.sort().join(' ');\n}\n\n// Prüfe ob zwei normalisierte Keys zusammengehören (80%+ Wort-Overlap)\nfunction shouldMerge(key1, key2) {\n  if (key1 === key2) return true;\n  const words1 = new Set(key1.split(' '));\n  const words2 = new Set(key2.split(' '));\n\n  // Alle gleich aber eins hat ein Wort mehr → zusammen\n  const intersection = [...words1].filter(w => words2.has(w));\n  const maxLen = Math.max(words1.size, words2.size);\n  const minLen = Math.min(words1.size, words2.size);\n\n  if (minLen === 0) return false;\n\n  // Wenn mindestens 80% der Wörter übereinstimmen → zusammenführen\n  const overlap = intersection.length / maxLen;\n  return overlap >= 0.8;\n}\n\n// Phase 1: Exakte Duplikate entfernen\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  const existing = deduped.get(kw.keyword.toLowerCase().trim());\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(kw.keyword.toLowerCase().trim(), kw);\n  }\n}\n\n// Komplette Keywordliste (für Google Sheet)\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Phase 2: Keywords nach normalisierten Wörtern gruppieren\nconst normalizedMap = new Map(); // normalizedKey → [keywords]\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!normalizedMap.has(normalized)) {\n    normalizedMap.set(normalized, []);\n  }\n  normalizedMap.get(normalized).push(kw);\n}\n\n// Phase 3: Fuzzy-Merge — ähnliche Gruppen zusammenführen\nconst groupKeys = Array.from(normalizedMap.keys());\nconst merged = new Map(); // finalKey → [keywords]\nconst keyMapping = new Map(); // originalKey → finalKey\n\nfor (const key of groupKeys) {\n  // Prüfe ob dieser Key schon in eine bestehende Gruppe gemerged wurde\n  if (keyMapping.has(key)) continue;\n\n  // Finde alle ähnlichen Keys\n  let bestMatch = null;\n  for (const [existingKey] of merged) {\n    if (shouldMerge(key, existingKey)) {\n      bestMatch = existingKey;\n      break;\n    }\n  }\n\n  if (bestMatch) {\n    // Zu bestehender Gruppe hinzufügen\n    merged.get(bestMatch).push(...normalizedMap.get(key));\n    keyMapping.set(key, bestMatch);\n  } else {\n    // Neue Gruppe erstellen\n    merged.set(key, [...normalizedMap.get(key)]);\n    keyMapping.set(key, key);\n  }\n}\n\n// Phase 4: Pro Gruppe das beste Keyword wählen\nconst cleanedList = [];\nconst groupMapping = [];\n\nlet groupId = 1;\nfor (const [normalizedKey, keywords] of merged) {\n  // Sortiere nach SV absteigend\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n\n  // Gesamtes Suchvolumen der Gruppe\n  const totalSV = keywords.reduce((sum, kw) => sum + (kw.search_volume || 0), 0);\n\n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    total_group_volume: totalSV,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length,\n    variations: keywords.slice(0, 10).map(k => k.keyword).join(', ')\n  });\n\n  // Alle Keywords der Gruppe fürs Sheet\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\n// Nach Suchvolumen sortieren\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length,\n      reduction_pct: completeList.length > 0\n        ? Math.round((1 - cleanedList.length / completeList.length) * 100) + '%'\n        : '0%'\n    }\n  }\n}];"
+          "jsCode": "// Keywords gruppieren und bereinigen\n// Ähnliche Keywords (gleiches Thema, andere Reihenfolge/Stoppwörter/Bindestriche) werden gruppiert\n\nconst allKeywords = $input.all()[0].json.all_keywords;\n\nconst STOP_WORDS = new Set([\n  'der', 'die', 'das', 'den', 'dem', 'des',\n  'ein', 'eine', 'einer', 'eines', 'einem', 'einen',\n  'und', 'oder', 'aber', 'für', 'mit', 'ohne', 'bei', 'bis',\n  'von', 'vom', 'zum', 'zur', 'am', 'an', 'auf', 'aus',\n  'in', 'im', 'um', 'über', 'unter', 'nach', 'vor',\n  'durch', 'gegen', 'zwischen', 'neben', 'seit', 'während',\n  'ist', 'sind', 'wird', 'werden', 'hat', 'haben',\n  'als', 'wie', 'was', 'wer', 'wo', 'wann', 'warum',\n  'ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr',\n  'sich', 'man', 'auch', 'noch', 'schon', 'so', 'sehr',\n  'nur', 'nicht', 'kein', 'keine', 'keinen', 'keiner',\n  'zu', 'ab', 'ob', 'wenn', 'weil', 'dass', 'damit'\n]);\n\n// Normalisierung: Bindestriche→Leerzeichen, Stoppwörter raus, sortieren\nfunction normalizeForGrouping(keyword) {\n  const words = keyword\n    .toLowerCase()\n    .replace(/[-–—]/g, ' ')           // Bindestriche → Leerzeichen\n    .replace(/[^a-zäöüß0-9\\s]/g, '')  // Sonderzeichen weg\n    .split(/\\s+/)\n    .filter(w => w.length > 1 && !STOP_WORDS.has(w));\n\n  // Einfaches Stemming\n  const stemmed = words.map(w => {\n    if (w.length > 5) {\n      if (w.endsWith('ungen')) return w.slice(0, -5);\n      if (w.endsWith('ung')) return w.slice(0, -3);\n      if (w.endsWith('heit')) return w.slice(0, -4);\n      if (w.endsWith('keit')) return w.slice(0, -4);\n      if (w.endsWith('isch')) return w.slice(0, -4);\n      if (w.endsWith('lich')) return w.slice(0, -4);\n      if (w.endsWith('ieren')) return w.slice(0, -5);\n      if (w.endsWith('en')) return w.slice(0, -2);\n      if (w.endsWith('er')) return w.slice(0, -2);\n      if (w.endsWith('es')) return w.slice(0, -2);\n      if (w.endsWith('em')) return w.slice(0, -2);\n      if (w.endsWith('te')) return w.slice(0, -2);\n      if (w.endsWith('st')) return w.slice(0, -2);\n      if (w.endsWith('e')) return w.slice(0, -1);\n      if (w.endsWith('s')) return w.slice(0, -1);\n    }\n    return w;\n  }).filter(w => w.length > 1);\n\n  return stemmed.sort().join(' ');\n}\n\n// Prüfe ob zwei Keys zusammengehören (70%+ Wort-Overlap)\nfunction shouldMerge(key1, key2) {\n  if (key1 === key2) return true;\n  const words1 = new Set(key1.split(' '));\n  const words2 = new Set(key2.split(' '));\n  const intersection = [...words1].filter(w => words2.has(w));\n  const maxLen = Math.max(words1.size, words2.size);\n  if (maxLen === 0) return false;\n  return intersection.length / maxLen >= 0.7;\n}\n\n// Phase 1: Exakte Duplikate\nconst deduped = new Map();\nfor (const kw of allKeywords) {\n  // Auch Bindestriche bei Dedup normalisieren\n  const key = kw.keyword.toLowerCase().replace(/[-–—]/g, ' ').trim().replace(/\\s+/g, ' ');\n  const existing = deduped.get(key);\n  if (!existing || kw.search_volume > existing.search_volume) {\n    deduped.set(key, kw);\n  }\n}\n\nconst completeList = Array.from(deduped.values())\n  .sort((a, b) => b.search_volume - a.search_volume);\n\n// Phase 2: Normalisierte Gruppen\nconst normalizedMap = new Map();\nfor (const kw of completeList) {\n  const normalized = normalizeForGrouping(kw.keyword);\n  if (!normalizedMap.has(normalized)) {\n    normalizedMap.set(normalized, []);\n  }\n  normalizedMap.get(normalized).push(kw);\n}\n\n// Phase 3: Fuzzy-Merge\nconst groupKeys = Array.from(normalizedMap.keys());\nconst merged = new Map();\nconst keyMapping = new Map();\n\nfor (const key of groupKeys) {\n  if (keyMapping.has(key)) continue;\n  let bestMatch = null;\n  for (const [existingKey] of merged) {\n    if (shouldMerge(key, existingKey)) {\n      bestMatch = existingKey;\n      break;\n    }\n  }\n  if (bestMatch) {\n    merged.get(bestMatch).push(...normalizedMap.get(key));\n    keyMapping.set(key, bestMatch);\n  } else {\n    merged.set(key, [...normalizedMap.get(key)]);\n    keyMapping.set(key, key);\n  }\n}\n\n// Phase 4: Pro Gruppe bestes Keyword\nconst cleanedList = [];\nconst groupMapping = [];\nlet groupId = 1;\n\nfor (const [normalizedKey, keywords] of merged) {\n  keywords.sort((a, b) => b.search_volume - a.search_volume);\n  const primary = keywords[0];\n  const totalSV = keywords.reduce((sum, kw) => sum + (kw.search_volume || 0), 0);\n\n  cleanedList.push({\n    keyword: primary.keyword,\n    search_volume: primary.search_volume,\n    total_group_volume: totalSV,\n    search_intent: primary.search_intent,\n    cpc: primary.cpc,\n    competition: primary.competition,\n    status: 'offen',\n    group_id: groupId,\n    variations_count: keywords.length,\n    variations: keywords.slice(0, 10).map(k => k.keyword).join(', ')\n  });\n\n  for (const kw of keywords) {\n    groupMapping.push({\n      group_id: groupId,\n      primary_keyword: primary.keyword,\n      keyword: kw.keyword,\n      search_volume: kw.search_volume,\n      search_intent: kw.search_intent,\n      is_primary: kw.keyword === primary.keyword\n    });\n  }\n  groupId++;\n}\n\ncleanedList.sort((a, b) => b.search_volume - a.search_volume);\n\nreturn [{\n  json: {\n    cleaned_keywords: cleanedList,\n    complete_keywords: completeList,\n    keyword_groups: groupMapping,\n    stats: {\n      total_raw: allKeywords.length,\n      total_unique: completeList.length,\n      total_groups: cleanedList.length,\n      reduction_pct: completeList.length > 0\n        ? Math.round((1 - cleanedList.length / completeList.length) * 100) + '%'\n        : '0%'\n    }\n  }\n}];"
         },
         "id": "kr-node-007",
         "name": "Deduplicate & Group Keywords",
@@ -1290,7 +1290,7 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_themen_cluster }}",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
@@ -1352,28 +1352,6 @@
       }
     ],
     "connections": {
-      "Fetch Task Details": {
-        "main": [
-          [
-            {
-              "node": "Filter: Keyword-Research starten",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Filter: Keyword-Research starten": {
-        "main": [
-          [
-            {
-              "node": "Config",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
       "Config": {
         "main": [
           [
@@ -1560,7 +1538,29 @@
           ]
         ]
       },
+      "Wait for Both APIs": {
+        "main": [
+          [
+            {
+              "node": "Merge All Keywords",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "ClickUp Webhook Trigger": {
+        "main": [
+          [
+            {
+              "node": "Filter: Keyword-Research starten",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Filter: Keyword-Research starten": {
         "main": [
           [
             {
@@ -1571,11 +1571,11 @@
           ]
         ]
       },
-      "Wait for Both APIs": {
+      "Fetch Task Details": {
         "main": [
           [
             {
-              "node": "Merge All Keywords",
+              "node": "Config",
               "type": "main",
               "index": 0
             }
@@ -1589,18 +1589,18 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-24T16:04:45.055Z",
-        "id": 78,
+        "createdAt": "2026-03-24T16:36:54.047Z",
+        "id": 90,
         "workflowId": "Vgq0ER1amLUyI1ws",
-        "versionId": "27b6f8b8-646e-4340-8ae6-b3d62156c7e4",
+        "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-24T16:04:45.038Z",
-        "id": 77,
+        "createdAt": "2026-03-24T16:36:54.031Z",
+        "id": 89,
         "workflowId": "Vgq0ER1amLUyI1ws",
-        "versionId": "27b6f8b8-646e-4340-8ae6-b3d62156c7e4",
+        "versionId": "c6339f83-eb73-489d-998a-0058d31a40e2",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
