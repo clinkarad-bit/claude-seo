@@ -20,7 +20,7 @@
             {
               "id": "cfg-0003",
               "name": "clickup_list_id",
-              "value": "YOUR_CLICKUP_LIST_ID",
+              "value": "901522351430",
               "type": "string"
             },
             {
@@ -38,19 +38,19 @@
             {
               "id": "cfg-0006",
               "name": "clickup_custom_field_meta_title",
-              "value": "YOUR_CF_META_TITLE",
+              "value": "d8071083-aba1-402c-9562-79a105c82f53",
               "type": "string"
             },
             {
               "id": "cfg-0007",
               "name": "clickup_custom_field_meta_desc",
-              "value": "YOUR_CF_META_DESC",
+              "value": "7d25d61a-e040-4737-83eb-69ae1d056a17",
               "type": "string"
             },
             {
               "id": "cfg-0008",
               "name": "clickup_custom_field_link",
-              "value": "YOUR_CF_LINK_ZUM_BEITRAG",
+              "value": "3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
               "type": "string"
             }
           ]
@@ -430,11 +430,11 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"status\": \"review\"\n}",
+        "jsonBody": "={\n  \"status\": \"review beim kunden\"\n}",
         "options": {}
       },
       "id": "cw-node-016",
-      "name": "Update ClickUp Status → REVIEW",
+      "name": "Update ClickUp Status → REVIEW BEIM KUNDEN",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
@@ -448,17 +448,17 @@
         }
       },
       "notesInFlow": true,
-      "notes": "Task Status auf REVIEW setzen nach Content-Erstellung"
+      "notes": "Task Status auf REVIEW BEIM KUNDEN setzen nach Content-Erstellung"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_meta_title }}",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/d8071083-aba1-402c-9562-79a105c82f53",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"value\": {{ JSON.stringify($('Parse Meta & Assemble Final').item.json.meta.meta_title) }}\n}",
+        "jsonBody": "={\n  \"value\": {{ JSON.stringify($(\"Parse Meta & Assemble Final\").item.json.meta.meta_title || \"\") }}\n}",
         "options": {}
       },
       "id": "cw-node-017",
@@ -481,12 +481,12 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_meta_desc }}",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/7d25d61a-e040-4737-83eb-69ae1d056a17",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"value\": {{ JSON.stringify($('Parse Meta & Assemble Final').item.json.meta.meta_description) }}\n}",
+        "jsonBody": "={\n  \"value\": {{ JSON.stringify($(\"Parse Meta & Assemble Final\").item.json.meta.meta_description || \"\") }}\n}",
         "options": {}
       },
       "id": "cw-node-018",
@@ -509,12 +509,12 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_link }}",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"value\": \"{{ $('Prepare Doc Content').item.json.doc_url }}\"\n}",
+        "jsonBody": "={\n  \"value\": \"{{ $(\"Prepare Doc Content\").item.json.doc_url }}\"\n}",
         "options": {}
       },
       "id": "cw-node-019",
@@ -657,6 +657,34 @@
       ],
       "notesInFlow": true,
       "notes": "Nimmt optimierten Artikel (Pass 3) oder Original (Pass 2)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Input Data').item.json.task_id }}/field/c9c8eaa6-5be9-4952-b8ba-2013c4c9d673",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"value\": {{ JSON.stringify($(\"Parse Meta & Assemble Final\").item.json.meta.focus_keyword || \"\") }}\n}",
+        "options": {}
+      },
+      "id": "cw-node-026",
+      "name": "Set Search-Intent in ClickUp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3400,
+        800
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_CLICKUP",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Search-Intent Custom Field in ClickUp setzen"
     }
   ],
   "connections": {
@@ -846,6 +874,11 @@
             "node": "Set Doc Link in ClickUp",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Set Search-Intent in ClickUp",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -950,6 +983,17 @@
         [
           {
             "node": "Parse Meta & Assemble Final",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Search-Intent in ClickUp": {
+      "main": [
+        [
+          {
+            "node": "Summary",
             "type": "main",
             "index": 0
           }

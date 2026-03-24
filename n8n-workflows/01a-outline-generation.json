@@ -38,13 +38,13 @@
             {
               "id": "cfg-0006",
               "name": "clickup_space_id",
-              "value": "YOUR_CLICKUP_SPACE_ID",
+              "value": "901510324131",
               "type": "string"
             },
             {
               "id": "cfg-0007",
               "name": "clickup_list_id",
-              "value": "YOUR_CLICKUP_LIST_ID",
+              "value": "901522351430",
               "type": "string"
             },
             {
@@ -97,7 +97,7 @@
           "conditions": [
             {
               "id": "cond-0001",
-              "leftValue": "={{ $json.body.history_items[0].after.status }}",
+              "leftValue": "={{ $json.body?.history_items?.[0]?.after?.status || $json.body?.status || '' }}",
               "rightValue": "copywriting",
               "operator": {
                 "type": "string",
@@ -127,7 +127,7 @@
             {
               "id": "ext-0001",
               "name": "keyword",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task_name || $('ClickUp Webhook Trigger').item.json.body.history_items[0].parent_id }}",
+              "value": "={{ $('Fetch Task Details (ClickUp)').item.json.name }}",
               "type": "string"
             },
             {
@@ -139,13 +139,13 @@
             {
               "id": "ext-0003",
               "name": "kunde",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task?.tags?.[0]?.name || 'unknown' }}",
+              "value": "={{ $('Fetch Task Details (ClickUp)').item.json.tags?.[0]?.name || 'unknown' }}",
               "type": "string"
             },
             {
               "id": "ext-0004",
               "name": "themen_cluster",
-              "value": "={{ $('ClickUp Webhook Trigger').item.json.body.task?.custom_fields?.find(f => f.name === 'Themen-Cluster')?.value || '' }}",
+              "value": "={{ $('Fetch Task Details (ClickUp)').item.json.custom_fields?.find(f => f.name === 'Themen-Cluster')?.type_config?.options?.[$('Fetch Task Details (ClickUp)').item.json.custom_fields?.find(f => f.name === 'Themen-Cluster')?.value]?.name || '' }}",
               "type": "string"
             }
           ]
@@ -464,6 +464,33 @@
       ],
       "notesInFlow": true,
       "notes": "Ruft 01b Content Writer auf mit: Outline, WDF*IDF (gesamter Beitrag), Perplexity Research, interne Links"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "ol-node-017",
+      "name": "Fetch Task Details (ClickUp)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "CREDENTIAL_CLICKUP",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Task-Details aus ClickUp laden (Name, Tags, Custom Fields)"
     }
   ],
   "connections": {
@@ -493,7 +520,7 @@
       "main": [
         [
           {
-            "node": "Extract Task Data",
+            "node": "Fetch Task Details (ClickUp)",
             "type": "main",
             "index": 0
           }
@@ -626,6 +653,17 @@
         [
           {
             "node": "Trigger Content Writer (01b)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Task Details (ClickUp)": {
+      "main": [
+        [
+          {
+            "node": "Extract Task Data",
             "type": "main",
             "index": 0
           }
