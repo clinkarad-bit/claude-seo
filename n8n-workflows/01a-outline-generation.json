@@ -321,7 +321,7 @@
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "CREDENTIAL_PERPLEXITY",
+          "id": "f50xqZUHl7HrdLOz",
           "name": "Perplexity API"
         }
       },
@@ -421,7 +421,7 @@
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "CREDENTIAL_ANTHROPIC",
+          "id": "uYDWYxVRAB3CZ6Jo",
           "name": "Anthropic API"
         }
       },
