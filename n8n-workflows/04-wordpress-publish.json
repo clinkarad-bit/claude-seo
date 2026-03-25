@@ -42,6 +42,10 @@
             {
               "name": "google_sheet_id",
               "value": "={{ $env.GOOGLE_SHEET_ID || '' }}"
+            },
+            {
+              "name": "gemini_api_key",
+              "value": "={{ $env.GEMINI_API_KEY || '' }}"
             }
           ]
         },
@@ -55,7 +59,7 @@
         40,
         300
       ],
-      "notes": "Configuration: wordpress_url, freigegeben_folder_id, wordpress_folder_id, google_sheet_id"
+      "notes": "Configuration: wordpress_url, freigegeben_folder_id, wordpress_folder_id, google_sheet_id, gemini_api_key"
     },
     {
       "parameters": {
@@ -323,7 +327,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Determine the category_id from whichever branch ran\nlet categoryId = null;\n\ntry {\n  const created = $('Merge Category ID (Created)').item.json;\n  if (created && created.category_id) categoryId = created.category_id;\n} catch(e) {}\n\nif (!categoryId) {\n  try {\n    const existing = $('Merge Category ID (Existing)').item.json;\n    if (existing && existing.category_id) categoryId = existing.category_id;\n  } catch(e) {}\n}\n\nconst featuredImageUrl = $('Extract Data').item.json.featured_image_url || '';\n\nreturn [{\n  json: {\n    category_id: categoryId,\n    has_featured_image: featuredImageUrl.length > 0,\n    featured_image_url: featuredImageUrl\n  }\n}];"
+        "jsCode": "// Determine the category_id from whichever branch ran\nlet categoryId = null;\n\ntry {\n  const created = $('Merge Category ID (Created)').item.json;\n  if (created && created.category_id) categoryId = created.category_id;\n} catch(e) {}\n\nif (!categoryId) {\n  try {\n    const existing = $('Merge Category ID (Existing)').item.json;\n    if (existing && existing.category_id) categoryId = existing.category_id;\n  } catch(e) {}\n}\n\nreturn [{\n  json: {\n    category_id: categoryId\n  }\n}];"
       },
       "id": "a1b2c3d4-1001-4000-a000-000000000014",
       "name": "Prepare Post Data",
@@ -333,62 +337,109 @@
         2680,
         200
       ],
-      "notes": "Consolidate category ID and check for featured image"
+      "notes": "Consolidate category ID from whichever branch ran"
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "condition-has-image",
-              "leftValue": "={{ $json.has_featured_image }}",
-              "rightValue": true,
-              "operator": {
-                "type": "boolean",
-                "operation": "equals",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        }
+        "jsCode": "// Generate 2 featured images with Gemini\nconst geminiKey = $('Config').item.json.gemini_api_key;\nconst taskName = $('Extract Data').item.json.task_name;\nconst htmlContent = $('Convert Doc to HTML').item.json.html_content || '';\n\n// Strip HTML to plain text (first 3000 chars)\nconst plainText = htmlContent.replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim().substring(0, 3000);\n\nif (!geminiKey) {\n  return [{ json: { featured_media_id: 0, error: 'Kein GEMINI_API_KEY gesetzt' } }];\n}\n\n// Step 1: Ask Gemini Flash to analyze the article and create a scene description\nconst analysisResponse = await this.helpers.httpRequest({\n  method: 'POST',\n  url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({\n    contents: [{\n      parts: [{\n        text: `Analysiere den folgenden Blogartikel und erstelle eine Bildbeschreibung f\\u00fcr ein Titelbild.\\n\\nArtikel-Titel: ${taskName}\\n\\nArtikel-Inhalt (Auszug):\\n${plainText}\\n\\nAntworte NUR mit einem JSON-Objekt:\\n{\\n  \"topic\": \"Thema in einem kurzen Satz\",\\n  \"scene_description_1\": \"Detaillierte visuelle Beschreibung einer realen Szene f\\u00fcr Foto-Variante 1. 2-3 S\\u00e4tze. Beschreibe Personen, Objekte, Umgebung, Tageszeit.\",\\n  \"scene_description_2\": \"Detaillierte visuelle Beschreibung einer ANDEREN realen Szene f\\u00fcr Foto-Variante 2 (andere Perspektive/Situation, aber gleiches Thema). 2-3 S\\u00e4tze.\",\\n  \"core_message\": \"1-2 S\\u00e4tze, was der Artikel inhaltlich vermittelt\"\\n}`\n      }]\n    }],\n    generationConfig: { temperature: 0.7 }\n  }),\n  returnFullResponse: false\n});\n\nlet analysis;\ntry {\n  const text = analysisResponse.candidates[0].content.parts[0].text;\n  const jsonMatch = text.match(/\\{[\\s\\S]*\\}/);\n  analysis = JSON.parse(jsonMatch[0]);\n} catch(e) {\n  analysis = {\n    topic: taskName,\n    scene_description_1: `Ein professionelles Foto das das Thema ${taskName} zeigt`,\n    scene_description_2: `Eine alternative Szene zum Thema ${taskName} aus anderer Perspektive`,\n    core_message: `Informationen zum Thema ${taskName}`\n  };\n}\n\n// Step 2: Build 2 image prompts using the user's template\nfunction buildPrompt(topic, sceneDesc, coreMessage) {\n  return `Erzeuge ein ultra-fotorealistisches Foto, das so wirkt, als w\\u00e4re es mit einem aktuellen iPhone-Smartphone aufgenommen worden, direkt aus der Hand, ohne Filter.\\nZweck: Das Foto ist Titelbild f\\u00fcr einen Blogbeitrag mit dem Thema: \\u201e${topic}\\u201c. Die Szene soll den Inhalt des Beitrags m\\u00f6glichst exakt darstellen, so dass man das Thema des Textes intuitiv erkennt.\\nKamera-Stil:\\n* Captured with a modern iPhone smartphone camera, handheld, native camera app.\\n* Leichtes, realistisches Bildrauschen in den Schatten, nat\\u00fcrliche Sch\\u00e4rfe, keine \\u00fcbertriebene Klarheit.\\n* Automatischer Wei\\u00dfabgleich, automatische Belichtung, Look wie ein echtes Handyfoto.\\n* Keine sichtbare Tiefensch\\u00e4rfe-Simulation wie Studio-Portrait, sondern authentische Handy-Optik.\\nPerspektive / Komposition:\\n* Aufnahmeposition: Augenh\\u00f6he oder leicht dar\\u00fcber, als w\\u00fcrde eine reale Person die Szene mit einem iPhone fotografieren.\\n* Leicht unperfekte, menschliche Komposition: minimal schiefer Horizont oder kleine Abweichung von perfekter Symmetrie, um Realismus zu erh\\u00f6hen.\\n* Bildformat 16:9 (ideal als Titelbild).\\nSzene / Inhalt (an Beitrag angepasst):\\n* Zeige folgende Situation: ${sceneDesc}\\n* Die Szene soll exakt die Kernaussage des Blogartikels vermitteln: ${coreMessage}\\n* Umgebung realistisch und glaubw\\u00fcrdig: nat\\u00fcrlicher Raum, echte M\\u00f6bel, glaubw\\u00fcrdige Alltagsobjekte.\\nLicht / Atmosph\\u00e4re:\\n* Nat\\u00fcrliches Innenlicht oder Tageslicht durch ein Fenster, wie bei einem spontan aufgenommenen Foto im B\\u00fcro/zu Hause.\\n* Realistische Belichtung, leichte \\u00dcberbelichtung in Highlights und minimaler Rauschteppich in dunklen Bereichen, wie bei einem Handyfoto.\\n* Keine dramatischen Kino-Licht-Setups, sondern Alltagssituation.\\nStil & Qualit\\u00e4t:\\n* Ultra photorealistic, aber mit der leichten Unsch\\u00e4rfe und Sch\\u00e4rfentiefe einer modernen Smartphone-Kamera.\\n* Farben nat\\u00fcrlich, moderat ges\\u00e4ttigt, kein \\u00fcbertriebener HDR-Look, kein Beauty-Filter.\\n* Bild soll wirken wie ein authentisches Foto, das jemand spontan f\\u00fcr einen Blog gemacht hat, aber mit sehr sauberer Komposition.\\nNegative Vorgaben:\\n* Kein sichtbares Wasserzeichen, kein Text im Bild, keine Logos von Marken, kein sichtbares iPhone-Geh\\u00e4use.\\n* Kein Kunst-Look, keine Illustration, kein 3D-Render, kein Comic-Stil.\\n* Keine unrealistischen Effekte, keine Lens-Flares, kein \\u00fcbertriebener Bokeh-Effekt.`;\n}\n\nconst prompt1 = buildPrompt(analysis.topic, analysis.scene_description_1, analysis.core_message);\nconst prompt2 = buildPrompt(analysis.topic, analysis.scene_description_2, analysis.core_message);\n\n// Step 3: Generate both images\nasync function generateImage(prompt) {\n  try {\n    const resp = await this.helpers.httpRequest({\n      method: 'POST',\n      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${geminiKey}`,\n      headers: { 'Content-Type': 'application/json' },\n      body: JSON.stringify({\n        contents: [{ parts: [{ text: prompt }] }],\n        generationConfig: { responseModalities: ['IMAGE', 'TEXT'] }\n      }),\n      returnFullResponse: false,\n      timeout: 120000\n    });\n    const parts = resp.candidates?.[0]?.content?.parts || [];\n    const imgPart = parts.find(p => p.inlineData);\n    if (imgPart) {\n      return { data: imgPart.inlineData.data, mimeType: imgPart.inlineData.mimeType || 'image/png' };\n    }\n  } catch(e) {\n    // Fallback: try imagen-3.0-generate-002\n    try {\n      const resp2 = await this.helpers.httpRequest({\n        method: 'POST',\n        url: `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${geminiKey}`,\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify({\n          instances: [{ prompt: prompt }],\n          parameters: { sampleCount: 1, aspectRatio: '16:9', personGeneration: 'allow_all' }\n        }),\n        returnFullResponse: false,\n        timeout: 120000\n      });\n      if (resp2.predictions?.[0]?.bytesBase64Encoded) {\n        return { data: resp2.predictions[0].bytesBase64Encoded, mimeType: resp2.predictions[0].mimeType || 'image/png' };\n      }\n    } catch(e2) {}\n  }\n  return null;\n}\n\nconst [img1, img2] = await Promise.all([\n  generateImage.call(this, prompt1),\n  generateImage.call(this, prompt2)\n]);\n\n// Prepare binary outputs\nconst result = { json: { image_count: 0, analysis: analysis } };\nconst binaries = {};\n\nif (img1) {\n  const ext = img1.mimeType.includes('jpeg') ? 'jpg' : 'png';\n  binaries.image1 = await this.helpers.prepareBinaryData(\n    Buffer.from(img1.data, 'base64'),\n    `featured-image-1.${ext}`,\n    img1.mimeType\n  );\n  result.json.image_count++;\n}\n\nif (img2) {\n  const ext = img2.mimeType.includes('jpeg') ? 'jpg' : 'png';\n  binaries.image2 = await this.helpers.prepareBinaryData(\n    Buffer.from(img2.data, 'base64'),\n    `featured-image-2.${ext}`,\n    img2.mimeType\n  );\n  result.json.image_count++;\n}\n\nresult.binary = binaries;\nreturn [result];"
       },
-      "id": "a1b2c3d4-1001-4000-a000-000000000015",
-      "name": "Has Featured Image?",
-      "type": "n8n-nodes-base.if",
+      "id": "a1b2c3d4-1001-4000-a000-000000000030",
+      "name": "Generate Featured Images (Gemini)",
+      "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         2920,
         200
       ],
-      "notes": "Check if there is a featured image URL to upload"
+      "notes": "Gemini analysiert Artikel → generiert 2 fotorealistische iPhone-Fotos als Titelbild-Varianten"
     },
     {
       "parameters": {
-        "method": "GET",
-        "url": "={{ $('Prepare Post Data').item.json.featured_image_url }}",
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Data').item.json.task_id }}/attachment",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "attachment",
+              "inputDataFieldName": "image1"
+            }
+          ]
+        },
         "options": {
           "response": {
             "response": {
-              "responseFormat": "file"
+              "responseFormat": "json"
             }
-          }
+          },
+          "never_error": true,
+          "timeout": 30000
         }
       },
-      "id": "a1b2c3d4-1001-4000-a000-000000000016",
-      "name": "Download Featured Image",
+      "id": "a1b2c3d4-1001-4000-a000-000000000031",
+      "name": "Upload Image 1 to ClickUp",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3160,
+        3200,
         100
       ],
-      "notes": "Download the featured image from the URL found in the ClickUp task"
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notes": "Bild-Variante 1 als Attachment in den ClickUp Task hochladen",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Data').item.json.task_id }}/attachment",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "attachment",
+              "inputDataFieldName": "image2"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          },
+          "never_error": true,
+          "timeout": 30000
+        }
+      },
+      "id": "a1b2c3d4-1001-4000-a000-000000000032",
+      "name": "Upload Image 2 to ClickUp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3200,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notes": "Bild-Variante 2 als Attachment in den ClickUp Task hochladen",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -401,13 +452,13 @@
           "parameters": [
             {
               "name": "Content-Disposition",
-              "value": "attachment; filename=\"featured-image.jpg\""
+              "value": "=attachment; filename=\"{{ $('Extract Data').item.json.task_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }}-featured.png\""
             }
           ]
         },
         "sendBody": true,
         "contentType": "binaryData",
-        "inputDataFieldName": "data",
+        "inputDataFieldName": "image1",
         "options": {
           "response": {
             "response": {
@@ -417,12 +468,12 @@
         }
       },
       "id": "a1b2c3d4-1001-4000-a000-000000000017",
-      "name": "Upload Featured Image",
+      "name": "Upload Featured Image to WP",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3400,
-        100
+        3480,
+        200
       ],
       "credentials": {
         "httpBasicAuth": {
@@ -430,50 +481,21 @@
           "name": "WordPress Basic Auth (covago.de)"
         }
       },
-      "notes": "Upload the featured image to WordPress media library"
+      "notes": "Bild-Variante 1 als Featured Image in WordPress hochladen"
     },
     {
       "parameters": {
-        "jsCode": "// Extract the media ID from the uploaded image\nconst media = $input.first().json;\nreturn [{\n  json: {\n    featured_media_id: media.id || 0\n  }\n}];"
+        "jsCode": "// Extract the media ID from the uploaded image\ntry {\n  const media = $input.first().json;\n  return [{ json: { featured_media_id: media.id || 0 } }];\n} catch(e) {\n  return [{ json: { featured_media_id: 0 } }];\n}"
       },
       "id": "a1b2c3d4-1001-4000-a000-000000000018",
       "name": "Extract Media ID",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3640,
-        100
-      ],
-      "notes": "Extract the WordPress media ID from the upload response"
-    },
-    {
-      "parameters": {
-        "jsCode": "// No featured image - set media ID to 0\nreturn [{\n  json: {\n    featured_media_id: 0\n  }\n}];"
-      },
-      "id": "a1b2c3d4-1001-4000-a000-000000000019",
-      "name": "No Image",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        3640,
-        300
-      ],
-      "notes": "No featured image available - set media ID to 0"
-    },
-    {
-      "parameters": {
-        "mode": "chooseBranch",
-        "output": "empty"
-      },
-      "id": "a1b2c3d4-1001-4000-a000-000000000020",
-      "name": "Merge Image",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        3880,
+        3720,
         200
       ],
-      "notes": "Merge image upload branches back together"
+      "notes": "WordPress Media ID aus Upload-Response extrahieren"
     },
     {
       "parameters": {
@@ -844,43 +866,35 @@
       "main": [
         [
           {
-            "node": "Has Featured Image?",
+            "node": "Generate Featured Images (Gemini)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Has Featured Image?": {
+    "Generate Featured Images (Gemini)": {
       "main": [
         [
           {
-            "node": "Download Featured Image",
+            "node": "Upload Image 1 to ClickUp",
             "type": "main",
             "index": 0
-          }
-        ],
-        [
+          },
           {
-            "node": "No Image",
+            "node": "Upload Image 2 to ClickUp",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload Featured Image to WP",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Download Featured Image": {
-      "main": [
-        [
-          {
-            "node": "Upload Featured Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Upload Featured Image": {
+    "Upload Featured Image to WP": {
       "main": [
         [
           {
@@ -892,28 +906,6 @@
       ]
     },
     "Extract Media ID": {
-      "main": [
-        [
-          {
-            "node": "Merge Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "No Image": {
-      "main": [
-        [
-          {
-            "node": "Merge Image",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge Image": {
       "main": [
         [
           {
@@ -1023,7 +1015,9 @@
     }
   ],
   "tags": [],
-  "activeVersion": {
+  "activeVersion": null,
+  "_old_activeVersion_removed": {
+    "_note": "removed - contained stale nodes, n8n recreates on import",
     "updatedAt": "2026-03-24T15:43:49.987Z",
     "createdAt": "2026-03-24T15:43:49.987Z",
     "versionId": "366d5159-40bf-45d8-a7a5-802f8ccb351d",

@@ -74,9 +74,13 @@ Ablauf:
 
 ### 04 - WordPress Publish (`04-wordpress-publish.json`)
 **Trigger:** ClickUp Task Status → "IN WORDPRESS ANLEGEN"
-- Google Doc Inhalt lesen
-- WordPress Post erstellen (mit RankMath Meta-Daten)
-- Featured Image hochladen
+- Google Doc Inhalt lesen + in HTML konvertieren
+- **Gemini analysiert Artikel** → generiert Szenen-Beschreibung
+- **2 fotorealistische Titelbilder** mit Gemini Image Generation erzeugen (iPhone-Stil)
+- **Beide Bilder in ClickUp Task** als Attachments hochladen
+- Bild 1 als **Featured Image in WordPress** hochladen
+- WordPress Post erstellen (Draft) mit Bild + Content
+- **RankMath Meta-Daten** setzen (Title, Description, Focus Keyword)
 - Google Doc in "WordPress Angelegt" Ordner verschieben
 - Google Sheet Status updaten
 
@@ -95,6 +99,7 @@ Ablauf:
 | Perplexity | API Key | Deep Research |
 | WordPress (covago.de) | HTTP Basic Auth | WordPress REST API + RankMath |
 | DataForSEO | Login/Pass | SERP & WDF*IDF Daten |
+| Google AI (Gemini) | API Key | Bildgenerierung für Featured Images |
 
 ## Setup-Anleitung
 
@@ -120,9 +125,10 @@ Ablauf:
 2. Header Name: `Authorization`
 3. Header Value: `Bearer YOUR_PERPLEXITY_API_KEY`
 
-#### Gemini
-1. n8n → Credentials → Add → Google Gemini (PaLM) API
-2. API Key von: ai.google.dev
+#### Gemini (Bildgenerierung)
+1. n8n → Settings → Environment Variables → `GEMINI_API_KEY` setzen
+2. API Key von: ai.google.dev / Google AI Studio
+3. Wird in Workflow 04 für fotorealistische Titelbilder verwendet
 
 #### WordPress (covago.de)
 1. n8n → Credentials → Add → HTTP Basic Auth
@@ -187,25 +193,18 @@ Jeder Workflow enthält am Anfang einen **"Config"** Node (Set Node) mit allen k
 - WordPress Site URLs
 - Kundenspezifische Einstellungen
 
-### Prompts aus Google Drive laden
+### Prompts
 
-Die AI-Prompts werden als Markdown-Dateien aus einem Google Drive Ordner geladen. So kannst du die Prompts jederzeit anpassen, ohne die Workflows selbst zu bearbeiten.
+Alle AI-Prompts sind **direkt in den Workflows eingebettet** — kein externes Setup nötig. Die Prompts können direkt in den jeweiligen HTTP-Request-Nodes (Claude, Perplexity) bearbeitet werden.
 
-**Benötigte Dateien im Google Drive:**
+### n8n Environment Variables
 
-| Prompt-Datei | Verwendet in | Config-Variable |
+| Variable | Workflow | Beschreibung |
 |---|---|---|
-| Sprachstil / Copywriter | 01b - Pass 1 (Section Writing) + Pass 2 (Style & Cohesion) | `prompt_sprachstil_file_id` |
-| Meta Daten | 01b - Meta Data Generation | `prompt_meta_daten_file_id` |
-| Deep Research | 01a - Perplexity Deep Research | `prompt_deep_research_file_id` |
-| GEO-Optimierung | 01a - Outline Generation | `prompt_geo_optimierung_file_id` |
-
-**Setup:**
-1. Lade deine Prompt-Markdown-Dateien in einen Google Drive Ordner hoch
-2. Rechtsklick auf jede Datei → "Get link" → Die File ID aus der URL kopieren (z.B. `1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms`)
-3. Die File IDs in die Config-Nodes der Workflows eintragen:
-   - `01a-outline-generation.json`: `prompt_deep_research_file_id` + `prompt_geo_optimierung_file_id`
-   - `01b-content-writer.json`: `prompt_sprachstil_file_id` + `prompt_meta_daten_file_id`
+| `GEMINI_API_KEY` | 04 | Google AI Studio API Key für Bildgenerierung |
+| `GOOGLE_DRIVE_FREIGEGEBEN_FOLDER_ID` | 04 | Google Drive Ordner-ID "Freigegeben" |
+| `GOOGLE_DRIVE_WORDPRESS_FOLDER_ID` | 04 | Google Drive Ordner-ID "WordPress Angelegt" |
+| `GOOGLE_SHEET_ID` | 04 | Google Sheet ID für Status-Tracking |
 
 ## Wichtige Hinweise
 
