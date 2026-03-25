@@ -43,3 +43,4 @@ next-env.d.ts
 # Uploads
 /public/uploads/*
 !/public/uploads/.gitkeep
+n8n-workflows/update_prompts.py
