@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T15:32:26.355Z",
+  "updatedAt": "2026-03-25T06:39:51.651Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -473,7 +473,7 @@
         "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_id }}\",\n  \"doc_url\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_url }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+        "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_id; return n || $('Extract Doc ID from ClickUp').item.json.doc_id; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_id; } })() }}\",\n  \"doc_url\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_url; return n || $('Extract Doc ID from ClickUp').item.json.doc_url; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_url; } })() }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
         "options": {
           "timeout": 10000
         }
@@ -557,6 +557,117 @@
       },
       "notesInFlow": true,
       "notes": "Google Doc von Keywords-Ordner in Copywriting-Ordner verschieben"
+    },
+    {
+      "id": "if-has-doc-01a",
+      "name": "Has Doc?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1160,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-hasdoc",
+              "leftValue": "={{ $json.has_doc }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "create-doc-01a",
+      "name": "Create Google Doc (New)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1460,
+        500
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "predefinedCredentialType",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.copywriting_folder_id }}\"]\n}",
+        "options": {},
+        "nodeCredentialType": "googleOAuth2Api"
+      },
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
+        }
+      }
+    },
+    {
+      "id": "set-link-01a",
+      "name": "Set Link zum Beitrag (New Doc)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        500
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_link }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"value\": \"https://docs.google.com/document/d/{{ $json.id }}/edit\"\n}",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      }
+    },
+    {
+      "id": "prepare-new-doc-01a",
+      "name": "Prepare Doc Info (New)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2060,
+        500
+      ],
+      "parameters": {
+        "jsCode": "// Normalize new doc info to match existing doc format\nconst docId = $('Create Google Doc (New)').item.json.id;\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: `https://docs.google.com/document/d/${docId}/edit`,\n    has_doc: true\n  }\n}];"
+      }
+    },
+    {
+      "id": "merge-doc-01a",
+      "name": "Merge Doc Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2360,
+        300
+      ],
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      }
     }
   ],
   "connections": {
@@ -608,7 +719,7 @@
       "main": [
         [
           {
-            "node": "Move Doc: Keywords → Copywriting",
+            "node": "Has Doc?",
             "type": "main",
             "index": 0
           }
@@ -619,7 +730,7 @@
       "main": [
         [
           {
-            "node": "SERP Analysis (DataForSEO)",
+            "node": "Merge Doc Paths",
             "type": "main",
             "index": 0
           }
@@ -757,6 +868,68 @@
           }
         ]
       ]
+    },
+    "Has Doc?": {
+      "main": [
+        [
+          {
+            "node": "Move Doc: Keywords → Copywriting",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Google Doc (New)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Google Doc (New)": {
+      "main": [
+        [
+          {
+            "node": "Set Link zum Beitrag (New Doc)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Link zum Beitrag (New Doc)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Doc Info (New)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Doc Info (New)": {
+      "main": [
+        [
+          {
+            "node": "Merge Doc Paths",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Doc Paths": {
+      "main": [
+        [
+          {
+            "node": "SERP Analysis (DataForSEO)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -767,9 +940,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "65ea3544-c155-4c96-9ba9-ac2c97483e86",
-  "activeVersionId": "65ea3544-c155-4c96-9ba9-ac2c97483e86",
-  "versionCounter": 8,
+  "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+  "activeVersionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+  "versionCounter": 18,
   "triggerCount": 1,
   "shared": [
     {
@@ -792,9 +965,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-24T15:32:26.356Z",
-    "createdAt": "2026-03-24T15:32:26.356Z",
-    "versionId": "65ea3544-c155-4c96-9ba9-ac2c97483e86",
+    "updatedAt": "2026-03-25T06:39:51.657Z",
+    "createdAt": "2026-03-25T06:39:51.657Z",
+    "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
     "workflowId": "cXCY0gzNpYwTDUI8",
     "nodes": [
       {
@@ -847,6 +1020,24 @@
                 "id": "cfg-0008",
                 "name": "content_writer_webhook_url",
                 "value": "https://n8n.carlosarad.de/webhook/clickup-content-writer",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0011",
+                "name": "keywords_folder_id",
+                "value": "1oc_3sia_CMwWhxCOq_zDCT5I8BscHfMS",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0012",
+                "name": "copywriting_folder_id",
+                "value": "1028ucXjEpDKdb0MomFjc1kNzhcp4i9VK",
+                "type": "string"
+              },
+              {
+                "id": "cfg-0013",
+                "name": "clickup_custom_field_link",
+                "value": "3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
                 "type": "string"
               }
             ]
@@ -1102,7 +1293,7 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Experte für umfassende Themenrecherche. Recherchiere gründlich mit aktuellen, verifizierten Daten aus autoritativen Quellen. Gib alle Fakten mit Quellenangabe an. Antworte auf Deutsch.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
+          "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Forschungsassistent f\\u00fcr SEO-Content. Deine Aufgabe ist es, umfassende und aktuelle Informationen zu einem Thema zu recherchieren und strukturiert zusammenzufassen. Liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. H\\u00e4ufige Missverst\\u00e4ndnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und \\u00dcbersichten (z.B. Kosten, Anbieter, Optionen)\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\\nAntworte immer auf Deutsch. Sei faktenbasiert und nenne Quellen wo m\\u00f6glich.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
           "options": {
             "timeout": 120000
           }
@@ -1202,7 +1393,7 @@
           },
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Struktur für Generative Engine Optimization vorbereiten\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, pr\\u00e4gnante Aussagen die AI-Suchmaschinen als Zitat verwenden k\\u00f6nnen\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 S\\u00e4tzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo m\\u00f6glich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkl\\u00e4re Fachbegriffe klar und pr\\u00e4zise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gest\\u00fctzten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Wende alle Regeln aus dem System-Prompt für Generative Engine Optimization an\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
           "options": {
             "timeout": 120000
           }
@@ -1245,7 +1436,7 @@
           "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_id }}\",\n  \"doc_url\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_url }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+          "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_id; return n || $('Extract Doc ID from ClickUp').item.json.doc_id; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_id; } })() }}\",\n  \"doc_url\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_url; return n || $('Extract Doc ID from ClickUp').item.json.doc_url; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_url; } })() }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
           "options": {
             "timeout": 10000
           }
@@ -1287,6 +1478,159 @@
         },
         "notesInFlow": true,
         "notes": "Task-Details aus ClickUp laden (Name, Tags, Custom Fields)"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Doc-Link aus ClickUp Custom Field 'Link zum Beitrag' extrahieren\nconst task = $('Fetch Task Details (ClickUp)').item.json;\nconst customFields = task.custom_fields || [];\nconst linkField = customFields.find(f => f.id === $('Config').item.json.clickup_custom_field_link);\nconst docUrl = linkField?.value || '';\n\n// Doc ID aus URL extrahieren: https://docs.google.com/document/d/DOC_ID/edit\nlet docId = '';\nif (docUrl) {\n  const match = docUrl.match(/\\/d\\/([a-zA-Z0-9_-]+)/);\n  docId = match ? match[1] : '';\n}\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    has_doc: !!docId\n  }\n}];"
+        },
+        "id": "ol-node-022",
+        "name": "Extract Doc ID from ClickUp",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          860,
+          300
+        ],
+        "notesInFlow": true,
+        "notes": "Doc ID aus ClickUp Custom Field 'Link zum Beitrag' extrahieren"
+      },
+      {
+        "parameters": {
+          "method": "PATCH",
+          "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.doc_id }}?addParents={{ $('Config').item.json.copywriting_folder_id }}&removeParents={{ $('Config').item.json.keywords_folder_id }}",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "options": {
+            "timeout": 10000
+          }
+        },
+        "id": "ol-node-023",
+        "name": "Move Doc: Keywords → Copywriting",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1100,
+          300
+        ],
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        },
+        "notesInFlow": true,
+        "notes": "Google Doc von Keywords-Ordner in Copywriting-Ordner verschieben"
+      },
+      {
+        "id": "if-has-doc-01a",
+        "name": "Has Doc?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2,
+        "position": [
+          1160,
+          300
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "cond-hasdoc",
+                "leftValue": "={{ $json.has_doc }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        }
+      },
+      {
+        "id": "create-doc-01a",
+        "name": "Create Google Doc (New)",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1460,
+          500
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "https://www.googleapis.com/drive/v3/files",
+          "authentication": "predefinedCredentialType",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"name\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.copywriting_folder_id }}\"]\n}",
+          "options": {},
+          "nodeCredentialType": "googleOAuth2Api"
+        },
+        "credentials": {
+          "googleOAuth2Api": {
+            "id": "u6XCIz3Yxbakjrwg",
+            "name": "Google account"
+          }
+        }
+      },
+      {
+        "id": "set-link-01a",
+        "name": "Set Link zum Beitrag (New Doc)",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          1760,
+          500
+        ],
+        "parameters": {
+          "method": "POST",
+          "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_link }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"value\": \"https://docs.google.com/document/d/{{ $json.id }}/edit\"\n}",
+          "options": {}
+        },
+        "credentials": {
+          "httpHeaderAuth": {
+            "id": "wwbq6Yxnr2EpmrFv",
+            "name": "ClickUp API"
+          }
+        }
+      },
+      {
+        "id": "prepare-new-doc-01a",
+        "name": "Prepare Doc Info (New)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2060,
+          500
+        ],
+        "parameters": {
+          "jsCode": "// Normalize new doc info to match existing doc format\nconst docId = $('Create Google Doc (New)').item.json.id;\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: `https://docs.google.com/document/d/${docId}/edit`,\n    has_doc: true\n  }\n}];"
+        }
+      },
+      {
+        "id": "merge-doc-01a",
+        "name": "Merge Doc Paths",
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3,
+        "position": [
+          2360,
+          300
+        ],
+        "parameters": {
+          "mode": "chooseBranch",
+          "output": "empty"
+        }
       }
     ],
     "connections": {
@@ -1327,7 +1671,29 @@
         "main": [
           [
             {
-              "node": "SERP Analysis (DataForSEO)",
+              "node": "Extract Doc ID from ClickUp",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Doc ID from ClickUp": {
+        "main": [
+          [
+            {
+              "node": "Has Doc?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Move Doc: Keywords → Copywriting": {
+        "main": [
+          [
+            {
+              "node": "Merge Doc Paths",
               "type": "main",
               "index": 0
             }
@@ -1465,6 +1831,68 @@
             }
           ]
         ]
+      },
+      "Has Doc?": {
+        "main": [
+          [
+            {
+              "node": "Move Doc: Keywords → Copywriting",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Create Google Doc (New)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create Google Doc (New)": {
+        "main": [
+          [
+            {
+              "node": "Set Link zum Beitrag (New Doc)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Set Link zum Beitrag (New Doc)": {
+        "main": [
+          [
+            {
+              "node": "Prepare Doc Info (New)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare Doc Info (New)": {
+        "main": [
+          [
+            {
+              "node": "Merge Doc Paths",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "Merge Doc Paths": {
+        "main": [
+          [
+            {
+              "node": "SERP Analysis (DataForSEO)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Carlos Arad",
@@ -1473,18 +1901,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-24T15:32:26.407Z",
-        "id": 57,
+        "createdAt": "2026-03-25T06:39:51.799Z",
+        "id": 154,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "65ea3544-c155-4c96-9ba9-ac2c97483e86",
+        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-24T15:32:26.394Z",
-        "id": 56,
+        "createdAt": "2026-03-25T06:39:52.590Z",
+        "id": 156,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "65ea3544-c155-4c96-9ba9-ac2c97483e86",
+        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T06:39:51.782Z",
+        "id": 153,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T06:39:52.570Z",
+        "id": 155,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
