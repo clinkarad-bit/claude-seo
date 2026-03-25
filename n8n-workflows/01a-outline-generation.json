@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T06:39:51.651Z",
+  "updatedAt": "2026-03-25T06:47:32.572Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -121,7 +121,7 @@
           "conditions": [
             {
               "id": "cond-0001",
-              "leftValue": "={{ $json.body?.history_items?.[0]?.after?.status || $json.body?.status || '' }}",
+              "leftValue": "={{ $('ClickUp Webhook Trigger').item.json.body?.history_items?.[0]?.after?.status || $('ClickUp Webhook Trigger').item.json.body?.status || '' }}",
               "rightValue": "copywriting",
               "operator": {
                 "type": "string",
@@ -940,9 +940,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
-  "activeVersionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
-  "versionCounter": 18,
+  "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+  "activeVersionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+  "versionCounter": 23,
   "triggerCount": 1,
   "shared": [
     {
@@ -965,9 +965,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T06:39:51.657Z",
-    "createdAt": "2026-03-25T06:39:51.657Z",
-    "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+    "updatedAt": "2026-03-25T06:47:32.574Z",
+    "createdAt": "2026-03-25T06:47:32.574Z",
+    "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
     "workflowId": "cXCY0gzNpYwTDUI8",
     "nodes": [
       {
@@ -1084,7 +1084,7 @@
             "conditions": [
               {
                 "id": "cond-0001",
-                "leftValue": "={{ $json.body?.history_items?.[0]?.after?.status || $json.body?.status || '' }}",
+                "leftValue": "={{ $('ClickUp Webhook Trigger').item.json.body?.history_items?.[0]?.after?.status || $('ClickUp Webhook Trigger').item.json.body?.status || '' }}",
                 "rightValue": "copywriting",
                 "operator": {
                   "type": "string",
@@ -1901,34 +1901,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T06:39:51.799Z",
-        "id": 154,
+        "createdAt": "2026-03-25T06:47:32.649Z",
+        "id": 158,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:39:52.590Z",
-        "id": 156,
+        "createdAt": "2026-03-25T06:47:33.447Z",
+        "id": 160,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:39:51.782Z",
-        "id": 153,
+        "createdAt": "2026-03-25T06:47:32.625Z",
+        "id": 157,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:39:52.570Z",
-        "id": 155,
+        "createdAt": "2026-03-25T06:47:33.430Z",
+        "id": 159,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "ab4560d4-fee2-4968-b743-d2ec52f91fbe",
+        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }

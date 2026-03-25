@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T15:30:53.383Z",
+  "updatedAt": "2026-03-25T06:48:16.690Z",
   "createdAt": "2026-03-24T14:39:47.587Z",
   "id": "K0kxtTwpUrIazZdr",
   "name": "COVAGO 02 - Review Flow",
@@ -67,7 +67,7 @@
           "conditions": [
             {
               "id": "a1b2c3d4-3003-4000-8000-000000000001",
-              "leftValue": "={{ $json.body.history_items[0].after.status }}",
+              "leftValue": "={{ $('ClickUp Webhook Trigger').item.json.body?.history_items?.[0]?.after?.status || $('ClickUp Webhook Trigger').item.json.body?.status || '' }}",
               "rightValue": "review beim kunden",
               "operator": {
                 "type": "string",
@@ -289,9 +289,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "eea643b9-22c0-4997-a240-13779793cce4",
-  "activeVersionId": "eea643b9-22c0-4997-a240-13779793cce4",
-  "versionCounter": 9,
+  "versionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
+  "activeVersionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
+  "versionCounter": 16,
   "triggerCount": 1,
   "shared": [
     {
@@ -314,9 +314,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-24T15:30:53.384Z",
-    "createdAt": "2026-03-24T15:30:53.384Z",
-    "versionId": "eea643b9-22c0-4997-a240-13779793cce4",
+    "updatedAt": "2026-03-25T06:48:16.691Z",
+    "createdAt": "2026-03-25T06:48:16.691Z",
+    "versionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
     "workflowId": "K0kxtTwpUrIazZdr",
     "nodes": [
       {
@@ -379,7 +379,7 @@
             "conditions": [
               {
                 "id": "a1b2c3d4-3003-4000-8000-000000000001",
-                "leftValue": "={{ $json.body.history_items[0].after.status }}",
+                "leftValue": "={{ $('ClickUp Webhook Trigger').item.json.body?.history_items?.[0]?.after?.status || $('ClickUp Webhook Trigger').item.json.body?.status || '' }}",
                 "rightValue": "review beim kunden",
                 "operator": {
                   "type": "string",
@@ -599,18 +599,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-24T15:30:53.440Z",
-        "id": 55,
+        "createdAt": "2026-03-25T06:48:16.743Z",
+        "id": 166,
         "workflowId": "K0kxtTwpUrIazZdr",
-        "versionId": "eea643b9-22c0-4997-a240-13779793cce4",
+        "versionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-24T15:30:53.422Z",
-        "id": 54,
+        "createdAt": "2026-03-25T06:48:17.332Z",
+        "id": 168,
         "workflowId": "K0kxtTwpUrIazZdr",
-        "versionId": "eea643b9-22c0-4997-a240-13779793cce4",
+        "versionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T06:48:16.732Z",
+        "id": 165,
+        "workflowId": "K0kxtTwpUrIazZdr",
+        "versionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T06:48:17.316Z",
+        "id": 167,
+        "workflowId": "K0kxtTwpUrIazZdr",
+        "versionId": "7dbf888d-a75a-4d89-aeb0-bd2f9d523569",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
