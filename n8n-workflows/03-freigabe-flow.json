@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-24T15:43:48.372Z",
+  "updatedAt": "2026-03-25T06:54:09.835Z",
   "createdAt": "2026-03-24T14:39:48.775Z",
   "id": "bO3X4E3Oj0jlYinY",
   "name": "COVAGO 03 - Freigabe Flow",
@@ -229,6 +229,19 @@
         }
       },
       "notes": "Update the keyword map spreadsheet: set Status to 'freigegeben' for the matching topic (Thema)."
+    },
+    {
+      "id": "dedup-03",
+      "name": "Deduplicate Webhook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) delete recentTasks[key];\n}\nif (recentTasks[taskId]) return [];\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\nreturn $input.all();"
+      }
     }
   ],
   "connections": {
@@ -236,7 +249,7 @@
       "main": [
         [
           {
-            "node": "Config",
+            "node": "Deduplicate Webhook",
             "type": "main",
             "index": 0
           }
@@ -297,6 +310,17 @@
           }
         ]
       ]
+    },
+    "Deduplicate Webhook": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -307,9 +331,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "6cfdd682-16b2-4936-ab9e-f09e9e007402",
-  "activeVersionId": "6cfdd682-16b2-4936-ab9e-f09e9e007402",
-  "versionCounter": 12,
+  "versionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
+  "activeVersionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
+  "versionCounter": 19,
   "triggerCount": 1,
   "shared": [
     {
@@ -332,9 +356,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-24T15:43:48.372Z",
-    "createdAt": "2026-03-24T15:43:48.372Z",
-    "versionId": "6cfdd682-16b2-4936-ab9e-f09e9e007402",
+    "updatedAt": "2026-03-25T06:54:09.836Z",
+    "createdAt": "2026-03-25T06:54:09.836Z",
+    "versionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
     "workflowId": "bO3X4E3Oj0jlYinY",
     "nodes": [
       {
@@ -559,6 +583,19 @@
           }
         },
         "notes": "Update the keyword map spreadsheet: set Status to 'freigegeben' for the matching topic (Thema)."
+      },
+      {
+        "id": "dedup-03",
+        "name": "Deduplicate Webhook",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          300,
+          0
+        ],
+        "parameters": {
+          "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) delete recentTasks[key];\n}\nif (recentTasks[taskId]) return [];\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\nreturn $input.all();"
+        }
       }
     ],
     "connections": {
@@ -566,7 +603,7 @@
         "main": [
           [
             {
-              "node": "Config",
+              "node": "Deduplicate Webhook",
               "type": "main",
               "index": 0
             }
@@ -627,6 +664,17 @@
             }
           ]
         ]
+      },
+      "Deduplicate Webhook": {
+        "main": [
+          [
+            {
+              "node": "Config",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Carlos Arad",
@@ -635,18 +683,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-24T15:43:48.493Z",
-        "id": 63,
+        "createdAt": "2026-03-25T06:54:09.908Z",
+        "id": 182,
         "workflowId": "bO3X4E3Oj0jlYinY",
-        "versionId": "6cfdd682-16b2-4936-ab9e-f09e9e007402",
+        "versionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-24T15:43:48.446Z",
-        "id": 62,
+        "createdAt": "2026-03-25T06:54:10.519Z",
+        "id": 184,
         "workflowId": "bO3X4E3Oj0jlYinY",
-        "versionId": "6cfdd682-16b2-4936-ab9e-f09e9e007402",
+        "versionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T06:54:09.890Z",
+        "id": 181,
+        "workflowId": "bO3X4E3Oj0jlYinY",
+        "versionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T06:54:10.502Z",
+        "id": 183,
+        "workflowId": "bO3X4E3Oj0jlYinY",
+        "versionId": "f610c471-a0ca-4898-a5ca-7ba5be61988c",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }

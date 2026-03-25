@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T06:47:32.572Z",
+  "updatedAt": "2026-03-25T06:53:20.030Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -656,17 +656,16 @@
       }
     },
     {
-      "id": "merge-doc-01a",
-      "name": "Merge Doc Paths",
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
+      "id": "dedup-01a",
+      "name": "Deduplicate Webhook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        2360,
-        300
+        400,
+        0
       ],
       "parameters": {
-        "mode": "chooseBranch",
-        "output": "empty"
+        "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\n\n// Get static data to track recent tasks\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) {\n    delete recentTasks[key];\n  }\n}\n\n// Check if this task was already processed recently\nif (recentTasks[taskId]) {\n  // Duplicate! Stop execution\n  return [];\n}\n\n// Mark as processing\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\n\nreturn $input.all();"
       }
     }
   ],
@@ -697,7 +696,7 @@
       "main": [
         [
           {
-            "node": "Fetch Task Details (ClickUp)",
+            "node": "Deduplicate Webhook",
             "type": "main",
             "index": 0
           }
@@ -730,7 +729,7 @@
       "main": [
         [
           {
-            "node": "Merge Doc Paths",
+            "node": "SERP Analysis (DataForSEO)",
             "type": "main",
             "index": 0
           }
@@ -913,18 +912,18 @@
       "main": [
         [
           {
-            "node": "Merge Doc Paths",
+            "node": "SERP Analysis (DataForSEO)",
             "type": "main",
-            "index": 1
+            "index": 0
           }
         ]
       ]
     },
-    "Merge Doc Paths": {
+    "Deduplicate Webhook": {
       "main": [
         [
           {
-            "node": "SERP Analysis (DataForSEO)",
+            "node": "Fetch Task Details (ClickUp)",
             "type": "main",
             "index": 0
           }
@@ -940,9 +939,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
-  "activeVersionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
-  "versionCounter": 23,
+  "versionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
+  "activeVersionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
+  "versionCounter": 28,
   "triggerCount": 1,
   "shared": [
     {
@@ -965,9 +964,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T06:47:32.574Z",
-    "createdAt": "2026-03-25T06:47:32.574Z",
-    "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+    "updatedAt": "2026-03-25T06:53:20.032Z",
+    "createdAt": "2026-03-25T06:53:20.032Z",
+    "versionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
     "workflowId": "cXCY0gzNpYwTDUI8",
     "nodes": [
       {
@@ -1619,17 +1618,16 @@
         }
       },
       {
-        "id": "merge-doc-01a",
-        "name": "Merge Doc Paths",
-        "type": "n8n-nodes-base.merge",
-        "typeVersion": 3,
+        "id": "dedup-01a",
+        "name": "Deduplicate Webhook",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
         "position": [
-          2360,
-          300
+          400,
+          0
         ],
         "parameters": {
-          "mode": "chooseBranch",
-          "output": "empty"
+          "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\n\n// Get static data to track recent tasks\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) {\n    delete recentTasks[key];\n  }\n}\n\n// Check if this task was already processed recently\nif (recentTasks[taskId]) {\n  // Duplicate! Stop execution\n  return [];\n}\n\n// Mark as processing\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\n\nreturn $input.all();"
         }
       }
     ],
@@ -1660,7 +1658,7 @@
         "main": [
           [
             {
-              "node": "Fetch Task Details (ClickUp)",
+              "node": "Deduplicate Webhook",
               "type": "main",
               "index": 0
             }
@@ -1693,7 +1691,7 @@
         "main": [
           [
             {
-              "node": "Merge Doc Paths",
+              "node": "SERP Analysis (DataForSEO)",
               "type": "main",
               "index": 0
             }
@@ -1876,18 +1874,18 @@
         "main": [
           [
             {
-              "node": "Merge Doc Paths",
+              "node": "SERP Analysis (DataForSEO)",
               "type": "main",
-              "index": 1
+              "index": 0
             }
           ]
         ]
       },
-      "Merge Doc Paths": {
+      "Deduplicate Webhook": {
         "main": [
           [
             {
-              "node": "SERP Analysis (DataForSEO)",
+              "node": "Fetch Task Details (ClickUp)",
               "type": "main",
               "index": 0
             }
@@ -1901,34 +1899,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T06:47:32.649Z",
-        "id": 158,
+        "createdAt": "2026-03-25T06:53:20.087Z",
+        "id": 170,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+        "versionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:47:33.447Z",
-        "id": 160,
+        "createdAt": "2026-03-25T06:53:20.950Z",
+        "id": 172,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+        "versionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:47:32.625Z",
-        "id": 157,
+        "createdAt": "2026-03-25T06:53:20.073Z",
+        "id": 169,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+        "versionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:47:33.430Z",
-        "id": 159,
+        "createdAt": "2026-03-25T06:53:20.912Z",
+        "id": 171,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "1521c2af-b48d-4b5d-afb1-3fe52f86a0ff",
+        "versionId": "fed778a3-be12-4a97-bd2b-4f48903fc2bc",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }

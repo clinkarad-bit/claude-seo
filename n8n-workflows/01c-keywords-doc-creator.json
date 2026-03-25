@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T06:48:14.857Z",
+  "updatedAt": "2026-03-25T06:53:44.199Z",
   "createdAt": "2026-03-25T06:18:14.008Z",
   "id": "shE8gLjVBWdM54cM",
   "name": "COVAGO 01c - Keywords Doc Creator",
@@ -223,6 +223,19 @@
       ],
       "notesInFlow": true,
       "notes": "Zusammenfassung: Keyword, Doc URL"
+    },
+    {
+      "id": "dedup-01c",
+      "name": "Deduplicate Webhook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) delete recentTasks[key];\n}\n\nif (recentTasks[taskId]) return [];  // Duplicate - stop\n\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\nreturn $input.all();"
+      }
     }
   ],
   "connections": {
@@ -252,7 +265,7 @@
       "main": [
         [
           {
-            "node": "Fetch Task Details (ClickUp)",
+            "node": "Deduplicate Webhook",
             "type": "main",
             "index": 0
           }
@@ -313,6 +326,17 @@
           }
         ]
       ]
+    },
+    "Deduplicate Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch Task Details (ClickUp)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -323,9 +347,9 @@
   "staticData": null,
   "meta": null,
   "pinData": null,
-  "versionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
-  "activeVersionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
-  "versionCounter": 8,
+  "versionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
+  "activeVersionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
+  "versionCounter": 13,
   "triggerCount": 1,
   "shared": [
     {
@@ -348,9 +372,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T06:48:14.858Z",
-    "createdAt": "2026-03-25T06:48:14.858Z",
-    "versionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
+    "updatedAt": "2026-03-25T06:53:44.201Z",
+    "createdAt": "2026-03-25T06:53:44.201Z",
+    "versionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
     "workflowId": "shE8gLjVBWdM54cM",
     "nodes": [
       {
@@ -569,6 +593,19 @@
         ],
         "notesInFlow": true,
         "notes": "Zusammenfassung: Keyword, Doc URL"
+      },
+      {
+        "id": "dedup-01c",
+        "name": "Deduplicate Webhook",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          500,
+          0
+        ],
+        "parameters": {
+          "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) delete recentTasks[key];\n}\n\nif (recentTasks[taskId]) return [];  // Duplicate - stop\n\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\nreturn $input.all();"
+        }
       }
     ],
     "connections": {
@@ -598,7 +635,7 @@
         "main": [
           [
             {
-              "node": "Fetch Task Details (ClickUp)",
+              "node": "Deduplicate Webhook",
               "type": "main",
               "index": 0
             }
@@ -659,6 +696,17 @@
             }
           ]
         ]
+      },
+      "Deduplicate Webhook": {
+        "main": [
+          [
+            {
+              "node": "Fetch Task Details (ClickUp)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Carlos Arad",
@@ -667,34 +715,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T06:48:14.912Z",
-        "id": 162,
+        "createdAt": "2026-03-25T06:53:44.254Z",
+        "id": 174,
         "workflowId": "shE8gLjVBWdM54cM",
-        "versionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
+        "versionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:48:15.501Z",
-        "id": 164,
+        "createdAt": "2026-03-25T06:53:44.896Z",
+        "id": 176,
         "workflowId": "shE8gLjVBWdM54cM",
-        "versionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
+        "versionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:48:14.895Z",
-        "id": 161,
+        "createdAt": "2026-03-25T06:53:44.238Z",
+        "id": 173,
         "workflowId": "shE8gLjVBWdM54cM",
-        "versionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
+        "versionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T06:48:15.484Z",
-        "id": 163,
+        "createdAt": "2026-03-25T06:53:44.880Z",
+        "id": 175,
         "workflowId": "shE8gLjVBWdM54cM",
-        "versionId": "ddcda11c-56ef-4151-98f4-ab482087435d",
+        "versionId": "af8533a8-ede1-4f1b-9bb8-dbd14dfc65ed",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
