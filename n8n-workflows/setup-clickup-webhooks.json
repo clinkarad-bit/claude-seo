@@ -1,0 +1,119 @@
+{
+  "name": "COVAGO Setup - ClickUp Webhooks erstellen",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "swh-001",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-200, 300],
+      "notesInFlow": true,
+      "notes": "1x klicken → beide ClickUp Webhooks werden automatisch erstellt"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Webhook-Konfiguration\nconst n8nBaseUrl = 'https://n8n.carlosarad.de/webhook';\nconst spaceId = '901510324131';\n\nreturn [\n  {\n    json: {\n      name: 'COVAGO Keywords Trigger',\n      endpoint: `${n8nBaseUrl}/clickup-keywords-webhook`,\n      space_id: spaceId,\n      events: ['taskStatusUpdated']\n    }\n  },\n  {\n    json: {\n      name: 'COVAGO Copywriting Trigger',\n      endpoint: `${n8nBaseUrl}/clickup-copywriting-webhook`,\n      space_id: spaceId,\n      events: ['taskStatusUpdated']\n    }\n  }\n];"
+      },
+      "id": "swh-002",
+      "name": "Define Webhooks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [20, 300],
+      "notesInFlow": true,
+      "notes": "Zwei Webhooks definieren: Keywords + Copywriting"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/team/{{ $json.space_id }}/webhook",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"endpoint\": \"{{ $json.endpoint }}\",\n  \"events\": {{ JSON.stringify($json.events) }},\n  \"space_id\": {{ $json.space_id }}\n}",
+        "options": {
+          "timeout": 10000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1000
+            }
+          }
+        }
+      },
+      "id": "swh-003",
+      "name": "Create ClickUp Webhook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [260, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "ClickUp Webhook via API erstellen (POST /team/{team_id}/webhook)"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ergebnis zusammenfassen\nconst items = $input.all();\nconst results = items.map(item => {\n  const webhook = item.json.webhook || item.json;\n  return {\n    id: webhook.id || 'unknown',\n    endpoint: webhook.endpoint || item.json.endpoint || '',\n    events: webhook.events || [],\n    status: item.json.error ? 'FEHLER: ' + item.json.error : 'Erfolgreich erstellt'\n  };\n});\n\nreturn [{\n  json: {\n    message: `${results.length} Webhook(s) erstellt`,\n    webhooks: results\n  }\n}];"
+      },
+      "id": "swh-004",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300],
+      "notesInFlow": true,
+      "notes": "Zusammenfassung: erstellte Webhooks anzeigen"
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Define Webhooks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define Webhooks": {
+      "main": [
+        [
+          {
+            "node": "Create ClickUp Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create ClickUp Webhook": {
+      "main": [
+        [
+          {
+            "node": "Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "id": "covago-seo",
+      "name": "COVAGO SEO"
+    }
+  ],
+  "triggerCount": 0,
+  "pinData": {}
+}
