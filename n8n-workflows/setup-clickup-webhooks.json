@@ -13,7 +13,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Webhook-Konfiguration\nconst n8nBaseUrl = 'https://n8n.carlosarad.de/webhook';\nconst spaceId = '901510324131';\n\nreturn [\n  {\n    json: {\n      name: 'COVAGO Keywords Trigger',\n      endpoint: `${n8nBaseUrl}/clickup-keywords-webhook`,\n      space_id: spaceId,\n      events: ['taskStatusUpdated']\n    }\n  },\n  {\n    json: {\n      name: 'COVAGO Copywriting Trigger',\n      endpoint: `${n8nBaseUrl}/clickup-copywriting-webhook`,\n      space_id: spaceId,\n      events: ['taskStatusUpdated']\n    }\n  }\n];"
+        "jsCode": "// Webhook-Konfiguration\nconst n8nBaseUrl = 'https://n8n.carlosarad.de/webhook';\nconst teamId = '90152191860';\nconst spaceId = '901510324131';\n\nreturn [\n  {\n    json: {\n      name: 'COVAGO Keywords Trigger',\n      endpoint: `${n8nBaseUrl}/clickup-keywords-webhook`,\n      team_id: teamId,\n      space_id: spaceId,\n      events: ['taskStatusUpdated']\n    }\n  },\n  {\n    json: {\n      name: 'COVAGO Copywriting Trigger',\n      endpoint: `${n8nBaseUrl}/clickup-copywriting-webhook`,\n      team_id: teamId,\n      space_id: spaceId,\n      events: ['taskStatusUpdated']\n    }\n  }\n];"
       },
       "id": "swh-002",
       "name": "Define Webhooks",
@@ -26,7 +26,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "=https://api.clickup.com/api/v2/team/{{ $json.space_id }}/webhook",
+        "url": "=https://api.clickup.com/api/v2/team/{{ $json.team_id }}/webhook",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
