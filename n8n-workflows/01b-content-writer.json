@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T08:16:46.952Z",
+  "updatedAt": "2026-03-25T08:42:03.974Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -358,7 +358,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"system\": \"Du bist ein SEO-Spezialist für Meta-Daten. Erstelle für den folgenden Blogartikel:\\n\\n1. **Meta Title** (max. 60 Zeichen): Enthält das Hauptkeyword am Anfang. Macht neugierig, kein Clickbait.\\n2. **Meta Description** (max. 155 Zeichen): Enthält das Keyword, einen Nutzenversprechen und einen Call-to-Action. Soll zum Klicken animieren.\\n3. **URL-Slug**: Kurz, nur Kleinbuchstaben, Bindestriche, enthält das Keyword.\\n\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"...\\\",\\n  \\\"meta_description\\\": \\\"...\\\",\\n  \\\"url_slug\\\": \\\"...\\\"\\n}\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL (erste 500 Zeichen)\\n{{ $('Extract Final Article').item.json.final_article.substring(0, 500) }}\\n\\n## ANFORDERUNGEN\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"Max 60 Zeichen, Keyword vorne, emotional/klickstark\\\",\\n  \\\"meta_description\\\": \\\"Max 155 Zeichen, Keyword enthalten, Call-to-Action\\\",\\n  \\\"url_slug\\\": \\\"keyword-basiert-ohne-stoppwoerter\\\",\\n  \\\"og_title\\\": \\\"Für Social Media optimiert, max 70 Zeichen\\\",\\n  \\\"focus_keyword\\\": \\\"Das exakte Hauptkeyword\\\"\\n}\\n\\nNur JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}",
         "options": {
           "timeout": 60000
         },
@@ -712,7 +712,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung ({{ $('WDF*IDF Coverage Check').item.json.coverage_pct }}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n{{ $('WDF*IDF Coverage Check').item.json.top_missing_terms }}\\n\\n## ARTIKEL\\n{{ $('Extract Final Article').item.json.final_article }}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden. Die Terme müssen organisch in den Text fließen, nicht einfach aufgelistet werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Der Text soll weiterhin natürlich und gut lesbar sein\\n5. Erweitere Absätze wo nötig statt neue hinzuzufügen\\n\\nGib den KOMPLETTEN überarbeiteten Artikel zurück. Nur Markdown, keine Erklärungen.\"\n    }\n  ]\n}",
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}",
         "options": {
           "timeout": 180000
         },
@@ -813,7 +813,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"system\": \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Optimiere den folgenden fertigen Blogartikel für Generative Engine Optimization (GEO). Wende dabei alle Regeln und Strategien aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL\\n{{ $json.final_article }}\\n\\n## ANFORDERUNGEN\\n1. Wende alle GEO-Optimierungsregeln aus dem System-Prompt an\\n2. Verändere die H2/H3-Struktur NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Behalte alle Quellenangaben und füge ggf. weitere hinzu\\n5. Der Text soll weiterhin natürlich und gut lesbar bleiben\\n6. Optimiere für AI-Suchmaschinen (Perplexity, ChatGPT, Google AI Overview)\\n\\nGib den KOMPLETTEN optimierten Artikel als Markdown zurück. Keine Erklärungen, nur der Artikel.\"\n    }\n  ]\n}",
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}",
         "options": {
           "timeout": 180000
         },
@@ -887,6 +887,45 @@
       ],
       "parameters": {
         "jsCode": "// Build Claude Pass 2 request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst fullDraft = $json.full_draft || '';\nconst internalLinks = $('Extract Input Data').item.json.internal_links || '';\n\nconst userContent = `Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung. Wende dabei strikt alle Regeln aus dem System-Prompt (Sprachstil, Struktur, Formatierung) an.\n\n## KEYWORD\n${keyword}\n\n## WDF*IDF TERME (müssen im Text vorkommen)\n${wdfTerms}\n\n## DRAFT\n${fullDraft}\n\n## AUFGABEN\n1. Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\n2. Passe den Ton durchgängig an den Sprachstil-Prompt an\n3. Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\n4. Streiche Wiederholungen zwischen Sektionen\n5. Schreibe eine packende Einleitung (80-100 Wörter) mit dem Hauptkeyword, Ende mit 'In diesem Beitrag erfährst du…'\n6. Schreibe ein Fazit mit natürlichem CTA zur kostenfreien Beratung\n7. Prüfe H2-H3-Struktur: Nach jeder H2 mindestens 100-200 Wörter bevor eine H3 kommt\n8. Trennlinien (---) zwischen Sektionen entfernen\n9. Behalte alle internen Links bei\n10. Behalte alle Infografik-Platzhalter bei\n11. Mindestens 1 Tabelle, 2-3 Listen, 4-6 unterschiedlich formulierte CTAs\n12. Infoboxen verwenden wo sinnvoll\n\nGib den vollständigen, überarbeiteten Artikel als Markdown zurück. Keine Erklärungen, nur den fertigen Artikel.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: body } }];"
+      }
+    },
+    {
+      "id": "prep-claude-generate-meta-data",
+      "name": "Prepare Generate Meta Data Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Build Meta Data request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst article = $('Extract Final Article').item.json.final_article || '';\nconst faqSection = (() => { try { return $('Build FAQ Section').item.json.faq_html || ''; } catch(e) { return ''; } })();\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 1024,\n  system: \"Du bist ein SEO-Spezialist für Meta-Daten. Erstelle für den folgenden Blogartikel:\\n\\n1. **Meta Title** (max. 60 Zeichen): Enthält das Hauptkeyword am Anfang. Macht neugierig, kein Clickbait.\\n2. **Meta Description** (max. 155 Zeichen): Enthält das Keyword, einen Nutzenversprechen und einen Call-to-Action. Soll zum Klicken animieren.\\n3. **URL-Slug**: Kurz, nur Kleinbuchstaben, Bindestriche, enthält das Keyword.\\n4. **Focus Keyword**: Das Hauptkeyword für RankMath.\\n\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"...\\\",\\n  \\\"meta_description\\\": \\\"...\\\",\\n  \\\"url_slug\\\": \\\"...\\\",\\n  \\\"focus_keyword\\\": \\\"...\\\"\\n}\",\n  messages: [{\n    role: \"user\",\n    content: `Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n${keyword}\\n\\n## ARTIKEL (Zusammenfassung)\\n${article.substring(0, 3000)}\\n\\nGeneriere die Metadaten als JSON.`\n  }]\n};\nreturn [{ json: { request_body: body } }];"
+      }
+    },
+    {
+      "id": "prep-claude-wdf*idf-optimization-pass-3",
+      "name": "Prepare WDF*IDF Optimization Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Build WDF*IDF Optimization request body safely\nconst coveragePct = (() => { try { return $('WDF*IDF Coverage Check').item.json.coverage_pct || 0; } catch(e) { return 0; } })();\nconst missingTerms = (() => { try { return $('WDF*IDF Coverage Check').item.json.top_missing_terms || ''; } catch(e) { return ''; } })();\nconst article = $('Extract Final Article').item.json.final_article || '';\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  messages: [{\n    role: \"user\",\n    content: `Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung (${coveragePct}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n${missingTerms}\\n\\n## ARTIKEL\\n${article}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links bei\\n4. Gib den vollständigen, überarbeiteten Artikel zurück\\n\\nNur den Artikel, keine Erklärungen.`\n  }]\n};\nreturn [{ json: { request_body: body } }];"
+      }
+    },
+    {
+      "id": "prep-claude-geo-optimierung-pass-4",
+      "name": "Prepare GEO-Optimierung Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Build GEO Optimization request body safely\nconst article = (() => { try { return $('Merge Article (Original or Optimized)').item.json.article || $('Extract Final Article').item.json.final_article || ''; } catch(e) { return $('Extract Final Article').item.json.final_article || ''; } })();\nconst keyword = $('Extract Input Data').item.json.keyword || '';\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Optimiere den Artikel so, dass er in AI-Suchmaschinen (ChatGPT, Perplexity, Google SGE) als Quelle zitiert wird.\\n\\nRegeln:\\n1. Zitierbare Aussagen: Klare, prägnante Fakten-Statements\\n2. Strukturierte Daten: Listen, Tabellen, klare Hierarchien\\n3. Direkte Antworten auf Fragen\\n4. Quellenverweise wo möglich\\n5. Definitionsboxen für Fachbegriffe\\n6. Verändere die H2/H3-Struktur NICHT\\n7. Behalte alle Links bei\",\n  messages: [{\n    role: \"user\",\n    content: `Optimiere den folgenden Artikel für GEO (Generative Engine Optimization).\\n\\n## KEYWORD\\n${keyword}\\n\\n## ARTIKEL\\n${article}\\n\\nGib den vollständigen, GEO-optimierten Artikel zurück. Nur den Artikel, keine Erklärungen.`\n  }]\n};\nreturn [{ json: { request_body: body } }];"
       }
     }
   ],
@@ -983,7 +1022,7 @@
       "main": [
         [
           {
-            "node": "Claude: Generate Meta Data",
+            "node": "Prepare Generate Meta Data Body",
             "type": "main",
             "index": 0
           },
@@ -1174,7 +1213,7 @@
       "main": [
         [
           {
-            "node": "Claude: WDF*IDF Optimization (Pass 3)",
+            "node": "Prepare WDF*IDF Optimization Body",
             "type": "main",
             "index": 0
           }
@@ -1214,7 +1253,7 @@
       "main": [
         [
           {
-            "node": "Claude: GEO-Optimierung (Pass 4)",
+            "node": "Prepare GEO-Optimierung Body",
             "type": "main",
             "index": 0
           }
@@ -1275,6 +1314,39 @@
           }
         ]
       ]
+    },
+    "Prepare Generate Meta Data Body": {
+      "main": [
+        [
+          {
+            "node": "Claude: Generate Meta Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare WDF*IDF Optimization Body": {
+      "main": [
+        [
+          {
+            "node": "Claude: WDF*IDF Optimization (Pass 3)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare GEO-Optimierung Body": {
+      "main": [
+        [
+          {
+            "node": "Claude: GEO-Optimierung (Pass 4)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1285,9 +1357,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
-  "activeVersionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
-  "versionCounter": 49,
+  "versionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
+  "activeVersionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
+  "versionCounter": 54,
   "triggerCount": 1,
   "shared": [
     {
@@ -1310,9 +1382,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T08:16:46.954Z",
-    "createdAt": "2026-03-25T08:16:46.954Z",
-    "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+    "updatedAt": "2026-03-25T08:42:03.977Z",
+    "createdAt": "2026-03-25T08:42:03.977Z",
+    "versionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
     "workflowId": "Qm2j4ZECEwa9jTdp",
     "nodes": [
       {
@@ -1666,7 +1738,7 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"system\": \"Du bist ein SEO-Spezialist für Meta-Daten. Erstelle für den folgenden Blogartikel:\\n\\n1. **Meta Title** (max. 60 Zeichen): Enthält das Hauptkeyword am Anfang. Macht neugierig, kein Clickbait.\\n2. **Meta Description** (max. 155 Zeichen): Enthält das Keyword, einen Nutzenversprechen und einen Call-to-Action. Soll zum Klicken animieren.\\n3. **URL-Slug**: Kurz, nur Kleinbuchstaben, Bindestriche, enthält das Keyword.\\n\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"...\\\",\\n  \\\"meta_description\\\": \\\"...\\\",\\n  \\\"url_slug\\\": \\\"...\\\"\\n}\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL (erste 500 Zeichen)\\n{{ $('Extract Final Article').item.json.final_article.substring(0, 500) }}\\n\\n## ANFORDERUNGEN\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"Max 60 Zeichen, Keyword vorne, emotional/klickstark\\\",\\n  \\\"meta_description\\\": \\\"Max 155 Zeichen, Keyword enthalten, Call-to-Action\\\",\\n  \\\"url_slug\\\": \\\"keyword-basiert-ohne-stoppwoerter\\\",\\n  \\\"og_title\\\": \\\"Für Social Media optimiert, max 70 Zeichen\\\",\\n  \\\"focus_keyword\\\": \\\"Das exakte Hauptkeyword\\\"\\n}\\n\\nNur JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}",
           "options": {
             "timeout": 60000
           },
@@ -2020,7 +2092,7 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung ({{ $('WDF*IDF Coverage Check').item.json.coverage_pct }}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n{{ $('WDF*IDF Coverage Check').item.json.top_missing_terms }}\\n\\n## ARTIKEL\\n{{ $('Extract Final Article').item.json.final_article }}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden. Die Terme müssen organisch in den Text fließen, nicht einfach aufgelistet werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Der Text soll weiterhin natürlich und gut lesbar sein\\n5. Erweitere Absätze wo nötig statt neue hinzuzufügen\\n\\nGib den KOMPLETTEN überarbeiteten Artikel zurück. Nur Markdown, keine Erklärungen.\"\n    }\n  ]\n}",
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}",
           "options": {
             "timeout": 180000
           },
@@ -2121,7 +2193,7 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"system\": \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Optimiere den folgenden fertigen Blogartikel für Generative Engine Optimization (GEO). Wende dabei alle Regeln und Strategien aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL\\n{{ $json.final_article }}\\n\\n## ANFORDERUNGEN\\n1. Wende alle GEO-Optimierungsregeln aus dem System-Prompt an\\n2. Verändere die H2/H3-Struktur NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Behalte alle Quellenangaben und füge ggf. weitere hinzu\\n5. Der Text soll weiterhin natürlich und gut lesbar bleiben\\n6. Optimiere für AI-Suchmaschinen (Perplexity, ChatGPT, Google AI Overview)\\n\\nGib den KOMPLETTEN optimierten Artikel als Markdown zurück. Keine Erklärungen, nur der Artikel.\"\n    }\n  ]\n}",
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}",
           "options": {
             "timeout": 180000
           },
@@ -2195,6 +2267,45 @@
         ],
         "parameters": {
           "jsCode": "// Build Claude Pass 2 request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst fullDraft = $json.full_draft || '';\nconst internalLinks = $('Extract Input Data').item.json.internal_links || '';\n\nconst userContent = `Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung. Wende dabei strikt alle Regeln aus dem System-Prompt (Sprachstil, Struktur, Formatierung) an.\n\n## KEYWORD\n${keyword}\n\n## WDF*IDF TERME (müssen im Text vorkommen)\n${wdfTerms}\n\n## DRAFT\n${fullDraft}\n\n## AUFGABEN\n1. Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\n2. Passe den Ton durchgängig an den Sprachstil-Prompt an\n3. Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\n4. Streiche Wiederholungen zwischen Sektionen\n5. Schreibe eine packende Einleitung (80-100 Wörter) mit dem Hauptkeyword, Ende mit 'In diesem Beitrag erfährst du…'\n6. Schreibe ein Fazit mit natürlichem CTA zur kostenfreien Beratung\n7. Prüfe H2-H3-Struktur: Nach jeder H2 mindestens 100-200 Wörter bevor eine H3 kommt\n8. Trennlinien (---) zwischen Sektionen entfernen\n9. Behalte alle internen Links bei\n10. Behalte alle Infografik-Platzhalter bei\n11. Mindestens 1 Tabelle, 2-3 Listen, 4-6 unterschiedlich formulierte CTAs\n12. Infoboxen verwenden wo sinnvoll\n\nGib den vollständigen, überarbeiteten Artikel als Markdown zurück. Keine Erklärungen, nur den fertigen Artikel.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: body } }];"
+        }
+      },
+      {
+        "id": "prep-claude-generate-meta-data",
+        "name": "Prepare Generate Meta Data Body",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "jsCode": "// Build Meta Data request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst article = $('Extract Final Article').item.json.final_article || '';\nconst faqSection = (() => { try { return $('Build FAQ Section').item.json.faq_html || ''; } catch(e) { return ''; } })();\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 1024,\n  system: \"Du bist ein SEO-Spezialist für Meta-Daten. Erstelle für den folgenden Blogartikel:\\n\\n1. **Meta Title** (max. 60 Zeichen): Enthält das Hauptkeyword am Anfang. Macht neugierig, kein Clickbait.\\n2. **Meta Description** (max. 155 Zeichen): Enthält das Keyword, einen Nutzenversprechen und einen Call-to-Action. Soll zum Klicken animieren.\\n3. **URL-Slug**: Kurz, nur Kleinbuchstaben, Bindestriche, enthält das Keyword.\\n4. **Focus Keyword**: Das Hauptkeyword für RankMath.\\n\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"...\\\",\\n  \\\"meta_description\\\": \\\"...\\\",\\n  \\\"url_slug\\\": \\\"...\\\",\\n  \\\"focus_keyword\\\": \\\"...\\\"\\n}\",\n  messages: [{\n    role: \"user\",\n    content: `Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n${keyword}\\n\\n## ARTIKEL (Zusammenfassung)\\n${article.substring(0, 3000)}\\n\\nGeneriere die Metadaten als JSON.`\n  }]\n};\nreturn [{ json: { request_body: body } }];"
+        }
+      },
+      {
+        "id": "prep-claude-wdf*idf-optimization-pass-3",
+        "name": "Prepare WDF*IDF Optimization Body",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "jsCode": "// Build WDF*IDF Optimization request body safely\nconst coveragePct = (() => { try { return $('WDF*IDF Coverage Check').item.json.coverage_pct || 0; } catch(e) { return 0; } })();\nconst missingTerms = (() => { try { return $('WDF*IDF Coverage Check').item.json.top_missing_terms || ''; } catch(e) { return ''; } })();\nconst article = $('Extract Final Article').item.json.final_article || '';\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  messages: [{\n    role: \"user\",\n    content: `Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung (${coveragePct}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n${missingTerms}\\n\\n## ARTIKEL\\n${article}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links bei\\n4. Gib den vollständigen, überarbeiteten Artikel zurück\\n\\nNur den Artikel, keine Erklärungen.`\n  }]\n};\nreturn [{ json: { request_body: body } }];"
+        }
+      },
+      {
+        "id": "prep-claude-geo-optimierung-pass-4",
+        "name": "Prepare GEO-Optimierung Body",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "jsCode": "// Build GEO Optimization request body safely\nconst article = (() => { try { return $('Merge Article (Original or Optimized)').item.json.article || $('Extract Final Article').item.json.final_article || ''; } catch(e) { return $('Extract Final Article').item.json.final_article || ''; } })();\nconst keyword = $('Extract Input Data').item.json.keyword || '';\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Optimiere den Artikel so, dass er in AI-Suchmaschinen (ChatGPT, Perplexity, Google SGE) als Quelle zitiert wird.\\n\\nRegeln:\\n1. Zitierbare Aussagen: Klare, prägnante Fakten-Statements\\n2. Strukturierte Daten: Listen, Tabellen, klare Hierarchien\\n3. Direkte Antworten auf Fragen\\n4. Quellenverweise wo möglich\\n5. Definitionsboxen für Fachbegriffe\\n6. Verändere die H2/H3-Struktur NICHT\\n7. Behalte alle Links bei\",\n  messages: [{\n    role: \"user\",\n    content: `Optimiere den folgenden Artikel für GEO (Generative Engine Optimization).\\n\\n## KEYWORD\\n${keyword}\\n\\n## ARTIKEL\\n${article}\\n\\nGib den vollständigen, GEO-optimierten Artikel zurück. Nur den Artikel, keine Erklärungen.`\n  }]\n};\nreturn [{ json: { request_body: body } }];"
         }
       }
     ],
@@ -2291,7 +2402,7 @@
         "main": [
           [
             {
-              "node": "Claude: Generate Meta Data",
+              "node": "Prepare Generate Meta Data Body",
               "type": "main",
               "index": 0
             },
@@ -2482,7 +2593,7 @@
         "main": [
           [
             {
-              "node": "Claude: WDF*IDF Optimization (Pass 3)",
+              "node": "Prepare WDF*IDF Optimization Body",
               "type": "main",
               "index": 0
             }
@@ -2522,7 +2633,7 @@
         "main": [
           [
             {
-              "node": "Claude: GEO-Optimierung (Pass 4)",
+              "node": "Prepare GEO-Optimierung Body",
               "type": "main",
               "index": 0
             }
@@ -2583,6 +2694,39 @@
             }
           ]
         ]
+      },
+      "Prepare Generate Meta Data Body": {
+        "main": [
+          [
+            {
+              "node": "Claude: Generate Meta Data",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare WDF*IDF Optimization Body": {
+        "main": [
+          [
+            {
+              "node": "Claude: WDF*IDF Optimization (Pass 3)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare GEO-Optimierung Body": {
+        "main": [
+          [
+            {
+              "node": "Claude: GEO-Optimierung (Pass 4)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Carlos Arad",
@@ -2591,34 +2735,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T08:16:47.005Z",
-        "id": 283,
+        "createdAt": "2026-03-25T08:42:04.067Z",
+        "id": 287,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+        "versionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T08:16:47.840Z",
-        "id": 285,
+        "createdAt": "2026-03-25T08:42:04.875Z",
+        "id": 289,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+        "versionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T08:16:46.992Z",
-        "id": 282,
+        "createdAt": "2026-03-25T08:42:04.043Z",
+        "id": 286,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+        "versionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T08:16:47.818Z",
-        "id": 284,
+        "createdAt": "2026-03-25T08:42:04.852Z",
+        "id": 288,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+        "versionId": "561c1071-6a17-4852-8e91-55be2446e0eb",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
