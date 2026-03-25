@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T07:30:00.830Z",
+  "updatedAt": "2026-03-25T08:12:36.766Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -329,12 +329,11 @@
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
-        "specifyBody": "string",
+        "specifyBody": "json",
         "options": {
           "timeout": 120000
         },
-        "body": "={{ $json.request_body }}",
-        "contentType": "application/json"
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}"
       },
       "id": "ol-node-011",
       "name": "Perplexity Deep Research",
@@ -354,48 +353,37 @@
       "notes": "Perplexity sonar-deep-research für umfassende Faktenrecherche mit Quellen"
     },
     {
-      "parameters": {
-        "operation": "read",
-        "documentId": {
-          "__rl": true,
-          "value": "={{ $('Config').item.json.google_sheet_id }}",
-          "mode": "id"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "Keyword Map",
-          "mode": "name"
-        },
-        "filtersUI": {
-          "values": [
-            {
-              "lookupColumn": "Hub/Cluster",
-              "lookupValue": "={{ $('Extract Task Data').item.json.themen_cluster }}"
-            }
-          ]
-        },
-        "options": {}
-      },
       "id": "ol-node-012",
       "name": "Read Keyword Map (Google Sheets)",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.5,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
         2660,
         300
       ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Config').item.json.google_sheet_id }}/values/Keyword%20Map",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
       "credentials": {
-        "googleSheetsOAuth2Api": {
+        "googleOAuth2Api": {
           "id": "u6XCIz3Yxbakjrwg",
           "name": "Google account"
         }
-      },
-      "notesInFlow": true,
-      "notes": "Keyword Map lesen: andere Artikel im gleichen Hub/Cluster für interne Verlinkung"
+      }
     },
     {
       "parameters": {
-        "jsCode": "// Interne Verlinkungsdaten aufbereiten\nconst sheetRows = $input.all().map(item => item.json);\nconst currentKeyword = $('Extract Task Data').item.json.keyword;\n\nconst hubArticles = sheetRows\n  .filter(row => row['Keyword'] !== currentKeyword)\n  .map(row => ({\n    keyword: row['Keyword'] || '',\n    url: row['WordPress URL'] || row['Google Doc Link'] || '',\n    status: row['Status'] || '',\n    is_pillar: (row['Pillar Article URL'] || '').length > 0,\n    pillar_url: row['Pillar Article URL'] || ''\n  }));\n\nconst publishedArticles = hubArticles.filter(a => a.status === 'veröffentlicht' && a.url);\nconst pillarArticle = hubArticles.find(a => a.is_pillar);\n\nreturn [{\n  json: {\n    hub_articles: hubArticles,\n    published_articles: publishedArticles,\n    pillar_article: pillarArticle || null,\n    internal_linking_summary: publishedArticles.length > 0\n      ? publishedArticles.map(a => `- \"${a.keyword}\": ${a.url}`).join('\\n')\n      : 'Noch keine veröffentlichten Artikel im Hub.'\n  }\n}];"
+        "jsCode": "// Interne Verlinkungsdaten aufbereiten\n// Google Sheets API returns {values: [[headers], [row1], [row2], ...]}\nconst rawData = $input.first().json;\nconst values = rawData.values || [];\n\n// Convert to keyed objects using header row\nlet sheetRows = [];\nif (values.length > 1) {\n  const headers = values[0];\n  for (let i = 1; i < values.length; i++) {\n    const row = {};\n    for (let j = 0; j < headers.length; j++) {\n      row[headers[j]] = values[i][j] || '';\n    }\n    sheetRows.push(row);\n  }\n}\n\nconst currentKeyword = $('Extract Task Data').item.json.keyword;\nconst themenCluster = $('Extract Task Data').item.json.themen_cluster || '';\n\n// Filter by Themen-Cluster if available\nlet filteredRows = sheetRows;\nif (themenCluster) {\n  filteredRows = sheetRows.filter(row => \n    (row['Hub/Cluster'] || '').toLowerCase() === themenCluster.toLowerCase()\n  );\n}\n\nconst hubArticles = filteredRows\n  .filter(row => (row['Keyword'] || '').toLowerCase() !== currentKeyword.toLowerCase())\n  .map(row => ({\n    keyword: row['Keyword'] || '',\n    url: row['WordPress URL'] || row['Google Doc Link'] || '',\n    status: row['Status'] || '',\n    is_pillar: (row['Pillar Article URL'] || '').length > 0,\n    pillar_url: row['Pillar Article URL'] || ''\n  }));\n\nconst publishedArticles = hubArticles.filter(a => a.status === 'veröffentlicht' && a.url);\nconst pillarArticle = hubArticles.find(a => a.is_pillar);\n\nreturn [{\n  json: {\n    hub_articles: hubArticles,\n    published_articles: publishedArticles,\n    pillar_article: pillarArticle || null,\n    internal_linking_summary: publishedArticles.length > 0\n      ? publishedArticles.map(a => `- \"${a.keyword}\": ${a.url}`).join('\\n')\n      : 'Noch keine veröffentlichten Artikel im Hub.'\n  }\n}];"
       },
       "id": "ol-node-013",
       "name": "Prepare Internal Linking Data",
@@ -412,13 +400,17 @@
       "parameters": {
         "method": "POST",
         "url": "https://api.anthropic.com/v1/messages",
+        "sendBody": true,
+        "specifyBody": "json",
+        "options": {
+          "timeout": 120000
+        },
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            {
-              "name": "x-api-key",
-              "value": "={{ $credentials.anthropicApi?.apiKey || 'YOUR_ANTHROPIC_API_KEY' }}"
-            },
             {
               "name": "anthropic-version",
               "value": "2023-06-01"
@@ -428,14 +420,7 @@
               "value": "application/json"
             }
           ]
-        },
-        "sendBody": true,
-        "specifyBody": "string",
-        "options": {
-          "timeout": 120000
-        },
-        "body": "={{ $json.request_body }}",
-        "contentType": "application/json"
+        }
       },
       "id": "ol-node-014",
       "name": "Claude: Generate Outline",
@@ -456,7 +441,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Claude-Antwort parsen und Outline extrahieren\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet outline;\ntry {\n  // Versuche JSON direkt zu parsen\n  outline = JSON.parse(content);\n} catch (e) {\n  // Falls in Markdown-Codeblock verpackt\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    outline = JSON.parse(jsonMatch[1].trim());\n  } else {\n    throw new Error('Konnte Outline-JSON nicht parsen: ' + content.substring(0, 200));\n  }\n}\n\nreturn [{\n  json: {\n    outline: outline,\n    outline_json: JSON.stringify(outline, null, 2),\n    title_suggestion: outline.title_suggestion || '',\n    search_intent: outline.search_intent || '',\n    section_count: (outline.sections || []).length,\n    faq_count: (outline.faq_section || []).length,\n    has_infographics: (outline.sections || []).some(s => s.infographic)\n  }\n}];"
+        "jsCode": "// Claude-Antwort parsen und Outline extrahieren\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\n// Extract JSON from code block\nlet jsonText = content.trim();\nif (jsonText.startsWith('```')) {\n  const lines = jsonText.split('\\n');\n  const start = 1;\n  let end = lines.length;\n  for (let i = lines.length - 1; i >= 0; i--) {\n    if (lines[i].trim() === '```') { end = i; break; }\n  }\n  jsonText = lines.slice(start, end).join('\\n');\n}\n\n// Fix trailing commas\njsonText = jsonText.replace(/,\\s*([\\]\\}])/g, '$1');\n\nlet outline;\ntry {\n  outline = JSON.parse(jsonText);\n} catch (e) {\n  // JSON might be truncated - try to repair\n  let repaired = jsonText;\n  \n  // Count open/close brackets\n  let openBraces = (repaired.match(/\\{/g) || []).length;\n  let closeBraces = (repaired.match(/\\}/g) || []).length;\n  let openBrackets = (repaired.match(/\\[/g) || []).length;\n  let closeBrackets = (repaired.match(/\\]/g) || []).length;\n  \n  // Truncate at last complete section\n  // Find the last complete \"h2\" section\n  const lastCompleteSection = repaired.lastIndexOf('\"infographic\"');\n  if (lastCompleteSection === -1) {\n    // Find last complete h3_subsections array\n    const lastH3 = repaired.lastIndexOf('\"h3_subsections\"');\n  }\n  \n  // Simple repair: close all open brackets/braces\n  // First, trim any incomplete key-value pairs\n  repaired = repaired.replace(/,\\s*\"[^\"]*\"\\s*:\\s*[^,\\]\\}]*$/, '');\n  repaired = repaired.replace(/,\\s*\\{[^\\}]*$/, '');\n  repaired = repaired.replace(/,\\s*\\[[^\\]]*$/, '');\n  \n  // Add missing closers\n  openBraces = (repaired.match(/\\{/g) || []).length;\n  closeBraces = (repaired.match(/\\}/g) || []).length;\n  openBrackets = (repaired.match(/\\[/g) || []).length;\n  closeBrackets = (repaired.match(/\\]/g) || []).length;\n  \n  for (let i = 0; i < openBrackets - closeBrackets; i++) repaired += ']';\n  for (let i = 0; i < openBraces - closeBraces; i++) repaired += '}';\n  \n  // Fix trailing commas again after repair\n  repaired = repaired.replace(/,\\s*([\\]\\}])/g, '$1');\n  \n  try {\n    outline = JSON.parse(repaired);\n  } catch (e2) {\n    throw new Error('Konnte Outline-JSON nicht parsen (auch nach Reparatur): ' + e2.message + ' | First 300 chars: ' + jsonText.substring(0, 300));\n  }\n}\n\nreturn [{\n  json: {\n    outline: outline,\n    outline_json: JSON.stringify(outline, null, 2),\n    title_suggestion: outline.title_suggestion || '',\n    search_intent: outline.search_intent || '',\n    section_count: (outline.sections || []).length,\n    faq_count: (outline.faq_section || []).length,\n    has_infographics: (outline.sections || []).some(s => s.infographic)\n  }\n}];"
       },
       "id": "ol-node-015",
       "name": "Parse Outline Response",
@@ -475,7 +460,7 @@
         "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_id; return n || $('Extract Doc ID from ClickUp').item.json.doc_id; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_id; } })() }}\",\n  \"doc_url\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_url; return n || $('Extract Doc ID from ClickUp').item.json.doc_url; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_url; } })() }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+        "jsonBody": "={{ JSON.stringify($json.trigger_body) }}",
         "options": {
           "timeout": 10000
         }
@@ -680,7 +665,7 @@
         0
       ],
       "parameters": {
-        "jsCode": "// Build Perplexity request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nconst userContent = `Recherchiere umfassend zum Thema: ${keyword}\n\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\n${serpSummary}\n\nWichtige Begriffe laut WDF*IDF Analyse:\n${wdfSummary}\n\nHäufig gestellte Fragen (People Also Ask):\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\nBitte liefere:\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\n3. Häufige Missverständnisse und korrekte Informationen\n4. Praxistipps und Handlungsempfehlungen\n5. Vergleiche und Übersichten\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht`;\n\nconst body = {\n  model: \"sonar-deep-research\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"Du bist ein Forschungsassistent für SEO-Content. Deine Aufgabe ist es, umfassende und aktuelle Informationen zu einem Thema zu recherchieren und strukturiert zusammenzufassen. Liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten (z.B. Kosten, Anbieter, Optionen)\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\\nAntworte immer auf Deutsch. Sei faktenbasiert und nenne Quellen wo möglich.\"\n    },\n    {\n      role: \"user\",\n      content: userContent\n    }\n  ],\n  max_tokens: 4000,\n  temperature: 0.1\n};\n\nreturn [{ json: { request_body: JSON.stringify(body) } }];"
+        "jsCode": "// Build Perplexity request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nconst userContent = `Recherchiere umfassend zum Thema: ${keyword}\n\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\n${serpSummary}\n\nWichtige Begriffe laut WDF*IDF Analyse:\n${wdfSummary}\n\nHäufig gestellte Fragen (People Also Ask):\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\nBitte liefere:\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\n3. Häufige Missverständnisse und korrekte Informationen\n4. Praxistipps und Handlungsempfehlungen\n5. Vergleiche und Übersichten\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht`;\n\nconst body = {\n  model: \"sonar-deep-research\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"Du bist ein Forschungsassistent für SEO-Content. Deine Aufgabe ist es, umfassende und aktuelle Informationen zu einem Thema zu recherchieren und strukturiert zusammenzufassen. Liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten (z.B. Kosten, Anbieter, Optionen)\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\\nAntworte immer auf Deutsch. Sei faktenbasiert und nenne Quellen wo möglich.\"\n    },\n    {\n      role: \"user\",\n      content: userContent\n    }\n  ],\n  max_tokens: 4000,\n  temperature: 0.1\n};\n\nreturn [{ json: { request_body: body } }];"
       }
     },
     {
@@ -693,7 +678,20 @@
         0
       ],
       "parameters": {
-        "jsCode": "// Build Claude outline request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet perplexityContent = '';\ntry { perplexityContent = $('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || ''; } catch(e) {}\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nlet internalLinkingSummary = '';\ntry { internalLinkingSummary = $('Prepare Internal Linking Data').item.json.internal_linking_summary || ''; } catch(e) {}\n\nlet pillarUrl = 'Noch kein Pillar Article';\ntry { \n  const p = $('Prepare Internal Linking Data').item.json.pillar_article;\n  if (p && p.pillar_url) pillarUrl = p.pillar_url;\n} catch(e) {}\n\nlet wdfTerms = [];\ntry { wdfTerms = $('WDF*IDF Calculator').item.json.wdf_idf_terms || []; } catch(e) {}\n\nconst userContent = `Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\n\n## KEYWORD\n${keyword}\n\n## SERP-ANALYSE (Top 10 Ergebnisse)\n${serpSummary}\n\n## WDF*IDF TERME (in den Artikel integrieren)\n${wdfSummary}\n\n## PERPLEXITY DEEP RESEARCH\n${perplexityContent}\n\n## PEOPLE ALSO ASK & REDDIT FRAGEN\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\n${internalLinkingSummary}\nPillar Article: ${pillarUrl}\n\n## ANFORDERUNGEN AN DAS OUTLINE\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\n2. Mindestens 6-8 H2-Sektionen mit je 2-4 H3-Untersektionen\n3. Jede H3 enthält: key_points, wdf_idf_terms (aus der WDF*IDF-Liste), internal_link (wenn passend)\n4. Eine FAQ-Sektion mit mindestens 5 Fragen (aus PAA + Reddit)\n5. Vorschlag für 1-2 Infografiken mit Platzierung\n6. GEO-optimiert: Klare Definitionen, zitierbare Aussagen, strukturierte Vergleiche\n7. Integriere interne Links zu verwandten Artikeln aus dem gleichen Hub\n\nAntworte NUR mit einem JSON-Objekt in folgendem Format:\n{\n  \"title_suggestion\": \"SEO-optimierter Titel mit Keyword\",\n  \"search_intent\": \"informational|commercial|transactional|navigational\",\n  \"sections\": [\n    {\n      \"h2\": \"Überschrift der Sektion\",\n      \"h3_subsections\": [\n        {\n          \"h3\": \"Unterüberschrift\",\n          \"key_points\": [\"Punkt 1\", \"Punkt 2\"],\n          \"wdf_idf_terms\": [\"term1\", \"term2\"],\n          \"internal_link\": {\"url\": \"https://...\", \"anchor\": \"Ankertext\"} \n        }\n      ],\n      \"infographic\": {\"type\": \"comparison_table\", \"description\": \"...\"} \n    }\n  ],\n  \"faq_section\": [\n    {\"question\": \"Frage?\", \"answer_outline\": \"Kernpunkte der Antwort\"}\n  ],\n  \"internal_links\": [\n    {\"url\": \"https://...\", \"anchor\": \"Ankertext\", \"context\": \"Wo einbauen\"}\n  ]\n}`;\n\nconst systemPrompt = \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\";\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  system: systemPrompt,\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: JSON.stringify(body) } }];"
+        "jsCode": "// Build Claude outline request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet perplexityContent = '';\ntry { perplexityContent = $('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || ''; } catch(e) {}\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nlet internalLinkingSummary = '';\ntry { internalLinkingSummary = $('Prepare Internal Linking Data').item.json.internal_linking_summary || ''; } catch(e) {}\n\nlet pillarUrl = 'Noch kein Pillar Article';\ntry { \n  const p = $('Prepare Internal Linking Data').item.json.pillar_article;\n  if (p && p.pillar_url) pillarUrl = p.pillar_url;\n} catch(e) {}\n\nlet wdfTerms = [];\ntry { wdfTerms = $('WDF*IDF Calculator').item.json.wdf_idf_terms || []; } catch(e) {}\n\nconst userContent = `Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\n\n## KEYWORD\n${keyword}\n\n## SERP-ANALYSE (Top 10 Ergebnisse)\n${serpSummary}\n\n## WDF*IDF TERME (in den Artikel integrieren)\n${wdfSummary}\n\n## PERPLEXITY DEEP RESEARCH\n${perplexityContent}\n\n## PEOPLE ALSO ASK & REDDIT FRAGEN\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\n${internalLinkingSummary}\nPillar Article: ${pillarUrl}\n\n## ANFORDERUNGEN AN DAS OUTLINE\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\n2. Mindestens 6-8 H2-Sektionen mit je 2-4 H3-Untersektionen\n3. Jede H3 enthält: key_points, wdf_idf_terms (aus der WDF*IDF-Liste), internal_link (wenn passend)\n4. Eine FAQ-Sektion mit mindestens 5 Fragen (aus PAA + Reddit)\n5. Vorschlag für 1-2 Infografiken mit Platzierung\n6. GEO-optimiert: Klare Definitionen, zitierbare Aussagen, strukturierte Vergleiche\n7. Integriere interne Links zu verwandten Artikeln aus dem gleichen Hub\n\nAntworte NUR mit einem JSON-Objekt in folgendem Format:\n{\n  \"title_suggestion\": \"SEO-optimierter Titel mit Keyword\",\n  \"search_intent\": \"informational|commercial|transactional|navigational\",\n  \"sections\": [\n    {\n      \"h2\": \"Überschrift der Sektion\",\n      \"h3_subsections\": [\n        {\n          \"h3\": \"Unterüberschrift\",\n          \"key_points\": [\"Punkt 1\", \"Punkt 2\"],\n          \"wdf_idf_terms\": [\"term1\", \"term2\"],\n          \"internal_link\": {\"url\": \"https://...\", \"anchor\": \"Ankertext\"} \n        }\n      ],\n      \"infographic\": {\"type\": \"comparison_table\", \"description\": \"...\"} \n    }\n  ],\n  \"faq_section\": [\n    {\"question\": \"Frage?\", \"answer_outline\": \"Kernpunkte der Antwort\"}\n  ],\n  \"internal_links\": [\n    {\"url\": \"https://...\", \"anchor\": \"Ankertext\", \"context\": \"Wo einbauen\"}\n  ]\n}`;\n\nconst systemPrompt = \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\";\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: systemPrompt,\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: body } }];"
+      }
+    },
+    {
+      "id": "prep-trigger-01b",
+      "name": "Prepare 01b Trigger Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3600,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Build the trigger body safely\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst taskId = $('Extract Task Data').item.json.task_id || '';\nconst kunde = $('Extract Task Data').item.json.kunde || '';\n\n// Get doc info - try new doc path first, then existing\nlet docId = '';\nlet docUrl = '';\ntry {\n  const newDoc = $('Prepare Doc Info (New)').item.json;\n  docId = newDoc.doc_id || '';\n  docUrl = newDoc.doc_url || '';\n} catch(e) {}\nif (!docId) {\n  try {\n    const existing = $('Extract Doc ID from ClickUp').item.json;\n    docId = existing.doc_id || '';\n    docUrl = existing.doc_url || '';\n  } catch(e) {}\n}\n\nconst outlineJson = $('Parse Outline Response').item.json.outline_json || '{}';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\nconst wdfTerms = $('WDF*IDF Calculator').item.json.wdf_idf_terms || [];\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\n\nlet perplexityContent = '';\ntry { perplexityContent = $('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || ''; } catch(e) {}\n\nconst internalLinkingSummary = $('Prepare Internal Linking Data').item.json.internal_linking_summary || '';\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\n\nconst body = {\n  keyword,\n  task_id: taskId,\n  kunde,\n  doc_id: docId,\n  doc_url: docUrl,\n  outline_json: outlineJson,\n  wdf_idf_summary: wdfSummary,\n  wdf_idf_terms: wdfTerms,\n  perplexity_research: perplexityContent,\n  internal_linking_summary: internalLinkingSummary,\n  serp_summary: serpSummary,\n  people_also_ask: paaQuestions\n};\n\nreturn [{ json: { trigger_body: body } }];"
       }
     }
   ],
@@ -878,7 +876,7 @@
       "main": [
         [
           {
-            "node": "Trigger Content Writer (01b)",
+            "node": "Prepare 01b Trigger Body",
             "type": "main",
             "index": 0
           }
@@ -979,6 +977,17 @@
           }
         ]
       ]
+    },
+    "Prepare 01b Trigger Body": {
+      "main": [
+        [
+          {
+            "node": "Trigger Content Writer (01b)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -989,15 +998,15 @@
   "staticData": {
     "global": {
       "recentTasks": {
-        "86c903hfy": 1774422581321
+        "86c903hfy": 1774426367696
       }
     }
   },
   "meta": null,
   "pinData": null,
-  "versionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
-  "activeVersionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
-  "versionCounter": 38,
+  "versionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
+  "activeVersionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
+  "versionCounter": 108,
   "triggerCount": 1,
   "shared": [
     {
@@ -1020,9 +1029,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T07:30:00.833Z",
-    "createdAt": "2026-03-25T07:30:00.833Z",
-    "versionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
+    "updatedAt": "2026-03-25T08:12:36.768Z",
+    "createdAt": "2026-03-25T08:12:36.768Z",
+    "versionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
     "workflowId": "cXCY0gzNpYwTDUI8",
     "nodes": [
       {
@@ -1347,12 +1356,11 @@
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
-          "specifyBody": "string",
+          "specifyBody": "json",
           "options": {
             "timeout": 120000
           },
-          "body": "={{ $json.request_body }}",
-          "contentType": "application/json"
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}"
         },
         "id": "ol-node-011",
         "name": "Perplexity Deep Research",
@@ -1372,48 +1380,37 @@
         "notes": "Perplexity sonar-deep-research für umfassende Faktenrecherche mit Quellen"
       },
       {
-        "parameters": {
-          "operation": "read",
-          "documentId": {
-            "__rl": true,
-            "value": "={{ $('Config').item.json.google_sheet_id }}",
-            "mode": "id"
-          },
-          "sheetName": {
-            "__rl": true,
-            "value": "Keyword Map",
-            "mode": "name"
-          },
-          "filtersUI": {
-            "values": [
-              {
-                "lookupColumn": "Hub/Cluster",
-                "lookupValue": "={{ $('Extract Task Data').item.json.themen_cluster }}"
-              }
-            ]
-          },
-          "options": {}
-        },
         "id": "ol-node-012",
         "name": "Read Keyword Map (Google Sheets)",
-        "type": "n8n-nodes-base.googleSheets",
-        "typeVersion": 4.5,
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
         "position": [
           2660,
           300
         ],
+        "parameters": {
+          "method": "GET",
+          "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Config').item.json.google_sheet_id }}/values/Keyword%20Map",
+          "authentication": "predefinedCredentialType",
+          "nodeCredentialType": "googleOAuth2Api",
+          "options": {
+            "response": {
+              "response": {
+                "responseFormat": "json"
+              }
+            }
+          }
+        },
         "credentials": {
-          "googleSheetsOAuth2Api": {
+          "googleOAuth2Api": {
             "id": "u6XCIz3Yxbakjrwg",
             "name": "Google account"
           }
-        },
-        "notesInFlow": true,
-        "notes": "Keyword Map lesen: andere Artikel im gleichen Hub/Cluster für interne Verlinkung"
+        }
       },
       {
         "parameters": {
-          "jsCode": "// Interne Verlinkungsdaten aufbereiten\nconst sheetRows = $input.all().map(item => item.json);\nconst currentKeyword = $('Extract Task Data').item.json.keyword;\n\nconst hubArticles = sheetRows\n  .filter(row => row['Keyword'] !== currentKeyword)\n  .map(row => ({\n    keyword: row['Keyword'] || '',\n    url: row['WordPress URL'] || row['Google Doc Link'] || '',\n    status: row['Status'] || '',\n    is_pillar: (row['Pillar Article URL'] || '').length > 0,\n    pillar_url: row['Pillar Article URL'] || ''\n  }));\n\nconst publishedArticles = hubArticles.filter(a => a.status === 'veröffentlicht' && a.url);\nconst pillarArticle = hubArticles.find(a => a.is_pillar);\n\nreturn [{\n  json: {\n    hub_articles: hubArticles,\n    published_articles: publishedArticles,\n    pillar_article: pillarArticle || null,\n    internal_linking_summary: publishedArticles.length > 0\n      ? publishedArticles.map(a => `- \"${a.keyword}\": ${a.url}`).join('\\n')\n      : 'Noch keine veröffentlichten Artikel im Hub.'\n  }\n}];"
+          "jsCode": "// Interne Verlinkungsdaten aufbereiten\n// Google Sheets API returns {values: [[headers], [row1], [row2], ...]}\nconst rawData = $input.first().json;\nconst values = rawData.values || [];\n\n// Convert to keyed objects using header row\nlet sheetRows = [];\nif (values.length > 1) {\n  const headers = values[0];\n  for (let i = 1; i < values.length; i++) {\n    const row = {};\n    for (let j = 0; j < headers.length; j++) {\n      row[headers[j]] = values[i][j] || '';\n    }\n    sheetRows.push(row);\n  }\n}\n\nconst currentKeyword = $('Extract Task Data').item.json.keyword;\nconst themenCluster = $('Extract Task Data').item.json.themen_cluster || '';\n\n// Filter by Themen-Cluster if available\nlet filteredRows = sheetRows;\nif (themenCluster) {\n  filteredRows = sheetRows.filter(row => \n    (row['Hub/Cluster'] || '').toLowerCase() === themenCluster.toLowerCase()\n  );\n}\n\nconst hubArticles = filteredRows\n  .filter(row => (row['Keyword'] || '').toLowerCase() !== currentKeyword.toLowerCase())\n  .map(row => ({\n    keyword: row['Keyword'] || '',\n    url: row['WordPress URL'] || row['Google Doc Link'] || '',\n    status: row['Status'] || '',\n    is_pillar: (row['Pillar Article URL'] || '').length > 0,\n    pillar_url: row['Pillar Article URL'] || ''\n  }));\n\nconst publishedArticles = hubArticles.filter(a => a.status === 'veröffentlicht' && a.url);\nconst pillarArticle = hubArticles.find(a => a.is_pillar);\n\nreturn [{\n  json: {\n    hub_articles: hubArticles,\n    published_articles: publishedArticles,\n    pillar_article: pillarArticle || null,\n    internal_linking_summary: publishedArticles.length > 0\n      ? publishedArticles.map(a => `- \"${a.keyword}\": ${a.url}`).join('\\n')\n      : 'Noch keine veröffentlichten Artikel im Hub.'\n  }\n}];"
         },
         "id": "ol-node-013",
         "name": "Prepare Internal Linking Data",
@@ -1430,13 +1427,17 @@
         "parameters": {
           "method": "POST",
           "url": "https://api.anthropic.com/v1/messages",
+          "sendBody": true,
+          "specifyBody": "json",
+          "options": {
+            "timeout": 120000
+          },
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "httpHeaderAuth",
           "sendHeaders": true,
           "headerParameters": {
             "parameters": [
-              {
-                "name": "x-api-key",
-                "value": "={{ $credentials.anthropicApi?.apiKey || 'YOUR_ANTHROPIC_API_KEY' }}"
-              },
               {
                 "name": "anthropic-version",
                 "value": "2023-06-01"
@@ -1446,14 +1447,7 @@
                 "value": "application/json"
               }
             ]
-          },
-          "sendBody": true,
-          "specifyBody": "string",
-          "options": {
-            "timeout": 120000
-          },
-          "body": "={{ $json.request_body }}",
-          "contentType": "application/json"
+          }
         },
         "id": "ol-node-014",
         "name": "Claude: Generate Outline",
@@ -1474,7 +1468,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Claude-Antwort parsen und Outline extrahieren\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet outline;\ntry {\n  // Versuche JSON direkt zu parsen\n  outline = JSON.parse(content);\n} catch (e) {\n  // Falls in Markdown-Codeblock verpackt\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    outline = JSON.parse(jsonMatch[1].trim());\n  } else {\n    throw new Error('Konnte Outline-JSON nicht parsen: ' + content.substring(0, 200));\n  }\n}\n\nreturn [{\n  json: {\n    outline: outline,\n    outline_json: JSON.stringify(outline, null, 2),\n    title_suggestion: outline.title_suggestion || '',\n    search_intent: outline.search_intent || '',\n    section_count: (outline.sections || []).length,\n    faq_count: (outline.faq_section || []).length,\n    has_infographics: (outline.sections || []).some(s => s.infographic)\n  }\n}];"
+          "jsCode": "// Claude-Antwort parsen und Outline extrahieren\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\n// Extract JSON from code block\nlet jsonText = content.trim();\nif (jsonText.startsWith('```')) {\n  const lines = jsonText.split('\\n');\n  const start = 1;\n  let end = lines.length;\n  for (let i = lines.length - 1; i >= 0; i--) {\n    if (lines[i].trim() === '```') { end = i; break; }\n  }\n  jsonText = lines.slice(start, end).join('\\n');\n}\n\n// Fix trailing commas\njsonText = jsonText.replace(/,\\s*([\\]\\}])/g, '$1');\n\nlet outline;\ntry {\n  outline = JSON.parse(jsonText);\n} catch (e) {\n  // JSON might be truncated - try to repair\n  let repaired = jsonText;\n  \n  // Count open/close brackets\n  let openBraces = (repaired.match(/\\{/g) || []).length;\n  let closeBraces = (repaired.match(/\\}/g) || []).length;\n  let openBrackets = (repaired.match(/\\[/g) || []).length;\n  let closeBrackets = (repaired.match(/\\]/g) || []).length;\n  \n  // Truncate at last complete section\n  // Find the last complete \"h2\" section\n  const lastCompleteSection = repaired.lastIndexOf('\"infographic\"');\n  if (lastCompleteSection === -1) {\n    // Find last complete h3_subsections array\n    const lastH3 = repaired.lastIndexOf('\"h3_subsections\"');\n  }\n  \n  // Simple repair: close all open brackets/braces\n  // First, trim any incomplete key-value pairs\n  repaired = repaired.replace(/,\\s*\"[^\"]*\"\\s*:\\s*[^,\\]\\}]*$/, '');\n  repaired = repaired.replace(/,\\s*\\{[^\\}]*$/, '');\n  repaired = repaired.replace(/,\\s*\\[[^\\]]*$/, '');\n  \n  // Add missing closers\n  openBraces = (repaired.match(/\\{/g) || []).length;\n  closeBraces = (repaired.match(/\\}/g) || []).length;\n  openBrackets = (repaired.match(/\\[/g) || []).length;\n  closeBrackets = (repaired.match(/\\]/g) || []).length;\n  \n  for (let i = 0; i < openBrackets - closeBrackets; i++) repaired += ']';\n  for (let i = 0; i < openBraces - closeBraces; i++) repaired += '}';\n  \n  // Fix trailing commas again after repair\n  repaired = repaired.replace(/,\\s*([\\]\\}])/g, '$1');\n  \n  try {\n    outline = JSON.parse(repaired);\n  } catch (e2) {\n    throw new Error('Konnte Outline-JSON nicht parsen (auch nach Reparatur): ' + e2.message + ' | First 300 chars: ' + jsonText.substring(0, 300));\n  }\n}\n\nreturn [{\n  json: {\n    outline: outline,\n    outline_json: JSON.stringify(outline, null, 2),\n    title_suggestion: outline.title_suggestion || '',\n    search_intent: outline.search_intent || '',\n    section_count: (outline.sections || []).length,\n    faq_count: (outline.faq_section || []).length,\n    has_infographics: (outline.sections || []).some(s => s.infographic)\n  }\n}];"
         },
         "id": "ol-node-015",
         "name": "Parse Outline Response",
@@ -1493,7 +1487,7 @@
           "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_id; return n || $('Extract Doc ID from ClickUp').item.json.doc_id; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_id; } })() }}\",\n  \"doc_url\": \"{{ (() => { try { const n = $('Prepare Doc Info (New)').item.json.doc_url; return n || $('Extract Doc ID from ClickUp').item.json.doc_url; } catch(e) { return $('Extract Doc ID from ClickUp').item.json.doc_url; } })() }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+          "jsonBody": "={{ JSON.stringify($json.trigger_body) }}",
           "options": {
             "timeout": 10000
           }
@@ -1698,7 +1692,7 @@
           0
         ],
         "parameters": {
-          "jsCode": "// Build Perplexity request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nconst userContent = `Recherchiere umfassend zum Thema: ${keyword}\n\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\n${serpSummary}\n\nWichtige Begriffe laut WDF*IDF Analyse:\n${wdfSummary}\n\nHäufig gestellte Fragen (People Also Ask):\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\nBitte liefere:\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\n3. Häufige Missverständnisse und korrekte Informationen\n4. Praxistipps und Handlungsempfehlungen\n5. Vergleiche und Übersichten\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht`;\n\nconst body = {\n  model: \"sonar-deep-research\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"Du bist ein Forschungsassistent für SEO-Content. Deine Aufgabe ist es, umfassende und aktuelle Informationen zu einem Thema zu recherchieren und strukturiert zusammenzufassen. Liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten (z.B. Kosten, Anbieter, Optionen)\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\\nAntworte immer auf Deutsch. Sei faktenbasiert und nenne Quellen wo möglich.\"\n    },\n    {\n      role: \"user\",\n      content: userContent\n    }\n  ],\n  max_tokens: 4000,\n  temperature: 0.1\n};\n\nreturn [{ json: { request_body: JSON.stringify(body) } }];"
+          "jsCode": "// Build Perplexity request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nconst userContent = `Recherchiere umfassend zum Thema: ${keyword}\n\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\n${serpSummary}\n\nWichtige Begriffe laut WDF*IDF Analyse:\n${wdfSummary}\n\nHäufig gestellte Fragen (People Also Ask):\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\nBitte liefere:\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\n3. Häufige Missverständnisse und korrekte Informationen\n4. Praxistipps und Handlungsempfehlungen\n5. Vergleiche und Übersichten\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht`;\n\nconst body = {\n  model: \"sonar-deep-research\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"Du bist ein Forschungsassistent für SEO-Content. Deine Aufgabe ist es, umfassende und aktuelle Informationen zu einem Thema zu recherchieren und strukturiert zusammenzufassen. Liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten (z.B. Kosten, Anbieter, Optionen)\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\\nAntworte immer auf Deutsch. Sei faktenbasiert und nenne Quellen wo möglich.\"\n    },\n    {\n      role: \"user\",\n      content: userContent\n    }\n  ],\n  max_tokens: 4000,\n  temperature: 0.1\n};\n\nreturn [{ json: { request_body: body } }];"
         }
       },
       {
@@ -1711,7 +1705,20 @@
           0
         ],
         "parameters": {
-          "jsCode": "// Build Claude outline request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet perplexityContent = '';\ntry { perplexityContent = $('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || ''; } catch(e) {}\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nlet internalLinkingSummary = '';\ntry { internalLinkingSummary = $('Prepare Internal Linking Data').item.json.internal_linking_summary || ''; } catch(e) {}\n\nlet pillarUrl = 'Noch kein Pillar Article';\ntry { \n  const p = $('Prepare Internal Linking Data').item.json.pillar_article;\n  if (p && p.pillar_url) pillarUrl = p.pillar_url;\n} catch(e) {}\n\nlet wdfTerms = [];\ntry { wdfTerms = $('WDF*IDF Calculator').item.json.wdf_idf_terms || []; } catch(e) {}\n\nconst userContent = `Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\n\n## KEYWORD\n${keyword}\n\n## SERP-ANALYSE (Top 10 Ergebnisse)\n${serpSummary}\n\n## WDF*IDF TERME (in den Artikel integrieren)\n${wdfSummary}\n\n## PERPLEXITY DEEP RESEARCH\n${perplexityContent}\n\n## PEOPLE ALSO ASK & REDDIT FRAGEN\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\n${internalLinkingSummary}\nPillar Article: ${pillarUrl}\n\n## ANFORDERUNGEN AN DAS OUTLINE\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\n2. Mindestens 6-8 H2-Sektionen mit je 2-4 H3-Untersektionen\n3. Jede H3 enthält: key_points, wdf_idf_terms (aus der WDF*IDF-Liste), internal_link (wenn passend)\n4. Eine FAQ-Sektion mit mindestens 5 Fragen (aus PAA + Reddit)\n5. Vorschlag für 1-2 Infografiken mit Platzierung\n6. GEO-optimiert: Klare Definitionen, zitierbare Aussagen, strukturierte Vergleiche\n7. Integriere interne Links zu verwandten Artikeln aus dem gleichen Hub\n\nAntworte NUR mit einem JSON-Objekt in folgendem Format:\n{\n  \"title_suggestion\": \"SEO-optimierter Titel mit Keyword\",\n  \"search_intent\": \"informational|commercial|transactional|navigational\",\n  \"sections\": [\n    {\n      \"h2\": \"Überschrift der Sektion\",\n      \"h3_subsections\": [\n        {\n          \"h3\": \"Unterüberschrift\",\n          \"key_points\": [\"Punkt 1\", \"Punkt 2\"],\n          \"wdf_idf_terms\": [\"term1\", \"term2\"],\n          \"internal_link\": {\"url\": \"https://...\", \"anchor\": \"Ankertext\"} \n        }\n      ],\n      \"infographic\": {\"type\": \"comparison_table\", \"description\": \"...\"} \n    }\n  ],\n  \"faq_section\": [\n    {\"question\": \"Frage?\", \"answer_outline\": \"Kernpunkte der Antwort\"}\n  ],\n  \"internal_links\": [\n    {\"url\": \"https://...\", \"anchor\": \"Ankertext\", \"context\": \"Wo einbauen\"}\n  ]\n}`;\n\nconst systemPrompt = \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\";\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  system: systemPrompt,\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: JSON.stringify(body) } }];"
+          "jsCode": "// Build Claude outline request body with safely escaped strings\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\n\nlet perplexityContent = '';\ntry { perplexityContent = $('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || ''; } catch(e) {}\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\nconst paaText = Array.isArray(paaQuestions) ? paaQuestions.join('\\n') : String(paaQuestions);\n\nlet redditSummary = '';\ntry { redditSummary = $('Extract Reddit & PAA').item.json.reddit_summary || ''; } catch(e) {}\n\nlet internalLinkingSummary = '';\ntry { internalLinkingSummary = $('Prepare Internal Linking Data').item.json.internal_linking_summary || ''; } catch(e) {}\n\nlet pillarUrl = 'Noch kein Pillar Article';\ntry { \n  const p = $('Prepare Internal Linking Data').item.json.pillar_article;\n  if (p && p.pillar_url) pillarUrl = p.pillar_url;\n} catch(e) {}\n\nlet wdfTerms = [];\ntry { wdfTerms = $('WDF*IDF Calculator').item.json.wdf_idf_terms || []; } catch(e) {}\n\nconst userContent = `Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\n\n## KEYWORD\n${keyword}\n\n## SERP-ANALYSE (Top 10 Ergebnisse)\n${serpSummary}\n\n## WDF*IDF TERME (in den Artikel integrieren)\n${wdfSummary}\n\n## PERPLEXITY DEEP RESEARCH\n${perplexityContent}\n\n## PEOPLE ALSO ASK & REDDIT FRAGEN\n${paaText}\n\nReddit-Diskussionen:\n${redditSummary}\n\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\n${internalLinkingSummary}\nPillar Article: ${pillarUrl}\n\n## ANFORDERUNGEN AN DAS OUTLINE\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\n2. Mindestens 6-8 H2-Sektionen mit je 2-4 H3-Untersektionen\n3. Jede H3 enthält: key_points, wdf_idf_terms (aus der WDF*IDF-Liste), internal_link (wenn passend)\n4. Eine FAQ-Sektion mit mindestens 5 Fragen (aus PAA + Reddit)\n5. Vorschlag für 1-2 Infografiken mit Platzierung\n6. GEO-optimiert: Klare Definitionen, zitierbare Aussagen, strukturierte Vergleiche\n7. Integriere interne Links zu verwandten Artikeln aus dem gleichen Hub\n\nAntworte NUR mit einem JSON-Objekt in folgendem Format:\n{\n  \"title_suggestion\": \"SEO-optimierter Titel mit Keyword\",\n  \"search_intent\": \"informational|commercial|transactional|navigational\",\n  \"sections\": [\n    {\n      \"h2\": \"Überschrift der Sektion\",\n      \"h3_subsections\": [\n        {\n          \"h3\": \"Unterüberschrift\",\n          \"key_points\": [\"Punkt 1\", \"Punkt 2\"],\n          \"wdf_idf_terms\": [\"term1\", \"term2\"],\n          \"internal_link\": {\"url\": \"https://...\", \"anchor\": \"Ankertext\"} \n        }\n      ],\n      \"infographic\": {\"type\": \"comparison_table\", \"description\": \"...\"} \n    }\n  ],\n  \"faq_section\": [\n    {\"question\": \"Frage?\", \"answer_outline\": \"Kernpunkte der Antwort\"}\n  ],\n  \"internal_links\": [\n    {\"url\": \"https://...\", \"anchor\": \"Ankertext\", \"context\": \"Wo einbauen\"}\n  ]\n}`;\n\nconst systemPrompt = \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\";\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: systemPrompt,\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: body } }];"
+        }
+      },
+      {
+        "id": "prep-trigger-01b",
+        "name": "Prepare 01b Trigger Body",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3600,
+          0
+        ],
+        "parameters": {
+          "jsCode": "// Build the trigger body safely\nconst keyword = $('Extract Task Data').item.json.keyword || '';\nconst taskId = $('Extract Task Data').item.json.task_id || '';\nconst kunde = $('Extract Task Data').item.json.kunde || '';\n\n// Get doc info - try new doc path first, then existing\nlet docId = '';\nlet docUrl = '';\ntry {\n  const newDoc = $('Prepare Doc Info (New)').item.json;\n  docId = newDoc.doc_id || '';\n  docUrl = newDoc.doc_url || '';\n} catch(e) {}\nif (!docId) {\n  try {\n    const existing = $('Extract Doc ID from ClickUp').item.json;\n    docId = existing.doc_id || '';\n    docUrl = existing.doc_url || '';\n  } catch(e) {}\n}\n\nconst outlineJson = $('Parse Outline Response').item.json.outline_json || '{}';\nconst wdfSummary = $('WDF*IDF Calculator').item.json.wdf_idf_summary || '';\nconst wdfTerms = $('WDF*IDF Calculator').item.json.wdf_idf_terms || [];\nconst serpSummary = $('Extract SERP Data').item.json.serp_summary || '';\n\nlet perplexityContent = '';\ntry { perplexityContent = $('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || ''; } catch(e) {}\n\nconst internalLinkingSummary = $('Prepare Internal Linking Data').item.json.internal_linking_summary || '';\n\nlet paaQuestions = [];\ntry { paaQuestions = $('Extract Reddit & PAA').item.json.all_paa_questions || []; } catch(e) {}\n\nconst body = {\n  keyword,\n  task_id: taskId,\n  kunde,\n  doc_id: docId,\n  doc_url: docUrl,\n  outline_json: outlineJson,\n  wdf_idf_summary: wdfSummary,\n  wdf_idf_terms: wdfTerms,\n  perplexity_research: perplexityContent,\n  internal_linking_summary: internalLinkingSummary,\n  serp_summary: serpSummary,\n  people_also_ask: paaQuestions\n};\n\nreturn [{ json: { trigger_body: body } }];"
         }
       }
     ],
@@ -1896,7 +1903,7 @@
         "main": [
           [
             {
-              "node": "Trigger Content Writer (01b)",
+              "node": "Prepare 01b Trigger Body",
               "type": "main",
               "index": 0
             }
@@ -1997,6 +2004,17 @@
             }
           ]
         ]
+      },
+      "Prepare 01b Trigger Body": {
+        "main": [
+          [
+            {
+              "node": "Trigger Content Writer (01b)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Carlos Arad",
@@ -2005,34 +2023,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T07:30:00.915Z",
-        "id": 211,
+        "createdAt": "2026-03-25T08:12:36.847Z",
+        "id": 279,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
+        "versionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T07:30:01.729Z",
-        "id": 213,
+        "createdAt": "2026-03-25T08:12:37.660Z",
+        "id": 281,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
+        "versionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T07:30:00.894Z",
-        "id": 210,
+        "createdAt": "2026-03-25T08:12:36.827Z",
+        "id": 278,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
+        "versionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T07:30:01.709Z",
-        "id": 212,
+        "createdAt": "2026-03-25T08:12:37.638Z",
+        "id": 280,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "2ca26ff3-1a68-4747-a010-28fa0bd2275f",
+        "versionId": "81e3f303-545c-4cf0-919c-7b7d72afb389",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T07:31:45.646Z",
+  "updatedAt": "2026-03-25T08:16:46.952Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -99,73 +99,73 @@
             {
               "id": "ext-0001",
               "name": "keyword",
-              "value": "={{ $json.body.keyword || $json.body.task_name || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.keyword || $('Webhook Trigger').item.json.body.task_name || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0002",
               "name": "task_id",
-              "value": "={{ $json.body.task_id || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.task_id || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0003",
               "name": "kunde",
-              "value": "={{ $json.body.kunde || $json.body.task?.tags?.[0]?.name || 'unknown' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.kunde || $('Webhook Trigger').item.json.body.task?.tags?.[0]?.name || 'unknown' }}",
               "type": "string"
             },
             {
               "id": "ext-0004",
               "name": "outline_json",
-              "value": "={{ $json.body.outline_json || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.outline_json || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0005",
               "name": "wdf_idf_terms",
-              "value": "={{ $json.body.wdf_idf_summary || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.wdf_idf_summary || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0006",
               "name": "perplexity_research",
-              "value": "={{ $json.body.perplexity_research || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.perplexity_research || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0007",
               "name": "internal_links",
-              "value": "={{ $json.body.internal_linking_summary || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.internal_linking_summary || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0008",
               "name": "wdf_idf_terms_json",
-              "value": "={{ $json.body.wdf_idf_terms ? JSON.stringify($json.body.wdf_idf_terms) : '[]' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.wdf_idf_terms ? JSON.stringify($('Webhook Trigger').item.json.body.wdf_idf_terms) : '[]' }}",
               "type": "string"
             },
             {
               "id": "ext-0009",
               "name": "serp_summary",
-              "value": "={{ $json.body.serp_summary || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.serp_summary || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0010",
               "name": "people_also_ask",
-              "value": "={{ $json.body.people_also_ask ? JSON.stringify($json.body.people_also_ask) : '[]' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.people_also_ask ? JSON.stringify($('Webhook Trigger').item.json.body.people_also_ask) : '[]' }}",
               "type": "string"
             },
             {
               "id": "ext-0011",
               "name": "doc_id",
-              "value": "={{ $json.body.doc_id || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.doc_id || '' }}",
               "type": "string"
             },
             {
               "id": "ext-0012",
               "name": "doc_url",
-              "value": "={{ $json.body.doc_url || '' }}",
+              "value": "={{ $('Webhook Trigger').item.json.body.doc_url || '' }}",
               "type": "string"
             }
           ]
@@ -205,7 +205,7 @@
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
-        "specifyBody": "string",
+        "specifyBody": "json",
         "options": {
           "timeout": 120000,
           "batching": {
@@ -215,8 +215,20 @@
             }
           }
         },
-        "body": "={{ $json.request_body }}",
-        "contentType": "application/json"
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        }
       },
       "id": "cw-node-005",
       "name": "Claude: Write Section (Pass 1 — Content)",
@@ -272,12 +284,24 @@
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
-        "specifyBody": "string",
+        "specifyBody": "json",
         "options": {
           "timeout": 180000
         },
-        "body": "={{ $json.request_body }}",
-        "contentType": "application/json"
+        "jsonBody": "={{ JSON.stringify($json.request_body) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        }
       },
       "id": "cw-node-008",
       "name": "Claude: Style & Cohesion Pass (Pass 2)",
@@ -337,6 +361,19 @@
         "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"system\": \"Du bist ein SEO-Spezialist für Meta-Daten. Erstelle für den folgenden Blogartikel:\\n\\n1. **Meta Title** (max. 60 Zeichen): Enthält das Hauptkeyword am Anfang. Macht neugierig, kein Clickbait.\\n2. **Meta Description** (max. 155 Zeichen): Enthält das Keyword, einen Nutzenversprechen und einen Call-to-Action. Soll zum Klicken animieren.\\n3. **URL-Slug**: Kurz, nur Kleinbuchstaben, Bindestriche, enthält das Keyword.\\n\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"...\\\",\\n  \\\"meta_description\\\": \\\"...\\\",\\n  \\\"url_slug\\\": \\\"...\\\"\\n}\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL (erste 500 Zeichen)\\n{{ $('Extract Final Article').item.json.final_article.substring(0, 500) }}\\n\\n## ANFORDERUNGEN\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"Max 60 Zeichen, Keyword vorne, emotional/klickstark\\\",\\n  \\\"meta_description\\\": \\\"Max 155 Zeichen, Keyword enthalten, Call-to-Action\\\",\\n  \\\"url_slug\\\": \\\"keyword-basiert-ohne-stoppwoerter\\\",\\n  \\\"og_title\\\": \\\"Für Social Media optimiert, max 70 Zeichen\\\",\\n  \\\"focus_keyword\\\": \\\"Das exakte Hauptkeyword\\\"\\n}\\n\\nNur JSON, keine Erklärungen.\"\n    }\n  ]\n}",
         "options": {
           "timeout": 60000
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
         }
       },
       "id": "cw-node-011",
@@ -678,6 +715,19 @@
         "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung ({{ $('WDF*IDF Coverage Check').item.json.coverage_pct }}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n{{ $('WDF*IDF Coverage Check').item.json.top_missing_terms }}\\n\\n## ARTIKEL\\n{{ $('Extract Final Article').item.json.final_article }}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden. Die Terme müssen organisch in den Text fließen, nicht einfach aufgelistet werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Der Text soll weiterhin natürlich und gut lesbar sein\\n5. Erweitere Absätze wo nötig statt neue hinzuzufügen\\n\\nGib den KOMPLETTEN überarbeiteten Artikel zurück. Nur Markdown, keine Erklärungen.\"\n    }\n  ]\n}",
         "options": {
           "timeout": 180000
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
         }
       },
       "id": "cw-node-023",
@@ -766,6 +816,19 @@
         "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"system\": \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Optimiere den folgenden fertigen Blogartikel für Generative Engine Optimization (GEO). Wende dabei alle Regeln und Strategien aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL\\n{{ $json.final_article }}\\n\\n## ANFORDERUNGEN\\n1. Wende alle GEO-Optimierungsregeln aus dem System-Prompt an\\n2. Verändere die H2/H3-Struktur NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Behalte alle Quellenangaben und füge ggf. weitere hinzu\\n5. Der Text soll weiterhin natürlich und gut lesbar bleiben\\n6. Optimiere für AI-Suchmaschinen (Perplexity, ChatGPT, Google AI Overview)\\n\\nGib den KOMPLETTEN optimierten Artikel als Markdown zurück. Keine Erklärungen, nur der Artikel.\"\n    }\n  ]\n}",
         "options": {
           "timeout": 180000
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
         }
       },
       "id": "cw-node-033",
@@ -810,7 +873,7 @@
         0
       ],
       "parameters": {
-        "jsCode": "// Build Claude Pass 1 request body safely\nconst sectionIndex = $json.section_index;\nconst totalSections = $json.total_sections;\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst h2 = $json.h2 || '';\nconst h3Subsections = $json.h3_subsections || '[]';\nconst keyPoints = $json.key_points || '[]';\nconst wdfTermsSection = $json.wdf_idf_terms_section || '[]';\nconst internalLink = $json.internal_link || '[]';\nconst infographic = $json.infographic || 'null';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst perplexityResearch = $('Extract Input Data').item.json.perplexity_research || '';\nconst targetWords = parseInt($('Config').item.json.target_word_count) || 2500;\nconst wordsPerSection = Math.round(targetWords / totalSections);\n\nconst userContent = `Schreibe Sektion ${sectionIndex + 1} von ${totalSections} eines umfassenden Blogartikels.\n\n## KEYWORD\n${keyword}\n\n## DIESE SEKTION\nH2: ${h2}\nUntersektionen: ${h3Subsections}\nKernpunkte: ${keyPoints}\nWDF*IDF Terme für diese Sektion: ${wdfTermsSection}\nInterne Links: ${internalLink}\n\n## INFOGRAFIK-PLATZIERUNG\n${infographic}\n\n## ZUSÄTZLICHER KONTEXT\nWDF*IDF Terme gesamt: ${wdfTerms}\n\nPerplexity Research (Fakten & Quellen):\n${perplexityResearch}\n\n## ANFORDERUNGEN\n1. Schreibe NUR diese eine Sektion (H2 + alle H3-Untersektionen)\n2. Ca. ${wordsPerSection} Wörter für diese Sektion\n3. Integriere die WDF*IDF Terme natürlich in den Text\n4. Verwende Fakten aus der Perplexity-Recherche mit konkreten Zahlen/Daten\n5. Baue interne Links als Markdown-Links ein: [Ankertext](URL)\n6. Bei Infografik-Platzierung: Füge einen Platzhalter ein: <!-- INFOGRAFIK: Beschreibung -->\n7. Schreibe in Markdown (H2 = ##, H3 = ###)\n8. Benutze Aufzählungen, Tabellen oder Infoboxen wo sinnvoll\n9. KEIN Fazit am Ende der Sektion (außer es ist die letzte)\n10. KEINE Einleitung die den ganzen Artikel zusammenfasst\n\nSchreibe NUR den Markdown-Content dieser Sektion, keine Erklärungen.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { ...($json), request_body: JSON.stringify(body) } }];"
+        "jsCode": "// Build Claude Pass 1 request body safely\nconst sectionIndex = $json.section_index;\nconst totalSections = $json.total_sections;\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst h2 = $json.h2 || '';\nconst h3Subsections = $json.h3_subsections || '[]';\nconst keyPoints = $json.key_points || '[]';\nconst wdfTermsSection = $json.wdf_idf_terms_section || '[]';\nconst internalLink = $json.internal_link || '[]';\nconst infographic = $json.infographic || 'null';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst perplexityResearch = $('Extract Input Data').item.json.perplexity_research || '';\nconst targetWords = parseInt($('Config').item.json.target_word_count) || 2500;\nconst wordsPerSection = Math.round(targetWords / totalSections);\n\nconst userContent = `Schreibe Sektion ${sectionIndex + 1} von ${totalSections} eines umfassenden Blogartikels.\n\n## KEYWORD\n${keyword}\n\n## DIESE SEKTION\nH2: ${h2}\nUntersektionen: ${h3Subsections}\nKernpunkte: ${keyPoints}\nWDF*IDF Terme für diese Sektion: ${wdfTermsSection}\nInterne Links: ${internalLink}\n\n## INFOGRAFIK-PLATZIERUNG\n${infographic}\n\n## ZUSÄTZLICHER KONTEXT\nWDF*IDF Terme gesamt: ${wdfTerms}\n\nPerplexity Research (Fakten & Quellen):\n${perplexityResearch}\n\n## ANFORDERUNGEN\n1. Schreibe NUR diese eine Sektion (H2 + alle H3-Untersektionen)\n2. Ca. ${wordsPerSection} Wörter für diese Sektion\n3. Integriere die WDF*IDF Terme natürlich in den Text\n4. Verwende Fakten aus der Perplexity-Recherche mit konkreten Zahlen/Daten\n5. Baue interne Links als Markdown-Links ein: [Ankertext](URL)\n6. Bei Infografik-Platzierung: Füge einen Platzhalter ein: <!-- INFOGRAFIK: Beschreibung -->\n7. Schreibe in Markdown (H2 = ##, H3 = ###)\n8. Benutze Aufzählungen, Tabellen oder Infoboxen wo sinnvoll\n9. KEIN Fazit am Ende der Sektion (außer es ist die letzte)\n10. KEINE Einleitung die den ganzen Artikel zusammenfasst\n\nSchreibe NUR den Markdown-Content dieser Sektion, keine Erklärungen.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { ...($json), request_body: body } }];"
       }
     },
     {
@@ -823,7 +886,7 @@
         0
       ],
       "parameters": {
-        "jsCode": "// Build Claude Pass 2 request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst fullDraft = $json.full_draft || '';\nconst internalLinks = $('Extract Input Data').item.json.internal_links || '';\n\nconst userContent = `Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung. Wende dabei strikt alle Regeln aus dem System-Prompt (Sprachstil, Struktur, Formatierung) an.\n\n## KEYWORD\n${keyword}\n\n## WDF*IDF TERME (müssen im Text vorkommen)\n${wdfTerms}\n\n## DRAFT\n${fullDraft}\n\n## AUFGABEN\n1. Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\n2. Passe den Ton durchgängig an den Sprachstil-Prompt an\n3. Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\n4. Streiche Wiederholungen zwischen Sektionen\n5. Schreibe eine packende Einleitung (80-100 Wörter) mit dem Hauptkeyword, Ende mit 'In diesem Beitrag erfährst du…'\n6. Schreibe ein Fazit mit natürlichem CTA zur kostenfreien Beratung\n7. Prüfe H2-H3-Struktur: Nach jeder H2 mindestens 100-200 Wörter bevor eine H3 kommt\n8. Trennlinien (---) zwischen Sektionen entfernen\n9. Behalte alle internen Links bei\n10. Behalte alle Infografik-Platzhalter bei\n11. Mindestens 1 Tabelle, 2-3 Listen, 4-6 unterschiedlich formulierte CTAs\n12. Infoboxen verwenden wo sinnvoll\n\nGib den vollständigen, überarbeiteten Artikel als Markdown zurück. Keine Erklärungen, nur den fertigen Artikel.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: JSON.stringify(body) } }];"
+        "jsCode": "// Build Claude Pass 2 request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst fullDraft = $json.full_draft || '';\nconst internalLinks = $('Extract Input Data').item.json.internal_links || '';\n\nconst userContent = `Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung. Wende dabei strikt alle Regeln aus dem System-Prompt (Sprachstil, Struktur, Formatierung) an.\n\n## KEYWORD\n${keyword}\n\n## WDF*IDF TERME (müssen im Text vorkommen)\n${wdfTerms}\n\n## DRAFT\n${fullDraft}\n\n## AUFGABEN\n1. Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\n2. Passe den Ton durchgängig an den Sprachstil-Prompt an\n3. Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\n4. Streiche Wiederholungen zwischen Sektionen\n5. Schreibe eine packende Einleitung (80-100 Wörter) mit dem Hauptkeyword, Ende mit 'In diesem Beitrag erfährst du…'\n6. Schreibe ein Fazit mit natürlichem CTA zur kostenfreien Beratung\n7. Prüfe H2-H3-Struktur: Nach jeder H2 mindestens 100-200 Wörter bevor eine H3 kommt\n8. Trennlinien (---) zwischen Sektionen entfernen\n9. Behalte alle internen Links bei\n10. Behalte alle Infografik-Platzhalter bei\n11. Mindestens 1 Tabelle, 2-3 Listen, 4-6 unterschiedlich formulierte CTAs\n12. Infoboxen verwenden wo sinnvoll\n\nGib den vollständigen, überarbeiteten Artikel als Markdown zurück. Keine Erklärungen, nur den fertigen Artikel.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: body } }];"
       }
     }
   ],
@@ -1219,12 +1282,12 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false
   },
-  "staticData": null,
+  "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
-  "activeVersionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
-  "versionCounter": 24,
+  "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+  "activeVersionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
+  "versionCounter": 49,
   "triggerCount": 1,
   "shared": [
     {
@@ -1247,9 +1310,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T07:31:45.649Z",
-    "createdAt": "2026-03-25T07:31:45.649Z",
-    "versionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
+    "updatedAt": "2026-03-25T08:16:46.954Z",
+    "createdAt": "2026-03-25T08:16:46.954Z",
+    "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
     "workflowId": "Qm2j4ZECEwa9jTdp",
     "nodes": [
       {
@@ -1344,73 +1407,73 @@
               {
                 "id": "ext-0001",
                 "name": "keyword",
-                "value": "={{ $json.body.keyword || $json.body.task_name || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.keyword || $('Webhook Trigger').item.json.body.task_name || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0002",
                 "name": "task_id",
-                "value": "={{ $json.body.task_id || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.task_id || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0003",
                 "name": "kunde",
-                "value": "={{ $json.body.kunde || $json.body.task?.tags?.[0]?.name || 'unknown' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.kunde || $('Webhook Trigger').item.json.body.task?.tags?.[0]?.name || 'unknown' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0004",
                 "name": "outline_json",
-                "value": "={{ $json.body.outline_json || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.outline_json || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0005",
                 "name": "wdf_idf_terms",
-                "value": "={{ $json.body.wdf_idf_summary || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.wdf_idf_summary || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0006",
                 "name": "perplexity_research",
-                "value": "={{ $json.body.perplexity_research || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.perplexity_research || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0007",
                 "name": "internal_links",
-                "value": "={{ $json.body.internal_linking_summary || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.internal_linking_summary || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0008",
                 "name": "wdf_idf_terms_json",
-                "value": "={{ $json.body.wdf_idf_terms ? JSON.stringify($json.body.wdf_idf_terms) : '[]' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.wdf_idf_terms ? JSON.stringify($('Webhook Trigger').item.json.body.wdf_idf_terms) : '[]' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0009",
                 "name": "serp_summary",
-                "value": "={{ $json.body.serp_summary || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.serp_summary || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0010",
                 "name": "people_also_ask",
-                "value": "={{ $json.body.people_also_ask ? JSON.stringify($json.body.people_also_ask) : '[]' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.people_also_ask ? JSON.stringify($('Webhook Trigger').item.json.body.people_also_ask) : '[]' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0011",
                 "name": "doc_id",
-                "value": "={{ $json.body.doc_id || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.doc_id || '' }}",
                 "type": "string"
               },
               {
                 "id": "ext-0012",
                 "name": "doc_url",
-                "value": "={{ $json.body.doc_url || '' }}",
+                "value": "={{ $('Webhook Trigger').item.json.body.doc_url || '' }}",
                 "type": "string"
               }
             ]
@@ -1450,7 +1513,7 @@
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
-          "specifyBody": "string",
+          "specifyBody": "json",
           "options": {
             "timeout": 120000,
             "batching": {
@@ -1460,8 +1523,20 @@
               }
             }
           },
-          "body": "={{ $json.request_body }}",
-          "contentType": "application/json"
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "anthropic-version",
+                "value": "2023-06-01"
+              },
+              {
+                "name": "content-type",
+                "value": "application/json"
+              }
+            ]
+          }
         },
         "id": "cw-node-005",
         "name": "Claude: Write Section (Pass 1 — Content)",
@@ -1517,12 +1592,24 @@
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
-          "specifyBody": "string",
+          "specifyBody": "json",
           "options": {
             "timeout": 180000
           },
-          "body": "={{ $json.request_body }}",
-          "contentType": "application/json"
+          "jsonBody": "={{ JSON.stringify($json.request_body) }}",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "anthropic-version",
+                "value": "2023-06-01"
+              },
+              {
+                "name": "content-type",
+                "value": "application/json"
+              }
+            ]
+          }
         },
         "id": "cw-node-008",
         "name": "Claude: Style & Cohesion Pass (Pass 2)",
@@ -1582,6 +1669,19 @@
           "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 1024,\n  \"system\": \"Du bist ein SEO-Spezialist für Meta-Daten. Erstelle für den folgenden Blogartikel:\\n\\n1. **Meta Title** (max. 60 Zeichen): Enthält das Hauptkeyword am Anfang. Macht neugierig, kein Clickbait.\\n2. **Meta Description** (max. 155 Zeichen): Enthält das Keyword, einen Nutzenversprechen und einen Call-to-Action. Soll zum Klicken animieren.\\n3. **URL-Slug**: Kurz, nur Kleinbuchstaben, Bindestriche, enthält das Keyword.\\n\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"...\\\",\\n  \\\"meta_description\\\": \\\"...\\\",\\n  \\\"url_slug\\\": \\\"...\\\"\\n}\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generiere SEO-Metadaten für den folgenden Blogartikel.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL (erste 500 Zeichen)\\n{{ $('Extract Final Article').item.json.final_article.substring(0, 500) }}\\n\\n## ANFORDERUNGEN\\nAntworte NUR als JSON:\\n{\\n  \\\"meta_title\\\": \\\"Max 60 Zeichen, Keyword vorne, emotional/klickstark\\\",\\n  \\\"meta_description\\\": \\\"Max 155 Zeichen, Keyword enthalten, Call-to-Action\\\",\\n  \\\"url_slug\\\": \\\"keyword-basiert-ohne-stoppwoerter\\\",\\n  \\\"og_title\\\": \\\"Für Social Media optimiert, max 70 Zeichen\\\",\\n  \\\"focus_keyword\\\": \\\"Das exakte Hauptkeyword\\\"\\n}\\n\\nNur JSON, keine Erklärungen.\"\n    }\n  ]\n}",
           "options": {
             "timeout": 60000
+          },
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "anthropic-version",
+                "value": "2023-06-01"
+              },
+              {
+                "name": "content-type",
+                "value": "application/json"
+              }
+            ]
           }
         },
         "id": "cw-node-011",
@@ -1923,6 +2023,19 @@
           "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte. Der folgende Artikel hat eine unzureichende WDF*IDF Abdeckung ({{ $('WDF*IDF Coverage Check').item.json.coverage_pct }}%).\\n\\nFolgende wichtige Terme fehlen im Artikel:\\n{{ $('WDF*IDF Coverage Check').item.json.top_missing_terms }}\\n\\n## ARTIKEL\\n{{ $('Extract Final Article').item.json.final_article }}\\n\\n## AUFGABE\\nÜberarbeite den Artikel so, dass die fehlenden WDF*IDF Terme natürlich eingebaut werden. Die Terme müssen organisch in den Text fließen, nicht einfach aufgelistet werden.\\n\\nRegeln:\\n1. Baue jeden fehlenden Term mindestens 1x natürlich ein\\n2. Verändere die Struktur (H2/H3) NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Der Text soll weiterhin natürlich und gut lesbar sein\\n5. Erweitere Absätze wo nötig statt neue hinzuzufügen\\n\\nGib den KOMPLETTEN überarbeiteten Artikel zurück. Nur Markdown, keine Erklärungen.\"\n    }\n  ]\n}",
           "options": {
             "timeout": 180000
+          },
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "anthropic-version",
+                "value": "2023-06-01"
+              },
+              {
+                "name": "content-type",
+                "value": "application/json"
+              }
+            ]
           }
         },
         "id": "cw-node-023",
@@ -2011,6 +2124,19 @@
           "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"system\": \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, prägnante Aussagen die AI-Suchmaschinen als Zitat verwenden können\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 Sätzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo möglich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkläre Fachbegriffe klar und präzise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gestützten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Optimiere den folgenden fertigen Blogartikel für Generative Engine Optimization (GEO). Wende dabei alle Regeln und Strategien aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL\\n{{ $json.final_article }}\\n\\n## ANFORDERUNGEN\\n1. Wende alle GEO-Optimierungsregeln aus dem System-Prompt an\\n2. Verändere die H2/H3-Struktur NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Behalte alle Quellenangaben und füge ggf. weitere hinzu\\n5. Der Text soll weiterhin natürlich und gut lesbar bleiben\\n6. Optimiere für AI-Suchmaschinen (Perplexity, ChatGPT, Google AI Overview)\\n\\nGib den KOMPLETTEN optimierten Artikel als Markdown zurück. Keine Erklärungen, nur der Artikel.\"\n    }\n  ]\n}",
           "options": {
             "timeout": 180000
+          },
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "anthropic-version",
+                "value": "2023-06-01"
+              },
+              {
+                "name": "content-type",
+                "value": "application/json"
+              }
+            ]
           }
         },
         "id": "cw-node-033",
@@ -2055,7 +2181,7 @@
           0
         ],
         "parameters": {
-          "jsCode": "// Build Claude Pass 1 request body safely\nconst sectionIndex = $json.section_index;\nconst totalSections = $json.total_sections;\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst h2 = $json.h2 || '';\nconst h3Subsections = $json.h3_subsections || '[]';\nconst keyPoints = $json.key_points || '[]';\nconst wdfTermsSection = $json.wdf_idf_terms_section || '[]';\nconst internalLink = $json.internal_link || '[]';\nconst infographic = $json.infographic || 'null';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst perplexityResearch = $('Extract Input Data').item.json.perplexity_research || '';\nconst targetWords = parseInt($('Config').item.json.target_word_count) || 2500;\nconst wordsPerSection = Math.round(targetWords / totalSections);\n\nconst userContent = `Schreibe Sektion ${sectionIndex + 1} von ${totalSections} eines umfassenden Blogartikels.\n\n## KEYWORD\n${keyword}\n\n## DIESE SEKTION\nH2: ${h2}\nUntersektionen: ${h3Subsections}\nKernpunkte: ${keyPoints}\nWDF*IDF Terme für diese Sektion: ${wdfTermsSection}\nInterne Links: ${internalLink}\n\n## INFOGRAFIK-PLATZIERUNG\n${infographic}\n\n## ZUSÄTZLICHER KONTEXT\nWDF*IDF Terme gesamt: ${wdfTerms}\n\nPerplexity Research (Fakten & Quellen):\n${perplexityResearch}\n\n## ANFORDERUNGEN\n1. Schreibe NUR diese eine Sektion (H2 + alle H3-Untersektionen)\n2. Ca. ${wordsPerSection} Wörter für diese Sektion\n3. Integriere die WDF*IDF Terme natürlich in den Text\n4. Verwende Fakten aus der Perplexity-Recherche mit konkreten Zahlen/Daten\n5. Baue interne Links als Markdown-Links ein: [Ankertext](URL)\n6. Bei Infografik-Platzierung: Füge einen Platzhalter ein: <!-- INFOGRAFIK: Beschreibung -->\n7. Schreibe in Markdown (H2 = ##, H3 = ###)\n8. Benutze Aufzählungen, Tabellen oder Infoboxen wo sinnvoll\n9. KEIN Fazit am Ende der Sektion (außer es ist die letzte)\n10. KEINE Einleitung die den ganzen Artikel zusammenfasst\n\nSchreibe NUR den Markdown-Content dieser Sektion, keine Erklärungen.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { ...($json), request_body: JSON.stringify(body) } }];"
+          "jsCode": "// Build Claude Pass 1 request body safely\nconst sectionIndex = $json.section_index;\nconst totalSections = $json.total_sections;\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst h2 = $json.h2 || '';\nconst h3Subsections = $json.h3_subsections || '[]';\nconst keyPoints = $json.key_points || '[]';\nconst wdfTermsSection = $json.wdf_idf_terms_section || '[]';\nconst internalLink = $json.internal_link || '[]';\nconst infographic = $json.infographic || 'null';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst perplexityResearch = $('Extract Input Data').item.json.perplexity_research || '';\nconst targetWords = parseInt($('Config').item.json.target_word_count) || 2500;\nconst wordsPerSection = Math.round(targetWords / totalSections);\n\nconst userContent = `Schreibe Sektion ${sectionIndex + 1} von ${totalSections} eines umfassenden Blogartikels.\n\n## KEYWORD\n${keyword}\n\n## DIESE SEKTION\nH2: ${h2}\nUntersektionen: ${h3Subsections}\nKernpunkte: ${keyPoints}\nWDF*IDF Terme für diese Sektion: ${wdfTermsSection}\nInterne Links: ${internalLink}\n\n## INFOGRAFIK-PLATZIERUNG\n${infographic}\n\n## ZUSÄTZLICHER KONTEXT\nWDF*IDF Terme gesamt: ${wdfTerms}\n\nPerplexity Research (Fakten & Quellen):\n${perplexityResearch}\n\n## ANFORDERUNGEN\n1. Schreibe NUR diese eine Sektion (H2 + alle H3-Untersektionen)\n2. Ca. ${wordsPerSection} Wörter für diese Sektion\n3. Integriere die WDF*IDF Terme natürlich in den Text\n4. Verwende Fakten aus der Perplexity-Recherche mit konkreten Zahlen/Daten\n5. Baue interne Links als Markdown-Links ein: [Ankertext](URL)\n6. Bei Infografik-Platzierung: Füge einen Platzhalter ein: <!-- INFOGRAFIK: Beschreibung -->\n7. Schreibe in Markdown (H2 = ##, H3 = ###)\n8. Benutze Aufzählungen, Tabellen oder Infoboxen wo sinnvoll\n9. KEIN Fazit am Ende der Sektion (außer es ist die letzte)\n10. KEINE Einleitung die den ganzen Artikel zusammenfasst\n\nSchreibe NUR den Markdown-Content dieser Sektion, keine Erklärungen.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 4096,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { ...($json), request_body: body } }];"
         }
       },
       {
@@ -2068,7 +2194,7 @@
           0
         ],
         "parameters": {
-          "jsCode": "// Build Claude Pass 2 request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst fullDraft = $json.full_draft || '';\nconst internalLinks = $('Extract Input Data').item.json.internal_links || '';\n\nconst userContent = `Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung. Wende dabei strikt alle Regeln aus dem System-Prompt (Sprachstil, Struktur, Formatierung) an.\n\n## KEYWORD\n${keyword}\n\n## WDF*IDF TERME (müssen im Text vorkommen)\n${wdfTerms}\n\n## DRAFT\n${fullDraft}\n\n## AUFGABEN\n1. Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\n2. Passe den Ton durchgängig an den Sprachstil-Prompt an\n3. Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\n4. Streiche Wiederholungen zwischen Sektionen\n5. Schreibe eine packende Einleitung (80-100 Wörter) mit dem Hauptkeyword, Ende mit 'In diesem Beitrag erfährst du…'\n6. Schreibe ein Fazit mit natürlichem CTA zur kostenfreien Beratung\n7. Prüfe H2-H3-Struktur: Nach jeder H2 mindestens 100-200 Wörter bevor eine H3 kommt\n8. Trennlinien (---) zwischen Sektionen entfernen\n9. Behalte alle internen Links bei\n10. Behalte alle Infografik-Platzhalter bei\n11. Mindestens 1 Tabelle, 2-3 Listen, 4-6 unterschiedlich formulierte CTAs\n12. Infoboxen verwenden wo sinnvoll\n\nGib den vollständigen, überarbeiteten Artikel als Markdown zurück. Keine Erklärungen, nur den fertigen Artikel.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: JSON.stringify(body) } }];"
+          "jsCode": "// Build Claude Pass 2 request body safely\nconst keyword = $('Extract Input Data').item.json.keyword || '';\nconst wdfTerms = $('Extract Input Data').item.json.wdf_idf_terms || '';\nconst fullDraft = $json.full_draft || '';\nconst internalLinks = $('Extract Input Data').item.json.internal_links || '';\n\nconst userContent = `Überarbeite den folgenden Blogartikel-Draft für Stil, Kohärenz und SEO-Optimierung. Wende dabei strikt alle Regeln aus dem System-Prompt (Sprachstil, Struktur, Formatierung) an.\n\n## KEYWORD\n${keyword}\n\n## WDF*IDF TERME (müssen im Text vorkommen)\n${wdfTerms}\n\n## DRAFT\n${fullDraft}\n\n## AUFGABEN\n1. Stelle sicher, dass Übergänge zwischen Sektionen fließend sind\n2. Passe den Ton durchgängig an den Sprachstil-Prompt an\n3. Stelle sicher, dass die wichtigsten WDF*IDF Terme natürlich im Text vorkommen\n4. Streiche Wiederholungen zwischen Sektionen\n5. Schreibe eine packende Einleitung (80-100 Wörter) mit dem Hauptkeyword, Ende mit 'In diesem Beitrag erfährst du…'\n6. Schreibe ein Fazit mit natürlichem CTA zur kostenfreien Beratung\n7. Prüfe H2-H3-Struktur: Nach jeder H2 mindestens 100-200 Wörter bevor eine H3 kommt\n8. Trennlinien (---) zwischen Sektionen entfernen\n9. Behalte alle internen Links bei\n10. Behalte alle Infografik-Platzhalter bei\n11. Mindestens 1 Tabelle, 2-3 Listen, 4-6 unterschiedlich formulierte CTAs\n12. Infoboxen verwenden wo sinnvoll\n\nGib den vollständigen, überarbeiteten Artikel als Markdown zurück. Keine Erklärungen, nur den fertigen Artikel.`;\n\nconst body = {\n  model: \"claude-sonnet-4-20250514\",\n  max_tokens: 8192,\n  system: \"Du bist ein professioneller SEO-Texter für deutschsprachige Blogartikel. Dein Schreibstil:\\n- Professionell aber zugänglich, du duzt den Leser\\n- Kurze, aktive Sätze. Vermeide Passiv.\\n- Fachbegriffe werden beim ersten Auftreten erklärt\\n- Natürlicher Sprachfluss, keine KI-typischen Formulierungen\\n- Vermeide: \\\"In der heutigen Zeit\\\", \\\"Es ist wichtig zu beachten\\\", \\\"Zusammenfassend lässt sich sagen\\\", \\\"Im Folgenden\\\", \\\"Es sei darauf hingewiesen\\\"\\n- Verwende stattdessen: direkte Ansprache, konkrete Beispiele, rhetorische Fragen\\n- Übergänge zwischen Absätzen sollen natürlich fließen\\n- Jeder Absatz hat max. 3-4 Sätze\\n- Bullet Points und nummerierte Listen wo sinnvoll\\n- Integriere WDF*IDF Terme natürlich, nicht forciert\",\n  messages: [{ role: \"user\", content: userContent }]\n};\n\nreturn [{ json: { request_body: body } }];"
         }
       }
     ],
@@ -2465,34 +2591,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T07:31:45.784Z",
-        "id": 215,
+        "createdAt": "2026-03-25T08:16:47.005Z",
+        "id": 283,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
+        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T07:31:46.728Z",
-        "id": 217,
+        "createdAt": "2026-03-25T08:16:47.840Z",
+        "id": 285,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
+        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T07:31:45.759Z",
-        "id": 214,
+        "createdAt": "2026-03-25T08:16:46.992Z",
+        "id": 282,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
+        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T07:31:46.707Z",
-        "id": 216,
+        "createdAt": "2026-03-25T08:16:47.818Z",
+        "id": 284,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "25e53f7a-8a9c-446e-b809-66967c8cf666",
+        "versionId": "a6d1aa52-5514-4bfd-b27d-19539ed0ef9f",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
