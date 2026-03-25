@@ -173,6 +173,18 @@
               "name": "people_also_ask",
               "value": "={{ $json.body.people_also_ask ? JSON.stringify($json.body.people_also_ask) : '[]' }}",
               "type": "string"
+            },
+            {
+              "id": "ext-0011",
+              "name": "doc_id",
+              "value": "={{ $json.body.doc_id || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "ext-0012",
+              "name": "doc_url",
+              "value": "={{ $json.body.doc_url || '' }}",
+              "type": "string"
             }
           ]
         },
@@ -377,6 +389,55 @@
     },
     {
       "parameters": {
+        "jsCode": "// Prüfe ob ein bestehendes Google Doc übergeben wurde (von 01a/ClickUp)\nconst existingDocId = $('Extract Input Data').item.json.doc_id;\nconst existingDocUrl = $('Extract Input Data').item.json.doc_url;\n\nif (existingDocId) {\n  // Bestehendes Doc nutzen — kein neues erstellen\n  return [{ json: { id: existingDocId, doc_url: existingDocUrl, used_existing: true } }];\n} else {\n  // Kein Doc vorhanden — Flag setzen, dass neues erstellt werden muss\n  return [{ json: { id: '', doc_url: '', needs_creation: true } }];\n}"
+      },
+      "id": "cw-node-035",
+      "name": "Check Existing Doc",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2560,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Prüft ob bestehendes Google Doc von 01a übergeben wurde"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "cond-doc-001",
+              "leftValue": "={{ $json.needs_creation }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "cw-node-036",
+      "name": "Has Existing Doc?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        2680,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Wenn kein Doc vorhanden → neues erstellen, sonst bestehendes nutzen"
+    },
+    {
+      "parameters": {
         "method": "POST",
         "url": "https://www.googleapis.com/drive/v3/files",
         "authentication": "predefinedCredentialType",
@@ -387,12 +448,12 @@
         "nodeCredentialType": "googleOAuth2Api"
       },
       "id": "cw-node-013",
-      "name": "Create Google Doc",
+      "name": "Create Google Doc (Fallback)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2680,
-        300
+        2900,
+        400
       ],
       "credentials": {
         "googleOAuth2Api": {
@@ -401,11 +462,11 @@
         }
       },
       "notesInFlow": true,
-      "notes": "Google Doc im Drive-Ordner erstellen"
+      "notes": "Fallback: Neues Google Doc erstellen falls keins von 01a übergeben wurde"
     },
     {
       "parameters": {
-        "jsCode": "// Google Doc ID und URL extrahieren\nconst docResponse = $input.all()[0].json;\nconst docId = docResponse.id;\nconst docUrl = `https://docs.google.com/document/d/${docId}/edit`;\n\n// Content für Google Docs API vorbereiten\n// Wir schreiben den Markdown-Content als Plain Text in das Doc\nconst content = $('Parse Meta & Assemble Final').item.json.full_content;\nconst meta = $('Parse Meta & Assemble Final').item.json.meta;\n\n// Header mit Meta-Daten + Content\nconst fullText = `META TITLE: ${meta.meta_title}\\nMETA DESCRIPTION: ${meta.meta_description}\\nURL SLUG: ${meta.url_slug}\\nFOCUS KEYWORD: ${meta.focus_keyword}\\n\\n${'='.repeat(60)}\\n\\n${content}`;\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    full_text: fullText\n  }\n}];"
+        "jsCode": "// Doc-Daten zusammenführen (bestehendes oder neu erstelltes Doc)\nconst items = $input.all();\nconst item = items[items.length - 1].json;\n\nconst docId = item.id;\nconst docUrl = item.doc_url || `https://docs.google.com/document/d/${docId}/edit`;\n\n// Content für Google Docs API vorbereiten\nconst content = $('Parse Meta & Assemble Final').item.json.full_content;\nconst meta = $('Parse Meta & Assemble Final').item.json.meta;\n\n// Header mit Meta-Daten + Content\nconst fullText = `META TITLE: ${meta.meta_title}\\nMETA DESCRIPTION: ${meta.meta_description}\\nURL SLUG: ${meta.url_slug}\\nFOCUS KEYWORD: ${meta.focus_keyword}\\n\\n${'='.repeat(60)}\\n\\n${content}`;\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    full_text: fullText\n  }\n}];"
       },
       "id": "cw-node-014",
       "name": "Prepare Doc Content",
@@ -1028,14 +1089,43 @@
       "main": [
         [
           {
-            "node": "Create Google Doc",
+            "node": "Check Existing Doc",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Create Google Doc": {
+    "Check Existing Doc": {
+      "main": [
+        [
+          {
+            "node": "Has Existing Doc?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Existing Doc?": {
+      "main": [
+        [
+          {
+            "node": "Create Google Doc (Fallback)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Doc Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Google Doc (Fallback)": {
       "main": [
         [
           {
@@ -1628,7 +1718,7 @@
           "nodeCredentialType": "googleOAuth2Api"
         },
         "id": "cw-node-013",
-        "name": "Create Google Doc",
+        "name": "Create Google Doc (Fallback)",
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.2,
         "position": [
@@ -2088,14 +2178,43 @@
         "main": [
           [
             {
-              "node": "Create Google Doc",
+              "node": "Check Existing Doc",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Create Google Doc": {
+      "Check Existing Doc": {
+        "main": [
+          [
+            {
+              "node": "Has Existing Doc?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Has Existing Doc?": {
+        "main": [
+          [
+            {
+              "node": "Create Google Doc (Fallback)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Prepare Doc Content",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create Google Doc (Fallback)": {
         "main": [
           [
             {

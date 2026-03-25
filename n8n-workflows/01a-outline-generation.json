@@ -70,6 +70,24 @@
               "name": "prompt_geo_optimierung_file_id",
               "value": "DEINE_GOOGLE_DRIVE_FILE_ID_GEO_OPTIMIERUNG",
               "type": "string"
+            },
+            {
+              "id": "cfg-0011",
+              "name": "keywords_folder_id",
+              "value": "DEINE_GOOGLE_DRIVE_KEYWORDS_FOLDER_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0012",
+              "name": "copywriting_folder_id",
+              "value": "DEINE_GOOGLE_DRIVE_COPYWRITING_FOLDER_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0013",
+              "name": "clickup_custom_field_link",
+              "value": "3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
+              "type": "string"
             }
           ]
         },
@@ -467,7 +485,7 @@
         "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+        "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_id }}\",\n  \"doc_url\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_url }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
         "options": {
           "timeout": 10000
         }
@@ -571,6 +589,48 @@
       },
       "notesInFlow": true,
       "notes": "GEO-Optimierung-Prompt als Markdown aus Google Drive laden"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Doc-Link aus ClickUp Custom Field 'Link zum Beitrag' extrahieren\nconst task = $('Fetch Task Details (ClickUp)').item.json;\nconst customFields = task.custom_fields || [];\nconst linkField = customFields.find(f => f.id === $('Config').item.json.clickup_custom_field_link);\nconst docUrl = linkField?.value || '';\n\n// Doc ID aus URL extrahieren: https://docs.google.com/document/d/DOC_ID/edit\nlet docId = '';\nif (docUrl) {\n  const match = docUrl.match(/\\/d\\/([a-zA-Z0-9_-]+)/);\n  docId = match ? match[1] : '';\n}\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    has_doc: !!docId\n  }\n}];"
+      },
+      "id": "ol-node-022",
+      "name": "Extract Doc ID from ClickUp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Doc ID aus ClickUp Custom Field 'Link zum Beitrag' extrahieren"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.doc_id }}?addParents={{ $('Config').item.json.copywriting_folder_id }}&removeParents={{ $('Config').item.json.keywords_folder_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "ol-node-023",
+      "name": "Move Doc: Keywords → Copywriting",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        300
+      ],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Google Doc von Keywords-Ordner in Copywriting-Ordner verschieben"
     }
   ],
   "connections": {
@@ -635,6 +695,28 @@
       ]
     },
     "Extract Task Data": {
+      "main": [
+        [
+          {
+            "node": "Extract Doc ID from ClickUp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Doc ID from ClickUp": {
+      "main": [
+        [
+          {
+            "node": "Move Doc: Keywords → Copywriting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Doc: Keywords → Copywriting": {
       "main": [
         [
           {
@@ -1264,7 +1346,7 @@
           "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
+          "jsonBody": "={\n  \"keyword\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"task_id\": \"{{ $('Extract Task Data').item.json.task_id }}\",\n  \"kunde\": \"{{ $('Extract Task Data').item.json.kunde }}\",\n  \"doc_id\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_id }}\",\n  \"doc_url\": \"{{ $('Extract Doc ID from ClickUp').item.json.doc_url }}\",\n  \"outline_json\": {{ JSON.stringify($json.outline_json) }},\n  \"wdf_idf_summary\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_summary) }},\n  \"wdf_idf_terms\": {{ JSON.stringify($('WDF*IDF Calculator').item.json.wdf_idf_terms) }},\n  \"perplexity_research\": {{ JSON.stringify($('Perplexity Deep Research').item.json.choices?.[0]?.message?.content || '') }},\n  \"internal_linking_summary\": {{ JSON.stringify($('Prepare Internal Linking Data').item.json.internal_linking_summary) }},\n  \"serp_summary\": {{ JSON.stringify($('Extract SERP Data').item.json.serp_summary) }},\n  \"people_also_ask\": {{ JSON.stringify($('Extract Reddit & PAA').item.json.all_paa_questions) }}\n}",
           "options": {
             "timeout": 10000
           }

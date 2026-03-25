@@ -1,0 +1,330 @@
+{
+  "createdAt": "2026-03-25T10:00:00.000Z",
+  "updatedAt": "2026-03-25T10:00:00.000Z",
+  "id": "kDcR3wXnP7sYfL2q",
+  "name": "COVAGO 01c - Keywords Doc Creator",
+  "description": "Bei Statuswechsel zu KEYWORDS: Google Doc im Keywords-Ordner erstellen und Link in ClickUp Custom Field setzen",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-0001",
+              "name": "clickup_list_id",
+              "value": "901522351430",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0002",
+              "name": "keywords_folder_id",
+              "value": "DEINE_GOOGLE_DRIVE_KEYWORDS_FOLDER_ID",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0003",
+              "name": "clickup_custom_field_link",
+              "value": "3657ab69-c2fe-4f25-87a5-0d7b5309b69f",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "kw-node-001",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Keywords-Ordner ID, ClickUp Custom Field ID für 'Link zum Beitrag'"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clickup-keywords-webhook",
+        "options": {}
+      },
+      "id": "kw-node-002",
+      "name": "ClickUp Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        300
+      ],
+      "webhookId": "kw-webhook-001",
+      "notesInFlow": true,
+      "notes": "Empfängt ClickUp Webhook wenn Task-Status auf KEYWORDS gesetzt wird"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "cond-kw-001",
+              "leftValue": "={{ $json.body?.history_items?.[0]?.after?.status || $json.body?.status || '' }}",
+              "rightValue": "keywords",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "kw-node-003",
+      "name": "Check Status = KEYWORDS",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Nur weitermachen wenn Status wirklich KEYWORDS ist"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "kw-node-004",
+      "name": "Fetch Task Details (ClickUp)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        740,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Task-Details aus ClickUp laden (Name = Keyword)"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Task-Name = Keyword\nconst task = $input.all()[0].json;\nconst keyword = task.name || 'Untitled';\nconst taskId = task.id || $('ClickUp Webhook Trigger').item.json.body.task_id;\n\nreturn [{\n  json: {\n    keyword: keyword,\n    task_id: taskId\n  }\n}];"
+      },
+      "id": "kw-node-005",
+      "name": "Extract Task Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        980,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Keyword (= Task-Name) und Task-ID extrahieren"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "predefinedCredentialType",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $json.keyword }}\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.keywords_folder_id }}\"]\n}",
+        "options": {},
+        "nodeCredentialType": "googleOAuth2Api"
+      },
+      "id": "kw-node-006",
+      "name": "Create Google Doc in Keywords Folder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1220,
+        300
+      ],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Leeres Google Doc im Keywords-Ordner erstellen (Name = Keyword)"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Google Doc URL aus Response extrahieren\nconst docId = $input.all()[0].json.id;\nconst docUrl = `https://docs.google.com/document/d/${docId}/edit`;\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl\n  }\n}];"
+      },
+      "id": "kw-node-007",
+      "name": "Extract Doc URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1460,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Doc ID und URL aus Google Drive Response extrahieren"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.clickup.com/api/v2/task/{{ $('Extract Task Data').item.json.task_id }}/field/{{ $('Config').item.json.clickup_custom_field_link }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"value\": \"{{ $json.doc_url }}\"\n}",
+        "options": {}
+      },
+      "id": "kw-node-008",
+      "name": "Set Link zum Beitrag in ClickUp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1700,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "wwbq6Yxnr2EpmrFv",
+          "name": "ClickUp API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Google Doc Link in ClickUp Custom Field 'Link zum Beitrag' speichern"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Zusammenfassung\nconst keyword = $('Extract Task Data').item.json.keyword;\nconst docUrl = $('Extract Doc URL').item.json.doc_url;\n\nreturn [{\n  json: {\n    success: true,\n    keyword: keyword,\n    google_doc_url: docUrl,\n    message: `Google Doc für \"${keyword}\" erstellt und Link in ClickUp gesetzt: ${docUrl}`\n  }\n}];"
+      },
+      "id": "kw-node-009",
+      "name": "Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1940,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Zusammenfassung: Keyword, Doc URL"
+    }
+  ],
+  "connections": {
+    "ClickUp Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Check Status = KEYWORDS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status = KEYWORDS": {
+      "main": [
+        [
+          {
+            "node": "Fetch Task Details (ClickUp)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Task Details (ClickUp)": {
+      "main": [
+        [
+          {
+            "node": "Extract Task Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Task Data": {
+      "main": [
+        [
+          {
+            "node": "Create Google Doc in Keywords Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Google Doc in Keywords Folder": {
+      "main": [
+        [
+          {
+            "node": "Extract Doc URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Doc URL": {
+      "main": [
+        [
+          {
+            "node": "Set Link zum Beitrag in ClickUp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Link zum Beitrag in ClickUp": {
+      "main": [
+        [
+          {
+            "node": "Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "id": "covago-seo",
+      "name": "COVAGO SEO"
+    }
+  ],
+  "triggerCount": 1,
+  "pinData": {}
+}
