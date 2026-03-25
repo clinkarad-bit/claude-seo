@@ -70,6 +70,12 @@
               "name": "prompt_meta_daten_file_id",
               "value": "DEINE_GOOGLE_DRIVE_FILE_ID_META_DATEN",
               "type": "string"
+            },
+            {
+              "id": "cfg-0011",
+              "name": "prompt_geo_optimierung_file_id",
+              "value": "DEINE_GOOGLE_DRIVE_FILE_ID_GEO_OPTIMIERUNG",
+              "type": "string"
             }
           ]
         },
@@ -356,7 +362,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Meta-Daten parsen\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet meta;\ntry {\n  meta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  meta = jsonMatch ? JSON.parse(jsonMatch[1].trim()) : {\n    meta_title: $('Extract Input Data').item.json.keyword,\n    meta_description: '',\n    url_slug: $('Extract Input Data').item.json.keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    og_title: $('Extract Input Data').item.json.keyword,\n    focus_keyword: $('Extract Input Data').item.json.keyword\n  };\n}\n\n// FAQ-Daten\nconst faqData = $('Build FAQ Section').item.json;\n\n// Artikel: bevorzuge optimierten, sonst original\nlet finalArticle;\ntry {\n  finalArticle = $('Merge Article (Original or Optimized)').item.json.final_article;\n} catch(e) {\n  finalArticle = $('Extract Final Article').item.json.final_article;\n}\n\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
+        "jsCode": "// Meta-Daten parsen\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet meta;\ntry {\n  meta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  meta = jsonMatch ? JSON.parse(jsonMatch[1].trim()) : {\n    meta_title: $('Extract Input Data').item.json.keyword,\n    meta_description: '',\n    url_slug: $('Extract Input Data').item.json.keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    og_title: $('Extract Input Data').item.json.keyword,\n    focus_keyword: $('Extract Input Data').item.json.keyword\n  };\n}\n\n// FAQ-Daten\nconst faqData = $('Build FAQ Section').item.json;\n\n// Artikel: bevorzuge GEO-optimierten, dann WDF*IDF-optimierten, dann Original\nlet finalArticle;\ntry {\n  finalArticle = $('Extract GEO Article').item.json.final_article;\n} catch(e) {\n  try {\n    finalArticle = $('Merge Article (Original or Optimized)').item.json.final_article;\n  } catch(e2) {\n    finalArticle = $('Extract Final Article').item.json.final_article;\n  }\n}\n\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
       },
       "id": "cw-node-012",
       "name": "Parse Meta & Assemble Final",
@@ -765,6 +771,82 @@
       },
       "notesInFlow": true,
       "notes": "Meta-Daten-Prompt als Markdown aus Google Drive laden"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('Config').item.json.prompt_geo_optimierung_file_id }}?alt=media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "cw-node-032",
+      "name": "GDrive: Fetch GEO Prompt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        700
+      ],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "GEO-Optimierung-Prompt als Markdown aus Google Drive laden"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 8192,\n  \"system\": {{ JSON.stringify($('GDrive: Fetch GEO Prompt').item.json.data) }},\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Optimiere den folgenden fertigen Blogartikel für Generative Engine Optimization (GEO). Wende dabei alle Regeln und Strategien aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Input Data').item.json.keyword }}\\n\\n## ARTIKEL\\n{{ $json.final_article }}\\n\\n## ANFORDERUNGEN\\n1. Wende alle GEO-Optimierungsregeln aus dem System-Prompt an\\n2. Verändere die H2/H3-Struktur NICHT\\n3. Behalte alle internen Links und Infografik-Platzhalter\\n4. Behalte alle Quellenangaben und füge ggf. weitere hinzu\\n5. Der Text soll weiterhin natürlich und gut lesbar bleiben\\n6. Optimiere für AI-Suchmaschinen (Perplexity, ChatGPT, Google AI Overview)\\n\\nGib den KOMPLETTEN optimierten Artikel als Markdown zurück. Keine Erklärungen, nur der Artikel.\"\n    }\n  ]\n}",
+        "options": {
+          "timeout": 180000
+        }
+      },
+      "id": "cw-node-033",
+      "name": "Claude: GEO-Optimierung (Pass 4)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3400,
+        500
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uYDWYxVRAB3CZ6Jo",
+          "name": "Anthropic API"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Pass 4: GEO-Optimierung — Artikel für AI-Suchmaschinen (Perplexity, ChatGPT, Google AI Overview) optimieren"
+    },
+    {
+      "parameters": {
+        "jsCode": "// GEO-optimierten Artikel extrahieren\nconst response = $input.all()[0].json;\nconst geoArticle = response.content?.[0]?.text || $('Merge Article (Original or Optimized)').item.json.final_article;\n\nreturn [{ json: { final_article: geoArticle } }];"
+      },
+      "id": "cw-node-034",
+      "name": "Extract GEO Article",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3640,
+        500
+      ],
+      "notesInFlow": true,
+      "notes": "GEO-optimierten Artikel-Text aus Claude-Antwort extrahieren"
     }
   ],
   "connections": {
@@ -791,6 +873,11 @@
             "node": "GDrive: Fetch Meta Daten Prompt",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "GDrive: Fetch GEO Prompt",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -807,6 +894,17 @@
       ]
     },
     "GDrive: Fetch Meta Daten Prompt": {
+      "main": [
+        [
+          {
+            "node": "Extract Input Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GDrive: Fetch GEO Prompt": {
       "main": [
         [
           {
@@ -1086,6 +1184,28 @@
       ]
     },
     "Merge Article (Original or Optimized)": {
+      "main": [
+        [
+          {
+            "node": "Claude: GEO-Optimierung (Pass 4)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude: GEO-Optimierung (Pass 4)": {
+      "main": [
+        [
+          {
+            "node": "Extract GEO Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract GEO Article": {
       "main": [
         [
           {
