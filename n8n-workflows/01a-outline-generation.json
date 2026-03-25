@@ -60,18 +60,6 @@
               "type": "string"
             },
             {
-              "id": "cfg-0009",
-              "name": "prompt_deep_research_file_id",
-              "value": "DEINE_GOOGLE_DRIVE_FILE_ID_DEEP_RESEARCH",
-              "type": "string"
-            },
-            {
-              "id": "cfg-0010",
-              "name": "prompt_geo_optimierung_file_id",
-              "value": "DEINE_GOOGLE_DRIVE_FILE_ID_GEO_OPTIMIERUNG",
-              "type": "string"
-            },
-            {
               "id": "cfg-0011",
               "name": "keywords_folder_id",
               "value": "1oc_3sia_CMwWhxCOq_zDCT5I8BscHfMS",
@@ -342,7 +330,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": {{ JSON.stringify($('GDrive: Fetch Deep Research Prompt').item.json.data) }}\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Forschungsassistent f\\u00fcr SEO-Content. Deine Aufgabe ist es, umfassende und aktuelle Informationen zu einem Thema zu recherchieren und strukturiert zusammenzufassen. Liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. H\\u00e4ufige Missverst\\u00e4ndnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und \\u00dcbersichten (z.B. Kosten, Anbieter, Optionen)\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\\nAntworte immer auf Deutsch. Sei faktenbasiert und nenne Quellen wo m\\u00f6glich.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
         "options": {
           "timeout": 120000
         }
@@ -442,7 +430,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": {{ JSON.stringify($('GDrive: Fetch GEO Prompt').item.json.data) }},\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Wende alle Regeln aus dem System-Prompt für Generative Engine Optimization an\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": \"Du bist ein SEO- und GEO-Experte (Generative Engine Optimization). Wende folgende Regeln an:\\n\\n## GEO-Optimierung Regeln\\n1. **Zitierbare Aussagen**: Formuliere klare, pr\\u00e4gnante Aussagen die AI-Suchmaschinen als Zitat verwenden k\\u00f6nnen\\n2. **Strukturierte Daten**: Verwende Listen, Tabellen und klare Hierarchien\\n3. **Autoritative Sprache**: Schreibe als Experte mit Fachkenntnis\\n4. **Direkte Antworten**: Beantworte Fragen direkt in den ersten 1-2 S\\u00e4tzen\\n5. **Quellenverweise**: Referenziere Studien, Gesetze und offizielle Quellen\\n6. **FAQ-Schema**: Erstelle Frage-Antwort-Paare die als Featured Snippet taugen\\n7. **Vergleichstabellen**: Nutze strukturierte Vergleiche wo m\\u00f6glich\\n8. **Zusammenfassungen**: Beginne Sektionen mit einer kurzen Zusammenfassung\\n9. **Definitionsboxen**: Erkl\\u00e4re Fachbegriffe klar und pr\\u00e4zise\\n10. **Statistiken einbinden**: Nutze aktuelle Zahlen und Daten\\n\\nZiel: Der Content soll sowohl in klassischer Google-Suche als auch in AI-gest\\u00fctzten Suchmaschinen (ChatGPT, Perplexity, Google SGE) gut ranken und als Quelle zitiert werden.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Wende alle Regeln aus dem System-Prompt für Generative Engine Optimization an\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
         "options": {
           "timeout": 120000
         }
@@ -530,68 +518,6 @@
     },
     {
       "parameters": {
-        "method": "GET",
-        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('Config').item.json.prompt_deep_research_file_id }}?alt=media",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleOAuth2Api",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "text"
-            }
-          }
-        }
-      },
-      "id": "ol-node-020",
-      "name": "GDrive: Fetch Deep Research Prompt",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        500,
-        100
-      ],
-      "credentials": {
-        "googleOAuth2Api": {
-          "id": "u6XCIz3Yxbakjrwg",
-          "name": "Google account"
-        }
-      },
-      "notesInFlow": true,
-      "notes": "Deep-Research-Prompt als Markdown aus Google Drive laden"
-    },
-    {
-      "parameters": {
-        "method": "GET",
-        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('Config').item.json.prompt_geo_optimierung_file_id }}?alt=media",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleOAuth2Api",
-        "options": {
-          "response": {
-            "response": {
-              "responseFormat": "text"
-            }
-          }
-        }
-      },
-      "id": "ol-node-021",
-      "name": "GDrive: Fetch GEO Prompt",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        500,
-        500
-      ],
-      "credentials": {
-        "googleOAuth2Api": {
-          "id": "u6XCIz3Yxbakjrwg",
-          "name": "Google account"
-        }
-      },
-      "notesInFlow": true,
-      "notes": "GEO-Optimierung-Prompt als Markdown aus Google Drive laden"
-    },
-    {
-      "parameters": {
         "jsCode": "// Doc-Link aus ClickUp Custom Field 'Link zum Beitrag' extrahieren\nconst task = $('Fetch Task Details (ClickUp)').item.json;\nconst customFields = task.custom_fields || [];\nconst linkField = customFields.find(f => f.id === $('Config').item.json.clickup_custom_field_link);\nconst docUrl = linkField?.value || '';\n\n// Doc ID aus URL extrahieren: https://docs.google.com/document/d/DOC_ID/edit\nlet docId = '';\nif (docUrl) {\n  const match = docUrl.match(/\\/d\\/([a-zA-Z0-9_-]+)/);\n  docId = match ? match[1] : '';\n}\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    has_doc: !!docId\n  }\n}];"
       },
       "id": "ol-node-022",
@@ -646,33 +572,6 @@
       ]
     },
     "Config": {
-      "main": [
-        [
-          {
-            "node": "GDrive: Fetch Deep Research Prompt",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "GDrive: Fetch GEO Prompt",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "GDrive: Fetch Deep Research Prompt": {
-      "main": [
-        [
-          {
-            "node": "Check Status = COPYWRITING",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "GDrive: Fetch GEO Prompt": {
       "main": [
         [
           {
