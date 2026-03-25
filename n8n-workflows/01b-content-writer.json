@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T11:50:53.137Z",
+  "updatedAt": "2026-03-25T13:40:30.414Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -1331,14 +1331,15 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "executionTimeout": 1800
   },
   "staticData": {},
   "meta": null,
   "pinData": null,
   "versionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
   "activeVersionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
-  "versionCounter": 87,
+  "versionCounter": 92,
   "triggerCount": 1,
   "shared": [
     {
@@ -2709,6 +2710,22 @@
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
+        "createdAt": "2026-03-25T13:40:30.455Z",
+        "id": 345,
+        "workflowId": "Qm2j4ZECEwa9jTdp",
+        "versionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T13:40:31.377Z",
+        "id": 347,
+        "workflowId": "Qm2j4ZECEwa9jTdp",
+        "versionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
         "createdAt": "2026-03-25T11:50:53.206Z",
         "id": 328,
         "workflowId": "Qm2j4ZECEwa9jTdp",
@@ -2719,6 +2736,22 @@
       {
         "createdAt": "2026-03-25T11:50:54.336Z",
         "id": 330,
+        "workflowId": "Qm2j4ZECEwa9jTdp",
+        "versionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T13:40:30.441Z",
+        "id": 344,
+        "workflowId": "Qm2j4ZECEwa9jTdp",
+        "versionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-25T13:40:31.351Z",
+        "id": 346,
         "workflowId": "Qm2j4ZECEwa9jTdp",
         "versionId": "b61dee0f-ab70-4f6a-9e36-a61d8b3998f8",
         "event": "deactivated",
