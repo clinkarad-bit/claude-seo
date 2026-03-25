@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T10:55:15.820Z",
+  "updatedAt": "2026-03-25T11:33:27.089Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -487,7 +487,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Doc-Daten zusammenführen (bestehendes oder neu erstelltes Doc)\nconst items = $input.all();\nconst item = items[items.length - 1].json;\n\nconst docId = item.id;\nconst docUrl = item.doc_url || `https://docs.google.com/document/d/${docId}/edit`;\n\n// Content für Google Docs API vorbereiten\nconst content = $('Parse Meta & Assemble Final').item.json.full_content;\nconst meta = $('Parse Meta & Assemble Final').item.json.meta;\n\n// Header mit Meta-Daten + Content\nconst fullText = `META TITLE: ${meta.meta_title}\\nMETA DESCRIPTION: ${meta.meta_description}\\nURL SLUG: ${meta.url_slug}\\nFOCUS KEYWORD: ${meta.focus_keyword}\\n\\n${'='.repeat(60)}\\n\\n${content}`;\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    full_text: fullText\n  }\n}];"
+        "jsCode": "// Convert Markdown to Google Docs API batchUpdate requests\nconst items = $input.all();\nconst item = items[items.length - 1].json;\nconst docId = item.id;\nconst docUrl = item.doc_url || `https://docs.google.com/document/d/${docId}/edit`;\n\nconst content = $('Parse Meta & Assemble Final').item.json.full_content || '';\nconst meta = $('Parse Meta & Assemble Final').item.json.meta || {};\n\n// Build the full markdown with meta header\nconst metaBlock = `META TITLE: ${meta.meta_title || ''}\\nMETA DESCRIPTION: ${meta.meta_description || ''}\\nURL SLUG: ${meta.url_slug || ''}\\nFOCUS KEYWORD: ${meta.focus_keyword || ''}\\n\\n`;\nconst fullMarkdown = metaBlock + content;\n\n// Parse markdown into blocks\nconst lines = fullMarkdown.split('\\n');\nconst blocks = []; // {text, style, bold_ranges, italic_ranges, links, is_bullet, is_numbered}\n\nlet inTable = false;\nlet tableRows = [];\n\nfor (let i = 0; i < lines.length; i++) {\n  const line = lines[i];\n  \n  // Table detection\n  if (line.trim().startsWith('|') && line.trim().endsWith('|')) {\n    if (line.match(/^\\|[\\s-:|]+\\|$/)) continue; // Skip separator row\n    tableRows.push(line);\n    inTable = true;\n    // Check if next line is not a table\n    if (i + 1 >= lines.length || !lines[i+1].trim().startsWith('|')) {\n      // Emit table as formatted text\n      for (const row of tableRows) {\n        const cells = row.split('|').filter(c => c.trim()).map(c => c.trim());\n        blocks.push({ text: cells.join('  |  ') + '\\n', style: 'NORMAL_TEXT', bold_ranges: [], italic_ranges: [], links: [], is_bullet: false });\n      }\n      tableRows = [];\n      inTable = false;\n    }\n    continue;\n  }\n  \n  if (inTable && tableRows.length > 0) {\n    for (const row of tableRows) {\n      const cells = row.split('|').filter(c => c.trim()).map(c => c.trim());\n      blocks.push({ text: cells.join('  |  ') + '\\n', style: 'NORMAL_TEXT', bold_ranges: [], italic_ranges: [], links: [], is_bullet: false });\n    }\n    tableRows = [];\n    inTable = false;\n  }\n  \n  // Empty line\n  if (line.trim() === '') {\n    blocks.push({ text: '\\n', style: 'NORMAL_TEXT', bold_ranges: [], italic_ranges: [], links: [], is_bullet: false });\n    continue;\n  }\n  \n  // Headings\n  let style = 'NORMAL_TEXT';\n  let cleanLine = line;\n  if (line.startsWith('#### ')) { style = 'HEADING_4'; cleanLine = line.substring(5); }\n  else if (line.startsWith('### ')) { style = 'HEADING_3'; cleanLine = line.substring(4); }\n  else if (line.startsWith('## ')) { style = 'HEADING_2'; cleanLine = line.substring(3); }\n  else if (line.startsWith('# ')) { style = 'HEADING_1'; cleanLine = line.substring(2); }\n  \n  // Bullets\n  let is_bullet = false;\n  let is_numbered = false;\n  if (cleanLine.match(/^[-*]\\s/)) { is_bullet = true; cleanLine = cleanLine.replace(/^[-*]\\s/, ''); }\n  if (cleanLine.match(/^\\d+\\.\\s/)) { is_numbered = true; cleanLine = cleanLine.replace(/^\\d+\\.\\s/, ''); }\n  \n  // Find bold ranges **text**\n  const bold_ranges = [];\n  let processedText = '';\n  let pos = 0;\n  let tempLine = cleanLine;\n  \n  // Process links [text](url)\n  const links = [];\n  tempLine = tempLine.replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, (match, text, url, offset) => {\n    return text; // Replace with just the link text, we'll add the link style later\n  });\n  \n  // Re-find links with positions after other processing\n  // First pass: extract bold\n  let finalText = '';\n  let boldRegex = /\\*\\*(.+?)\\*\\*/g;\n  let lastIdx = 0;\n  let boldMatch;\n  while ((boldMatch = boldRegex.exec(tempLine)) !== null) {\n    finalText += tempLine.substring(lastIdx, boldMatch.index);\n    const boldStart = finalText.length;\n    finalText += boldMatch[1];\n    bold_ranges.push({ start: boldStart, end: finalText.length });\n    lastIdx = boldMatch.index + boldMatch[0].length;\n  }\n  finalText += tempLine.substring(lastIdx);\n  \n  // Extract italic *text*\n  const italic_ranges = [];\n  let italicText = '';\n  let italicRegex = /(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)/g;\n  lastIdx = 0;\n  let italicMatch;\n  let tempFinal = finalText;\n  finalText = '';\n  while ((italicMatch = italicRegex.exec(tempFinal)) !== null) {\n    finalText += tempFinal.substring(lastIdx, italicMatch.index);\n    const italicStart = finalText.length;\n    finalText += italicMatch[1];\n    italic_ranges.push({ start: italicStart, end: finalText.length });\n    lastIdx = italicMatch.index + italicMatch[0].length;\n  }\n  finalText += tempFinal.substring(lastIdx);\n  \n  // Find links in the original line and map to positions in finalText\n  const linkRegex = /\\[([^\\]]+)\\]\\(([^)]+)\\)/g;\n  let linkMatch;\n  while ((linkMatch = linkRegex.exec(cleanLine)) !== null) {\n    const linkText = linkMatch[1];\n    const linkUrl = linkMatch[2];\n    const linkPos = finalText.indexOf(linkText);\n    if (linkPos >= 0) {\n      links.push({ start: linkPos, end: linkPos + linkText.length, url: linkUrl });\n    }\n  }\n  \n  blocks.push({\n    text: finalText + '\\n',\n    style: style,\n    bold_ranges: bold_ranges,\n    italic_ranges: italic_ranges,\n    links: links,\n    is_bullet: is_bullet,\n    is_numbered: is_numbered\n  });\n}\n\n// Build Google Docs API requests\n// First: insert all text at once, then apply formatting\nlet fullText = blocks.map(b => b.text).join('');\nconst requests = [];\n\n// 1. Insert all text at index 1\nrequests.push({\n  insertText: {\n    location: { index: 1 },\n    text: fullText\n  }\n});\n\n// 2. Apply paragraph styles (headings, bullets)\nlet currentIndex = 1;\nfor (const block of blocks) {\n  const blockLen = block.text.length;\n  \n  if (block.style !== 'NORMAL_TEXT') {\n    requests.push({\n      updateParagraphStyle: {\n        range: { startIndex: currentIndex, endIndex: currentIndex + blockLen },\n        paragraphStyle: { namedStyleType: block.style },\n        fields: 'namedStyleType'\n      }\n    });\n  }\n  \n  // Bullet list\n  if (block.is_bullet) {\n    requests.push({\n      createParagraphBullets: {\n        range: { startIndex: currentIndex, endIndex: currentIndex + blockLen },\n        bulletPreset: 'BULLET_DISC_CIRCLE_SQUARE'\n      }\n    });\n  }\n  \n  if (block.is_numbered) {\n    requests.push({\n      createParagraphBullets: {\n        range: { startIndex: currentIndex, endIndex: currentIndex + blockLen },\n        bulletPreset: 'NUMBERED_DECIMAL_NESTED'\n      }\n    });\n  }\n  \n  // Bold ranges\n  for (const br of block.bold_ranges) {\n    requests.push({\n      updateTextStyle: {\n        range: { startIndex: currentIndex + br.start, endIndex: currentIndex + br.end },\n        textStyle: { bold: true },\n        fields: 'bold'\n      }\n    });\n  }\n  \n  // Italic ranges\n  for (const ir of block.italic_ranges) {\n    requests.push({\n      updateTextStyle: {\n        range: { startIndex: currentIndex + ir.start, endIndex: currentIndex + ir.end },\n        textStyle: { italic: true },\n        fields: 'italic'\n      }\n    });\n  }\n  \n  // Links\n  for (const link of block.links) {\n    requests.push({\n      updateTextStyle: {\n        range: { startIndex: currentIndex + link.start, endIndex: currentIndex + link.end },\n        textStyle: { link: { url: link.url } },\n        fields: 'link'\n      }\n    });\n  }\n  \n  currentIndex += blockLen;\n}\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    requests: requests\n  }\n}];"
       },
       "id": "cw-node-014",
       "name": "Prepare Doc Content",
@@ -507,7 +507,7 @@
         "authentication": "predefinedCredentialType",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"requests\": [\n    {\n      \"insertText\": {\n        \"location\": { \"index\": 1 },\n        \"text\": {{ JSON.stringify($json.full_text) }}\n      }\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"requests\": {{ JSON.stringify($json.requests) }}\n}",
         "options": {},
         "nodeCredentialType": "googleOAuth2Api"
       },
@@ -1336,9 +1336,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-  "activeVersionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-  "versionCounter": 77,
+  "versionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
+  "activeVersionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
+  "versionCounter": 82,
   "triggerCount": 1,
   "shared": [
     {
@@ -1361,9 +1361,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T10:49:34.689Z",
-    "createdAt": "2026-03-25T10:49:34.689Z",
-    "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
+    "updatedAt": "2026-03-25T11:33:27.093Z",
+    "createdAt": "2026-03-25T11:33:27.093Z",
+    "versionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
     "workflowId": "Qm2j4ZECEwa9jTdp",
     "nodes": [
       {
@@ -1846,7 +1846,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Doc-Daten zusammenführen (bestehendes oder neu erstelltes Doc)\nconst items = $input.all();\nconst item = items[items.length - 1].json;\n\nconst docId = item.id;\nconst docUrl = item.doc_url || `https://docs.google.com/document/d/${docId}/edit`;\n\n// Content für Google Docs API vorbereiten\nconst content = $('Parse Meta & Assemble Final').item.json.full_content;\nconst meta = $('Parse Meta & Assemble Final').item.json.meta;\n\n// Header mit Meta-Daten + Content\nconst fullText = `META TITLE: ${meta.meta_title}\\nMETA DESCRIPTION: ${meta.meta_description}\\nURL SLUG: ${meta.url_slug}\\nFOCUS KEYWORD: ${meta.focus_keyword}\\n\\n${'='.repeat(60)}\\n\\n${content}`;\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    full_text: fullText\n  }\n}];"
+          "jsCode": "// Convert Markdown to Google Docs API batchUpdate requests\nconst items = $input.all();\nconst item = items[items.length - 1].json;\nconst docId = item.id;\nconst docUrl = item.doc_url || `https://docs.google.com/document/d/${docId}/edit`;\n\nconst content = $('Parse Meta & Assemble Final').item.json.full_content || '';\nconst meta = $('Parse Meta & Assemble Final').item.json.meta || {};\n\n// Build the full markdown with meta header\nconst metaBlock = `META TITLE: ${meta.meta_title || ''}\\nMETA DESCRIPTION: ${meta.meta_description || ''}\\nURL SLUG: ${meta.url_slug || ''}\\nFOCUS KEYWORD: ${meta.focus_keyword || ''}\\n\\n`;\nconst fullMarkdown = metaBlock + content;\n\n// Parse markdown into blocks\nconst lines = fullMarkdown.split('\\n');\nconst blocks = []; // {text, style, bold_ranges, italic_ranges, links, is_bullet, is_numbered}\n\nlet inTable = false;\nlet tableRows = [];\n\nfor (let i = 0; i < lines.length; i++) {\n  const line = lines[i];\n  \n  // Table detection\n  if (line.trim().startsWith('|') && line.trim().endsWith('|')) {\n    if (line.match(/^\\|[\\s-:|]+\\|$/)) continue; // Skip separator row\n    tableRows.push(line);\n    inTable = true;\n    // Check if next line is not a table\n    if (i + 1 >= lines.length || !lines[i+1].trim().startsWith('|')) {\n      // Emit table as formatted text\n      for (const row of tableRows) {\n        const cells = row.split('|').filter(c => c.trim()).map(c => c.trim());\n        blocks.push({ text: cells.join('  |  ') + '\\n', style: 'NORMAL_TEXT', bold_ranges: [], italic_ranges: [], links: [], is_bullet: false });\n      }\n      tableRows = [];\n      inTable = false;\n    }\n    continue;\n  }\n  \n  if (inTable && tableRows.length > 0) {\n    for (const row of tableRows) {\n      const cells = row.split('|').filter(c => c.trim()).map(c => c.trim());\n      blocks.push({ text: cells.join('  |  ') + '\\n', style: 'NORMAL_TEXT', bold_ranges: [], italic_ranges: [], links: [], is_bullet: false });\n    }\n    tableRows = [];\n    inTable = false;\n  }\n  \n  // Empty line\n  if (line.trim() === '') {\n    blocks.push({ text: '\\n', style: 'NORMAL_TEXT', bold_ranges: [], italic_ranges: [], links: [], is_bullet: false });\n    continue;\n  }\n  \n  // Headings\n  let style = 'NORMAL_TEXT';\n  let cleanLine = line;\n  if (line.startsWith('#### ')) { style = 'HEADING_4'; cleanLine = line.substring(5); }\n  else if (line.startsWith('### ')) { style = 'HEADING_3'; cleanLine = line.substring(4); }\n  else if (line.startsWith('## ')) { style = 'HEADING_2'; cleanLine = line.substring(3); }\n  else if (line.startsWith('# ')) { style = 'HEADING_1'; cleanLine = line.substring(2); }\n  \n  // Bullets\n  let is_bullet = false;\n  let is_numbered = false;\n  if (cleanLine.match(/^[-*]\\s/)) { is_bullet = true; cleanLine = cleanLine.replace(/^[-*]\\s/, ''); }\n  if (cleanLine.match(/^\\d+\\.\\s/)) { is_numbered = true; cleanLine = cleanLine.replace(/^\\d+\\.\\s/, ''); }\n  \n  // Find bold ranges **text**\n  const bold_ranges = [];\n  let processedText = '';\n  let pos = 0;\n  let tempLine = cleanLine;\n  \n  // Process links [text](url)\n  const links = [];\n  tempLine = tempLine.replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, (match, text, url, offset) => {\n    return text; // Replace with just the link text, we'll add the link style later\n  });\n  \n  // Re-find links with positions after other processing\n  // First pass: extract bold\n  let finalText = '';\n  let boldRegex = /\\*\\*(.+?)\\*\\*/g;\n  let lastIdx = 0;\n  let boldMatch;\n  while ((boldMatch = boldRegex.exec(tempLine)) !== null) {\n    finalText += tempLine.substring(lastIdx, boldMatch.index);\n    const boldStart = finalText.length;\n    finalText += boldMatch[1];\n    bold_ranges.push({ start: boldStart, end: finalText.length });\n    lastIdx = boldMatch.index + boldMatch[0].length;\n  }\n  finalText += tempLine.substring(lastIdx);\n  \n  // Extract italic *text*\n  const italic_ranges = [];\n  let italicText = '';\n  let italicRegex = /(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)/g;\n  lastIdx = 0;\n  let italicMatch;\n  let tempFinal = finalText;\n  finalText = '';\n  while ((italicMatch = italicRegex.exec(tempFinal)) !== null) {\n    finalText += tempFinal.substring(lastIdx, italicMatch.index);\n    const italicStart = finalText.length;\n    finalText += italicMatch[1];\n    italic_ranges.push({ start: italicStart, end: finalText.length });\n    lastIdx = italicMatch.index + italicMatch[0].length;\n  }\n  finalText += tempFinal.substring(lastIdx);\n  \n  // Find links in the original line and map to positions in finalText\n  const linkRegex = /\\[([^\\]]+)\\]\\(([^)]+)\\)/g;\n  let linkMatch;\n  while ((linkMatch = linkRegex.exec(cleanLine)) !== null) {\n    const linkText = linkMatch[1];\n    const linkUrl = linkMatch[2];\n    const linkPos = finalText.indexOf(linkText);\n    if (linkPos >= 0) {\n      links.push({ start: linkPos, end: linkPos + linkText.length, url: linkUrl });\n    }\n  }\n  \n  blocks.push({\n    text: finalText + '\\n',\n    style: style,\n    bold_ranges: bold_ranges,\n    italic_ranges: italic_ranges,\n    links: links,\n    is_bullet: is_bullet,\n    is_numbered: is_numbered\n  });\n}\n\n// Build Google Docs API requests\n// First: insert all text at once, then apply formatting\nlet fullText = blocks.map(b => b.text).join('');\nconst requests = [];\n\n// 1. Insert all text at index 1\nrequests.push({\n  insertText: {\n    location: { index: 1 },\n    text: fullText\n  }\n});\n\n// 2. Apply paragraph styles (headings, bullets)\nlet currentIndex = 1;\nfor (const block of blocks) {\n  const blockLen = block.text.length;\n  \n  if (block.style !== 'NORMAL_TEXT') {\n    requests.push({\n      updateParagraphStyle: {\n        range: { startIndex: currentIndex, endIndex: currentIndex + blockLen },\n        paragraphStyle: { namedStyleType: block.style },\n        fields: 'namedStyleType'\n      }\n    });\n  }\n  \n  // Bullet list\n  if (block.is_bullet) {\n    requests.push({\n      createParagraphBullets: {\n        range: { startIndex: currentIndex, endIndex: currentIndex + blockLen },\n        bulletPreset: 'BULLET_DISC_CIRCLE_SQUARE'\n      }\n    });\n  }\n  \n  if (block.is_numbered) {\n    requests.push({\n      createParagraphBullets: {\n        range: { startIndex: currentIndex, endIndex: currentIndex + blockLen },\n        bulletPreset: 'NUMBERED_DECIMAL_NESTED'\n      }\n    });\n  }\n  \n  // Bold ranges\n  for (const br of block.bold_ranges) {\n    requests.push({\n      updateTextStyle: {\n        range: { startIndex: currentIndex + br.start, endIndex: currentIndex + br.end },\n        textStyle: { bold: true },\n        fields: 'bold'\n      }\n    });\n  }\n  \n  // Italic ranges\n  for (const ir of block.italic_ranges) {\n    requests.push({\n      updateTextStyle: {\n        range: { startIndex: currentIndex + ir.start, endIndex: currentIndex + ir.end },\n        textStyle: { italic: true },\n        fields: 'italic'\n      }\n    });\n  }\n  \n  // Links\n  for (const link of block.links) {\n    requests.push({\n      updateTextStyle: {\n        range: { startIndex: currentIndex + link.start, endIndex: currentIndex + link.end },\n        textStyle: { link: { url: link.url } },\n        fields: 'link'\n      }\n    });\n  }\n  \n  currentIndex += blockLen;\n}\n\nreturn [{\n  json: {\n    doc_id: docId,\n    doc_url: docUrl,\n    requests: requests\n  }\n}];"
         },
         "id": "cw-node-014",
         "name": "Prepare Doc Content",
@@ -1866,7 +1866,7 @@
           "authentication": "predefinedCredentialType",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"requests\": [\n    {\n      \"insertText\": {\n        \"location\": { \"index\": 1 },\n        \"text\": {{ JSON.stringify($json.full_text) }}\n      }\n    }\n  ]\n}",
+          "jsonBody": "={\n  \"requests\": {{ JSON.stringify($json.requests) }}\n}",
           "options": {},
           "nodeCredentialType": "googleOAuth2Api"
         },
@@ -2693,82 +2693,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T10:49:34.737Z",
-        "id": 301,
+        "createdAt": "2026-03-25T11:33:27.161Z",
+        "id": 321,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
+        "versionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T10:53:18.930Z",
-        "id": 305,
+        "createdAt": "2026-03-25T11:33:28.293Z",
+        "id": 323,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
+        "versionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T10:53:20.404Z",
-        "id": 307,
+        "createdAt": "2026-03-25T11:33:27.141Z",
+        "id": 320,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-        "event": "activated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-25T10:55:15.865Z",
-        "id": 315,
-        "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-        "event": "activated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-25T10:55:16.995Z",
-        "id": 319,
-        "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-        "event": "activated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-25T10:49:34.724Z",
-        "id": 300,
-        "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
+        "versionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T10:53:18.905Z",
-        "id": 304,
+        "createdAt": "2026-03-25T11:33:28.267Z",
+        "id": 322,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-        "event": "deactivated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-25T10:53:20.380Z",
-        "id": 306,
-        "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-        "event": "deactivated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-25T10:55:15.851Z",
-        "id": 314,
-        "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
-        "event": "deactivated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-25T10:55:16.971Z",
-        "id": 318,
-        "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "f88cc01d-5bf6-49ec-a1fe-a43ed3f3aa00",
+        "versionId": "2722dd66-9036-4c6d-8960-c81ef5cdc9fa",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
