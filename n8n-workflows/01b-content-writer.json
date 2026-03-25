@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T14:17:24.614Z",
+  "updatedAt": "2026-03-25T14:24:09.740Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -395,7 +395,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Meta-Daten parsen - handles both flat and variant format\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet rawMeta;\ntry {\n  rawMeta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    try { rawMeta = JSON.parse(jsonMatch[1].trim()); } catch(e2) { rawMeta = null; }\n  }\n  if (!rawMeta) {\n    const braceMatch = content.match(/\\{[\\s\\S]*\\}/);\n    rawMeta = braceMatch ? JSON.parse(braceMatch[0]) : null;\n  }\n}\n\n// Normalize: if variants format, pick variant_1\nlet meta;\nif (rawMeta && rawMeta.variant_1) {\n  meta = rawMeta.variant_1;\n} else if (rawMeta && rawMeta.meta_title) {\n  meta = rawMeta;\n} else {\n  // Fallback\n  const keyword = $('Extract Input Data').item.json.keyword || '';\n  meta = {\n    meta_title: keyword,\n    meta_description: '',\n    url_slug: keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    focus_keyword: keyword\n  };\n}\n\n// Ensure all fields exist\nmeta.meta_title = meta.meta_title || '';\nmeta.meta_description = meta.meta_description || '';\nmeta.url_slug = meta.url_slug || '';\nmeta.focus_keyword = meta.focus_keyword || $('Extract Input Data').item.json.keyword || '';\n\n// FAQ-Daten\nlet faqData = { has_faq: false, faq_markdown: '' };\ntry { faqData = $('Build FAQ Section').item.json; } catch(e) {}\n\n// Artikel vom Style Pass\nconst finalArticle = $('Extract Final Article').item.json.final_article || '';\n\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
+        "jsCode": "// Meta-Daten parsen\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet rawMeta;\ntry {\n  rawMeta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    try { rawMeta = JSON.parse(jsonMatch[1].trim()); } catch(e2) {}\n  }\n  if (!rawMeta) {\n    const braceMatch = content.match(/\\{[\\s\\S]*\\}/);\n    if (braceMatch) try { rawMeta = JSON.parse(braceMatch[0]); } catch(e3) {}\n  }\n}\n\n// Find the first variant - handles variant_1, variante_1, Variante_1, etc.\nlet meta = null;\nif (rawMeta) {\n  // Try direct fields first\n  if (rawMeta.meta_title) {\n    meta = rawMeta;\n  } else {\n    // Search for any variant key\n    for (const key of Object.keys(rawMeta)) {\n      const val = rawMeta[key];\n      if (val && typeof val === 'object' && val.meta_title) {\n        meta = val;\n        break;\n      }\n    }\n  }\n}\n\nif (!meta) {\n  const keyword = $('Extract Input Data').item.json.keyword || '';\n  meta = {\n    meta_title: keyword,\n    meta_description: '',\n    url_slug: keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    focus_keyword: keyword\n  };\n}\n\n// Clean up\nmeta.meta_title = meta.meta_title || '';\nmeta.meta_description = meta.meta_description || '';\nmeta.url_slug = meta.url_slug || '';\nmeta.focus_keyword = meta.focus_keyword || $('Extract Input Data').item.json.keyword || '';\n\n// FAQ\nlet faqData = { has_faq: false, faq_markdown: '' };\ntry { faqData = $('Build FAQ Section').item.json; } catch(e) {}\n\nconst finalArticle = $('Extract Final Article').item.json.final_article || '';\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
       },
       "id": "cw-node-012",
       "name": "Parse Meta & Assemble Final",
@@ -1337,9 +1337,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
-  "activeVersionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
-  "versionCounter": 112,
+  "versionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
+  "activeVersionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
+  "versionCounter": 117,
   "triggerCount": 1,
   "shared": [
     {
@@ -1362,9 +1362,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T14:17:24.618Z",
-    "createdAt": "2026-03-25T14:17:24.618Z",
-    "versionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
+    "updatedAt": "2026-03-25T14:24:09.743Z",
+    "createdAt": "2026-03-25T14:24:09.743Z",
+    "versionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
     "workflowId": "Qm2j4ZECEwa9jTdp",
     "nodes": [
       {
@@ -1755,7 +1755,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Meta-Daten parsen - handles both flat and variant format\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet rawMeta;\ntry {\n  rawMeta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    try { rawMeta = JSON.parse(jsonMatch[1].trim()); } catch(e2) { rawMeta = null; }\n  }\n  if (!rawMeta) {\n    const braceMatch = content.match(/\\{[\\s\\S]*\\}/);\n    rawMeta = braceMatch ? JSON.parse(braceMatch[0]) : null;\n  }\n}\n\n// Normalize: if variants format, pick variant_1\nlet meta;\nif (rawMeta && rawMeta.variant_1) {\n  meta = rawMeta.variant_1;\n} else if (rawMeta && rawMeta.meta_title) {\n  meta = rawMeta;\n} else {\n  // Fallback\n  const keyword = $('Extract Input Data').item.json.keyword || '';\n  meta = {\n    meta_title: keyword,\n    meta_description: '',\n    url_slug: keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    focus_keyword: keyword\n  };\n}\n\n// Ensure all fields exist\nmeta.meta_title = meta.meta_title || '';\nmeta.meta_description = meta.meta_description || '';\nmeta.url_slug = meta.url_slug || '';\nmeta.focus_keyword = meta.focus_keyword || $('Extract Input Data').item.json.keyword || '';\n\n// FAQ-Daten\nlet faqData = { has_faq: false, faq_markdown: '' };\ntry { faqData = $('Build FAQ Section').item.json; } catch(e) {}\n\n// Artikel vom Style Pass\nconst finalArticle = $('Extract Final Article').item.json.final_article || '';\n\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
+          "jsCode": "// Meta-Daten parsen\nconst response = $input.all()[0].json;\nconst content = response.content?.[0]?.text || '';\n\nlet rawMeta;\ntry {\n  rawMeta = JSON.parse(content);\n} catch(e) {\n  const jsonMatch = content.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (jsonMatch) {\n    try { rawMeta = JSON.parse(jsonMatch[1].trim()); } catch(e2) {}\n  }\n  if (!rawMeta) {\n    const braceMatch = content.match(/\\{[\\s\\S]*\\}/);\n    if (braceMatch) try { rawMeta = JSON.parse(braceMatch[0]); } catch(e3) {}\n  }\n}\n\n// Find the first variant - handles variant_1, variante_1, Variante_1, etc.\nlet meta = null;\nif (rawMeta) {\n  // Try direct fields first\n  if (rawMeta.meta_title) {\n    meta = rawMeta;\n  } else {\n    // Search for any variant key\n    for (const key of Object.keys(rawMeta)) {\n      const val = rawMeta[key];\n      if (val && typeof val === 'object' && val.meta_title) {\n        meta = val;\n        break;\n      }\n    }\n  }\n}\n\nif (!meta) {\n  const keyword = $('Extract Input Data').item.json.keyword || '';\n  meta = {\n    meta_title: keyword,\n    meta_description: '',\n    url_slug: keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-'),\n    focus_keyword: keyword\n  };\n}\n\n// Clean up\nmeta.meta_title = meta.meta_title || '';\nmeta.meta_description = meta.meta_description || '';\nmeta.url_slug = meta.url_slug || '';\nmeta.focus_keyword = meta.focus_keyword || $('Extract Input Data').item.json.keyword || '';\n\n// FAQ\nlet faqData = { has_faq: false, faq_markdown: '' };\ntry { faqData = $('Build FAQ Section').item.json; } catch(e) {}\n\nconst finalArticle = $('Extract Final Article').item.json.final_article || '';\nconst fullContent = faqData.has_faq ? finalArticle + faqData.faq_markdown : finalArticle;\n\nreturn [{\n  json: {\n    meta: meta,\n    full_content: fullContent,\n    word_count: fullContent.split(/\\s+/).length\n  }\n}];"
         },
         "id": "cw-node-012",
         "name": "Parse Meta & Assemble Final",
@@ -2694,34 +2694,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T14:17:24.693Z",
-        "id": 369,
+        "createdAt": "2026-03-25T14:24:09.816Z",
+        "id": 373,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
+        "versionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T14:17:25.770Z",
-        "id": 371,
+        "createdAt": "2026-03-25T14:24:10.755Z",
+        "id": 375,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
+        "versionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T14:17:24.678Z",
-        "id": 368,
+        "createdAt": "2026-03-25T14:24:09.795Z",
+        "id": 372,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
+        "versionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T14:17:25.748Z",
-        "id": 370,
+        "createdAt": "2026-03-25T14:24:10.727Z",
+        "id": 374,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "d659ad7c-a0f7-4006-811a-3955dbce1d3d",
+        "versionId": "0c35bf25-44a2-41eb-ba7e-b3c5a8521d73",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
