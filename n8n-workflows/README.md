@@ -187,6 +187,26 @@ Jeder Workflow enthält am Anfang einen **"Config"** Node (Set Node) mit allen k
 - WordPress Site URLs
 - Kundenspezifische Einstellungen
 
+### Prompts aus Google Drive laden
+
+Die AI-Prompts werden als Markdown-Dateien aus einem Google Drive Ordner geladen. So kannst du die Prompts jederzeit anpassen, ohne die Workflows selbst zu bearbeiten.
+
+**Benötigte Dateien im Google Drive:**
+
+| Prompt-Datei | Verwendet in | Config-Variable |
+|---|---|---|
+| Sprachstil / Copywriter | 01b - Pass 1 (Section Writing) + Pass 2 (Style & Cohesion) | `prompt_sprachstil_file_id` |
+| Meta Daten | 01b - Meta Data Generation | `prompt_meta_daten_file_id` |
+| Deep Research | 01a - Perplexity Deep Research | `prompt_deep_research_file_id` |
+| GEO-Optimierung | 01a - Outline Generation | `prompt_geo_optimierung_file_id` |
+
+**Setup:**
+1. Lade deine Prompt-Markdown-Dateien in einen Google Drive Ordner hoch
+2. Rechtsklick auf jede Datei → "Get link" → Die File ID aus der URL kopieren (z.B. `1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms`)
+3. Die File IDs in die Config-Nodes der Workflows eintragen:
+   - `01a-outline-generation.json`: `prompt_deep_research_file_id` + `prompt_geo_optimierung_file_id`
+   - `01b-content-writer.json`: `prompt_sprachstil_file_id` + `prompt_meta_daten_file_id`
+
 ## Wichtige Hinweise
 
 - **Skyscraper-Ansatz:** Der Content wird so gebaut, dass er besser als die Top 10 ist

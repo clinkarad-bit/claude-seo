@@ -58,6 +58,18 @@
               "name": "content_writer_webhook_url",
               "value": "https://n8n.carlosarad.de/webhook/clickup-content-writer",
               "type": "string"
+            },
+            {
+              "id": "cfg-0009",
+              "name": "prompt_deep_research_file_id",
+              "value": "DEINE_GOOGLE_DRIVE_FILE_ID_DEEP_RESEARCH",
+              "type": "string"
+            },
+            {
+              "id": "cfg-0010",
+              "name": "prompt_geo_optimierung_file_id",
+              "value": "DEINE_GOOGLE_DRIVE_FILE_ID_GEO_OPTIMIERUNG",
+              "type": "string"
             }
           ]
         },
@@ -312,7 +324,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Du bist ein Experte für umfassende Themenrecherche. Recherchiere gründlich mit aktuellen, verifizierten Daten aus autoritativen Quellen. Gib alle Fakten mit Quellenangabe an. Antworte auf Deutsch.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
+        "jsonBody": "={\n  \"model\": \"sonar-deep-research\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": {{ JSON.stringify($('GDrive: Fetch Deep Research Prompt').item.json.data) }}\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Recherchiere umfassend zum Thema: {{ $('Extract Task Data').item.json.keyword }}\\n\\nDie Top-10 Google-Ergebnisse behandeln folgende Aspekte:\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\nWichtige Begriffe laut WDF*IDF Analyse:\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\nHäufig gestellte Fragen (People Also Ask):\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\nBitte liefere:\\n1. Alle relevanten Fakten, Statistiken und aktuelle Daten mit Quellenangaben\\n2. Aktuelle Gesetzeslage / Regelungen (falls relevant)\\n3. Häufige Missverständnisse und korrekte Informationen\\n4. Praxistipps und Handlungsempfehlungen\\n5. Vergleiche und Übersichten\\n6. Alles was ein umfassender Skyscraper-Artikel zum Thema braucht\"\n    }\n  ],\n  \"max_tokens\": 4000,\n  \"temperature\": 0.1\n}",
         "options": {
           "timeout": 120000
         }
@@ -412,7 +424,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Struktur für Generative Engine Optimization vorbereiten\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-20250514\",\n  \"max_tokens\": 4096,\n  \"system\": {{ JSON.stringify($('GDrive: Fetch GEO Prompt').item.json.data) }},\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Du bist ein SEO-Experte und Content-Stratege. Erstelle ein detailliertes Skyscraper-Outline für einen Blogartikel, der besser sein muss als alle Top-10-Ergebnisse. Wende dabei die GEO-Optimierung-Regeln aus dem System-Prompt an.\\n\\n## KEYWORD\\n{{ $('Extract Task Data').item.json.keyword }}\\n\\n## SERP-ANALYSE (Top 10 Ergebnisse)\\n{{ $('Extract SERP Data').item.json.serp_summary }}\\n\\n## WDF*IDF TERME (in den Artikel integrieren)\\n{{ $('WDF*IDF Calculator').item.json.wdf_idf_summary }}\\n\\n## PERPLEXITY DEEP RESEARCH\\n{{ $('Perplexity Deep Research').item.json.choices[0].message.content }}\\n\\n## PEOPLE ALSO ASK & REDDIT FRAGEN\\n{{ $('Extract Reddit & PAA').item.json.all_paa_questions.join('\\\\n') }}\\n\\nReddit-Diskussionen:\\n{{ $('Extract Reddit & PAA').item.json.reddit_summary }}\\n\\n## INTERNE VERLINKUNG (gleicher Themen-Hub)\\n{{ $('Prepare Internal Linking Data').item.json.internal_linking_summary }}\\nPillar Article: {{ $('Prepare Internal Linking Data').item.json.pillar_article ? $('Prepare Internal Linking Data').item.json.pillar_article.pillar_url : 'Noch kein Pillar Article' }}\\n\\n## ANFORDERUNGEN AN DAS OUTLINE\\n1. Skyscraper-Ansatz: Besser, umfassender und aktueller als alle Top-10-Ergebnisse\\n2. Struktur: H2-Sektionen mit H3-Untersektionen, Kernpunkte pro Sektion\\n3. FAQ-Sektion am Ende mit den wichtigsten People Also Ask Fragen (korrekt als Fragen formuliert)\\n4. Infografik-Platzierungen: Markiere 2-3 Stellen für Datenvisualisierungen\\n5. Interne Verlinkung: Verlinke zum Pillar Article und zu anderen Hub-Artikeln\\n6. GEO-Optimierung: Wende alle Regeln aus dem System-Prompt für Generative Engine Optimization an\\n7. WDF*IDF Terme natürlich in die Sektionen einplanen\\n\\n## OUTPUT FORMAT (JSON)\\n{\\n  \\\"title_suggestion\\\": \\\"Vorschlag für H1\\\",\\n  \\\"search_intent\\\": \\\"informational|transactional|navigational\\\",\\n  \\\"estimated_word_count\\\": 2500,\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Überschrift\\\",\\n      \\\"h3_subsections\\\": [\\n        {\\n          \\\"title\\\": \\\"Unterüberschrift\\\",\\n          \\\"key_points\\\": [\\\"Punkt 1\\\", \\\"Punkt 2\\\"],\\n          \\\"wdf_idf_terms\\\": [\\\"term1\\\", \\\"term2\\\"],\\n          \\\"internal_link\\\": {\\\"anchor\\\": \\\"text\\\", \\\"url\\\": \\\"url\\\"} \\n        }\\n      ],\\n      \\\"infographic\\\": {\\\"type\\\": \\\"comparison_table|timeline|flowchart\\\", \\\"description\\\": \\\"Was darstellen\\\"} \\n    }\\n  ],\\n  \\\"faq_section\\\": [\\n    {\\\"question\\\": \\\"Frage?\\\", \\\"answer_outline\\\": \\\"Kurzskizze der Antwort\\\"}\\n  ],\\n  \\\"internal_links\\\": [\\n    {\\\"anchor_text\\\": \\\"Text\\\", \\\"target_url\\\": \\\"URL\\\", \\\"context\\\": \\\"Wo im Artikel\\\"}\\n  ]\\n}\\n\\nAntworte NUR mit dem JSON, keine Erklärungen.\"\n    }\n  ]\n}",
         "options": {
           "timeout": 120000
         }
@@ -497,6 +509,68 @@
       },
       "notesInFlow": true,
       "notes": "Task-Details aus ClickUp laden (Name, Tags, Custom Fields)"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('Config').item.json.prompt_deep_research_file_id }}?alt=media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "ol-node-020",
+      "name": "GDrive: Fetch Deep Research Prompt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        100
+      ],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Deep-Research-Prompt als Markdown aus Google Drive laden"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://www.googleapis.com/drive/v3/files/{{ $('Config').item.json.prompt_geo_optimierung_file_id }}?alt=media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "ol-node-021",
+      "name": "GDrive: Fetch GEO Prompt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        500
+      ],
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "u6XCIz3Yxbakjrwg",
+          "name": "Google account"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "GEO-Optimierung-Prompt als Markdown aus Google Drive laden"
     }
   ],
   "connections": {
@@ -512,6 +586,33 @@
       ]
     },
     "Config": {
+      "main": [
+        [
+          {
+            "node": "GDrive: Fetch Deep Research Prompt",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GDrive: Fetch GEO Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GDrive: Fetch Deep Research Prompt": {
+      "main": [
+        [
+          {
+            "node": "Check Status = COPYWRITING",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GDrive: Fetch GEO Prompt": {
       "main": [
         [
           {
