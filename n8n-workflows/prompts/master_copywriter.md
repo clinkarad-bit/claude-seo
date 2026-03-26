@@ -262,6 +262,12 @@ Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht. Mindest
 
 ## GEO-OPTIMIERUNG (direkt beim Schreiben anwenden)
 
+### Frage-Antwort-Prinzip
+- Der Beitrag ist wie ein Gespräch: Frage → Antwort → Kontext
+- Nach jeder H2 (die eine Frage ist): Antwort DIREKT im ersten Satz
+- Danach Details, Beispiele, Kontext
+- Der Leser bekommt sofort die Kernaussage, dann die Vertiefung
+
 ### Antwortstruktur
 - Nach jeder H2 kommt zuerst eine direkte, klare Antwort
 - Hauptaussagen als eindeutige Sätze: „X ist Y." oder „Der Grund dafür ist Z."
