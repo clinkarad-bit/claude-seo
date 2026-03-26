@@ -187,6 +187,23 @@ Doppelpunkte dürfen nur nach maximal 2–3 Wörtern stehen. Längere Einleitung
 
 ---
 
+
+### Verbotene Wörter in Überschriften UND Text
+- „ultimativ", „ultimative", „ultimativer", „ultimativen"
+- „krass", „mega", „extrem" (als Superlativ)
+- „Dimensionen", „Dimension" — dieses Wort NIEMALS verwenden, nirgends
+- Keine Superlative in Überschriften: „der beste", „der größte", „der wichtigste"
+- Keine reißerischen Adjektive: „bahnbrechend", „revolutionär", „einzigartig"
+
+### Tonalität verstärken
+- Schreibe noch NAHBARER: so als würdest du einem Freund am Küchentisch etwas erklären
+- Noch AKTIVER: der Leser ist immer im Mittelpunkt, sprich ihn direkt an
+- Vermeide jeden akademischen oder formellen Ton
+- Kurze, direkte Sätze bevorzugen
+- Mehr rhetorische Fragen im Text einbauen um den Leser einzubeziehen
+
+---
+
 ## LISTEN UND TABELLEN
 
 ### Listen
