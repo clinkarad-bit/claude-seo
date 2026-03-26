@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-25T14:52:27.848Z",
+  "updatedAt": "2026-03-26T00:40:20.818Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -337,7 +337,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// FAQ-Sektion aus dem Outline generieren (falls vorhanden)\nconst outlineJson = $('Extract Input Data').item.json.outline_json;\nlet outline;\ntry {\n  outline = typeof outlineJson === 'string' ? JSON.parse(outlineJson) : outlineJson;\n} catch(e) { outline = { faq_section: [] }; }\n\nconst faqItems = outline.faq_section || [];\nif (faqItems.length === 0) {\n  return [{ json: { faq_markdown: '', has_faq: false } }];\n}\n\nlet faqMd = '\\n\\n## Häufig gestellte Fragen (FAQ)\\n\\n';\nfor (const faq of faqItems) {\n  faqMd += `### ${faq.question}\\n\\n${faq.answer_outline}\\n\\n`;\n}\n\nreturn [{ json: { faq_markdown: faqMd, has_faq: true, faq_count: faqItems.length } }];"
+        "jsCode": "// FAQ wird bereits im Artikel durch den Copywriter geschrieben\n// Kein separates FAQ-Anhängen nötig\nreturn [{ json: { faq_markdown: '', has_faq: false } }];"
       },
       "id": "cw-node-010",
       "name": "Build FAQ Section",
@@ -1337,9 +1337,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "a7119b08-0344-4af3-b47f-d7a025812184",
-  "activeVersionId": "a7119b08-0344-4af3-b47f-d7a025812184",
-  "versionCounter": 132,
+  "versionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
+  "activeVersionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
+  "versionCounter": 137,
   "triggerCount": 1,
   "shared": [
     {
@@ -1362,9 +1362,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-25T14:52:27.851Z",
-    "createdAt": "2026-03-25T14:52:27.851Z",
-    "versionId": "a7119b08-0344-4af3-b47f-d7a025812184",
+    "updatedAt": "2026-03-26T00:40:20.821Z",
+    "createdAt": "2026-03-26T00:40:20.821Z",
+    "versionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
     "workflowId": "Qm2j4ZECEwa9jTdp",
     "nodes": [
       {
@@ -1697,7 +1697,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// FAQ-Sektion aus dem Outline generieren (falls vorhanden)\nconst outlineJson = $('Extract Input Data').item.json.outline_json;\nlet outline;\ntry {\n  outline = typeof outlineJson === 'string' ? JSON.parse(outlineJson) : outlineJson;\n} catch(e) { outline = { faq_section: [] }; }\n\nconst faqItems = outline.faq_section || [];\nif (faqItems.length === 0) {\n  return [{ json: { faq_markdown: '', has_faq: false } }];\n}\n\nlet faqMd = '\\n\\n## Häufig gestellte Fragen (FAQ)\\n\\n';\nfor (const faq of faqItems) {\n  faqMd += `### ${faq.question}\\n\\n${faq.answer_outline}\\n\\n`;\n}\n\nreturn [{ json: { faq_markdown: faqMd, has_faq: true, faq_count: faqItems.length } }];"
+          "jsCode": "// FAQ wird bereits im Artikel durch den Copywriter geschrieben\n// Kein separates FAQ-Anhängen nötig\nreturn [{ json: { faq_markdown: '', has_faq: false } }];"
         },
         "id": "cw-node-010",
         "name": "Build FAQ Section",
@@ -2694,34 +2694,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-25T14:52:27.937Z",
-        "id": 397,
+        "createdAt": "2026-03-26T00:40:20.915Z",
+        "id": 401,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a7119b08-0344-4af3-b47f-d7a025812184",
+        "versionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T14:52:28.846Z",
-        "id": 399,
+        "createdAt": "2026-03-26T00:40:22.673Z",
+        "id": 403,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a7119b08-0344-4af3-b47f-d7a025812184",
+        "versionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T14:52:27.913Z",
-        "id": 396,
+        "createdAt": "2026-03-26T00:40:20.895Z",
+        "id": 400,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a7119b08-0344-4af3-b47f-d7a025812184",
+        "versionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-25T14:52:28.822Z",
-        "id": 398,
+        "createdAt": "2026-03-26T00:40:22.654Z",
+        "id": 402,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a7119b08-0344-4af3-b47f-d7a025812184",
+        "versionId": "2916c499-0a22-4c77-84f9-c6bcd8119600",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
