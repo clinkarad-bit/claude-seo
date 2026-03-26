@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-26T11:20:30.363Z",
+  "updatedAt": "2026-03-26T11:22:46.252Z",
   "createdAt": "2026-03-24T14:39:47.055Z",
   "id": "Qm2j4ZECEwa9jTdp",
   "name": "COVAGO 01b - Content Writer",
@@ -918,7 +918,7 @@
         0
       ],
       "parameters": {
-        "jsCode": "const article = $('Extract Final Article').item.json.final_article||'';\nconst kw = $('Extract Input Data').item.json.keyword||'';\nlet resSummary = '';\ntry { resSummary = ($('Extract Research Summary').item.json.research_summary||'').substring(0,3000); } catch(e) {}\nreturn [{json:{request_body:{model:\"claude-sonnet-4-20250514\",max_tokens:8192,system:`Strenger Lektor. Korrigiere ALLES. NICHT KÜRZEN.\n\n1. DUZEN: Sie→du. Überall prüfen.\n2. W-WORT: Jede Überschrift mit Was/Wie/Wann → Frage mit ? \"Was du zahlst\"→\"Was zahlst du?\"\n3. JAHRESZAHLEN: \"2026\" allein→\"in 2026\"/\"für 2026\". Überall.\n4. ÜBERSCHRIFTEN: Müssen Sinn ergeben, roter Faden, Kontext zur H2 darüber.\n5. ÜBERSCHRIFT NACH ÜBERSCHRIFT: Text einfügen.\n6. FETTER TEXT als Überschrift → H-Tag.\n7. LISTEN/TABELLEN: Text davor + danach.\n8. QUELLEN: Statistiken/Gesetze verlinken. URLs aus Fakten unten.\n9. SPRACHSTIL: Finanztip-Niveau. Sachlich, zugänglich, nahbar. 2-4 Sätze pro Absatz.\n10. Fachbegriffe fett + sofort erklären.\n\nFakten-URLs: ${resSummary}\nKOMPLETT korrigierten Artikel zurückgeben. NICHT KÜRZEN.`,messages:[{role:\"user\",content:article}]}}}];"
+        "jsCode": "const article = $('Extract Final Article').item.json.final_article||'';\nconst kw = $('Extract Input Data').item.json.keyword||'';\nlet resSummary = '';\ntry { resSummary = ($('Extract Research Summary').item.json.research_summary||'').substring(0,3000); } catch(e) {}\nreturn [{json:{request_body:{model:\"claude-sonnet-4-20250514\",max_tokens:8192,system:`Strenger Lektor. Korrigiere ALLES. NICHT KÜRZEN.\n\n1. DUZEN: Sie→du. du/dein/dir/dich IMMER klein (nie Du/Dein/Dir/Dich mitten im Satz). Überall prüfen.\n2. W-WORT: Jede Überschrift mit Was/Wie/Wann → Frage mit ? \"Was du zahlst\"→\"Was zahlst du?\"\n3. JAHRESZAHLEN: \"2026\" allein→\"in 2026\"/\"für 2026\". Überall.\n4. ÜBERSCHRIFTEN: Müssen Sinn ergeben, roter Faden, Kontext zur H2 darüber.\n5. ÜBERSCHRIFT NACH ÜBERSCHRIFT: Text einfügen.\n6. FETTER TEXT als Überschrift → H-Tag.\n7. LISTEN/TABELLEN: Text davor + danach.\n8. QUELLEN: Statistiken/Gesetze verlinken. URLs aus Fakten unten.\n9. SPRACHSTIL: Finanztip-Niveau. Sachlich, zugänglich, nahbar. 2-4 Sätze pro Absatz.\n10. Fachbegriffe fett + sofort erklären.\n\nFakten-URLs: ${resSummary}\nKOMPLETT korrigierten Artikel zurückgeben. NICHT KÜRZEN.`,messages:[{role:\"user\",content:article}]}}}];"
       }
     },
     {
@@ -1505,9 +1505,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
-  "activeVersionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
-  "versionCounter": 257,
+  "versionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
+  "activeVersionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
+  "versionCounter": 262,
   "triggerCount": 1,
   "shared": [
     {
@@ -1530,9 +1530,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-26T11:20:30.364Z",
-    "createdAt": "2026-03-26T11:20:30.364Z",
-    "versionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
+    "updatedAt": "2026-03-26T11:22:46.256Z",
+    "createdAt": "2026-03-26T11:22:46.256Z",
+    "versionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
     "workflowId": "Qm2j4ZECEwa9jTdp",
     "nodes": [
       {
@@ -2446,7 +2446,7 @@
           0
         ],
         "parameters": {
-          "jsCode": "const article = $('Extract Final Article').item.json.final_article||'';\nconst kw = $('Extract Input Data').item.json.keyword||'';\nlet resSummary = '';\ntry { resSummary = ($('Extract Research Summary').item.json.research_summary||'').substring(0,3000); } catch(e) {}\nreturn [{json:{request_body:{model:\"claude-sonnet-4-20250514\",max_tokens:8192,system:`Strenger Lektor. Korrigiere ALLES. NICHT KÜRZEN.\n\n1. DUZEN: Sie→du. Überall prüfen.\n2. W-WORT: Jede Überschrift mit Was/Wie/Wann → Frage mit ? \"Was du zahlst\"→\"Was zahlst du?\"\n3. JAHRESZAHLEN: \"2026\" allein→\"in 2026\"/\"für 2026\". Überall.\n4. ÜBERSCHRIFTEN: Müssen Sinn ergeben, roter Faden, Kontext zur H2 darüber.\n5. ÜBERSCHRIFT NACH ÜBERSCHRIFT: Text einfügen.\n6. FETTER TEXT als Überschrift → H-Tag.\n7. LISTEN/TABELLEN: Text davor + danach.\n8. QUELLEN: Statistiken/Gesetze verlinken. URLs aus Fakten unten.\n9. SPRACHSTIL: Finanztip-Niveau. Sachlich, zugänglich, nahbar. 2-4 Sätze pro Absatz.\n10. Fachbegriffe fett + sofort erklären.\n\nFakten-URLs: ${resSummary}\nKOMPLETT korrigierten Artikel zurückgeben. NICHT KÜRZEN.`,messages:[{role:\"user\",content:article}]}}}];"
+          "jsCode": "const article = $('Extract Final Article').item.json.final_article||'';\nconst kw = $('Extract Input Data').item.json.keyword||'';\nlet resSummary = '';\ntry { resSummary = ($('Extract Research Summary').item.json.research_summary||'').substring(0,3000); } catch(e) {}\nreturn [{json:{request_body:{model:\"claude-sonnet-4-20250514\",max_tokens:8192,system:`Strenger Lektor. Korrigiere ALLES. NICHT KÜRZEN.\n\n1. DUZEN: Sie→du. du/dein/dir/dich IMMER klein (nie Du/Dein/Dir/Dich mitten im Satz). Überall prüfen.\n2. W-WORT: Jede Überschrift mit Was/Wie/Wann → Frage mit ? \"Was du zahlst\"→\"Was zahlst du?\"\n3. JAHRESZAHLEN: \"2026\" allein→\"in 2026\"/\"für 2026\". Überall.\n4. ÜBERSCHRIFTEN: Müssen Sinn ergeben, roter Faden, Kontext zur H2 darüber.\n5. ÜBERSCHRIFT NACH ÜBERSCHRIFT: Text einfügen.\n6. FETTER TEXT als Überschrift → H-Tag.\n7. LISTEN/TABELLEN: Text davor + danach.\n8. QUELLEN: Statistiken/Gesetze verlinken. URLs aus Fakten unten.\n9. SPRACHSTIL: Finanztip-Niveau. Sachlich, zugänglich, nahbar. 2-4 Sätze pro Absatz.\n10. Fachbegriffe fett + sofort erklären.\n\nFakten-URLs: ${resSummary}\nKOMPLETT korrigierten Artikel zurückgeben. NICHT KÜRZEN.`,messages:[{role:\"user\",content:article}]}}}];"
         }
       },
       {
@@ -3030,34 +3030,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-26T11:20:30.426Z",
-        "id": 561,
+        "createdAt": "2026-03-26T11:22:46.347Z",
+        "id": 565,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
+        "versionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T11:20:31.627Z",
-        "id": 563,
+        "createdAt": "2026-03-26T11:22:47.501Z",
+        "id": 567,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
+        "versionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T11:20:30.404Z",
-        "id": 560,
+        "createdAt": "2026-03-26T11:22:46.320Z",
+        "id": 564,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
+        "versionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T11:20:31.599Z",
-        "id": 562,
+        "createdAt": "2026-03-26T11:22:47.475Z",
+        "id": 566,
         "workflowId": "Qm2j4ZECEwa9jTdp",
-        "versionId": "a9cbdbaf-080b-436c-82d5-df25f669a95a",
+        "versionId": "ca42c8da-8d23-4dd3-8de3-0dd1cc1fbd5f",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
