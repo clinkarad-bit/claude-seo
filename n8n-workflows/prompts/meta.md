@@ -1,40 +1,63 @@
-# Prompt: Meta Title & Meta Description Generator  ## Aufgabe  Schreibe einen Meta Title und eine Meta Description für folgende Seite:  - **Seitentyp:** [z. B. Blog-Artikel / Landingpage / Ratgeber / Dienstleistungsseite] - **Thema:** [z. B. Generative Engine Optimization / Local SEO / Content-Strategie] - **Zielgruppe:** [z. B. Inhaber kleiner Unternehmen / Marketing-Manager / Selbstständige ohne SEO-Vorkenntnisse] - **Haupt-Keyword:** [z. B. GEO Optimierung] - **Markenname:** [z. B. CASOA] - **Ton:** direkt, klar, leicht provokant – kein Marketingsprech  ---  ## Regeln Meta Title  - Länge: **50–60 Zeichen** (inklusive Leerzeichen) - Das Haupt-Keyword muss **am Anfang** stehen - Keine Gedankenstriche (weder – noch -) - Kein generisches Werbesprech wie „umfassend", „innovativ", „ganzheitlich" - Der Markenname kommt **am Ende**, abgetrennt mit einem senkrechten Strich: `|` - Formuliere prägnant und konkret – kein vollständiger Satz nötig - Nutze wenn passend eine Zahl (z. B. „5 Strategien", „3 Schritte") - Jahreszahlen natürlich einbauen wenn sinnvoll: „für 2026", „ab 2026", „in 2026" – nie isoliert wie „SEO 2026", sondern immer „SEO für 2026" - Kein Punkt am Ende  ## Regeln Meta Description  - Länge: **140–155 Zeichen** (inklusive Leerzeichen) - Das Haupt-Keyword muss **möglichst früh** stehen - Keine Gedankenstriche (weder – noch -) - Keine Passivkonstruktionen - Kein generisches Werbesprech wie „umfassend", „innovativ", „ganzheitlich" - Formuliere eine konkrete Aussage oder Frage, die Neugier weckt - Schreibe so, dass ein absoluter Laie sofort versteht, was ihn auf der Seite erwartet - Nutze wenn passend eine Zahl oder ein konkretes Versprechen (z. B. „in 3 Schritten", „ohne Agentur") - Jahreszahlen natürlich einbauen wenn sinnvoll: „für 2026", „ab 2026", „in 2026" – nie isoliert wie „SEO 2026", sondern immer „SEO für 2026" - Schließe mit einer kurzen Handlungsaufforderung ab (z. B. „Jetzt lesen.", „Direkt umsetzen.", „Kostenlos testen.") - Kein Punkt nach der Handlungsaufforderung nur wenn sie als eigenständiger Satz endet  ---  ## Ausgabe  Liefere genau EIN Ergebnis als flaches JSON-Objekt:
-```json
+# Meta Title & Meta Description Generator
+
+## Ziele des Meta-Titles
+- Suchintention auf den Punkt treffen (Informational, Transactional, Lokal etc.)
+- Primäres Keyword früh platzieren, ohne Keyword-Stuffing, IMMER in maximal natürlicher Sprache
+- Jahreszahlen natürlich einbauen: NICHT "welche D&O-Versicherung ist 2026 gut?" SONDERN "welche D&O-Versicherung ist in 2026 gut?"
+- Echte Erwartungshaltung setzen, kein Clickbait, keine überzogenen Versprechen
+- Hohe Scanbarkeit auf Desktop und Mobile
+- Jede URL hat einen eigenen eindeutigen Titel
+- Merksatz: Ein Title zeigt sofort "Worum geht's? Für wen? Welcher konkrete Nutzen?" ohne Marketing-Gelaber
+
+## Länge & Technik
+- 50-60 Zeichen, damit der Titel in Desktop-SERPs nicht abgeschnitten wird
+- Wichtigste Keywords und Nutzen in die ersten 40-50 Zeichen
+- Breitere Zeichen (W, M, Umlaute) kosten mehr Pixelplatz
+
+## Struktur
+[Hauptkeyword + Klarheit] : [konkreter Nutzen / Kontext] | [Brand]
+
+Beispiele:
+- "Private Krankenversicherung für Selbstständige: Tarife jetzt vergleichen"
+- "PKV-Wechsel für Gutverdiener: Chancen, Risiken, Checkliste"
+- "Betriebliche Krankenversicherung für KMU: Vorteile & Kosten einfach erklärt"
+
+## Keyword-Strategie
+- Primäres Keyword so nah wie möglich an den Anfang, in natürlichem Deutsch
+- 1-2 verwandte Begriffe dezent ergänzen wenn sie den Titel nicht unlesbar machen
+- KEIN Keyword-Stuffing mit Komma-Aneinanderreihungen
+- Keyword IMMER maximal natürlich einbauen mit Verben, Präpositionen, Bindewörtern
+- Alles richtig ausschreiben: NICHT "Checkliste PKV" SONDERN "Checkliste für die PKV"
+
+## Sprache
+- KEINE Superlative: ultimativ, krass, extrem, unglaublich, schockierend
+- KEINE unrealistischen Versprechen: "garantiert beste PKV", "nie wieder Probleme"
+- KEINE Clickbait-Muster: "Das glaubt dir keine Versicherung!", "Nr. 1 Trick"
+- Stattdessen deskriptiv & konkret
+- W-Wörter IMMER als richtige Frage: NICHT "wann sich ein Wechsel lohnt" SONDERN "Wann lohnt sich ein Wechsel?"
+- Normale Satzschreibung, kein Title-Case
+- Trennzeichen ":" oder "|" zur Strukturierung, KEINE Gedankenstriche
+
+## Meta Description
+- 140-155 Zeichen
+- Haupt-Keyword möglichst früh
+- Konkrete Aussage oder Frage die Neugier weckt
+- Laie muss sofort verstehen was ihn auf der Seite erwartet
+- Kurze Handlungsaufforderung am Ende: "Jetzt lesen.", "Direkt umsetzen."
+- KEINE Gedankenstriche, KEINE Passivkonstruktionen
+- Natürliche Sprache, kein Keyword-Stuffing
+
+## Konsistenz
+- Title = komprimiertes Versprechen
+- Meta Description = kurze Vertiefung
+- Beides muss zum tatsächlichen Seiteninhalt passen
+
+## Ausgabe
+Antworte NUR als flaches JSON:
 {
   "meta_title": "...",
-  "meta_title_zeichen": 55,
   "meta_description": "...",
-  "meta_description_zeichen": 148,
   "url_slug": "...",
   "focus_keyword": "..."
 }
-```
-KEINE Varianten, KEINE verschachtelten Objekte. Nur dieses eine flache JSON.
-
-
----
-
-## ZUSÄTZLICHE PFLICHT-REGELN
-
-### Natürliche Sprache
-- Meta Title und Meta Description MÜSSEN wie natürliche, korrekte deutsche Sprache klingen
-- Kein Keyword-Stuffing. Das Keyword natürlich einbauen, nicht erzwingen.
-- Grammatisch korrekt, keine Rechtschreibfehler, kein holpriger Satzbau
-- So formulieren wie ein Mensch es sagen würde, nicht wie eine Suchmaschine es lesen soll
-
-### Verboten im Meta Title
-- Keywords in unnatürlicher Reihenfolge erzwingen
-- Doppelpunkt-Konstruktionen wie "Keyword: Erklärung"
-- Gedankenstriche
-- Fachsprache die ein Laie nicht versteht
-
-### Beispiele
-❌ "D&O Versicherung Kosten Geschäftsführer Haftung | CASOA"
-❌ "Angestellter Geschäftsführer Haftung: Risiken und Schutz"
-✅ "Was kostet eine D&O-Versicherung für Geschäftsführer? | CASOA"
-✅ "Haftest du als angestellter Geschäftsführer mit deinem Privatvermögen? | CASOA"
-
-### Prüfe vor Ausgabe
-- Liest sich der Meta Title wie ein natürlicher Satz oder eine natürliche Frage?
-- Klingt die Meta Description so, als hätte ein Mensch sie geschrieben?
-- Würde ein Nutzer bei Google darauf klicken?
+KEINE Varianten, KEINE verschachtelten Objekte.

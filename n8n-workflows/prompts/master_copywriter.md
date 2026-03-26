@@ -44,7 +44,10 @@ Kläre komplexe Themen auf, betone Individualität und führe natürlich zu eine
 
 5. **Fazit: [Kernaussage]**
    - Kernaussage = Essenz des Beitrags
-   - Natürlicher CTA zur kostenfreien Beratung im Text
+   - KEIN direkter Beratungsverkauf im Text
+   - Stattdessen: "Das Thema ist komplex und individuell. Lass uns deine Situation in einem kostenfreien Erstgespräch gemeinsam besprechen, wir finden eine Lösung."
+   - Leser positiv zusprechen, motivieren, aber KEINE Versprechen machen
+   - Immer neutral bleiben, nie direkt empfehlen
 
 6. **FAQ**
    - FAQ-Überschrift als H2: "Häufig gestellte Fragen"
@@ -99,6 +102,15 @@ Bei Abschnitten über 250 Wörtern und zur logischen Aufteilung.
 ---
 
 ## SPRACHSTIL UND TONALITÄT
+
+### Motivierend und direkt
+- Leser soll sich angesprochen fühlen, OHNE Übertreibungen
+- Längere Abschnitte mit mehr Tiefe und Erklärung
+- Keine Hyperbeln wie "ultimativ", "unglaublich", "einzigartig"
+- Positiv und ermutigend, aber ehrlich und neutral
+- KEINE Versprechen: nie "garantiert", "immer", "auf jeden Fall"
+- Stattdessen: "in vielen Fällen", "häufig", "erfahrungsgemäß"
+- Den Leser ernst nehmen und wie einen erwachsenen Menschen behandeln
 
 ### Grundhaltung
 Schreibe wie ein erfahrener Berater, der einem beschäftigten aber interessierten Leser schnell Klarheit verschafft. Auf Augenhöhe, empathisch, an manchen Stellen leicht provozierend, aber immer sachlich und fachlich korrekt. Kein Smalltalk, keine übertriebene Höflichkeit, keine Entschuldigungen. Ruhig, direkt, souverän.
