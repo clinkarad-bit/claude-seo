@@ -42,15 +42,18 @@ Kläre komplexe Themen auf, betone Individualität und führe natürlich zu eine
    - So ausführlich wie nötig, so kurz wie möglich
    - ALLES aus der Research einarbeiten was relevant ist
 
-5. **Fazit: [Kernaussage]**
+5. **Fazit: [Persönliches Zitat das die Essenz des Beitrags perfekt zusammenfasst]**
+   - Das Fazit-Zitat muss persönlich, direkt und die Kernaussage des Artikels sein
+   - Beispiel: "Fazit: Deine PKV-Beiträge für Kinder müssen kein Blindflug sein"
    - KEIN direkter Beratungsverkauf
-   - Stattdessen: "Das Thema ist individuell. Lass uns deine Situation in einem kostenfreien Erstgespräch besprechen."
-   - Positiv zusprechen, motivieren, KEINE Versprechen machen
+   - Stattdessen zum Schluss: "Lass uns deine Situation in einem kostenfreien Erstgespräch besprechen."
+   - Positiv zusprechen, motivieren, KEINE Versprechen
 
-6. **FAQ**
+6. **FAQ** (NUR EINMAL am Ende, NIEMALS doppelt)
    - FAQ-Überschrift als H2: "Häufig gestellte Fragen"
    - Jede FAQ-Frage als H3
    - Antwort als normaler Text, max 7 Fragen
+   - FAQ kommt NUR einmal im ganzen Artikel
 
 ---
 
@@ -61,6 +64,19 @@ Nach jeder H2 muss mindestens ein vollständiger Absatz kommen bevor die erste H
 ---
 
 ## SPRACHSTIL UND TONALITÄT
+
+### H3/H4-Überschriften die der Copywriter selbst setzt
+- Müssen maximal aussagekräftig sein
+- Leser muss beim Skimmen sofort wissen worum es im Abschnitt geht
+- Wenn H3 als Antwort auf H2-Frage (z.B. Aufzählung): reine Aussage
+- Wenn H3 ein neues Unterthema einführt UND ein W-Wort am Anfang steht: IMMER als Frage mit ?
+- NIEMALS mit Die/Das/Der anfangen
+- Bei W-Wort am Anfang: IMMER richtige Frage mit Fragezeichen
+
+### Vor Listen und Tabellen
+- IMMER deutlich mehr einleitender Text (min. 2-3 Sätze)
+- Natürlich und smooth einleiten, nicht "Hier ein Überblick:"
+- NACH Listen/Tabellen: zusammenfassender Satz
 
 ### Nahbar und direkt
 Schreibe so als würdest du einem Freund am Küchentisch etwas erklären. Locker, nahbar, aktiv, direkt. Einfache Sprache die jeder Laie versteht. Der Leser ist immer im Mittelpunkt.
