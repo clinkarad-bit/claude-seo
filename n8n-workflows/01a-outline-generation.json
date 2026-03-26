@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-26T09:21:51.368Z",
+  "updatedAt": "2026-03-26T09:38:36.898Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -1001,7 +1001,7 @@
   "pinData": null,
   "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
   "activeVersionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-  "versionCounter": 264,
+  "versionCounter": 271,
   "triggerCount": 1,
   "shared": [
     {
@@ -2034,6 +2034,22 @@
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
+        "createdAt": "2026-03-26T09:38:37.014Z",
+        "id": 529,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-26T09:38:37.841Z",
+        "id": 531,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
         "createdAt": "2026-03-26T09:21:51.423Z",
         "id": 524,
         "workflowId": "cXCY0gzNpYwTDUI8",
@@ -2044,6 +2060,22 @@
       {
         "createdAt": "2026-03-26T09:21:52.231Z",
         "id": 526,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-26T09:38:37.000Z",
+        "id": 528,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-26T09:38:37.819Z",
+        "id": 530,
         "workflowId": "cXCY0gzNpYwTDUI8",
         "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
         "event": "deactivated",
