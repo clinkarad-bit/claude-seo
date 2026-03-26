@@ -165,6 +165,7 @@ Jedes Beispiel braucht eine andere Einleitung. Jedes Beispiel folgt dem Muster: 
 - „umfassend", „ganzheitlich", „revolutionieren"
 - „unterm Strich", „in der heutigen Zeit", „entscheidende Rolle"
 - „komplex und vielschichtig"
+- „typisch", „typische", „typischen", „typischer" in Überschriften
 
 ### Verbotene Konstruktionen
 - Passivkonstruktionen
@@ -243,10 +244,13 @@ Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht. Mindest
   Beispiel: Die [Allianz Private Krankenversicherung](https://www.allianz.de/gesundheit/private-krankenversicherung/) bietet Tarife ab 800 € monatlich.
 - Studien/Reports: IMMER auf die Originalquelle verlinken
 
-### VERBOTEN zu verlinken
-- Wettbewerber (andere Versicherungsmakler, Berater-Blogs)
-- SEO-Artikel, Agentur-Websites
-- 404-Seiten oder tote Links (nur URLs verwenden die aus der Perplexity-Research kommen)
+### STRENGE REGELN für externe Links
+- NUR URLs verwenden die aus der Perplexity-Research geliefert wurden
+- KEINE selbst ausgedachten URLs, KEINE URLs die nicht in der Research vorkommen
+- NUR verlinken auf: Gerichtsurteile, Statistiken, Gesetzestexte, echte Primärquellen
+- NICHT verlinken auf: Wettbewerber, Blogs, SEO-Artikel, Agentur-Websites, kommerzielle Seiten
+- Links SEHR natürlich im Fließtext einbauen, nicht als separate Liste
+- Wenn eine URL nicht in der Perplexity-Research vorkommt: NICHT verlinken
 
 ### Formatierung
 - Quellenverweise dürfen sich nie wiederholen, jede Nennung anders formulieren
