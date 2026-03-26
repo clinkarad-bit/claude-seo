@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-26T09:38:36.898Z",
+  "updatedAt": "2026-03-26T10:16:36.224Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -195,10 +195,7 @@
         "genericAuthType": "httpBasicAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"os\": \"windows\",\n    \"depth\": 10\n  }\n]",
-        "options": {
-          "timeout": 30000
-        }
+        "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"os\": \"windows\",\n    \"depth\": 10\n  }\n]"
       },
       "id": "ol-node-005",
       "name": "SERP Analysis (DataForSEO)",
@@ -240,10 +237,7 @@
         "genericAuthType": "httpBasicAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json.top10_urls.map(url => ({ url, store_raw_html: false }))) }}",
-        "options": {
-          "timeout": 60000
-        }
+        "jsonBody": "={{ JSON.stringify($json.top10_urls.map(url => ({ url, store_raw_html: false }))) }}"
       },
       "id": "ol-node-007",
       "name": "Fetch Top 10 Content (DataForSEO)",
@@ -285,10 +279,7 @@
         "genericAuthType": "httpBasicAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "=[\n  {\n    \"keyword\": \"site:reddit.com {{ $('Extract Task Data').item.json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"depth\": 10\n  }\n]",
-        "options": {
-          "timeout": 30000
-        }
+        "jsonBody": "=[\n  {\n    \"keyword\": \"site:reddit.com {{ $('Extract Task Data').item.json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"depth\": 10\n  }\n]"
       },
       "id": "ol-node-009",
       "name": "Reddit & PAA Search",
@@ -330,9 +321,6 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "options": {
-          "timeout": 300000
-        },
         "jsonBody": "={{ JSON.stringify($json.request_body) }}"
       },
       "id": "ol-node-011",
@@ -402,9 +390,6 @@
         "url": "https://api.anthropic.com/v1/messages",
         "sendBody": true,
         "specifyBody": "json",
-        "options": {
-          "timeout": 300000
-        },
         "jsonBody": "={{ JSON.stringify($json.request_body) }}",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
@@ -460,10 +445,7 @@
         "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json.trigger_body) }}",
-        "options": {
-          "timeout": 10000
-        }
+        "jsonBody": "={{ JSON.stringify($json.trigger_body) }}"
       },
       "id": "ol-node-016",
       "name": "Trigger Content Writer (01b)",
@@ -481,10 +463,7 @@
         "method": "GET",
         "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
         "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "options": {
-          "timeout": 10000
-        }
+        "genericAuthType": "httpHeaderAuth"
       },
       "id": "ol-node-017",
       "name": "Fetch Task Details (ClickUp)",
@@ -523,10 +502,7 @@
         "method": "PATCH",
         "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.doc_id }}?addParents={{ $('Config').item.json.copywriting_folder_id }}&removeParents={{ $('Config').item.json.keywords_folder_id }}",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleOAuth2Api",
-        "options": {
-          "timeout": 10000
-        }
+        "nodeCredentialType": "googleOAuth2Api"
       },
       "id": "ol-node-023",
       "name": "Move Doc: Keywords → Copywriting",
@@ -593,7 +569,6 @@
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"name\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.copywriting_folder_id }}\"]\n}",
-        "options": {},
         "nodeCredentialType": "googleOAuth2Api"
       },
       "credentials": {
@@ -619,8 +594,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"value\": \"https://docs.google.com/document/d/{{ $json.id }}/edit\"\n}",
-        "options": {}
+        "jsonBody": "={\n  \"value\": \"https://docs.google.com/document/d/{{ $json.id }}/edit\"\n}"
       },
       "credentials": {
         "httpHeaderAuth": {
@@ -999,9 +973,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-  "activeVersionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-  "versionCounter": 271,
+  "versionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
+  "activeVersionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
+  "versionCounter": 276,
   "triggerCount": 1,
   "shared": [
     {
@@ -1024,9 +998,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-26T09:21:51.374Z",
-    "createdAt": "2026-03-26T09:21:51.374Z",
-    "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+    "updatedAt": "2026-03-26T10:16:36.226Z",
+    "createdAt": "2026-03-26T10:16:36.226Z",
+    "versionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
     "workflowId": "cXCY0gzNpYwTDUI8",
     "nodes": [
       {
@@ -1217,10 +1191,7 @@
           "genericAuthType": "httpBasicAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"os\": \"windows\",\n    \"depth\": 10\n  }\n]",
-          "options": {
-            "timeout": 30000
-          }
+          "jsonBody": "=[\n  {\n    \"keyword\": \"{{ $json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"os\": \"windows\",\n    \"depth\": 10\n  }\n]"
         },
         "id": "ol-node-005",
         "name": "SERP Analysis (DataForSEO)",
@@ -1262,10 +1233,7 @@
           "genericAuthType": "httpBasicAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={{ JSON.stringify($json.top10_urls.map(url => ({ url, store_raw_html: false }))) }}",
-          "options": {
-            "timeout": 60000
-          }
+          "jsonBody": "={{ JSON.stringify($json.top10_urls.map(url => ({ url, store_raw_html: false }))) }}"
         },
         "id": "ol-node-007",
         "name": "Fetch Top 10 Content (DataForSEO)",
@@ -1307,10 +1275,7 @@
           "genericAuthType": "httpBasicAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "=[\n  {\n    \"keyword\": \"site:reddit.com {{ $('Extract Task Data').item.json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"depth\": 10\n  }\n]",
-          "options": {
-            "timeout": 30000
-          }
+          "jsonBody": "=[\n  {\n    \"keyword\": \"site:reddit.com {{ $('Extract Task Data').item.json.keyword }}\",\n    \"location_name\": \"{{ $('Config').item.json.target_location }}\",\n    \"language_name\": \"German\",\n    \"device\": \"desktop\",\n    \"depth\": 10\n  }\n]"
         },
         "id": "ol-node-009",
         "name": "Reddit & PAA Search",
@@ -1352,9 +1317,6 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "options": {
-            "timeout": 300000
-          },
           "jsonBody": "={{ JSON.stringify($json.request_body) }}"
         },
         "id": "ol-node-011",
@@ -1424,9 +1386,6 @@
           "url": "https://api.anthropic.com/v1/messages",
           "sendBody": true,
           "specifyBody": "json",
-          "options": {
-            "timeout": 300000
-          },
           "jsonBody": "={{ JSON.stringify($json.request_body) }}",
           "authentication": "genericCredentialType",
           "genericAuthType": "httpHeaderAuth",
@@ -1482,10 +1441,7 @@
           "url": "={{ $('Config').item.json.content_writer_webhook_url || 'https://n8n.carlosarad.de/webhook/clickup-content-writer' }}",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={{ JSON.stringify($json.trigger_body) }}",
-          "options": {
-            "timeout": 10000
-          }
+          "jsonBody": "={{ JSON.stringify($json.trigger_body) }}"
         },
         "id": "ol-node-016",
         "name": "Trigger Content Writer (01b)",
@@ -1503,10 +1459,7 @@
           "method": "GET",
           "url": "=https://api.clickup.com/api/v2/task/{{ $('ClickUp Webhook Trigger').item.json.body.task_id }}",
           "authentication": "genericCredentialType",
-          "genericAuthType": "httpHeaderAuth",
-          "options": {
-            "timeout": 10000
-          }
+          "genericAuthType": "httpHeaderAuth"
         },
         "id": "ol-node-017",
         "name": "Fetch Task Details (ClickUp)",
@@ -1545,10 +1498,7 @@
           "method": "PATCH",
           "url": "=https://www.googleapis.com/drive/v3/files/{{ $json.doc_id }}?addParents={{ $('Config').item.json.copywriting_folder_id }}&removeParents={{ $('Config').item.json.keywords_folder_id }}",
           "authentication": "predefinedCredentialType",
-          "nodeCredentialType": "googleOAuth2Api",
-          "options": {
-            "timeout": 10000
-          }
+          "nodeCredentialType": "googleOAuth2Api"
         },
         "id": "ol-node-023",
         "name": "Move Doc: Keywords → Copywriting",
@@ -1615,7 +1565,6 @@
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"name\": \"{{ $('Extract Task Data').item.json.keyword }}\",\n  \"mimeType\": \"application/vnd.google-apps.document\",\n  \"parents\": [\"{{ $('Config').item.json.copywriting_folder_id }}\"]\n}",
-          "options": {},
           "nodeCredentialType": "googleOAuth2Api"
         },
         "credentials": {
@@ -1641,8 +1590,7 @@
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"value\": \"https://docs.google.com/document/d/{{ $json.id }}/edit\"\n}",
-          "options": {}
+          "jsonBody": "={\n  \"value\": \"https://docs.google.com/document/d/{{ $json.id }}/edit\"\n}"
         },
         "credentials": {
           "httpHeaderAuth": {
@@ -2018,66 +1966,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-26T09:21:51.440Z",
-        "id": 525,
+        "createdAt": "2026-03-26T10:16:36.282Z",
+        "id": 541,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "versionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T09:21:52.252Z",
-        "id": 527,
+        "createdAt": "2026-03-26T10:16:37.099Z",
+        "id": 543,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "versionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T09:38:37.014Z",
-        "id": 529,
+        "createdAt": "2026-03-26T10:16:36.267Z",
+        "id": 540,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-        "event": "activated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-26T09:38:37.841Z",
-        "id": 531,
-        "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-        "event": "activated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-26T09:21:51.423Z",
-        "id": 524,
-        "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "versionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T09:21:52.231Z",
-        "id": 526,
+        "createdAt": "2026-03-26T10:16:37.078Z",
+        "id": 542,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-        "event": "deactivated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-26T09:38:37.000Z",
-        "id": 528,
-        "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
-        "event": "deactivated",
-        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
-      },
-      {
-        "createdAt": "2026-03-26T09:38:37.819Z",
-        "id": 530,
-        "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "b5419631-fdee-4ea3-9c28-51b1c385d115",
+        "versionId": "b9270c05-5c1f-474f-8ced-5e91c18a1398",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
