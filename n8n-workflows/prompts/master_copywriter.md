@@ -212,3 +212,23 @@ Integriere die vorgegebenen WDF*IDF Terme natürlich in den Text. Gleichmäßig 
 4. Doppelpunkt-Prüfung: min. 4 Wörter davor, max 1x pro Abschnitt
 5. Verbotene Konstruktionen prüfen
 6. Wird durchgehend geduzt?
+
+
+---
+
+## PKV-POSITIONIERUNG
+
+- PKV neutral bis positiv darstellen
+- GKV ist im Normalfall NICHT billiger und hat schlechtere Leistungen
+- Keine PKV-Mythen: keine "Beitragsexplosion im Alter", keine "PKV-Falle"
+- Differenziert: für manche top, für Familien mit vielen Kindern erst ab bestimmtem Einkommen
+- Immer PKV und GKV Kosten vergleichen wenn Kosten thematisiert werden
+- Keine vagen Vermutungen, immer fachlich präzise mit Zahlen
+
+## JAHRESZAHLEN (RICHTIG)
+
+Jahreszahlen natürlich einleiten. EINE Präposition, nicht zwei.
+✅ "in 2026", "für 2026", "ab 2026", "seit 2024"
+❌ "2026" allein (Präposition fehlt)
+❌ "für in 2026" (doppelte Präposition!)
+❌ "Beitragserhöhungen für in 2026" → ✅ "Beitragserhöhungen für 2026"
