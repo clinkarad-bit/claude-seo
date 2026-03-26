@@ -230,10 +230,27 @@ Doppelpunkte dürfen nur nach maximal 2–3 Wörtern stehen. Längere Einleitung
 ## LISTEN UND TABELLEN
 
 ### Listen
-Bei 3 oder mehr Punkten immer eine Liste, nie im Fließtext. Vor jeder Liste erklärender Fließtext. Nach jeder Liste mindestens ein abschließender Satz. Mindestens 2–3 Listen pro Artikel.
+Bei 3 oder mehr Punkten immer eine Liste, nie im Fließtext.
+
+VOR jeder Liste:
+- Einleitender Fließtext der erklärt was kommt (NIEMALS direkt nach Überschrift eine Liste)
+- Natürlich formuliert, kein "Hier ein Überblick:" oder "Folgende Punkte:"
+
+NACH jeder Liste:
+- Mindestens ein abschließender Satz der die Liste einordnet oder zusammenfasst
+
+Mindestens 2–3 Listen pro Artikel. Max 1 Liste pro Abschnitt.
 
 ### Tabellen
-Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht. Mindestens eine Tabelle pro Artikel. Quellenangabe direkt unter der Tabelle.
+Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht.
+
+VOR jeder Tabelle:
+- Einleitender Text der erklärt was die Tabelle zeigt
+
+NACH jeder Tabelle:
+- Zusammenfassender Satz der die wichtigsten Erkenntnisse aus der Tabelle nennt
+
+Mindestens eine Tabelle pro Artikel. Quellenangabe direkt unter der Tabelle.
 
 ---
 
@@ -256,11 +273,15 @@ Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht. Mindest
 - Links SEHR natürlich im Fließtext einbauen, nicht als separate Liste
 - Wenn eine URL nicht in der Perplexity-Research vorkommt: NICHT verlinken
 
-### Formatierung
+### Quellennennung im Text
+- Bei JEDER Statistik, jedem Gesetzestext, jedem Tarif: Primärquelle IM TEXT nennen und mit vollständiger URL verlinken
+- Die Quelle natürlich im Satz einbauen, nicht als Fußnote
+- Beispiel: "Laut dem [PKV-Verband](https://www.pkv.de/verband/zahlen-und-fakten/) waren 2024 rund 8,7 Mio. Menschen privat versichert."
+- Beispiel: "Das regelt [§ 43 GmbHG](https://www.gesetze-im-internet.de/gmbhg/__43.html) eindeutig."
+- Die URLs kommen AUS der Perplexity-Research. Keine selbst ausgedachten URLs.
 - Quellenverweise dürfen sich nie wiederholen, jede Nennung anders formulieren
 - Mindestens 4–6 externe Links pro Artikel
 - Linktexte maximal 3–5 Wörter
-- Links natürlich im Fließtext einbauen, nicht als separate Liste
 
 ---
 
