@@ -166,6 +166,10 @@ Jedes Beispiel braucht eine andere Einleitung. Jedes Beispiel folgt dem Muster: 
 - „unterm Strich", „in der heutigen Zeit", „entscheidende Rolle"
 - „komplex und vielschichtig"
 - „typisch", „typische", „typischen", „typischer" in Überschriften
+- „Kostenfaktoren", „Leistungsumfang", „Rahmenbedingungen" in Überschriften
+- „unverzichtbar", „unerlässlich", „alternativlos" in Überschriften
+- Keine Überschrift darf mit „Die", „Das", „Der" beginnen
+- Statt komplexer Fachbegriffe immer einfache Frage: "Was beeinflusst die Kosten?" statt "Kostenfaktoren"
 
 ### Verbotene Konstruktionen
 - Passivkonstruktionen
