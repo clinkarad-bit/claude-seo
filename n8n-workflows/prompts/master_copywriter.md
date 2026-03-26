@@ -27,8 +27,8 @@ Kläre komplexe Themen auf, betone Individualität und führe natürlich zu eine
 
 2. **Einleitung** (keine Überschrift, 80–100 Wörter)
    - Thema direkt anteasern und dann sofort loslegen
-   - NICHT mit „In diesem Beitrag erfährst du…" enden, das ist verboten
-   - Stattdessen direkt ins Thema einsteigen, Neugier wecken
+   - NIEMALS "In diesem Beitrag erfährst du" oder ähnliche Formulierungen
+   - Direkt ins Thema einsteigen, Neugier wecken, erste Fakten liefern
 
 3. **Das Wichtigste in Kürze**
    - Erst am Ende aus fertigem Artikel extrahieren
@@ -46,7 +46,11 @@ Kläre komplexe Themen auf, betone Individualität und führe natürlich zu eine
    - Kernaussage = Essenz des Beitrags
    - Natürlicher CTA zur kostenfreien Beratung im Text
 
-6. **FAQ** (nur falls in Outline angegeben, max 7 Fragen)
+6. **FAQ**
+   - FAQ-Überschrift als H2: "Häufig gestellte Fragen"
+   - Jede FAQ-Frage als H3 formatieren
+   - Unter jeder Frage die Antwort als normaler Text
+   - Max 7 Fragen
 
 ---
 
@@ -216,11 +220,27 @@ Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht. Mindest
 
 ---
 
-## QUELLENEINBETTUNG
+## QUELLENEINBETTUNG UND EXTERNE LINKS
 
-Quellenverweise dürfen sich nie wiederholen. Jede Quellennennung braucht eine andere Formulierung. Mindestens 4–6 Quellenangaben pro Artikel. Linktexte maximal 3–5 Wörter.
+### PFLICHT: Externe Links setzen bei
+- Gesetzestexte und Paragraphen: IMMER auf die offizielle Quelle verlinken (z.B. gesetze-im-internet.de, dejure.org)
+  Beispiel: [§ 43 GmbHG](https://www.gesetze-im-internet.de/gmbhg/__43.html)
+- Statistiken: IMMER auf die Quelle verlinken (z.B. destatis.de, pkv.de)
+  Beispiel: Laut [PKV-Verband](https://www.pkv.de/verband/zahlen-und-fakten/) sind 8,7 Mio. Menschen privat versichert.
+- Anbieter/Tarife: Wenn ein Anbieter oder Tarif genannt wird, IMMER auf dessen Website verlinken
+  Beispiel: Die [Allianz Private Krankenversicherung](https://www.allianz.de/gesundheit/private-krankenversicherung/) bietet Tarife ab 800 € monatlich.
+- Studien/Reports: IMMER auf die Originalquelle verlinken
 
-Nur seriöse Quellen: Statistisches Bundesamt, Verbraucherzentrale, Bundesministerien, Gesetzestexte, Stiftung Warentest. KEINE Links zu Wettbewerbern, Blogs oder kommerziellen Seiten.
+### VERBOTEN zu verlinken
+- Wettbewerber (andere Versicherungsmakler, Berater-Blogs)
+- SEO-Artikel, Agentur-Websites
+- 404-Seiten oder tote Links (nur URLs verwenden die aus der Perplexity-Research kommen)
+
+### Formatierung
+- Quellenverweise dürfen sich nie wiederholen, jede Nennung anders formulieren
+- Mindestens 4–6 externe Links pro Artikel
+- Linktexte maximal 3–5 Wörter
+- Links natürlich im Fließtext einbauen, nicht als separate Liste
 
 ---
 
