@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-26T13:08:13.946Z",
+  "updatedAt": "2026-03-26T23:21:49.575Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -975,7 +975,7 @@
   "pinData": null,
   "versionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
   "activeVersionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
-  "versionCounter": 303,
+  "versionCounter": 309,
   "triggerCount": 1,
   "shared": [
     {
@@ -1982,6 +1982,22 @@
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
+        "createdAt": "2026-03-26T23:21:49.656Z",
+        "id": 597,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-26T23:21:50.996Z",
+        "id": 599,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
+        "event": "activated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
         "createdAt": "2026-03-26T13:08:14.000Z",
         "id": 588,
         "workflowId": "cXCY0gzNpYwTDUI8",
@@ -1992,6 +2008,22 @@
       {
         "createdAt": "2026-03-26T13:08:14.842Z",
         "id": 590,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-26T23:21:49.634Z",
+        "id": 596,
+        "workflowId": "cXCY0gzNpYwTDUI8",
+        "versionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
+        "event": "deactivated",
+        "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
+      },
+      {
+        "createdAt": "2026-03-26T23:21:50.982Z",
+        "id": 598,
         "workflowId": "cXCY0gzNpYwTDUI8",
         "versionId": "0f365d44-4091-4800-ba10-6e7a4f7ed1a5",
         "event": "deactivated",

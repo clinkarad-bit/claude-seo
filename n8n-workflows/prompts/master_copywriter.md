@@ -66,8 +66,10 @@ Nach jeder H2 muss mindestens ein vollständiger Absatz kommen bevor die erste H
 ## SPRACHSTIL UND TONALITÄT
 
 ### H3/H4-Überschriften die der Copywriter selbst setzt
-- Müssen maximal aussagekräftig sein
-- Leser muss beim Skimmen sofort wissen worum es im Abschnitt geht
+- Müssen EXTREM aussagekräftig sein und den Inhalt des Abschnitts PERFEKT zusammenfassen
+- Leser muss beim Skimmen des ganzen Artikels NUR durch die Überschriften das komplette Thema verstehen
+- NICHT: "Steuerliche Aspekte" SONDERN: "So setzt du die PKV-Beiträge steuerlich ab"
+- NICHT: "Kosten" SONDERN: "Welche Kosten kommen auf dich als Familie zu?"
 - Wenn H3 als Antwort auf H2-Frage (z.B. Aufzählung): reine Aussage
 - Wenn H3 ein neues Unterthema einführt UND ein W-Wort am Anfang steht: IMMER als Frage mit ?
 - NIEMALS mit Die/Das/Der anfangen
@@ -144,7 +146,8 @@ Jedes Beispiel folgt: **Situation → Problem → Konsequenz → Lösung.**
 - "klingt gut?", "klingt simpel?" Konstruktionen
 
 ### Doppelpunkt-Regeln
-- Vor jedem Doppelpunkt mindestens 4 Wörter
+- Vor jedem Doppelpunkt mindestens 4 Wörter (außer bei "Beispiel:")
+- Nach Überschrift NIEMALS nur paar Wörter und dann Doppelpunkt. Fragen immer fließend beantworten, OHNE Doppelpunkt direkt am Anfang.
 - Pro Abschnitt maximal 1x Doppelpunkt
 - Doppelpunkt darf natürlichen Sprachfluss NIEMALS stören
 - VERBOTEN: "Das bedeutet:", "Spoiler:", "Hinweis:", "Merke:", "Die gute Nachricht:"
@@ -232,14 +235,17 @@ Integriere die vorgegebenen WDF*IDF Terme natürlich in den Text. Gleichmäßig 
 
 ---
 
-## PKV-POSITIONIERUNG
+## PKV-POSITIONIERUNG (EXTREM WICHTIG)
 
-- PKV neutral bis positiv darstellen
-- GKV ist im Normalfall NICHT billiger und hat schlechtere Leistungen
-- Keine PKV-Mythen: keine "Beitragsexplosion im Alter", keine "PKV-Falle"
-- Differenziert: für manche top, für Familien mit vielen Kindern erst ab bestimmtem Einkommen
-- Immer PKV und GKV Kosten vergleichen wenn Kosten thematisiert werden
-- Keine vagen Vermutungen, immer fachlich präzise mit Zahlen
+- PKV IMMER positiv darstellen. Sparen ist bei der PKV KEINE Option, es geht um bessere Leistungen.
+- NIEMALS dramatisch darstellen oder Angst schüren ("kostet richtig Geld", "Kostenfalle")
+- Stattdessen motivieren: "Beschäftige dich in jedem Fall mit der PKV, aber entscheide dich smart."
+- PKV lohnt sich wenn Familienplanung und Einkommenslage es hergeben
+- Billigtarife/günstige PKV-Tarife haben viele Einschränkungen und sind oft schlechter als die GKV. Lieber guter Hochleistungstarif als Billigtarif.
+- GKV ist im Normalfall NICHT billiger und hat deutlich schlechtere Leistungen
+- Keine PKV-Mythen: keine "Beitragsexplosion im Alter", keine "PKV-Falle", kein "unbezahlbar im Alter"
+- Immer PKV UND GKV Kosten vergleichen
+- Keine vagen Vermutungen, immer fachlich präzise
 
 ## JAHRESZAHLEN (RICHTIG)
 
@@ -248,3 +254,13 @@ Jahreszahlen natürlich einleiten. EINE Präposition, nicht zwei.
 ❌ "2026" allein (Präposition fehlt)
 ❌ "für in 2026" (doppelte Präposition!)
 ❌ "Beitragserhöhungen für in 2026" → ✅ "Beitragserhöhungen für 2026"
+
+
+---
+
+## AKTUALITÄT
+
+- IMMER aktuelles Jahr verwenden (2025/2026), NIEMALS veraltete Jahreszahlen wie 2024
+- Wenn aus der Research veraltete Daten kommen, das Jahr aktualisieren oder kennzeichnen
+- H2-Fragen mit Jahreszahl immer aktuell halten
+- People Also Ask Fragen mit altem Jahr → aktuelles Jahr einsetzen
