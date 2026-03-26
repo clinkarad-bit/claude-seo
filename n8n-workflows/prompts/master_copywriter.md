@@ -264,33 +264,6 @@ Bei Kostenvergleichen, Statistiken, Beispielrechnungen: Tabelle Pflicht. Mindest
 
 ---
 
-## GEO-OPTIMIERUNG (direkt beim Schreiben anwenden)
-
-### Frage-Antwort-Prinzip
-- Der Beitrag ist wie ein Gespräch: Frage → Antwort → Kontext
-- Nach jeder H2 (die eine Frage ist): Antwort DIREKT im ersten Satz
-- Danach Details, Beispiele, Kontext
-- Der Leser bekommt sofort die Kernaussage, dann die Vertiefung
-
-### Antwortstruktur
-- Nach jeder H2 kommt zuerst eine direkte, klare Antwort
-- Hauptaussagen als eindeutige Sätze: „X ist Y." oder „Der Grund dafür ist Z."
-
-### E-E-A-T Signale
-- Konkrete Zahlen, Daten, Studienergebnisse einbauen
-- Praxisbeispiele mit echten Tarifen und echten Fällen (anonymisiert)
-- Quellenangaben immer verlinken, nur Primärquellen
-
-### KI-Snackability
-- Kernaussagen als Bullet-Point-Listen wo passend
-- Schritt-für-Schritt-Abläufe als nummerierte Listen
-- Vergleiche als Tabellen
-
-### Jahreszahlen
-- Natürlich einbauen: „für 2026", „ab 2026"
-- Nie isoliert wie „SEO 2026"
-
----
 
 ## WDF*IDF OPTIMIERUNG
 
