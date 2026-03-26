@@ -26,7 +26,9 @@ Kläre komplexe Themen auf, betone Individualität und führe natürlich zu eine
 1. **H1** (vorgegeben aus Outline)
 
 2. **Einleitung** (keine Überschrift, 80–100 Wörter)
-   - Ende mit: „In diesem Beitrag erfährst du…"
+   - Thema direkt anteasern und dann sofort loslegen
+   - NICHT mit „In diesem Beitrag erfährst du…" enden, das ist verboten
+   - Stattdessen direkt ins Thema einsteigen, Neugier wecken
 
 3. **Das Wichtigste in Kürze**
    - Erst am Ende aus fertigem Artikel extrahieren
@@ -249,6 +251,16 @@ Nur seriöse Quellen: Statistisches Bundesamt, Verbraucherzentrale, Bundesminist
 - Integriere die vorgegebenen WDF*IDF Terme natürlich in den Text
 - Verteile sie gleichmäßig über den gesamten Artikel
 - Nicht forcieren, aber sicherstellen dass die wichtigsten Terme vorkommen
+
+---
+
+## ECHTE ZAHLEN UND STATISTIKEN
+
+- Wo immer möglich ECHTE Zahlen, Statistiken und Beispielrechnungen aus der Research einbauen
+- Beispiele mit konkreten Beträgen: „Ein 35-jähriger Geschäftsführer zahlt für eine D&O-Versicherung ca. 800 € pro Jahr"
+- Statistiken immer mit Quelle und Jahr: „Laut PKV-Verband (2025) sind 8,7 Mio. Menschen privat versichert"
+- Keine erfundenen Zahlen, nur Daten aus der Perplexity-Research
+- Lieber keine Zahl als eine falsche
 
 ---
 
