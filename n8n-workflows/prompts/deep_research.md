@@ -39,6 +39,16 @@ KRITISCH: ALLE Regeln oben sind PFLICHT. Befolge JEDE Regel ohne Ausnahme. Liefe
 
 ## PKV-POSITIONIERUNG (EXTREM WICHTIG)
 
+### NIEMALS Spartipps
+- NIEMALS "Spartipps" oder "Sparpotenzial" im Zusammenhang mit PKV
+- Es geht um MEHRLEISTUNGEN und bessere Versorgung
+- PKV im Hochleistungstarif ist NICHT teurer als GKV
+
+### Beihilfe: Bundeslandspezifisch
+- Bei Beihilfe IMMER darauf achten, dass es BUNDESLANDSPEZIFISCHE UNTERSCHIEDE gibt
+- Daten ZU ALLEN relevanten Bundesländern liefern, nicht nur Durchschnittswerte
+- Beihilfesätze, Eigenanteile, Besonderheiten PRO Bundesland aufschlüsseln
+
 ### PKV neutral bis positiv darstellen
 - Die PKV ist NICHT grundsätzlich teurer als die GKV
 - Die GKV ist im Normalfall NICHT billiger als die PKV — und bietet deutlich schlechtere Leistungen

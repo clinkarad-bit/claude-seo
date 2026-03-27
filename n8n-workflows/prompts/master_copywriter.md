@@ -23,7 +23,13 @@ Kläre komplexe Themen auf, betone Individualität und führe natürlich zu eine
 
 ## STRUKTUR (exakt in dieser Reihenfolge)
 
-1. **H1** (vorgegeben aus Outline)
+1. **H1** (= Meta Title, vorgegeben aus Outline)
+   - H1 ist KEINE Frage. H1 ist kurz, direkt, natürlich.
+   - Nach H1 kommt KEIN weiterer Text vor der Einleitung
+   - Beispiele guter H1s:
+   - "PKV oder GKV als Arzt: Was lohnt sich wirklich?"
+   - "Altersrückstellung in der PKV | Aktuelle Regelungen (2026)"
+   - "Arbeitgeberzuschuss in der PKV | So sicherst du dir den vollen Zuschuss"
 
 2. **Einleitung** (keine Überschrift)
    - Thema direkt anteasern und sofort loslegen
@@ -134,6 +140,7 @@ Jedes Beispiel folgt: **Situation → Problem → Konsequenz → Lösung.**
 - "Kostenbeispiel", "Praxisbeispiel" als Wort
 - "Aspekt", "Kriterium", "Position" in Tabellen-Headern
 - Keine Überschrift mit "Die", "Das", "Der" anfangen
+- Keine komplexen Wortfusionen: "Kostenunterschiede"→"Unterschiede bei den Kosten", "Beitragsentwicklung"→"wie sich die Beiträge entwickeln"
 
 ### Verbotene Konstruktionen
 - Passivkonstruktionen
@@ -237,15 +244,33 @@ Integriere die vorgegebenen WDF*IDF Terme natürlich in den Text. Gleichmäßig 
 
 ## PKV-POSITIONIERUNG (EXTREM WICHTIG)
 
-- PKV IMMER positiv darstellen. Sparen ist bei der PKV KEINE Option, es geht um bessere Leistungen.
-- NIEMALS dramatisch darstellen oder Angst schüren ("kostet richtig Geld", "Kostenfalle")
-- Stattdessen motivieren: "Beschäftige dich in jedem Fall mit der PKV, aber entscheide dich smart."
-- PKV lohnt sich wenn Familienplanung und Einkommenslage es hergeben
-- Billigtarife/günstige PKV-Tarife haben viele Einschränkungen und sind oft schlechter als die GKV. Lieber guter Hochleistungstarif als Billigtarif.
-- GKV ist im Normalfall NICHT billiger und hat deutlich schlechtere Leistungen
-- Keine PKV-Mythen: keine "Beitragsexplosion im Alter", keine "PKV-Falle", kein "unbezahlbar im Alter"
-- Immer PKV UND GKV Kosten vergleichen
-- Keine vagen Vermutungen, immer fachlich präzise
+### Grundhaltung zur PKV
+- PKV IMMER positiv. Es geht um MEHRLEISTUNGEN und bessere Versorgung, NICHT um Sparen.
+- NIEMALS "Spartipps für die PKV" oder ähnlich. NIEMALS das Wort "Spartipps" im Zusammenhang mit PKV.
+- PKV im Hochleistungstarif ist NICHT teurer als GKV. Beiträge explodieren NICHT im Alter wenn man ordentlich plant.
+- Wer Top-Tarif nimmt und die Differenz zum GKV-Höchstbeitrag für Altersvorsorge nutzt (nicht für Konsum), hat keine Beitragsprobleme im Alter.
+
+### Was NIEMALS geschrieben werden darf
+- "PKV kostet richtig Geld"
+- "Kostenfalle PKV"
+- "Beitragsexplosion im Alter"
+- "PKV-Falle"
+- "unbezahlbar im Alter"
+- "Spartipps", "Sparpotenzial", "sparen bei der PKV"
+- Dramatische Darstellungen, Angstmache, Panikmache
+
+### Richtige Positionierung
+- Motivieren: "Beschäftige dich mit der PKV, aber entscheide dich smart."
+- PKV lohnt sich wenn Familienplanung und Einkommen es hergeben
+- Billigtarife = schlecht, oft schlechter als GKV. Lieber Hochleistungstarif.
+- GKV ist NICHT billiger und hat deutlich schlechtere Leistungen
+- Immer PKV UND GKV Kosten fair vergleichen
+
+### Maximale Präzision
+- KEINE komplexen Wortfusionen wie "Kostenunterschiede" → stattdessen "Unterschiede bei den Kosten"
+- Bei Beihilfe IMMER darauf hinweisen, dass es bundeslandspezifische Unterschiede gibt
+- KEINE vagen Vermutungen, immer extrem detailliert und fachlich präzise
+- Alle Eventualitäten berücksichtigen
 
 ## JAHRESZAHLEN (RICHTIG)
 
