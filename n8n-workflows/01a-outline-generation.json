@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-26T23:26:43.888Z",
+  "updatedAt": "2026-03-27T00:06:58.806Z",
   "createdAt": "2026-03-24T14:39:46.231Z",
   "id": "cXCY0gzNpYwTDUI8",
   "name": "COVAGO 01a - Outline Generation",
@@ -626,7 +626,7 @@
         0
       ],
       "parameters": {
-        "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\n\n// Get static data to track recent tasks\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) {\n    delete recentTasks[key];\n  }\n}\n\n// Check if this task was already processed recently\nif (recentTasks[taskId]) {\n  // Duplicate! Stop execution\n  return [];\n}\n\n// Mark as processing\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\n\nreturn $input.all();"
+        "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\n\n// Get static data to track recent tasks\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 5000) {\n    delete recentTasks[key];\n  }\n}\n\n// Check if this task was already processed recently\nif (recentTasks[taskId]) {\n  // Duplicate! Stop execution\n  return [];\n}\n\n// Mark as processing\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\n\nreturn $input.all();"
       }
     },
     {
@@ -973,9 +973,9 @@
   "staticData": {},
   "meta": null,
   "pinData": null,
-  "versionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
-  "activeVersionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
-  "versionCounter": 314,
+  "versionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
+  "activeVersionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
+  "versionCounter": 325,
   "triggerCount": 1,
   "shared": [
     {
@@ -998,9 +998,9 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-03-26T23:26:43.891Z",
-    "createdAt": "2026-03-26T23:26:43.891Z",
-    "versionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
+    "updatedAt": "2026-03-27T00:06:58.808Z",
+    "createdAt": "2026-03-27T00:06:58.808Z",
+    "versionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
     "workflowId": "cXCY0gzNpYwTDUI8",
     "nodes": [
       {
@@ -1622,7 +1622,7 @@
           0
         ],
         "parameters": {
-          "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\n\n// Get static data to track recent tasks\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 30000) {\n    delete recentTasks[key];\n  }\n}\n\n// Check if this task was already processed recently\nif (recentTasks[taskId]) {\n  // Duplicate! Stop execution\n  return [];\n}\n\n// Mark as processing\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\n\nreturn $input.all();"
+          "jsCode": "// Prevent duplicate executions for the same task\nconst taskId = $('ClickUp Webhook Trigger').item.json.body?.task_id || '';\nconst now = Date.now();\n\n// Get static data to track recent tasks\nconst staticData = $getWorkflowStaticData('global');\nconst recentTasks = staticData.recentTasks || {};\n\n// Clean up entries older than 30 seconds\nfor (const [key, timestamp] of Object.entries(recentTasks)) {\n  if (now - timestamp > 5000) {\n    delete recentTasks[key];\n  }\n}\n\n// Check if this task was already processed recently\nif (recentTasks[taskId]) {\n  // Duplicate! Stop execution\n  return [];\n}\n\n// Mark as processing\nrecentTasks[taskId] = now;\nstaticData.recentTasks = recentTasks;\n\nreturn $input.all();"
         }
       },
       {
@@ -1966,34 +1966,34 @@
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-03-26T23:26:43.990Z",
-        "id": 605,
+        "createdAt": "2026-03-27T00:06:58.898Z",
+        "id": 617,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
+        "versionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T23:26:44.805Z",
-        "id": 607,
+        "createdAt": "2026-03-27T00:06:59.719Z",
+        "id": 619,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
+        "versionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
         "event": "activated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T23:26:43.939Z",
-        "id": 604,
+        "createdAt": "2026-03-27T00:06:58.880Z",
+        "id": 616,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
+        "versionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       },
       {
-        "createdAt": "2026-03-26T23:26:44.784Z",
-        "id": 606,
+        "createdAt": "2026-03-27T00:06:59.696Z",
+        "id": 618,
         "workflowId": "cXCY0gzNpYwTDUI8",
-        "versionId": "de46c50d-9e06-4a9f-9970-05f4b898a583",
+        "versionId": "dc0a7207-207d-40c9-b21b-7724d87d5cb3",
         "event": "deactivated",
         "userId": "941ae69d-5664-4f15-8ee3-81744f86a265"
       }
