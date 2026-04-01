@@ -1,1275 +1,318 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ginmon - Einfach intelligent Geld anlegen</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin:0 !important; padding:0 !important; box-sizing:border-box !important; }
-html { scroll-behavior:smooth; }
-
-:root {
-  --blue: rgb(76,121,199);
-  --green: rgb(124,186,58);
-  --dark: #0a2a6e;
-  --text: #1a1a2e;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --bg: #f4f6fc;
-  --white: #ffffff;
-  --r: 16px;
-}
-
-* { font-family: 'MuseoSans', 'Nunito', system-ui, -apple-system, sans-serif !important; }
-body { background: var(--white) !important; color: var(--text) !important; line-height: 1.5 !important; -webkit-font-smoothing: antialiased !important; }
-
-/* ─── BUTTONS ─── */
-.btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 14px 30px !important;
-  border-radius: 12px !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  text-decoration: none !important;
-  border: none !important;
-  cursor: pointer !important;
-  transition: all .2s ease !important;
-  min-height: 48px !important;
-  white-space: nowrap !important;
-  line-height: 1 !important;
-  letter-spacing: 0.2px !important;
-}
-.btn-green { background: var(--green) !important; color: #fff !important; }
-.btn-green:hover { background: rgb(108,168,48) !important; transform: translateY(-2px) !important; box-shadow: 0 8px 28px rgba(124,186,58,.35) !important; }
-.btn-blue { background: var(--blue) !important; color: #fff !important; }
-.btn-blue:hover { background: rgb(60,100,175) !important; transform: translateY(-2px) !important; box-shadow: 0 8px 28px rgba(76,121,199,.35) !important; }
-.btn-dark { background: var(--dark) !important; color: #fff !important; }
-.btn-dark:hover { background: #071e52 !important; transform: translateY(-2px) !important; }
-.btn-outline-white { background: transparent !important; color: #fff !important; border: 2px solid rgba(255,255,255,.5) !important; }
-.btn-outline-white:hover { background: rgba(255,255,255,.12) !important; }
-
-/* ─── HERO ─── */
-.hero {
-  position: relative !important;
-  width: 100% !important;
-  min-height: 540px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-end !important;
-  overflow: hidden !important;
-}
-
-.hero-bg-img {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block !important;
-  z-index: 0 !important;
-}
-
-.hero-overlay {
-  position: absolute !important;
-  inset: 0 !important;
-  background: linear-gradient(to top, rgba(6,26,80,.92) 0%, rgba(6,26,80,.65) 40%, rgba(6,26,80,.25) 100%) !important;
-  z-index: 1 !important;
-}
-
-.hero-content {
-  position: relative !important;
-  z-index: 3 !important;
-  padding: 48px 52px 56px !important;
-  max-width: 1380px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-}
-
-.hero-badge {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0 !important;
-  background: var(--green) !important;
-  border: none !important;
-  color: #fff !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  letter-spacing: .5px !important;
-  padding: 7px 18px !important;
-  border-radius: 99rem !important;
-  margin-bottom: 24px !important;
-}
-
-.hero-titles {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-  margin-bottom: 32px !important;
-}
-
-.hero-pill {
-  display: inline-block !important;
-  padding: 12px 24px !important;
-  border-radius: 14px !important;
-  font-weight: 800 !important;
-  font-size: 1.95rem !important;
-  color: #fff !important;
-  width: fit-content !important;
-  line-height: 1.15 !important;
-}
-.hp-dark { background: var(--dark) !important; }
-.hp-green { background: var(--green) !important; margin-left: 18px !important; }
-.hp-blue { background: var(--blue) !important; font-size: 1.05rem !important; font-weight: 600 !important; }
-
-.hero-ctas {
-  display: flex !important;
-  gap: 14px !important;
-  flex-wrap: wrap !important;
-}
-
-/* ─── TRUST BAR ─── */
-.trust-bar {
-  background: #fff !important;
-  border-bottom: 1px solid var(--border) !important;
-  overflow-x: auto !important;
-  scrollbar-width: none !important;
-}
-.trust-bar::-webkit-scrollbar { display: none !important; }
-
-.trust-bar-inner {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: stretch !important;
-  min-width: max-content !important;
-  margin: 0 auto !important;
-  max-width: 1380px !important;
-}
-
-.trust-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 13px !important;
-  padding: 22px 36px !important;
-  border-right: 1px solid var(--border) !important;
-  flex-shrink: 0 !important;
-}
-.trust-item:last-child { border-right: none !important; }
-
-.trust-icon-wrap {
-  width: 42px !important;
-  height: 42px !important;
-  border-radius: 10px !important;
-  background: var(--bg) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-shrink: 0 !important;
-}
-
-.trust-label { font-size: 13px !important; font-weight: 700 !important; color: var(--text) !important; line-height: 1.3 !important; }
-.trust-sub { font-size: 12px !important; color: var(--muted) !important; margin-top: 2px !important; }
-
-/* ─── SERVICE TILES ─── */
-.services-strip {
-  background: #fff !important;
-  border-bottom: 1px solid var(--border) !important;
-  overflow-x: auto !important;
-  scrollbar-width: none !important;
-  width: 100% !important;
-}
-.services-strip::-webkit-scrollbar { display: none !important; }
-
-.services-track {
-  display: flex !important;
-  align-items: stretch !important;
-  max-width: 1380px !important;
-  margin: 0 auto !important;
-  width: 100% !important;
-}
-
-.svc-item {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  flex: 1 1 0% !important;
-  min-width: 0 !important;
-  padding: 30px 16px !important;
-  border-right: 1px solid var(--border) !important;
-  text-decoration: none !important;
-  cursor: pointer !important;
-  transition: background .2s !important;
-  gap: 0 !important;
-}
-.svc-item:last-child { border-right: none !important; }
-.svc-item:hover { background: var(--bg) !important; }
-.svc-item.svc-active { background: var(--dark) !important; }
-
-.svc-icon-box {
-  width: 52px !important;
-  height: 52px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin-bottom: 12px !important;
-  flex-shrink: 0 !important;
-}
-.svc-icon-box svg {
-  width: 40px !important;
-  height: 40px !important;
-  display: block !important;
-}
-
-.svc-title {
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  color: var(--blue) !important;
-  line-height: 1.3 !important;
-  margin-bottom: 4px !important;
-}
-.svc-item.svc-active .svc-title { color: #fff !important; }
-
-.svc-sub {
-  font-size: 12px !important;
-  color: var(--muted) !important;
-  line-height: 1.4 !important;
-}
-.svc-item.svc-active .svc-sub { color: rgba(255,255,255,.7) !important; }
-
-/* ─── SECTION HELPERS ─── */
-.section-title {
-  font-size: 34px !important;
-  font-weight: 800 !important;
-  color: var(--text) !important;
-  line-height: 1.2 !important;
-  margin-bottom: 12px !important;
-}
-
-.section-sub {
-  font-size: 16px !important;
-  color: var(--muted) !important;
-  line-height: 1.7 !important;
-}
-
-.section-eyebrow {
-  display: inline-block !important;
-  background: var(--blue) !important;
-  color: #fff !important;
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  letter-spacing: 1.2px !important;
-  text-transform: uppercase !important;
-  padding: 6px 18px !important;
-  border-radius: 99rem !important;
-  margin-bottom: 16px !important;
-  border: none !important;
-}
-.section-eyebrow.green { background: var(--green) !important; }
-
-/* ─── TABS ─── */
-.tabs-section {
-  background: #fff !important;
-  padding: 80px 20px 80px !important;
-}
-
-.tabs-head {
-  text-align: center !important;
-  margin-bottom: 48px !important;
-  max-width: 1160px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-.tabs-nav {
-  display: flex !important;
-  gap: 10px !important;
-  justify-content: center !important;
-  flex-wrap: wrap !important;
-  margin-bottom: 56px !important;
-}
-
-.tab-btn {
-  padding: 12px 34px !important;
-  border-radius: 10px !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  border: 2px solid var(--border) !important;
-  background: #fff !important;
-  color: var(--muted) !important;
-  transition: all .15s !important;
-  min-height: 46px !important;
-  font-family: 'MuseoSans', 'Nunito', system-ui, sans-serif !important;
-}
-.tab-btn:hover:not(.tab-active) { border-color: var(--blue) !important; color: var(--blue) !important; }
-.tab-btn.tab-active { background: var(--blue) !important; border-color: var(--blue) !important; color: #fff !important; }
-
-.tab-panels { max-width: 1160px !important; margin: 0 auto !important; }
-
-.tab-panel { display: none !important; }
-.tab-panel.active {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 72px !important;
-  align-items: center !important;
-}
-
-.tab-badge {
-  display: inline-block !important;
-  padding: 6px 20px !important;
-  border-radius: 99rem !important;
-  font-size: 11px !important;
-  font-weight: 800 !important;
-  letter-spacing: 1px !important;
-  text-transform: uppercase !important;
-  color: #fff !important;
-  margin-bottom: 18px !important;
-  border: none !important;
-}
-.tb-green { background: var(--green) !important; }
-.tb-blue { background: var(--blue) !important; }
-
-.tab-text h2 {
-  font-size: 34px !important;
-  font-weight: 800 !important;
-  color: var(--text) !important;
-  line-height: 1.2 !important;
-  margin-bottom: 16px !important;
-}
-
-.tab-text p {
-  font-size: 15px !important;
-  line-height: 1.8 !important;
-  color: var(--muted) !important;
-  margin-bottom: 28px !important;
-}
-
-.check-list { display: flex !important; flex-direction: column !important; gap: 12px !important; margin-bottom: 34px !important; }
-.check-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  font-size: 14px !important;
-  color: var(--text) !important;
-  font-weight: 500 !important;
-}
-
-.tab-visual {
-  border-radius: 20px !important;
-  overflow: hidden !important;
-  aspect-ratio: 4/3 !important;
-  background: var(--bg) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* ─── FONDS CARDS ─── */
-.fonds-section {
-  background: var(--bg) !important;
-  padding: 80px 20px 120px !important;
-}
-
-.fonds-grid {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 24px !important;
-  max-width: 1160px !important;
-  margin: 48px auto 0 !important;
-}
-
-.fonds-card {
-  background: #fff !important;
-  border-radius: 20px !important;
-  overflow: hidden !important;
-  box-shadow: 0 4px 24px rgba(0,0,0,.08) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  position: relative !important;
-}
-
-.fonds-top {
-  background: var(--blue) !important;
-  padding: 28px 24px 22px !important;
-  text-align: center !important;
-}
-
-.fonds-donut { margin-bottom: 12px !important; }
-.fonds-type { font-size: 11px !important; color: rgba(255,255,255,.65) !important; margin-bottom: 3px !important; }
-.fonds-name { font-size: 19px !important; font-weight: 800 !important; color: #fff !important; margin-bottom: 8px !important; }
-.fonds-bar { width: 40px !important; height: 3px !important; background: var(--green) !important; border-radius: 2px !important; margin: 0 auto !important; }
-
-.fonds-body { padding: 24px 24px 28px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; }
-.fonds-yield { font-size: 46px !important; font-weight: 800 !important; color: var(--blue) !important; line-height: 1 !important; }
-.fonds-yield-label { font-size: 13px !important; color: var(--muted) !important; margin-top: 4px !important; margin-bottom: 20px !important; }
-
-.fonds-list { display: flex !important; flex-direction: column !important; flex-grow: 1 !important; }
-.fonds-li {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding: 10px 0 !important;
-  border-bottom: 1px solid #f0f2f8 !important;
-  font-size: 13px !important;
-  color: var(--text) !important;
-}
-.fonds-li:last-child { border-bottom: none !important; }
-
-.fonds-badge-hot {
-  position: absolute !important;
-  top: 14px !important;
-  right: 14px !important;
-  background: var(--green) !important;
-  color: #fff !important;
-  font-size: 10px !important;
-  font-weight: 800 !important;
-  padding: 4px 12px !important;
-  border-radius: 99rem !important;
-  letter-spacing: .5px !important;
-  z-index: 2 !important;
-  border: none !important;
-}
-
-/* ─── ANLEGERTEST BANNER ─── */
-.at-outer {
-  background: #fff !important;
-  padding: 0 20px 80px !important;
-}
-
-.at-block {
-  max-width: 1160px !important;
-  margin: -60px auto 0 !important;
-  background: linear-gradient(135deg, #eef3fc 0%, #edf8e0 100%) !important;
-  border-radius: 24px !important;
-  padding: 48px 56px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 48px !important;
-  box-shadow: 0 20px 60px rgba(76,121,199,.18) !important;
-  position: relative !important;
-  z-index: 10 !important;
-  flex-wrap: wrap !important;
-}
-
-.at-left { flex: 1 !important; min-width: 220px !important; }
-.at-eye { font-size: 11px !important; font-weight: 800 !important; letter-spacing: 2px !important; text-transform: uppercase !important; color: var(--green) !important; margin-bottom: 12px !important; }
-.at-left h2 { font-size: 26px !important; font-weight: 800 !important; color: var(--text) !important; margin-bottom: 10px !important; line-height: 1.3 !important; }
-.at-left p { font-size: 14px !important; color: var(--muted) !important; line-height: 1.7 !important; margin-bottom: 24px !important; }
-.at-steps { display: flex !important; gap: 24px !important; flex-wrap: wrap !important; }
-.at-step { display: flex !important; align-items: center !important; gap: 9px !important; font-size: 13px !important; color: var(--text) !important; font-weight: 500 !important; }
-.at-num { width: 28px !important; height: 28px !important; background: var(--blue) !important; color: #fff !important; border-radius: 50% !important; font-size: 12px !important; font-weight: 800 !important; display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; }
-
-.at-right { text-align: center !important; flex-shrink: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; }
-.at-timer { font-size: 72px !important; font-weight: 800 !important; color: var(--blue) !important; line-height: 1 !important; }
-.at-timer-sub { font-size: 13px !important; color: var(--muted) !important; margin-bottom: 22px !important; }
-
-/* ─── COMPARISON TABLE ─── */
-.compare-section {
-  background: #fff !important;
-  padding: 80px 20px !important;
-}
-
-.compare-inner {
-  max-width: 1160px !important;
-  margin: 0 auto !important;
-  display: flex !important;
-  gap: 64px !important;
-  align-items: flex-start !important;
-  flex-wrap: wrap !important;
-}
-
-.compare-left { flex: 0 0 280px !important; }
-.compare-left h2 { font-size: 28px !important; font-weight: 800 !important; color: var(--text) !important; margin-bottom: 14px !important; line-height: 1.2 !important; }
-.compare-left p { font-size: 15px !important; color: var(--muted) !important; line-height: 1.7 !important; margin-bottom: 28px !important; }
-
-.compare-right { flex: 1 !important; min-width: 0 !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
-
-.cmp-table {
-  width: 100% !important;
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
-  border-radius: 16px !important;
-  overflow: hidden !important;
-  border: 1px solid var(--border) !important;
-  min-width: 540px !important;
-}
-
-.cmp-table th {
-  padding: 16px 18px !important;
-  font-size: 12px !important;
-  font-weight: 800 !important;
-  letter-spacing: .4px !important;
-  text-transform: uppercase !important;
-  background: #f8faff !important;
-  border-bottom: 2px solid var(--border) !important;
-  text-align: center !important;
-  color: var(--muted) !important;
-  white-space: nowrap !important;
-}
-.cmp-table th:first-child { text-align: left !important; color: var(--text) !important; }
-.cmp-table th.hl { background: var(--blue) !important; color: #fff !important; }
-
-.cmp-table td {
-  padding: 14px 18px !important;
-  font-size: 14px !important;
-  text-align: center !important;
-  border-bottom: 1px solid #f0f2f8 !important;
-  vertical-align: middle !important;
-}
-.cmp-table td:first-child { text-align: left !important; font-weight: 600 !important; color: var(--text) !important; }
-.cmp-table tr:last-child td { border-bottom: none !important; }
-.cmp-table td.hl { background: rgba(76,121,199,.06) !important; }
-
-.cmp-yes {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 24px !important;
-  height: 24px !important;
-  background: rgba(124,186,58,.12) !important;
-  border-radius: 50% !important;
-}
-.cmp-no {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 24px !important;
-  height: 24px !important;
-}
-.cmp-note { font-size: 11px !important; font-weight: 700 !important; color: var(--blue) !important; display: block !important; margin-top: 2px !important; }
-
-/* ─── RUNDUM SORGLOS ─── */
-.rundum-section {
-  background: var(--bg) !important;
-  padding: 80px 0 !important;
-}
-
-.rundum-inner {
-  max-width: 1160px !important;
-  margin: 0 auto !important;
-  padding: 0 20px !important;
-  display: grid !important;
-  grid-template-columns: 300px 1fr !important;
-  gap: 56px !important;
-  align-items: start !important;
-}
-
-.rundum-left h2 { font-size: 28px !important; font-weight: 800 !important; color: var(--text) !important; margin-bottom: 12px !important; line-height: 1.25 !important; }
-.rundum-left p { font-size: 14px !important; color: var(--muted) !important; line-height: 1.7 !important; }
-
-.ra-list { display: flex !important; flex-direction: column !important; gap: 0 !important; border-radius: 20px !important; overflow: hidden !important; box-shadow: 0 4px 32px rgba(0,0,0,.1) !important; }
-
-.ra-item { position: relative !important; }
-
-.ra-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 0 24px !important;
-  height: 62px !important;
-  cursor: pointer !important;
-  background: var(--dark) !important;
-  border-bottom: 1px solid rgba(255,255,255,.08) !important;
-  user-select: none !important;
-  transition: background .2s !important;
-}
-.ra-header:hover { background: #0d2d6a !important; }
-
-.ra-header-title {
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1.2px !important;
-  text-transform: uppercase !important;
-  color: #fff !important;
-}
-
-.ra-chevron {
-  transition: transform .3s ease !important;
-  color: rgba(255,255,255,.6) !important;
-}
-.ra-item.ra-open .ra-chevron { transform: rotate(180deg) !important; color: #fff !important; }
-
-.ra-body {
-  max-height: 0 !important;
-  overflow: hidden !important;
-  transition: max-height .4s cubic-bezier(.4,0,.2,1) !important;
-}
-.ra-item.ra-open .ra-body { max-height: 420px !important; }
-
-.ra-body-inner {
-  position: relative !important;
-  min-height: 320px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-end !important;
-  overflow: hidden !important;
-}
-
-.ra-bg {
-  position: absolute !important;
-  inset: 0 !important;
-  background: linear-gradient(135deg, var(--dark), var(--blue)) !important;
-}
-
-.ra-visual {
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.ra-content {
-  position: relative !important;
-  z-index: 2 !important;
-  padding: 28px 28px 32px !important;
-  background: linear-gradient(transparent, rgba(8,26,80,.93)) !important;
-}
-.ra-content h3 { font-size: 22px !important; font-weight: 800 !important; color: #fff !important; margin-bottom: 8px !important; }
-.ra-content p { font-size: 13px !important; color: rgba(255,255,255,.78) !important; margin-bottom: 18px !important; line-height: 1.6 !important; }
-
-/* ─── FAQ ─── */
-.faq-section {
-  background: #fff !important;
-  padding: 80px 20px 40px !important;
-}
-
-.faq-inner { max-width: 800px !important; margin: 0 auto !important; }
-.faq-list { display: flex !important; flex-direction: column !important; }
-
-.faq-item { border-bottom: 1px solid var(--border) !important; }
-.faq-item:first-child { border-top: 1px solid var(--border) !important; }
-
-.faq-q {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 20px 4px !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  gap: 16px !important;
-}
-
-.faq-q-text {
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  color: var(--text) !important;
-  flex: 1 !important;
-  line-height: 1.4 !important;
-}
-
-.faq-chev {
-  width: 28px !important;
-  height: 28px !important;
-  flex-shrink: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border-radius: 50% !important;
-  background: var(--bg) !important;
-  transition: background .1s, transform .15s ease !important;
-  color: var(--muted) !important;
-}
-.faq-item.faq-open .faq-chev {
-  background: var(--blue) !important;
-  color: #fff !important;
-  transform: rotate(180deg) !important;
-}
-
-.faq-a {
-  max-height: 0 !important;
-  overflow: hidden !important;
-  transition: max-height .15s cubic-bezier(.4,0,.2,1) !important;
-}
-.faq-item.faq-open .faq-a { max-height: 400px !important; }
-
-.faq-a-inner {
-  padding: 0 4px 20px !important;
-  font-size: 14px !important;
-  line-height: 1.8 !important;
-  color: var(--muted) !important;
-}
-
-/* ─── FINAL CTA ─── */
-.final-cta {
-  background: var(--bg) !important;
-  padding: 80px 20px !important;
-}
-
-.final-cta-inner {
-  max-width: 1160px !important;
-  margin: 0 auto !important;
-  display: flex !important;
-  gap: 24px !important;
-  flex-wrap: wrap !important;
-}
-
-.cta-card {
-  flex: 1 !important;
-  min-width: 260px !important;
-  border-radius: 20px !important;
-  padding: 44px 40px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-}
-.cta-card.green-card { background: var(--green) !important; }
-.cta-card.blue-card { background: var(--blue) !important; }
-
-.cta-card-icon {
-  width: 52px !important;
-  height: 52px !important;
-  background: rgba(255,255,255,.2) !important;
-  border-radius: 14px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin-bottom: 20px !important;
-}
-
-.cta-card h3 { font-size: 22px !important; font-weight: 800 !important; color: #fff !important; margin-bottom: 10px !important; }
-.cta-card p { font-size: 14px !important; color: rgba(255,255,255,.8) !important; line-height: 1.7 !important; margin-bottom: 28px !important; flex-grow: 1 !important; }
-
-.cta-card .btn-white {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 12px 26px !important;
-  border-radius: 10px !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  background: rgba(255,255,255,.18) !important;
-  color: #fff !important;
-  border: 2px solid rgba(255,255,255,.45) !important;
-  cursor: pointer !important;
-  text-decoration: none !important;
-  transition: background .15s !important;
-}
-.cta-card .btn-white:hover { background: rgba(255,255,255,.3) !important; }
-
-/* ─── DISCLAIMER ─── */
-.disclaimer {
-  text-align: center !important;
-  color: #b0b0b8 !important;
-  font-size: 12px !important;
-  padding: 28px 20px 48px !important;
-  max-width: 900px !important;
-  margin: 0 auto !important;
-  line-height: 1.7 !important;
-  border-top: 1px solid var(--border) !important;
-}
-
-/* ─── SCROLL CTA ─── */
-.scroll-cta {
-  position: fixed !important;
-  bottom: -120px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 9999 !important;
-  background: var(--dark) !important;
-  border-radius: 18px !important;
-  padding: 15px 22px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 18px !important;
-  box-shadow: 0 12px 40px rgba(6,31,92,.45) !important;
-  transition: bottom .42s cubic-bezier(.34,1.4,.64,1) !important;
-  max-width: min(560px, calc(100vw - 28px)) !important;
-  width: 100% !important;
-}
-.scroll-cta.visible { bottom: 20px !important; }
-
-.sct-text { flex: 1 !important; min-width: 0 !important; }
-.sct-title { font-size: 14px !important; font-weight: 700 !important; color: #fff !important; }
-.sct-sub { font-size: 12px !important; color: rgba(255,255,255,.6) !important; margin-top: 2px !important; }
-
-.sct-close {
-  width: 28px !important; height: 28px !important;
-  background: rgba(255,255,255,.12) !important;
-  border: none !important; border-radius: 50% !important;
-  cursor: pointer !important; display: flex !important; align-items: center !important; justify-content: center !important;
-  color: #fff !important; flex-shrink: 0 !important; transition: background .15s !important;
-}
-.sct-close:hover { background: rgba(255,255,255,.25) !important; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 1040px) {
-  .fonds-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important; }
-  .compare-inner { flex-direction: column !important; }
-  .compare-left { flex: none !important; width: 100% !important; }
-  .rundum-inner { grid-template-columns: 1fr !important; }
-}
-
-@media (max-width: 760px) {
-  .hero-content { padding: 28px 20px 36px !important; }
-  .hero-pill { font-size: 1.3rem !important; padding: 10px 18px !important; }
-  .hp-green { margin-left: 8px !important; }
-  .tab-panel.active { grid-template-columns: 1fr !important; gap: 36px !important; }
-  .at-block { padding: 28px 20px !important; flex-direction: column !important; gap: 24px !important; }
-  .at-right { flex-direction: row !important; gap: 16px !important; }
-  .section-title { font-size: 24px !important; }
-  .svc-item { min-width: 120px !important; padding: 22px 10px !important; }
-  .svc-icon-box { width: 44px !important; height: 44px !important; }
-  .svc-icon-box svg { width: 32px !important; height: 32px !important; }
-  .final-cta-inner { flex-direction: column !important; }
-  .fonds-grid { grid-template-columns: 1fr !important; max-width: 380px !important; margin-left: auto !important; margin-right: auto !important; }
-  .tabs-nav { gap: 6px !important; }
-  .tab-btn { padding: 10px 20px !important; font-size: 13px !important; }
-  .trust-item { padding: 16px 20px !important; }
-}
-
-@media (max-width: 480px) {
-  .hero { min-height: 420px !important; }
-  .hero-pill { font-size: 1.1rem !important; }
-  .hp-blue { font-size: 0.9rem !important; }
-  .btn { padding: 12px 22px !important; font-size: 13px !important; min-height: 44px !important; }
-  .at-timer { font-size: 52px !important; }
-  .scroll-cta { padding: 12px 16px !important; gap: 12px !important; }
-}
-</style>
-</head>
-<body>
-
-<!-- SCROLL CTA -->
-<div class="scroll-cta" id="scrollCta">
-  <div class="sct-text">
-    <div class="sct-title">Welcher Anlagetyp sind Sie?</div>
-    <div class="sct-sub">In 5 Minuten zum persoenlichen Risikoprofil</div>
-  </div>
-  <a href="#" class="btn btn-green" style="font-size:13px !important;padding:11px 20px !important;">Zum Anlegertest</a>
-  <button class="sct-close" id="ctaClose" aria-label="Schliessen">
-    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </button>
-</div>
+<link rel="stylesheet" href="/ginmon-styles.css">
+<div class="gm-landing">
 
 <!-- HERO -->
-<section class="hero">
-  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format" class="hero-bg-img" alt="Skyline">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-badge">3x Testsieger Handelsblatt 2022 - 2024</div>
-    <div class="hero-titles">
-      <div class="hero-pill hp-dark">Bis zu 7,2% Zielrendite pro Jahr.</div>
-      <div class="hero-pill hp-green">Global. Einfach. Ab 100 Euro.</div>
-      <div class="hero-pill hp-blue">17.000+ Wertpapiere / 95 Laender / Seit 2014</div>
+<section class="gm-hero">
+  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80" alt="" class="gm-hero-img">
+  <div class="gm-hero-overlay"></div>
+  <div class="gm-hero-content">
+    <div class="gm-hero-titles">
+      <div class="gm-hero-pill gm-hp-dark">Bis zu 7,2% Zielrendite pro Jahr.</div>
+      <div class="gm-hero-pill gm-hp-green">Global. Einfach. Ab 100&nbsp;Euro.</div>
+      <div class="gm-hero-pill gm-hp-blue">17.000+ Wertpapiere / 95 Länder / Seit 2014</div>
     </div>
-    <div class="hero-ctas">
-      <a href="#" class="btn btn-green">Welcher Fonds passt zu mir?</a>
-      <a href="#" class="btn btn-outline-white">Depot eroeffnen</a>
+    <div class="gm-hero-ctas">
+      <a href="#" class="gm-btn gm-btn-green">Welcher Fonds passt zu mir?</a>
+      <a href="#" class="gm-btn gm-btn-outline-white">Depot eröffnen</a>
     </div>
   </div>
 </section>
 
 <!-- TRUST BAR -->
-<div style="height:0 !important;background:#fff !important;"></div>
-<div class="trust-bar">
-  <div class="trust-bar-inner">
-    <div class="trust-item">
-      <div class="trust-icon-wrap">
+<div class="gm-trust-bar">
+  <div class="gm-trust-inner">
+    <div class="gm-trust-item">
+      <div class="gm-trust-icon">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l7 3.5v6c0 4-3.5 7-7 8.5C4.5 18.5 1 15.5 1 11.5v-6z" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M7 11l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div><div class="trust-label">FNZ Bank</div><div class="trust-sub">Sondervermoegen geschuetzt</div></div>
+      <div><div class="gm-trust-label">FNZ Bank</div><div class="gm-trust-sub">Sondervermögen geschützt</div></div>
     </div>
-    <div class="trust-item">
-      <div class="trust-icon-wrap">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="7" width="18" height="13" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8"/><path d="M7 7V5a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round"/><circle cx="11" cy="14" r="2" fill="rgb(76,121,199)" opacity=".5"/></svg>
+    <div class="gm-trust-item">
+      <div class="gm-trust-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="7" width="18" height="13" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8"/><path d="M7 7V5a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round"/><circle cx="11" cy="14" r="2" fill="rgb(76,121,199)" opacity=".4"/></svg>
       </div>
-      <div><div class="trust-label">Gesetzlich abgesichert</div><div class="trust-sub">Kapital als Sondervermoegen</div></div>
+      <div><div class="gm-trust-label">Gesetzlich abgesichert</div><div class="gm-trust-sub">Kapital als Sondervermögen</div></div>
     </div>
-    <div class="trust-item">
-      <div class="trust-icon-wrap">
+    <div class="gm-trust-item">
+      <div class="gm-trust-icon">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2 4 4.5.65-3.25 3.17.77 4.48L11 12.1 6.98 14.3l.77-4.48L4.5 6.65 9 6z" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg>
       </div>
-      <div><div class="trust-label">3x Testsieger</div><div class="trust-sub">Handelsblatt 2022 - 2024</div></div>
+      <div><div class="gm-trust-label">3x Testsieger</div><div class="gm-trust-sub">Handelsblatt 2022-2024</div></div>
     </div>
-    <div class="trust-item">
-      <div class="trust-icon-wrap">
+    <div class="gm-trust-item">
+      <div class="gm-trust-icon">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M11 7v4.5l3 3" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div><div class="trust-label">0 Euro Performancegebuehr</div><div class="trust-sub">Keine versteckten Kosten</div></div>
+      <div><div class="gm-trust-label">0 Euro Performancegebühr</div><div class="gm-trust-sub">Keine versteckten Kosten</div></div>
     </div>
-    <div class="trust-item">
-      <div class="trust-icon-wrap">
+    <div class="gm-trust-item">
+      <div class="gm-trust-icon">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="14" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M2 9h18" stroke="rgb(76,121,199)" stroke-width="1.8"/><circle cx="7" cy="14" r="1.5" fill="rgb(124,186,58)"/></svg>
       </div>
-      <div><div class="trust-label">Kostenfreie Hotline</div><div class="trust-sub">0800 12305070</div></div>
+      <div><div class="gm-trust-label">Kostenfreie Hotline</div><div class="gm-trust-sub">0800 12305070</div></div>
     </div>
   </div>
 </div>
 
-<!-- SERVICE STRIP -->
-<div class="services-strip">
-  <div class="services-track">
-    <a href="#" class="svc-item">
-      <div class="svc-icon-box">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <rect x="5" y="24" width="6" height="12" rx="2" fill="rgb(76,121,199)" opacity=".35"/>
-          <rect x="14" y="17" width="6" height="19" rx="2" fill="rgb(76,121,199)" opacity=".55"/>
-          <rect x="23" y="20" width="6" height="16" rx="2" fill="rgb(76,121,199)" opacity=".7"/>
-          <path d="M6 22l10-7 10 4 9-11" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="6" cy="22" r="2" fill="rgb(124,186,58)"/>
-          <circle cx="16" cy="15" r="2" fill="rgb(124,186,58)"/>
-          <circle cx="26" cy="19" r="2" fill="rgb(124,186,58)"/>
-          <circle cx="35" cy="8" r="2.5" fill="rgb(124,186,58)"/>
-        </svg>
+<!-- PRODUCT CARDS (horizontal scroll) -->
+<section class="gm-products">
+  <div class="gm-products-title">Unsere Lösungen</div>
+  <div class="gm-products-track">
+    <a href="#" class="gm-product-card">
+      <div class="gm-product-icon">
+        <svg viewBox="0 0 28 28" fill="none"><rect x="3" y="16" width="4" height="10" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="9" y="11" width="4" height="15" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="15" y="6" width="4" height="20" rx="1.5" fill="rgb(76,121,199)" opacity=".8"/><path d="M4 14l7-5 7 3 6-8" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="svc-title">ETF-Sparplan</div>
-      <div class="svc-sub">Ab 10 Euro monatlich</div>
+      <div class="gm-product-name">ETF-Sparplan</div>
+      <div class="gm-product-desc">Ab 10 Euro monatlich</div>
     </a>
-    <a href="#" class="svc-item">
-      <div class="svc-icon-box">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <circle cx="20" cy="14" r="6" stroke="rgb(76,121,199)" stroke-width="2" fill="none"/>
-          <path d="M10 34c0-7.5 4.5-12 10-12s10 4.5 10 12" stroke="rgb(76,121,199)" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <circle cx="32" cy="12" r="4.5" fill="none" stroke="rgb(124,186,58)" stroke-width="1.8"/>
-          <path d="M30 12l1.5 1.5 2.5-2.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+    <a href="#" class="gm-product-card">
+      <div class="gm-product-icon">
+        <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M6 24c0-5.5 3.6-9 8-9s8 3.5 8 9" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="22" cy="8" r="3.5" fill="none" stroke="rgb(124,186,58)" stroke-width="1.5"/><path d="M20.5 8l1.2 1.2 2.3-2.3" stroke="rgb(124,186,58)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="svc-title">Kindersparplan</div>
-      <div class="svc-sub">Fuer die Zukunft</div>
+      <div class="gm-product-name">Kindersparplan</div>
+      <div class="gm-product-desc">Für die Zukunft</div>
     </a>
-    <a href="#" class="svc-item svc-active">
-      <div class="svc-icon-box">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <rect x="7" y="16" width="26" height="18" rx="4" stroke="rgba(255,255,255,0.8)" stroke-width="2" fill="none"/>
-          <path d="M14 16v-3a6 6 0 0112 0v3" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <circle cx="20" cy="25" r="2.5" fill="rgba(255,255,255,0.6)"/>
-          <path d="M20 28v2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
+    <a href="#" class="gm-product-card">
+      <div class="gm-product-icon" style="background:rgba(76,121,199,.12)">
+        <svg viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="14" rx="3.5" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M10 10V8a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="14" cy="17" r="2.5" fill="rgb(76,121,199)" opacity=".35"/><circle cx="14" cy="17" r="1.2" fill="rgb(76,121,199)"/></svg>
       </div>
-      <div class="svc-title">Vermoegensverwaltung</div>
-      <div class="svc-sub">ETF-Strategien mit Beratung</div>
+      <div class="gm-product-name">Vermögensverwaltung</div>
+      <div class="gm-product-desc">ETF-Strategien mit Beratung</div>
     </a>
-    <a href="#" class="svc-item">
-      <div class="svc-icon-box">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <circle cx="20" cy="20" r="11" stroke="rgb(76,121,199)" stroke-width="2" fill="none"/>
-          <circle cx="20" cy="20" r="6" stroke="rgb(76,121,199)" stroke-width="1.3" opacity=".4" fill="none"/>
-          <circle cx="20" cy="20" r="3" fill="rgb(124,186,58)"/>
-        </svg>
+    <a href="#" class="gm-product-card">
+      <div class="gm-product-icon">
+        <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><circle cx="14" cy="14" r="5" stroke="rgb(76,121,199)" stroke-width="1.2" opacity=".35" fill="none"/><circle cx="14" cy="14" r="2.5" fill="rgb(124,186,58)"/></svg>
       </div>
-      <div class="svc-title">Einmalanlage</div>
-      <div class="svc-sub">Direkt investieren</div>
+      <div class="gm-product-name">Einmalanlage</div>
+      <div class="gm-product-desc">Direkt investieren</div>
     </a>
-    <a href="#" class="svc-item">
-      <div class="svc-icon-box">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-          <rect x="5" y="26" width="7" height="10" rx="2" fill="rgb(76,121,199)" opacity=".35"/>
-          <rect x="16" y="19" width="7" height="17" rx="2" fill="rgb(76,121,199)" opacity=".55"/>
-          <rect x="27" y="10" width="7" height="26" rx="2" fill="rgb(76,121,199)"/>
-          <path d="M5 23l11-7 12 5 7-14" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+    <a href="#" class="gm-product-card">
+      <div class="gm-product-icon">
+        <svg viewBox="0 0 28 28" fill="none"><rect x="3" y="17" width="5" height="8" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="11" y="12" width="5" height="13" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="19" y="5" width="5" height="20" rx="1.5" fill="rgb(76,121,199)"/><path d="M4 15l8-5 8 4 5-10" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="svc-title">VL sparen</div>
-      <div class="svc-sub">Vermoegenswirksame Leistungen</div>
+      <div class="gm-product-name">VL sparen</div>
+      <div class="gm-product-desc">Vermögenswirksame Leistungen</div>
     </a>
   </div>
-</div>
+</section>
 
-<!-- TABS -->
-<section class="tabs-section">
-  <div class="tabs-head">
-    <h2 class="section-title">Alles aus einer Hand</h2>
-    <p class="section-sub">Fertige ETF-Portfolios aus 10-15 Einzel-ETFs / Ab 10 Euro monatlich / Jederzeit kuendbar</p>
+<!-- TABS SECTION -->
+<section class="gm-tabs-section">
+  <div class="gm-tabs-head">
+    <h2 class="gm-tabs-title">Alles aus einer Hand</h2>
+    <p class="gm-tabs-sub">Fertige ETF-Portfolios aus 10-15 Einzel-ETFs. Ab 10 Euro monatlich. Jederzeit kündbar.</p>
   </div>
-
-  <div class="tabs-nav">
-    <button class="tab-btn tab-active" onclick="openTab('etf',this)">ETF-Sparplan</button>
-    <button class="tab-btn" onclick="openTab('kind',this)">Kindersparplan</button>
-    <button class="tab-btn" onclick="openTab('einmal',this)">Einmalanlage</button>
+  <div class="gm-tabs-nav">
+    <button class="gm-tab-btn gm-tab-active" onclick="gmOpenTab('etf',this)">ETF-Sparplan</button>
+    <button class="gm-tab-btn" onclick="gmOpenTab('kind',this)">Kindersparplan</button>
+    <button class="gm-tab-btn" onclick="gmOpenTab('einmal',this)">Einmalanlage</button>
   </div>
-
-  <div class="tab-panels">
-    <!-- ETF -->
-    <div class="tab-panel active" id="tab-etf">
-      <div class="tab-text">
-        <span class="tab-badge tb-green">ETF Sparplan</span>
+  <div class="gm-tab-panels">
+    <div class="gm-tab-panel gm-active" id="gm-tab-etf">
+      <div class="gm-tab-text">
+        <span class="gm-tab-badge gm-tb-green">ETF Sparplan</span>
         <h2>Das Sparen beginnt hier</h2>
-        <p>Gross investieren, schon mit kleinen Betraegen. Schon ab 10 Euro im Monat vom weltweiten Wirtschaftswachstum profitieren und Stueck fuer Stueck ein Vermoegen aufbauen.</p>
-        <div class="check-list">
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sparplan auch ohne Einmalanlage moeglich</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Flexible Ein- und Auszahlungen</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Aenderung der Sparplanrate jederzeit moeglich</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Seit 10 Jahren am Markt und erfolgreich</div>
+        <p>Schon ab 10 Euro im Monat vom weltweiten Wirtschaftswachstum profitieren und Stück für Stück ein Vermögen aufbauen.</p>
+        <div class="gm-check-list">
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sparplan auch ohne Einmalanlage möglich</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Flexible Ein- und Auszahlungen</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Änderung der Sparplanrate jederzeit möglich</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Seit 10 Jahren am Markt und erfolgreich</div>
         </div>
-        <a href="#" class="btn btn-green">Sparplan eroeffnen</a>
+        <a href="#" class="gm-btn gm-btn-green">Sparplan eröffnen</a>
       </div>
-      <div class="tab-visual">
+      <div class="gm-tab-visual">
         <svg width="260" height="200" viewBox="0 0 260 200" fill="none">
-          <rect x="20" y="130" width="22" height="60" rx="4" fill="rgb(76,121,199)" opacity=".25"/>
-          <rect x="58" y="100" width="22" height="90" rx="4" fill="rgb(76,121,199)" opacity=".4"/>
-          <rect x="96" y="115" width="22" height="75" rx="4" fill="rgb(76,121,199)" opacity=".55"/>
-          <rect x="134" y="75" width="22" height="115" rx="4" fill="rgb(76,121,199)" opacity=".7"/>
-          <rect x="172" y="42" width="22" height="148" rx="4" fill="rgb(76,121,199)"/>
+          <rect x="20" y="130" width="22" height="60" rx="4" fill="rgb(76,121,199)" opacity=".25"/><rect x="58" y="100" width="22" height="90" rx="4" fill="rgb(76,121,199)" opacity=".4"/><rect x="96" y="115" width="22" height="75" rx="4" fill="rgb(76,121,199)" opacity=".55"/><rect x="134" y="75" width="22" height="115" rx="4" fill="rgb(76,121,199)" opacity=".7"/><rect x="172" y="42" width="22" height="148" rx="4" fill="rgb(76,121,199)"/>
           <path d="M20 126 62 95 100 110 145 68 184 38" stroke="rgb(124,186,58)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="20" cy="126" r="4.5" fill="rgb(124,186,58)"/>
-          <circle cx="62" cy="95" r="4.5" fill="rgb(124,186,58)"/>
-          <circle cx="100" cy="110" r="4.5" fill="rgb(124,186,58)"/>
-          <circle cx="145" cy="68" r="4.5" fill="rgb(124,186,58)"/>
           <circle cx="184" cy="38" r="6" fill="rgb(124,186,58)"/>
         </svg>
       </div>
     </div>
-
-    <!-- Kind -->
-    <div class="tab-panel" id="tab-kind">
-      <div class="tab-text">
-        <span class="tab-badge tb-blue">ETF Kindersparplan</span>
-        <h2>Fuer die Grossen von morgen</h2>
-        <p>Sparen Sie heute schon fuer Studium, Ausbildung oder das erste Auto Ihres Kindes. Grosseltern und Paten koennen mitsparen.</p>
-        <div class="check-list">
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ab 10 Euro monatlich starten</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Grosseltern und Paten koennen mitsparen</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Professionell verwaltetes ETF-Portfolio</div>
+    <div class="gm-tab-panel" id="gm-tab-kind">
+      <div class="gm-tab-text">
+        <span class="gm-tab-badge gm-tb-blue">Kindersparplan</span>
+        <h2>Für die Großen von morgen</h2>
+        <p>Sparen Sie heute für Studium, Ausbildung oder das erste Auto Ihres Kindes. Großeltern und Paten können mitsparen.</p>
+        <div class="gm-check-list">
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ab 10 Euro monatlich starten</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Großeltern und Paten können mitsparen</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Professionell verwaltetes ETF-Portfolio</div>
         </div>
-        <a href="#" class="btn btn-green">Kindersparplan eroeffnen</a>
+        <a href="#" class="gm-btn gm-btn-green">Kindersparplan eröffnen</a>
       </div>
-      <div class="tab-visual">
-        <svg width="240" height="200" viewBox="0 0 240 200" fill="none">
-          <circle cx="120" cy="75" r="34" stroke="rgb(76,121,199)" stroke-width="2.5" fill="none"/>
-          <path d="M72 165c0-27 21-44 48-44s48 17 48 44" stroke="rgb(76,121,199)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          <circle cx="56" cy="72" r="20" stroke="rgb(124,186,58)" stroke-width="2" fill="none"/>
-          <path d="M47 72l4 5 8-8" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="184" cy="72" r="20" stroke="rgb(124,186,58)" stroke-width="2" fill="none"/>
-          <path d="M175 72l4 5 8-8" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <div class="gm-tab-visual">
+        <svg width="220" height="200" viewBox="0 0 220 200" fill="none"><circle cx="110" cy="70" r="30" stroke="rgb(76,121,199)" stroke-width="2.5" fill="none"/><path d="M68 160c0-24 19-40 42-40s42 16 42 40" stroke="rgb(76,121,199)" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
       </div>
     </div>
-
-    <!-- Einmal -->
-    <div class="tab-panel" id="tab-einmal">
-      <div class="tab-text">
-        <span class="tab-badge tb-blue">Einmalanlage</span>
+    <div class="gm-tab-panel" id="gm-tab-einmal">
+      <div class="gm-tab-text">
+        <span class="gm-tab-badge gm-tb-blue">Einmalanlage</span>
         <h2>Lassen Sie Ihr Geld arbeiten</h2>
-        <p>Egal ob Weltreise, Eigenheim oder private Altersvorsorge. Schon ab 100 Euro Einmalanlage investieren.</p>
-        <div class="check-list">
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Einmalig ab 100 Euro investieren</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Global diversifiziertes ETF-Portfolio</div>
-          <div class="check-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0 !important"><circle cx="10" cy="10" r="9" fill="rgba(124,186,58,.14)"/><path d="M6 10l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Jederzeit Zuzahlungen moeglich</div>
+        <p>Egal ob Weltreise, Eigenheim oder Altersvorsorge. Schon ab 100 Euro Einmalanlage global diversifiziert investieren.</p>
+        <div class="gm-check-list">
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Einmalig ab 100 Euro investieren</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Global diversifiziertes ETF-Portfolio</div>
+          <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Jederzeit Zuzahlungen möglich</div>
         </div>
-        <a href="#" class="btn btn-green">Jetzt investieren</a>
+        <a href="#" class="gm-btn gm-btn-green">Jetzt investieren</a>
       </div>
-      <div class="tab-visual">
-        <svg width="220" height="200" viewBox="0 0 220 200" fill="none">
-          <circle cx="110" cy="100" r="75" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".15" fill="none"/>
-          <circle cx="110" cy="100" r="55" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".25" fill="none"/>
-          <circle cx="110" cy="100" r="36" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".4" fill="none"/>
-          <circle cx="110" cy="100" r="10" fill="rgb(76,121,199)"/>
-          <path d="M106 100l3 3 6-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="110" cy="29" r="5" fill="rgb(124,186,58)"/>
-          <circle cx="181" cy="100" r="5" fill="rgb(124,186,58)"/>
-          <circle cx="110" cy="171" r="5" fill="rgb(124,186,58)"/>
-          <circle cx="39" cy="100" r="5" fill="rgb(124,186,58)"/>
-        </svg>
+      <div class="gm-tab-visual">
+        <svg width="220" height="200" viewBox="0 0 220 200" fill="none"><circle cx="110" cy="100" r="60" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".2" fill="none"/><circle cx="110" cy="100" r="40" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".35" fill="none"/><circle cx="110" cy="100" r="14" fill="rgb(76,121,199)"/><path d="M106 100l3 3 6-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FONDS CARDS -->
-<section class="fonds-section">
-  <div style="max-width:1160px !important;margin:0 auto !important;padding:0 20px !important;">
-    <div style="text-align:center !important;margin-bottom:8px !important;">
-      <h2 class="section-title">Unsere drei ETF-Portfolios</h2>
-    </div>
-    <p class="section-sub" style="text-align:center !important;margin-bottom:0 !important;">Waehlen Sie Ihr Risikoprofil. Alle drei investieren global in ueber 17.000 Positionen.</p>
-
-    <div class="fonds-grid">
-      <div class="fonds-card">
-        <div class="fonds-top">
-          <div class="fonds-donut">
-            <svg width="106" height="106" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="14"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="14" stroke-dasharray="86.7 202.3" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="36" font-weight="800" fill="white">30</text></svg>
-          </div>
-          <div class="fonds-type">Defensives ETF-Portfolio</div>
-          <div class="fonds-name">easyfolio 30</div>
-          <div class="fonds-bar"></div>
-        </div>
-        <div class="fonds-body">
-          <div class="fonds-yield">3,9%</div>
-          <div class="fonds-yield-label">Zielrendite pro Jahr</div>
-          <div class="fonds-list">
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>30% Aktien | 70% Anleihen</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>WKN: EASY30</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Einmalanlage ab 100 Euro</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sparplan ab 10 Euro monatlich</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Kein Ausgabeaufschlag</div>
-          </div>
-          <a href="#" class="btn btn-green" style="margin-top:20px !important;display:block !important;text-align:center !important;">Jetzt investieren</a>
-        </div>
-      </div>
-
-      <div class="fonds-card">
-        <div class="fonds-badge-hot">BELIEBT</div>
-        <div class="fonds-top">
-          <div class="fonds-donut">
-            <svg width="106" height="106" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="14"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="14" stroke-dasharray="144.5 144.5" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="36" font-weight="800" fill="white">50</text></svg>
-          </div>
-          <div class="fonds-type">Ausgewogenes ETF-Portfolio</div>
-          <div class="fonds-name">easyfolio 50</div>
-          <div class="fonds-bar"></div>
-        </div>
-        <div class="fonds-body">
-          <div class="fonds-yield">5,2%</div>
-          <div class="fonds-yield-label">Zielrendite pro Jahr</div>
-          <div class="fonds-list">
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>50% Aktien | 50% Anleihen</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>WKN: EASY50</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Einmalanlage ab 100 Euro</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sparplan ab 10 Euro monatlich</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Kein Ausgabeaufschlag</div>
-          </div>
-          <a href="#" class="btn btn-green" style="margin-top:20px !important;display:block !important;text-align:center !important;">Jetzt investieren</a>
-        </div>
-      </div>
-
-      <div class="fonds-card">
-        <div class="fonds-top">
-          <div class="fonds-donut">
-            <svg width="106" height="106" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="14"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="14" stroke-dasharray="202.3 86.7" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="36" font-weight="800" fill="white">70</text></svg>
-          </div>
-          <div class="fonds-type">Offensives ETF-Portfolio</div>
-          <div class="fonds-name">easyfolio 70</div>
-          <div class="fonds-bar"></div>
-        </div>
-        <div class="fonds-body">
-          <div class="fonds-yield">7,2%</div>
-          <div class="fonds-yield-label">Zielrendite pro Jahr</div>
-          <div class="fonds-list">
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>70% Aktien | 30% Anleihen</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>WKN: EASY70</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Einmalanlage ab 100 Euro</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Sparplan ab 10 Euro monatlich</div>
-            <div class="fonds-li"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.14)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Kein Ausgabeaufschlag</div>
-          </div>
-          <a href="#" class="btn btn-green" style="margin-top:20px !important;display:block !important;text-align:center !important;">Jetzt investieren</a>
-        </div>
-      </div>
-    </div>
-    <p style="text-align:center !important;font-size:12px !important;color:#b0b0b8 !important;margin-top:18px !important;">Historische Wertentwicklungen sind kein verlaesslicher Indikator fuer zukuenftige Wertentwicklungen.</p>
+<section class="gm-fonds-section">
+  <div class="gm-fonds-head">
+    <h2>Unsere drei ETF-Portfolios</h2>
+    <p>Wählen Sie Ihr Risikoprofil. Alle drei investieren global in über 17.000 Positionen.</p>
   </div>
+  <div class="gm-fonds-grid">
+    <div class="gm-fonds-card">
+      <div class="gm-fonds-top">
+        <svg width="90" height="90" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="14"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="14" stroke-dasharray="86.7 202.3" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="36" font-weight="800" fill="white">30</text></svg>
+        <div class="gm-fonds-type">Defensives ETF-Portfolio</div>
+        <div class="gm-fonds-name">easyfolio 30</div>
+        <div class="gm-fonds-bar"></div>
+      </div>
+      <div class="gm-fonds-body">
+        <div class="gm-fonds-yield">3,9%</div>
+        <div class="gm-fonds-yield-label">Zielrendite pro Jahr</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>30% Aktien | 70% Anleihen</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Einmalanlage ab 100 Euro</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Sparplan ab 10 Euro monatlich</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Kein Ausgabeaufschlag</div>
+        <a href="#" class="gm-btn gm-btn-green" style="margin-top:20px;width:100%;text-align:center;">Jetzt investieren</a>
+      </div>
+    </div>
+    <div class="gm-fonds-card">
+      <div class="gm-fonds-popular">BELIEBT</div>
+      <div class="gm-fonds-top">
+        <svg width="90" height="90" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="14"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="14" stroke-dasharray="144.5 144.5" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="36" font-weight="800" fill="white">50</text></svg>
+        <div class="gm-fonds-type">Ausgewogenes ETF-Portfolio</div>
+        <div class="gm-fonds-name">easyfolio 50</div>
+        <div class="gm-fonds-bar"></div>
+      </div>
+      <div class="gm-fonds-body">
+        <div class="gm-fonds-yield">5,2%</div>
+        <div class="gm-fonds-yield-label">Zielrendite pro Jahr</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>50% Aktien | 50% Anleihen</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Einmalanlage ab 100 Euro</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Sparplan ab 10 Euro monatlich</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Kein Ausgabeaufschlag</div>
+        <a href="#" class="gm-btn gm-btn-green" style="margin-top:20px;width:100%;text-align:center;">Jetzt investieren</a>
+      </div>
+    </div>
+    <div class="gm-fonds-card">
+      <div class="gm-fonds-top">
+        <svg width="90" height="90" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="14"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="14" stroke-dasharray="202.3 86.7" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="36" font-weight="800" fill="white">70</text></svg>
+        <div class="gm-fonds-type">Offensives ETF-Portfolio</div>
+        <div class="gm-fonds-name">easyfolio 70</div>
+        <div class="gm-fonds-bar"></div>
+      </div>
+      <div class="gm-fonds-body">
+        <div class="gm-fonds-yield">7,2%</div>
+        <div class="gm-fonds-yield-label">Zielrendite pro Jahr</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>70% Aktien | 30% Anleihen</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Einmalanlage ab 100 Euro</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Sparplan ab 10 Euro monatlich</div>
+        <div class="gm-fonds-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Kein Ausgabeaufschlag</div>
+        <a href="#" class="gm-btn gm-btn-green" style="margin-top:20px;width:100%;text-align:center;">Jetzt investieren</a>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:12px;color:#b0b0b8;margin-top:18px;padding:0 24px;">Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen.</p>
 </section>
 
-<!-- ANLEGERTEST BANNER -->
-<div class="at-outer">
-  <div class="at-block">
-    <div class="at-left">
-      <div class="at-eye">Anlegertest</div>
+<!-- ANLEGERTEST BANNER (overlapping) -->
+<div class="gm-at-wrapper">
+  <div class="gm-at-block">
+    <div class="gm-at-left">
+      <div class="gm-at-eye">Anlegertest</div>
       <h2>Nicht sicher, welcher Fonds passt?</h2>
-      <p>In 5 Minuten ermitteln wir Ihr persoenliches Risikoprofil und empfehlen die passende easyfolio-Strategie. Keine Anmeldung noetig.</p>
-      <div class="at-steps">
-        <div class="at-step"><div class="at-num">1</div>8 kurze Fragen</div>
-        <div class="at-step"><div class="at-num">2</div>Sofortige Auswertung</div>
-        <div class="at-step"><div class="at-num">3</div>Direkt investieren</div>
+      <p>In 5 Minuten ermitteln wir Ihr persönliches Risikoprofil und empfehlen die passende easyfolio-Strategie. Keine Anmeldung nötig.</p>
+      <div class="gm-at-steps">
+        <div class="gm-at-step"><div class="gm-at-num">1</div>8 kurze Fragen</div>
+        <div class="gm-at-step"><div class="gm-at-num">2</div>Sofortige Auswertung</div>
+        <div class="gm-at-step"><div class="gm-at-num">3</div>Direkt investieren</div>
       </div>
     </div>
-    <div class="at-right">
-      <div class="at-timer">5'</div>
-      <div class="at-timer-sub">nur 5 Minuten</div>
-      <a href="#" class="btn btn-blue" style="font-size:15px !important;padding:14px 34px !important;">Zum Anlegertest</a>
+    <div class="gm-at-right">
+      <div class="gm-at-timer">5'</div>
+      <div class="gm-at-timer-sub">nur 5 Minuten</div>
+      <a href="#" class="gm-btn gm-btn-dark" style="font-size:15px;padding:14px 34px;">Zum Anlegertest</a>
     </div>
   </div>
 </div>
 
-<!-- COMPARISON TABLE -->
-<section class="compare-section">
-  <div class="compare-inner">
-    <div class="compare-left">
+<!-- COMPARE TABLE -->
+<section class="gm-compare-section" style="padding-top:120px;">
+  <div class="gm-compare-inner">
+    <div class="gm-compare-left">
       <h2>easyfolio im Vergleich</h2>
       <p>Warum easyfolio mehr bietet als ein eigenes ETF-Portfolio oder ein klassischer Robo-Advisor.</p>
-      <a href="#" class="btn btn-green">Depot eroeffnen</a>
+      <a href="#" class="gm-btn gm-btn-green">Depot eröffnen</a>
     </div>
-    <div class="compare-right">
-      <table class="cmp-table">
-        <thead>
-          <tr>
-            <th>Kriterium</th>
-            <th>Eigenes Portfolio</th>
-            <th>Robo-Advisor</th>
-            <th class="hl">easyfolio</th>
-          </tr>
-        </thead>
+    <div class="gm-compare-right">
+      <table class="gm-cmp-table">
+        <thead><tr>
+          <th>Kriterium</th><th>Eigenes Portfolio</th><th>Robo-Advisor</th><th class="gm-hl">easyfolio</th>
+        </tr></thead>
         <tbody>
-          <tr><td>In ETFs investieren</td><td><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td class="hl"><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
-          <tr><td>Geringe Mindestanlage</td><td><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td class="hl"><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cmp-note">ab 100 Euro</span></td></tr>
-          <tr><td>Keine versteckten Kosten</td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="hl"><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
-          <tr><td>Aktives Risikomanagement</td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="hl"><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
-          <tr><td>Persoenlicher Ansprechpartner</td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="hl"><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cmp-note">Kostenlos</span></td></tr>
-          <tr><td>Prognosefreies Investieren</td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="hl"><span class="cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
+          <tr><td>In ETFs investieren</td><td><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
+          <tr><td>Geringe Mindestanlage</td><td><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="gm-cmp-note">ab 100 Euro</span></td></tr>
+          <tr><td>Keine versteckten Kosten</td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
+          <tr><td>Aktives Risikomanagement</td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
+          <tr><td>Persönlicher Ansprechpartner</td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="gm-cmp-note">Kostenlos</span></td></tr>
+          <tr><td>Prognosefreies Investieren</td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- RUNDUM SORGLOS -->
-<section class="rundum-section">
-  <div class="rundum-inner">
-    <div class="rundum-left">
-      <span class="section-eyebrow green">Easyfolio Welt</span>
-      <h2>Das Rundum-Sorglos-Paket</h2>
-      <p>Wir begleiten Sie nicht nur bei der initialen Geldanlage, sondern halten Sie auch danach stets auf dem Laufenden.</p>
-    </div>
-    <div class="rundum-right">
-      <div class="ra-list">
-        <div class="ra-item ra-open" id="ra1">
-          <div class="ra-header" onclick="openRa(1)">
-            <span class="ra-header-title">Anlegertest</span>
-            <span class="ra-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5.5l5 5 5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-          <div class="ra-body">
-            <div class="ra-body-inner">
-              <div class="ra-bg"></div>
-              <div class="ra-visual">
-                <svg width="200" height="200" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="75" stroke="rgba(255,255,255,.1)" stroke-width="1.5" fill="none"/><circle cx="100" cy="100" r="55" stroke="rgba(255,255,255,.12)" stroke-width="14" stroke-dasharray="10 6" fill="none"/><circle cx="100" cy="100" r="32" fill="rgba(255,255,255,.07)"/><path d="M100 70v30l18 18" stroke="rgba(255,255,255,.7)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="100" cy="100" r="5" fill="rgb(124,186,58)"/></svg>
-              </div>
-              <div class="ra-content">
-                <h3>Anlegertest</h3>
-                <p>Jetzt Risikoprofil ermitteln. In unter 5 Minuten zu Ihrem persoenlichen Anlegertyp.</p>
-                <a href="#" class="btn btn-blue" style="font-size:13px !important;padding:11px 22px !important;">Zum Anlegertest</a>
-              </div>
-            </div>
+<!-- RUNDUM SORGLOS (horizontal scroll with images) -->
+<section class="gm-rundum-section">
+  <div class="gm-rundum-inner">
+    <div class="gm-rundum-top">
+      <div class="gm-rundum-left">
+        <span class="gm-rundum-eyebrow">easyfolio Welt</span>
+        <h2>Das Rundum-Sorglos-Paket</h2>
+        <p>Wir begleiten Sie nicht nur bei der initialen Geldanlage, sondern halten Sie stets auf dem Laufenden.</p>
+        <div class="gm-rundum-scroll-btns">
+          <button class="gm-scroll-btn" onclick="document.getElementById('gmRundumTrack').scrollBy({left:-340,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="gm-scroll-btn" onclick="document.getElementById('gmRundumTrack').scrollBy({left:340,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="gm-rundum-cards" id="gmRundumTrack">
+        <div class="gm-rundum-card">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" alt="Anlegertest" class="gm-rundum-card-img">
+          <div class="gm-rundum-card-overlay"></div>
+          <div class="gm-rundum-card-content">
+            <h3>Anlegertest</h3>
+            <p>In unter 5 Minuten zu Ihrem persönlichen Anlegertyp und der passenden Strategie.</p>
+            <a href="#" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px;">Zum Anlegertest</a>
           </div>
         </div>
-        <div class="ra-item" id="ra2">
-          <div class="ra-header" onclick="openRa(2)">
-            <span class="ra-header-title">Wissen und Aktuelles</span>
-            <span class="ra-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5.5l5 5 5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-          <div class="ra-body">
-            <div class="ra-body-inner">
-              <div class="ra-bg" style="background:linear-gradient(135deg, #0a2a6e, rgb(76,121,199)) !important;"></div>
-              <div class="ra-visual">
-                <svg width="180" height="180" viewBox="0 0 200 200" fill="none"><rect x="30" y="25" width="140" height="150" rx="12" stroke="rgba(255,255,255,.15)" stroke-width="2" fill="none"/><path d="M55 65h90M55 90h90M55 115h65M55 140h45" stroke="rgba(255,255,255,.3)" stroke-width="2.5" stroke-linecap="round"/><circle cx="155" cy="145" r="28" fill="rgba(124,186,58,.18)" stroke="rgb(124,186,58)" stroke-width="2"/><path d="M145 145l5 6 11-11" stroke="rgb(124,186,58)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <div class="ra-content">
-                <h3>Wissen und Aktuelles</h3>
-                <p>Vertiefen Sie Ihr Wissen mit spannenden Blogartikeln rund um ETFs und unsere Anlagestrategien.</p>
-                <a href="#" class="btn btn-blue" style="font-size:13px !important;padding:11px 22px !important;">Zum Blog</a>
-              </div>
-            </div>
+        <div class="gm-rundum-card">
+          <img src="https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=640&q=80" alt="Wissen" class="gm-rundum-card-img">
+          <div class="gm-rundum-card-overlay"></div>
+          <div class="gm-rundum-card-content">
+            <h3>Wissen und Aktuelles</h3>
+            <p>Spannende Blogartikel rund um ETFs und unsere Anlagestrategien.</p>
+            <a href="#" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px;">Zum Blog</a>
           </div>
         </div>
-        <div class="ra-item" id="ra3">
-          <div class="ra-header" onclick="openRa(3)" style="border-bottom:none !important;">
-            <span class="ra-header-title">Ueber easyfolio</span>
-            <span class="ra-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 5.5l5 5 5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-          <div class="ra-body">
-            <div class="ra-body-inner">
-              <div class="ra-bg" style="background:linear-gradient(135deg, #071e52, rgb(76,121,199)) !important;"></div>
-              <div class="ra-visual">
-                <svg width="180" height="180" viewBox="0 0 200 200" fill="none"><circle cx="100" cy="100" r="65" stroke="rgba(255,255,255,.12)" stroke-width="2" fill="none"/><ellipse cx="100" cy="100" rx="35" ry="65" stroke="rgba(255,255,255,.12)" stroke-width="1.5" fill="none"/><ellipse cx="100" cy="100" rx="65" ry="28" stroke="rgba(255,255,255,.12)" stroke-width="1.5" fill="none"/><circle cx="100" cy="100" r="10" fill="rgb(124,186,58)" opacity=".8"/></svg>
-              </div>
-              <div class="ra-content">
-                <h3>Ueber easyfolio</h3>
-                <p>Erfahren Sie mehr ueber unsere Anlagephilosophie und warum wir seit 2014 auf wissenschaftlich fundiertes Investieren setzen.</p>
-                <a href="#" class="btn btn-blue" style="font-size:13px !important;padding:11px 22px !important;">Mehr erfahren</a>
-              </div>
-            </div>
+        <div class="gm-rundum-card">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=640&q=80" alt="Philosophie" class="gm-rundum-card-img">
+          <div class="gm-rundum-card-overlay"></div>
+          <div class="gm-rundum-card-content">
+            <h3>Über easyfolio</h3>
+            <p>Erfahren Sie mehr über unsere Anlagephilosophie und wissenschaftlich fundiertes Investieren seit 2014.</p>
+            <a href="#" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px;">Mehr erfahren</a>
           </div>
         </div>
       </div>
@@ -1278,105 +321,102 @@ body { background: var(--white) !important; color: var(--text) !important; line-
 </section>
 
 <!-- FAQ -->
-<section class="faq-section">
-  <div style="text-align:center !important;margin-bottom:48px !important;">
-    <h2 class="section-title">Haeufige Fragen</h2>
-    <p class="section-sub">Antworten auf die wichtigsten Fragen zu easyfolio</p>
+<section class="gm-faq-section">
+  <div class="gm-faq-head">
+    <h2>Häufige Fragen</h2>
+    <p>Antworten auf die wichtigsten Fragen zu easyfolio</p>
   </div>
-  <div class="faq-inner">
-    <div class="faq-list" id="faqList">
-      <div class="faq-item faq-open">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Was ist easyfolio und wie funktioniert es?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">easyfolio ist ein professionell verwaltetes ETF-Portfolio. Sie waehlen eines der drei Portfolios (30, 50 oder 70) je nach Ihrer Risikobereitschaft, und wir uebernehmen das gesamte Management. Ihr Kapital wird in ein global diversifiziertes Portfolio aus ETFs investiert, das regelmaessig rebalanciert wird.</div></div>
+  <div class="gm-faq-list" id="gmFaqList">
+    <div class="gm-faq-item gm-faq-open">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Was ist easyfolio und wie funktioniert es?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Ab welchem Betrag kann ich investieren?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Sie koennen bereits ab 10 Euro monatlich mit einem Sparplan starten. Fuer eine Einmalanlage ist eine Mindestanlage von 100 Euro erforderlich.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">easyfolio ist ein professionell verwaltetes ETF-Portfolio. Sie wählen eines der drei Portfolios (30, 50 oder 70) je nach Ihrer Risikobereitschaft, und wir übernehmen das gesamte Management. Ihr Kapital wird in ein global diversifiziertes Portfolio aus ETFs investiert, das regelmäßig rebalanciert wird.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Ab welchem Betrag kann ich investieren?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Welche Kosten fallen bei easyfolio an?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Es gibt keine Ausgabeaufschlaege, keine Performancegebuehren und keine versteckten Kosten. Sie zahlen ausschliesslich die laufenden Kosten der zugrunde liegenden ETFs.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Sie können bereits ab 10 Euro monatlich mit einem Sparplan starten. Für eine Einmalanlage ist eine Mindestanlage von 100 Euro erforderlich.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Welche Kosten fallen bei easyfolio an?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Wie sicher ist mein Geld bei easyfolio?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Ihr Depot wird bei der FNZ Bank gefuehrt. Ihr investiertes Kapital gilt als Sondervermoegen und ist rechtlich vom Vermoegen der Gesellschaft getrennt. Im Insolvenzfall ist Ihr Geld vollstaendig geschuetzt.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Es gibt keine Ausgabeaufschläge, keine Performancegebühren und keine versteckten Kosten. Sie zahlen ausschließlich die laufenden Kosten der zugrunde liegenden ETFs.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Wie sicher ist mein Geld bei easyfolio?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Kann ich jederzeit auf mein Geld zugreifen?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Ja. Es gibt keine Mindestlaufzeit. Sie koennen Ihren Sparplan jederzeit pausieren, anpassen oder kuendigen. Nach einer Verkaufsorder dauert die Auszahlung in der Regel 2 bis 3 Bankarbeitstage.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Ihr Depot wird bei der FNZ Bank geführt. Ihr investiertes Kapital gilt als Sondervermögen und ist rechtlich vom Vermögen der Gesellschaft getrennt. Im Insolvenzfall ist Ihr Geld vollständig geschützt.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Kann ich jederzeit auf mein Geld zugreifen?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Was ist der Unterschied zwischen easyfolio 30, 50 und 70?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Die Zahl gibt den Aktienanteil an. easyfolio 30 ist defensiv (30% Aktien, 70% Anleihen), easyfolio 50 ist ausgewogen, easyfolio 70 ist offensiv mit hoeherer Renditechance und staerkeren Schwankungen.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Ja. Es gibt keine Mindestlaufzeit. Sie können Ihren Sparplan jederzeit pausieren, anpassen oder kündigen. Nach einer Verkaufsorder dauert die Auszahlung in der Regel 2 bis 3 Bankarbeitstage.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Was ist der Unterschied zwischen easyfolio 30, 50 und 70?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Wie oeffne ich ein Depot bei easyfolio?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Die Depoteroeffnung ist vollstaendig online moeglich. Klicken Sie auf "Depot eroeffnen", fuellen Sie die Angaben aus und legitimieren Sie sich per Video-Ident oder Post-Ident.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Die Zahl gibt den Aktienanteil an. easyfolio 30 ist defensiv (30% Aktien, 70% Anleihen), easyfolio 50 ist ausgewogen, easyfolio 70 ist offensiv mit höherer Renditechance und stärkeren Schwankungen.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Wie öffne ich ein Depot bei easyfolio?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Kann ich auch fuer mein Kind ein Depot eroeffnen?</span>
-          <span class="faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Ja. Mit dem easyfolio Kindersparplan koennen Eltern, Grosseltern und Paten gemeinsam fuer die Zukunft eines Kindes sparen. Das Depot wird auf den Namen des Kindes eroeffnet und bei Volljaehrigkeit uebertragen.</div></div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Die Depoteröffnung ist vollständig online möglich. Klicken Sie auf "Depot eröffnen", füllen Sie die Angaben aus und legitimieren Sie sich per Video-Ident oder Post-Ident.</div></div>
+    </div>
+    <div class="gm-faq-item">
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
+        <span class="gm-faq-q-text">Kann ich auch für mein Kind ein Depot eröffnen?</span>
+        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
+      <div class="gm-faq-a"><div class="gm-faq-a-inner">Ja. Mit dem easyfolio Kindersparplan können Eltern, Großeltern und Paten gemeinsam für die Zukunft eines Kindes sparen. Das Depot wird auf den Namen des Kindes eröffnet und bei Volljährigkeit übertragen.</div></div>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="final-cta-inner">
-    <div class="cta-card green-card">
-      <div class="cta-card-icon">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="8" width="22" height="17" rx="4" stroke="#fff" stroke-width="2" fill="none"/><path d="M9 8V6a5 5 0 0110 0v2" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="14" cy="16.5" r="2.5" fill="#fff" opacity=".6"/><path d="M14 19v3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+<section class="gm-final-cta">
+  <div class="gm-final-inner">
+    <div class="gm-cta-card gm-cta-green">
+      <div class="gm-cta-card-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="8" width="22" height="17" rx="4" stroke="#fff" stroke-width="2" fill="none"/><path d="M9 8V6a5 5 0 0110 0v2" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="14" cy="17" r="2.5" fill="#fff" opacity=".6"/></svg>
       </div>
-      <h3>Depot eroeffnen</h3>
-      <p>Starten Sie noch heute mit dem Vermoegensaufbau. In nur wenigen Minuten online und ohne Papier.</p>
-      <a href="#" class="btn-white">Jetzt loslegen</a>
+      <h3>Depot eröffnen</h3>
+      <p>Starten Sie noch heute mit dem Vermögensaufbau. In nur wenigen Minuten online und ohne Papier.</p>
+      <a href="#" class="gm-cta-card-btn">Jetzt loslegen</a>
     </div>
-    <div class="cta-card blue-card">
-      <div class="cta-card-icon">
+    <div class="gm-cta-card gm-cta-blue">
+      <div class="gm-cta-card-icon">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#fff" stroke-width="2" fill="none"/><path d="M14 9v5l4 3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <h3>Anlegertest machen</h3>
-      <p>Noch unsicher welches Portfolio passt? In 5 Minuten finden wir Ihren persoenlichen Anlegertyp.</p>
-      <a href="#" class="btn-white">Zum Anlegertest</a>
+      <p>Noch unsicher welches Portfolio passt? In 5 Minuten finden wir Ihren persönlichen Anlegertyp.</p>
+      <a href="#" class="gm-cta-card-btn">Zum Anlegertest</a>
     </div>
   </div>
 </section>
 
-<div class="disclaimer">
-  Historische Wertentwicklungen sind kein verlaesslicher Indikator fuer zukuenftige Wertentwicklungen. Kapitalanlagen bergen Risiken. Die angegebenen Zielrenditen sind keine Garantien.<br>
-  easyfolio GmbH / Opernplatz 14 / 60313 Frankfurt am Main
+<!-- DISCLAIMER -->
+<div class="gm-disclaimer">
+  Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken. Die angegebenen Zielrenditen sind keine Garantien.<br>
+  easyfolio GmbH &middot; Opernplatz 14 &middot; 60313 Frankfurt am Main
 </div>
 
+</div><!-- end .gm-landing -->
+
 <script>
-function openTab(id,btn){document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('tab-active')});document.getElementById('tab-'+id).classList.add('active');btn.classList.add('tab-active')}
-function openRa(n){for(var i=1;i<=3;i++){document.getElementById('ra'+i).classList.toggle('ra-open',i===n)}}
-function toggleFaq(qEl){var item=qEl.closest('.faq-item');var wasOpen=item.classList.contains('faq-open');document.querySelectorAll('.faq-item.faq-open').forEach(function(x){x.classList.remove('faq-open')});if(!wasOpen)item.classList.add('faq-open')}
-var cta=document.getElementById('scrollCta');var closed=false;document.getElementById('ctaClose').addEventListener('click',function(){closed=true;cta.classList.remove('visible')});window.addEventListener('scroll',function(){if(closed)return;cta.classList.toggle('visible',window.scrollY>350)},{passive:true});
+function gmOpenTab(id,btn){document.querySelectorAll('.gm-tab-panel').forEach(function(p){p.classList.remove('gm-active')});document.querySelectorAll('.gm-tab-btn').forEach(function(b){b.classList.remove('gm-tab-active')});document.getElementById('gm-tab-'+id).classList.add('gm-active');btn.classList.add('gm-tab-active')}
+function gmToggleFaq(q){var item=q.closest('.gm-faq-item');var wasOpen=item.classList.contains('gm-faq-open');document.querySelectorAll('.gm-faq-item.gm-faq-open').forEach(function(x){x.classList.remove('gm-faq-open')});if(!wasOpen)item.classList.add('gm-faq-open')}
 </script>
-</body>
-</html>
