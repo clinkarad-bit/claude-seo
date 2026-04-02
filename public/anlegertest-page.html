@@ -14,15 +14,15 @@
 
 /* HERO */
 .at-hero-wrap{padding:16px 24px 0;background:#fff}
-.at-hero{position:relative;width:100%;min-height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border-radius:1rem;max-width:1380px;margin:0 auto;text-align:center}
+.at-hero{position:relative;width:100%;min-height:520px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;overflow:hidden;border-radius:1rem;max-width:1380px;margin:0 auto;text-align:left}
 .at-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.at-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.7);z-index:1}
-.at-hero-content{position:relative;z-index:3;padding:48px 40px;max-width:800px}
-.at-hero-eyebrow{display:inline-block;background:var(--at-blue);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:20rem;margin-bottom:20px}
-.at-hero-content h1{font-size:3.2rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px}
-.at-hero-content p{font-size:1.15rem;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:28px}
-.at-hero-meta{display:flex;gap:24px;justify-content:center;margin-top:20px;flex-wrap:wrap}
-.at-hero-meta-item{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+.at-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.55);z-index:1}
+.at-hero-content{position:relative;z-index:3;padding:56px 56px 56px;max-width:700px}
+.at-hero-eyebrow{display:inline-block;background:var(--at-green);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:20rem;margin-bottom:20px}
+.at-hero-content h1{font-size:3.4rem;font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-.5px}
+.at-hero-content p{font-size:1.1rem;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:28px;max-width:480px}
+.at-hero-meta{display:flex;gap:20px;margin-top:22px;flex-wrap:wrap}
+.at-hero-meta-item{font-size:12px;color:rgba(255,255,255,.5);font-weight:600;background:rgba(255,255,255,.1);padding:5px 14px;border-radius:20rem}
 
 /* TRUST BAR */
 .at-trust{background:#fff;border-bottom:1px solid var(--at-border);overflow-x:auto;scrollbar-width:none}
@@ -50,10 +50,13 @@
 /* RESULTS SECTION */
 .at-results-section{background:var(--at-bg);padding:80px 24px}
 .at-results-head{text-align:center;max-width:600px;margin:0 auto 48px}
-.at-results-head h2{font-size:32px;font-weight:800;color:var(--at-text);margin-bottom:10px}
+.at-results-head h2{font-size:34px;font-weight:800;color:var(--at-text);margin-bottom:10px;letter-spacing:-.3px}
 .at-results-head p{font-size:16px;color:var(--at-muted)}
 .at-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.at-result-card{background:#fff;border-radius:20px;padding:36px 28px;border:1px solid #e0e4ec}
+.at-result-card{background:#fff;border-radius:20px;padding:40px 28px;border:1px solid #e0e4ec;position:relative;overflow:hidden}
+.at-result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--at-blue)}
+.at-result-card:nth-child(2)::before{background:var(--at-green)}
+.at-result-card:nth-child(3)::before{background:var(--at-blue)}
 .at-result-icon{width:52px;height:52px;border-radius:14px;background:rgba(76,121,199,.08);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .at-result-card h3{font-size:17px;font-weight:700;color:var(--at-text);margin-bottom:8px}
 .at-result-card p{font-size:14px;color:var(--at-muted);line-height:1.7}
@@ -78,14 +81,17 @@
 .at-about-right p:last-child{margin-bottom:0}
 
 /* FINAL CTA */
-.at-final{background:var(--at-bg);padding:80px 24px}
-.at-final-block{max-width:900px;margin:0 auto;background:var(--at-blue);border-radius:20px;padding:56px 48px;text-align:center}
-.at-final-block h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
-.at-final-block p{font-size:16px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
-.at-final-stats{display:flex;gap:16px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
-.at-final-stat{background:rgba(255,255,255,.1);border-radius:14px;padding:16px 24px;text-align:center;min-width:100px}
-.at-final-stat-val{font-size:28px;font-weight:800;color:var(--at-green)}
-.at-final-stat-lbl{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px}
+.at-final{background:var(--at-bg);padding:0 24px 80px}
+.at-final-block{max-width:1100px;margin:0 auto;background:var(--at-blue);border-radius:20px;padding:64px 48px;display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+.at-final-left{flex:1;min-width:280px}
+.at-final-left h2{font-size:34px;font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.3px}
+.at-final-left p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:28px;max-width:420px}
+.at-final-stats{display:flex;gap:12px;flex-wrap:wrap}
+.at-final-stat{background:rgba(255,255,255,.1);border-radius:14px;padding:14px 20px;text-align:center;min-width:80px}
+.at-final-stat-val{font-size:24px;font-weight:800;color:var(--at-green)}
+.at-final-stat-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.at-final-right{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.at-final-right .at-btn{font-size:17px!important;padding:18px 44px!important}
 
 .at-disclaimer{text-align:center;color:#b0b0b8;font-size:12px;padding:32px 24px 48px;max-width:900px;margin:0 auto;line-height:1.7}
 
@@ -93,23 +99,31 @@
 @media(max-width:1040px){
 .at-steps-inner,.at-why-inner,.at-about-inner{grid-template-columns:1fr!important}
 .at-results-grid{grid-template-columns:1fr!important}
+.at-final-block{flex-direction:column!important;text-align:center!important}
+.at-final-left{text-align:center!important}
+.at-final-left p{margin-left:auto!important;margin-right:auto!important}
+.at-final-stats{justify-content:center!important}
 }
 @media(max-width:760px){
-.at-hero-wrap{padding:16px 16px 0!important}
+.at-hero-wrap{padding:20px 16px 0!important}
 .at-hero{min-height:auto!important;aspect-ratio:4/3}
-.at-hero-content h1{font-size:2rem!important}
-.at-hero-content p{font-size:1rem!important}
-.at-hero-content{padding:28px 20px!important}
+.at-hero-content{padding:32px 24px 32px!important}
+.at-hero-content h1{font-size:1.8rem!important}
+.at-hero-content p{font-size:.95rem!important;margin-bottom:20px!important}
+.at-hero-meta-item{font-size:11px!important;padding:4px 10px!important}
 .at-steps-section,.at-results-section,.at-why-section,.at-about-section{padding:48px 20px!important}
-.at-steps-left h2,.at-why-left h2,.at-about-left h2,.at-results-head h2{font-size:26px!important}
-.at-final-block{padding:36px 24px!important}
-.at-final-block h2{font-size:26px!important}
-.at-final-stats{gap:10px!important}
-.at-final-stat{min-width:70px!important;padding:12px 16px!important}
+.at-steps-left h2,.at-why-left h2,.at-about-left h2,.at-results-head h2{font-size:24px!important}
+.at-final{padding:0 16px 48px!important}
+.at-final-block{padding:32px 20px!important}
+.at-final-left h2{font-size:24px!important}
+.at-final-stats{gap:8px!important}
+.at-final-stat{min-width:65px!important;padding:10px 14px!important}
+.at-final-stat-val{font-size:20px!important}
+.at-final-right .at-btn{font-size:15px!important;padding:14px 28px!important}
 }
 @media(max-width:480px){
-.at-hero-content h1{font-size:1.6rem!important}
-.at-hero-meta{gap:12px!important}
+.at-hero-content h1{font-size:1.5rem!important}
+.at-hero-meta{gap:8px!important}
 }
 </style>
 <div class="at-page">
@@ -253,15 +267,19 @@
 <!-- FINAL CTA -->
 <section class="at-final">
   <div class="at-final-block">
-    <h2>Bereit für Ihr Ergebnis?</h2>
-    <p>Kostenlos, anonym, in 5 Minuten. 17.000+ Wertpapiere aus 95 Ländern warten auf Sie.</p>
-    <div class="at-final-stats">
-      <div class="at-final-stat"><div class="at-final-stat-val">5 Min.</div><div class="at-final-stat-lbl">Dauer</div></div>
-      <div class="at-final-stat"><div class="at-final-stat-val">8</div><div class="at-final-stat-lbl">Fragen</div></div>
-      <div class="at-final-stat"><div class="at-final-stat-val">3</div><div class="at-final-stat-lbl">Empfehlungen</div></div>
-      <div class="at-final-stat"><div class="at-final-stat-val">0 Euro</div><div class="at-final-stat-lbl">Kosten</div></div>
+    <div class="at-final-left">
+      <h2>Bereit für Ihr Ergebnis?</h2>
+      <p>Kostenlos, anonym, in 5 Minuten. 17.000+ Wertpapiere aus 95 Ländern warten auf Sie.</p>
+      <div class="at-final-stats">
+        <div class="at-final-stat"><div class="at-final-stat-val">5 Min.</div><div class="at-final-stat-lbl">Dauer</div></div>
+        <div class="at-final-stat"><div class="at-final-stat-val">8</div><div class="at-final-stat-lbl">Fragen</div></div>
+        <div class="at-final-stat"><div class="at-final-stat-val">3</div><div class="at-final-stat-lbl">Empfehlungen</div></div>
+        <div class="at-final-stat"><div class="at-final-stat-val">0 Euro</div><div class="at-final-stat-lbl">Kosten</div></div>
+      </div>
     </div>
-    <a href="https://easyfolio.de/anlegertest/test" class="at-btn at-btn-green" style="font-size:16px!important;padding:16px 36px!important;">Jetzt Test starten</a>
+    <div class="at-final-right">
+      <a href="https://easyfolio.de/anlegertest/test" class="at-btn at-btn-green">Jetzt Test starten</a>
+    </div>
   </div>
 </section>
 
