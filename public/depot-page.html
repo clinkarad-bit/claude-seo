@@ -29,7 +29,7 @@
 
 /* MAIN 2-COL */
 .dp-main{max-width:1100px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
-.dp-card{background:#fff;border-radius:20px;padding:36px 32px;border:1px solid #e0e4ec;margin-bottom:24px}
+.dp-card{background:#fff;border-radius:20px;padding:40px 36px;border:1px solid #edf0f4;margin-bottom:24px}
 .dp-card h2{font-size:22px;font-weight:800;color:var(--dp-text);margin-bottom:20px}
 
 /* STEPS */
@@ -44,7 +44,7 @@
 
 /* DEPOT OPTIONS */
 .dp-options{display:flex;flex-direction:column;gap:14px}
-.dp-option{border:2px solid var(--dp-border);border-radius:16px;padding:22px;cursor:pointer}
+.dp-option{border:1.5px solid #edf0f4;border-radius:16px;padding:24px;cursor:pointer}
 .dp-option.dp-option-active{border-color:var(--dp-blue);background:rgba(76,121,199,.03)}
 .dp-option-tag{display:inline-block;background:rgba(124,186,58,.12);color:var(--dp-green);font-size:11px;font-weight:800;padding:3px 10px;border-radius:20rem;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase}
 .dp-option h3{font-size:16px;font-weight:700;color:var(--dp-text);margin-bottom:4px}
@@ -52,7 +52,7 @@
 
 /* FONDS SELECT */
 .dp-fonds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
-.dp-fonds-btn{border:2px solid var(--dp-border);border-radius:12px;padding:16px 10px;text-align:center;cursor:pointer}
+.dp-fonds-btn{border:1.5px solid #edf0f4;border-radius:12px;padding:18px 12px;text-align:center;cursor:pointer}
 .dp-fonds-btn.dp-fonds-active{border-color:var(--dp-blue);background:rgba(76,121,199,.04)}
 .dp-fonds-btn-name{font-size:14px;font-weight:700;color:var(--dp-text)}
 .dp-fonds-btn-rendite{font-size:12px;color:var(--dp-green);margin-top:3px;font-weight:700}
@@ -60,7 +60,7 @@
 /* FORM */
 .dp-form-group{margin-bottom:16px}
 .dp-form-group label{display:block;font-size:12px;font-weight:700;color:var(--dp-text);margin-bottom:6px;letter-spacing:.3px}
-.dp-form-group input,.dp-form-group select{width:100%;padding:13px 16px;border:1.5px solid var(--dp-border);border-radius:12px;font-size:15px;color:var(--dp-text);background:#fafbfc;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;outline:none;-webkit-appearance:none}
+.dp-form-group input,.dp-form-group select{width:100%;padding:13px 16px;border:1.5px solid var(--dp-border);border-radius:12px;font-size:15px;color:var(--dp-text);background:#fff;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;outline:none;-webkit-appearance:none}
 .dp-form-group input:focus,.dp-form-group select:focus{border-color:var(--dp-blue)}
 .dp-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .dp-form-footer{font-size:12px;color:var(--dp-muted);text-align:center;margin-top:14px;line-height:1.7}
@@ -68,15 +68,15 @@
 .dp-submit-btn{width:100%;background:var(--dp-green);color:#fff;padding:16px;border-radius:.35rem;font-size:16px;font-weight:700;cursor:pointer;border:none!important;outline:none;margin-top:8px;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important}
 
 /* SIDEBAR */
-.dp-sidebar{position:sticky;top:24px}
-.dp-sidebar-card{background:#fff;border-radius:20px;padding:28px 24px;border:1px solid #e0e4ec;margin-bottom:20px}
+.dp-sidebar{position:sticky;top:24px;align-self:start}
+.dp-sidebar-card{background:#fff;border-radius:20px;padding:32px 28px;border:1px solid #edf0f4;margin-bottom:20px}
 .dp-sidebar-card h3{font-size:17px;font-weight:800;color:var(--dp-text);margin-bottom:16px}
-.dp-konditionen{list-style:none}
-.dp-konditionen li{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f0f2f8;font-size:13px}
-.dp-konditionen li:last-child{border-bottom:none}
-.dp-konditionen .dp-k-key{color:var(--dp-muted)}
-.dp-konditionen .dp-k-val{font-weight:700;color:var(--dp-green)}
-.dp-konditionen .dp-k-val.dp-k-blue{color:var(--dp-blue)}
+.dp-konditionen{display:flex;flex-direction:column}
+.dp-konditionen-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f4f5f7;font-size:14px;align-items:center}
+.dp-konditionen-row:last-child{border-bottom:none;padding-bottom:0}
+.dp-konditionen-row .dp-k-key{color:var(--dp-muted)}
+.dp-konditionen-row .dp-k-val{font-weight:700;color:var(--dp-green)}
+.dp-konditionen-row .dp-k-val.dp-k-blue{color:var(--dp-blue)}
 
 /* SIDEBAR FAQ */
 .dp-sfaq-item{margin-bottom:16px}
@@ -171,9 +171,9 @@
       <div class="dp-form-group">
         <label>Wählen Sie Ihr easyfolio-Portfolio</label>
         <div class="dp-fonds-grid">
-          <div class="dp-fonds-btn" data-isin="DE000EASY306" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 30</div><div class="dp-fonds-btn-rendite">3,9% Zielrendite</div></div>
-          <div class="dp-fonds-btn dp-fonds-active" data-isin="DE000EASY505" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 50</div><div class="dp-fonds-btn-rendite">5,2% Zielrendite</div></div>
-          <div class="dp-fonds-btn" data-isin="DE000EASY704" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 70</div><div class="dp-fonds-btn-rendite">7,2% Zielrendite</div></div>
+          <div class="dp-fonds-btn" data-isin="DE000EASY306" data-ebase="e2" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 30</div><div class="dp-fonds-btn-rendite">3,9% Zielrendite</div></div>
+          <div class="dp-fonds-btn dp-fonds-active" data-isin="DE000EASY505" data-ebase="e3" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 50</div><div class="dp-fonds-btn-rendite">5,2% Zielrendite</div></div>
+          <div class="dp-fonds-btn" data-isin="DE000EASY704" data-ebase="e4" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 70</div><div class="dp-fonds-btn-rendite">7,2% Zielrendite</div></div>
         </div>
       </div>
       <div class="dp-form-row">
@@ -200,15 +200,15 @@
   <div class="dp-sidebar">
     <div class="dp-sidebar-card">
       <h3>Ihre Depot-Konditionen</h3>
-      <ul class="dp-konditionen">
-        <li><span class="dp-k-key">Ausgabeaufschlag</span><span class="dp-k-val">0 Euro</span></li>
-        <li><span class="dp-k-key">Performancegebühr</span><span class="dp-k-val">0 Euro</span></li>
-        <li><span class="dp-k-key">Depotgebühr / Quartal</span><span class="dp-k-val dp-k-blue">5 Euro</span></li>
-        <li><span class="dp-k-key">Kinderdepot bis 18</span><span class="dp-k-val">kostenlos</span></li>
-        <li><span class="dp-k-key">Sparplan ab</span><span class="dp-k-val dp-k-blue">10 Euro / Monat</span></li>
-        <li><span class="dp-k-key">Einmalanlage ab</span><span class="dp-k-val dp-k-blue">100 Euro</span></li>
-        <li><span class="dp-k-key">Mindestlaufzeit</span><span class="dp-k-val">keine</span></li>
-      </ul>
+      <div class="dp-konditionen">
+        <div class="dp-konditionen-row"><span class="dp-k-key">Ausgabeaufschlag</span><span class="dp-k-val">0 Euro</span></div>
+        <div class="dp-konditionen-row"><span class="dp-k-key">Performancegebühr</span><span class="dp-k-val">0 Euro</span></div>
+        <div class="dp-konditionen-row"><span class="dp-k-key">Depotgebühr / Quartal</span><span class="dp-k-val dp-k-blue">5 Euro</span></div>
+        <div class="dp-konditionen-row"><span class="dp-k-key">Kinderdepot bis 18</span><span class="dp-k-val">kostenlos</span></div>
+        <div class="dp-konditionen-row"><span class="dp-k-key">Sparplan ab</span><span class="dp-k-val dp-k-blue">10 Euro / Monat</span></div>
+        <div class="dp-konditionen-row"><span class="dp-k-key">Einmalanlage ab</span><span class="dp-k-val dp-k-blue">100 Euro</span></div>
+        <div class="dp-konditionen-row"><span class="dp-k-key">Mindestlaufzeit</span><span class="dp-k-val">keine</span></div>
+      </div>
     </div>
 
     <div class="dp-sidebar-card">
@@ -245,7 +245,7 @@
 <script>
 function dpSelectFonds(el){document.querySelectorAll('.dp-fonds-btn').forEach(function(b){b.classList.remove('dp-fonds-active')});el.classList.add('dp-fonds-active')}
 function dpSubmitForm(){
-  var isin=document.querySelector('.dp-fonds-btn.dp-fonds-active').getAttribute('data-isin');
+  var active=document.querySelector('.dp-fonds-btn.dp-fonds-active');var isin=active.getAttribute('data-isin');var ebase=active.getAttribute('data-ebase');
   var anrede=document.getElementById('dpAnrede').value;
   var titel=document.getElementById('dpTitel').value;
   var vorname=document.getElementById('dpVorname').value;
@@ -256,7 +256,7 @@ function dpSubmitForm(){
   var land=document.getElementById('dpLand').value;
   var code=document.getElementById('dpCode').value;
   if(!vorname||!nachname||!strasse||!plz||!ort){alert('Bitte füllen Sie alle Pflichtfelder aus.');return}
-  var url='https://portal.ebase.com/(e2)/deo-easyfolio/deo-direkt?vermittlernummer=3947'
+  var url='https://portal.ebase.com/('+ebase+')/deo-easyfolio/deo-direkt?vermittlernummer=3947'
     +'&anrede='+encodeURIComponent(anrede)
     +'&title='+encodeURIComponent(titel)
     +'&vorname='+encodeURIComponent(vorname)
