@@ -1,0 +1,302 @@
+<style>
+/* DEPOT PAGE – same design as ginmon-landing + anlegertest */
+.dp-page{--dp-blue:rgb(76,121,199);--dp-green:rgb(124,186,58);--dp-text:#1a1a2e;--dp-muted:#6b7280;--dp-border:#e5e7eb;--dp-bg:#f4f6fc;width:100%;overflow-x:hidden;color:var(--dp-text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.dp-page,.dp-page *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
+.dp-page img{max-width:100%;display:block}
+.dp-page a{text-decoration:none!important;color:inherit}
+
+.dp-page .dp-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;outline:none!important;box-shadow:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:none!important;transform:none!important}
+.dp-page .dp-btn:hover{transform:none!important;box-shadow:none!important;opacity:1!important}
+.dp-btn-green{background:var(--dp-green)!important;color:#fff!important}
+.dp-btn-blue{background:var(--dp-blue)!important;color:#fff!important}
+.dp-btn-white{background:#fff!important;color:var(--dp-text)!important}
+
+/* HERO */
+.dp-hero-wrap{padding:16px 24px 0;background:#fff}
+.dp-hero{position:relative;width:100%;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border-radius:1rem;max-width:1380px;margin:0 auto;text-align:center;background:var(--dp-blue)}
+.dp-hero-content{position:relative;z-index:3;padding:56px 40px;max-width:700px}
+.dp-hero-eyebrow{display:inline-block;background:var(--dp-green);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:20rem;margin-bottom:20px}
+.dp-hero-content h1{font-size:3rem;font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-.5px}
+.dp-hero-content p{font-size:1.1rem;color:rgba(255,255,255,.75);line-height:1.7}
+
+/* PROGRESS BAR */
+.dp-progress{background:#fff;padding:24px 24px;border-bottom:1px solid var(--dp-border)}
+.dp-progress-inner{max-width:600px;margin:0 auto;display:flex;align-items:center;gap:0}
+.dp-progress-step{flex:1;text-align:center;position:relative}
+.dp-progress-step:not(:last-child)::after{content:'';position:absolute;right:0;top:18px;width:100%;height:2px;background:var(--dp-border);z-index:0}
+.dp-ps-circle{width:40px;height:40px;border-radius:50%;background:var(--dp-bg);color:var(--dp-muted);font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;position:relative;z-index:1}
+.dp-ps-circle.dp-active{background:var(--dp-blue);color:#fff}
+.dp-ps-circle.dp-done{background:var(--dp-green);color:#fff}
+.dp-ps-label{font-size:12px;color:var(--dp-muted);font-weight:600}
+.dp-ps-label.dp-active{color:var(--dp-blue);font-weight:700}
+
+/* TRUST CHIPS */
+.dp-trust-chips{background:#fff;padding:16px 24px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--dp-border)}
+.dp-trust-chips::-webkit-scrollbar{display:none}
+.dp-trust-chip{flex:0 0 auto;display:flex;align-items:center;gap:6px;background:var(--dp-bg);border-radius:20rem;padding:6px 14px;font-size:12px;color:var(--dp-text);font-weight:600;white-space:nowrap}
+.dp-chip-dot{width:7px;height:7px;background:var(--dp-green);border-radius:50%;flex-shrink:0}
+
+/* SECTION */
+.dp-section{padding:80px 24px}
+.dp-section-white{background:#fff}
+.dp-section-bg{background:var(--dp-bg)}
+.dp-section-inner{max-width:1100px;margin:0 auto}
+
+/* CARDS */
+.dp-card{background:#fff;border-radius:20px;padding:40px 36px;border:1px solid #e0e4ec}
+
+/* DEPOT OPTIONS */
+.dp-options{display:flex;flex-direction:column;gap:16px;margin-bottom:24px}
+.dp-option{border:2px solid var(--dp-border);border-radius:16px;padding:24px;cursor:pointer;position:relative}
+.dp-option.dp-option-active{border-color:var(--dp-blue);background:rgba(76,121,199,.04)}
+.dp-option-tag{display:inline-block;background:rgba(124,186,58,.12);color:var(--dp-green);font-size:11px;font-weight:800;padding:3px 10px;border-radius:20rem;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
+.dp-option h3{font-size:17px;font-weight:700;color:var(--dp-text);margin-bottom:6px}
+.dp-option p{font-size:14px;color:var(--dp-muted);line-height:1.6}
+
+/* FONDS SELECT */
+.dp-fonds-list{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.dp-fonds-item{border:2px solid var(--dp-border);border-radius:16px;padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.dp-fonds-item.dp-fonds-active{border-color:var(--dp-blue);background:rgba(76,121,199,.04)}
+.dp-fonds-name{font-size:16px;font-weight:700;color:var(--dp-text)}
+.dp-fonds-type{font-size:13px;color:var(--dp-muted);margin-top:2px}
+.dp-fonds-rendite{font-size:22px;font-weight:800;color:var(--dp-green);text-align:right}
+.dp-fonds-rendite-lbl{font-size:11px;color:var(--dp-muted);margin-top:2px;text-align:right}
+.dp-fonds-check{width:26px;height:26px;border-radius:50%;background:var(--dp-blue);color:#fff;display:none;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700}
+.dp-fonds-item.dp-fonds-active .dp-fonds-check{display:flex}
+
+/* FORM */
+.dp-form-group{margin-bottom:18px}
+.dp-form-group label{display:block;font-size:12px;font-weight:700;color:var(--dp-text);margin-bottom:6px;letter-spacing:.3px}
+.dp-form-group input,.dp-form-group select{width:100%;padding:14px 16px;border:1.5px solid var(--dp-border);border-radius:12px;font-size:15px;color:var(--dp-text);background:#fafbfc;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;outline:none}
+.dp-form-group input:focus,.dp-form-group select:focus{border-color:var(--dp-blue)}
+.dp-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dp-form-footer{font-size:12px;color:var(--dp-muted);text-align:center;margin-top:14px;line-height:1.6}
+.dp-form-footer a{color:var(--dp-blue)}
+
+/* KONDITIONEN */
+.dp-konditionen{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dp-kondition{background:#fff;border-radius:16px;padding:20px 16px;text-align:center;border:1px solid #e0e4ec}
+.dp-kondition-val{font-size:22px;font-weight:800;color:var(--dp-blue)}
+.dp-kondition-val.dp-val-green{color:var(--dp-green)}
+.dp-kondition-lbl{font-size:11px;color:var(--dp-muted);margin-top:4px;line-height:1.3}
+
+/* FAQ */
+.dp-faq-list{max-width:800px;margin:0 auto}
+.dp-faq-item{border-bottom:1px solid var(--dp-border)}
+.dp-faq-item:first-child{border-top:1px solid var(--dp-border)}
+.dp-faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;user-select:none;gap:16px}
+.dp-faq-q-text{font-size:16px;font-weight:700;color:var(--dp-text);flex:1;line-height:1.4}
+.dp-faq-chev{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--dp-bg);transition:transform .15s ease;color:var(--dp-muted)}
+.dp-faq-item.dp-faq-open .dp-faq-chev{background:var(--dp-blue);color:#fff;transform:rotate(180deg)}
+.dp-faq-a{max-height:0;overflow:hidden;transition:max-height .15s ease}
+.dp-faq-item.dp-faq-open .dp-faq-a{max-height:300px}
+.dp-faq-a-inner{padding:0 0 22px;font-size:15px;line-height:1.8;color:var(--dp-muted)}
+.dp-faq-a-inner a{color:var(--dp-blue)}
+
+/* HOTLINE */
+.dp-hotline{max-width:1100px;margin:0 auto;background:var(--dp-blue);border-radius:20px;padding:48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.dp-hotline h3{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}
+.dp-hotline p{font-size:14px;color:rgba(255,255,255,.7)}
+.dp-hotline-number{font-size:28px;font-weight:800;color:#fff;flex-shrink:0}
+
+.dp-disclaimer{text-align:center;color:#b0b0b8;font-size:12px;padding:32px 24px 48px;max-width:900px;margin:0 auto;line-height:1.7}
+
+/* RESPONSIVE */
+@media(max-width:1040px){
+.dp-konditionen{grid-template-columns:repeat(2,1fr)!important}
+.dp-hotline{flex-direction:column!important;text-align:center!important}
+.dp-section-inner{grid-template-columns:1fr!important}
+}
+@media(max-width:760px){
+.dp-hero-wrap{padding:16px 16px 0!important}
+.dp-hero{min-height:auto!important}
+.dp-hero-content{padding:36px 24px!important}
+.dp-hero-content h1{font-size:1.8rem!important}
+.dp-section{padding:48px 20px!important}
+.dp-card{padding:28px 20px!important}
+.dp-konditionen{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+.dp-hotline{padding:32px 20px!important}
+.dp-hotline h3{font-size:18px!important}
+.dp-hotline-number{font-size:22px!important}
+.dp-form-row{grid-template-columns:1fr!important}
+}
+@media(max-width:480px){
+.dp-hero-content h1{font-size:1.5rem!important}
+.dp-konditionen{grid-template-columns:1fr 1fr!important}
+}
+</style>
+<div class="dp-page">
+
+<!-- HERO -->
+<div class="dp-hero-wrap">
+<section class="dp-hero">
+  <div class="dp-hero-content">
+    <span class="dp-hero-eyebrow">Depot eröffnen</span>
+    <h1>In 3 Schritten zum easyfolio-Depot</h1>
+    <p>Komplett online. Kein Papierkram. Ihr Investment startet automatisch.</p>
+  </div>
+</section>
+</div>
+
+<!-- PROGRESS -->
+<div class="dp-progress">
+  <div class="dp-progress-inner">
+    <div class="dp-progress-step">
+      <div class="dp-ps-circle dp-active">1</div>
+      <div class="dp-ps-label dp-active">Registrierung</div>
+    </div>
+    <div class="dp-progress-step">
+      <div class="dp-ps-circle">2</div>
+      <div class="dp-ps-label">VideoIdent</div>
+    </div>
+    <div class="dp-progress-step">
+      <div class="dp-ps-circle">3</div>
+      <div class="dp-ps-label">Investiert!</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST CHIPS -->
+<div class="dp-trust-chips">
+  <div class="dp-trust-chip"><div class="dp-chip-dot"></div>FNZ Bank - Sondervermögen</div>
+  <div class="dp-trust-chip"><div class="dp-chip-dot"></div>0 Euro Ausgabeaufschlag</div>
+  <div class="dp-trust-chip"><div class="dp-chip-dot"></div>3x Testsieger</div>
+  <div class="dp-trust-chip"><div class="dp-chip-dot"></div>Keine Mindestlaufzeit</div>
+</div>
+
+<!-- DEPOT OPTIONS + FONDS + FORM -->
+<section class="dp-section dp-section-white">
+  <div class="dp-section-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+
+    <!-- LEFT COLUMN -->
+    <div>
+      <div class="dp-card" style="margin-bottom:24px;">
+        <h2 style="font-size:22px;font-weight:800;color:var(--dp-text);margin-bottom:20px;">Haben Sie bereits ein Depot?</h2>
+        <div class="dp-options">
+          <div class="dp-option dp-option-active">
+            <span class="dp-option-tag">Empfohlen</span>
+            <h3>Neues easyfolio-Depot bei FNZ</h3>
+            <p>0 Euro Transaktionsgebühren, direkt für easyfolio optimiert. Komplett online.</p>
+          </div>
+          <div class="dp-option">
+            <h3>Bestehendes Depot nutzen</h3>
+            <p>WKN direkt bei Ihrer Hausbank eingeben: EASY30 / EASY50 / EASY70.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dp-card">
+        <h2 style="font-size:22px;font-weight:800;color:var(--dp-text);margin-bottom:20px;">Welchen Fonds möchten Sie?</h2>
+        <div class="dp-fonds-list">
+          <div class="dp-fonds-item">
+            <div><div class="dp-fonds-name">easyfolio 30</div><div class="dp-fonds-type">Defensiv - 30% Aktien</div></div>
+            <div><div class="dp-fonds-rendite">3,9%</div><div class="dp-fonds-rendite-lbl">Zielrendite p.a.</div></div>
+            <div class="dp-fonds-check">&#10003;</div>
+          </div>
+          <div class="dp-fonds-item dp-fonds-active">
+            <div><div class="dp-fonds-name">easyfolio 50</div><div class="dp-fonds-type">Ausgewogen - 50% Aktien</div></div>
+            <div><div class="dp-fonds-rendite">5,2%</div><div class="dp-fonds-rendite-lbl">Zielrendite p.a.</div></div>
+            <div class="dp-fonds-check">&#10003;</div>
+          </div>
+          <div class="dp-fonds-item">
+            <div><div class="dp-fonds-name">easyfolio 70</div><div class="dp-fonds-type">Offensiv - 70% Aktien</div></div>
+            <div><div class="dp-fonds-rendite">7,2%</div><div class="dp-fonds-rendite-lbl">Zielrendite p.a.</div></div>
+            <div class="dp-fonds-check">&#10003;</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:var(--dp-muted);text-align:center;">Nicht sicher? <a href="https://easyfolio.de/anlegertest" style="color:var(--dp-blue);font-weight:600;">Anlegertest starten</a></p>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: FORM -->
+    <div class="dp-card">
+      <h2 style="font-size:22px;font-weight:800;color:var(--dp-text);margin-bottom:24px;">Ihre Angaben</h2>
+      <div class="dp-form-group">
+        <label>Anrede</label>
+        <select><option>Herr</option><option>Frau</option></select>
+      </div>
+      <div class="dp-form-row">
+        <div class="dp-form-group"><label>Vorname</label><input type="text" placeholder="Max"></div>
+        <div class="dp-form-group"><label>Nachname</label><input type="text" placeholder="Mustermann"></div>
+      </div>
+      <div class="dp-form-group"><label>E-Mail-Adresse</label><input type="email" placeholder="max@beispiel.de"></div>
+      <div class="dp-form-group"><label>Geburtsdatum</label><input type="text" placeholder="TT.MM.JJJJ"></div>
+      <div class="dp-form-group"><label>Straße und Hausnummer</label><input type="text" placeholder="Musterstraße 1"></div>
+      <div class="dp-form-row">
+        <div class="dp-form-group"><label>PLZ</label><input type="text" placeholder="20095"></div>
+        <div class="dp-form-group"><label>Ort</label><input type="text" placeholder="Hamburg"></div>
+      </div>
+      <a href="https://easyfolio.de/depot/depot-anmeldung" class="dp-btn dp-btn-green" style="width:100%!important;font-size:16px!important;padding:16px!important;margin-top:8px!important;">Depot eröffnen</a>
+      <div class="dp-form-footer">Mit dem Absenden stimmen Sie den <a href="#">AGB</a> zu.<br>Ihr Kapital ist als Sondervermögen geschützt.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- KONDITIONEN -->
+<section class="dp-section dp-section-bg">
+  <div class="dp-section-inner">
+    <div style="text-align:center;margin-bottom:48px;">
+      <h2 style="font-size:34px;font-weight:800;color:var(--dp-text);margin-bottom:10px;letter-spacing:-.3px;">Ihre Konditionen</h2>
+      <p style="font-size:16px;color:var(--dp-muted);">Transparent und fair - keine versteckten Kosten.</p>
+    </div>
+    <div class="dp-konditionen">
+      <div class="dp-kondition"><div class="dp-kondition-val dp-val-green">0 Euro</div><div class="dp-kondition-lbl">Ausgabeaufschlag</div></div>
+      <div class="dp-kondition"><div class="dp-kondition-val dp-val-green">0 Euro</div><div class="dp-kondition-lbl">Performancegebühr</div></div>
+      <div class="dp-kondition"><div class="dp-kondition-val">5 Euro</div><div class="dp-kondition-lbl">Depotgebühr / Quartal</div></div>
+      <div class="dp-kondition"><div class="dp-kondition-val dp-val-green">0 Euro</div><div class="dp-kondition-lbl">Kinderdepot bis 18</div></div>
+      <div class="dp-kondition"><div class="dp-kondition-val">10 Euro</div><div class="dp-kondition-lbl">Sparplan ab</div></div>
+      <div class="dp-kondition"><div class="dp-kondition-val">100 Euro</div><div class="dp-kondition-lbl">Einmalanlage ab</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="dp-section dp-section-white">
+  <div class="dp-section-inner">
+    <div style="text-align:center;margin-bottom:48px;">
+      <h2 style="font-size:34px;font-weight:800;color:var(--dp-text);margin-bottom:10px;">Häufige Fragen</h2>
+      <p style="font-size:16px;color:var(--dp-muted);">Antworten rund um die Depoteröffnung</p>
+    </div>
+    <div class="dp-faq-list">
+      <div class="dp-faq-item dp-faq-open">
+        <div class="dp-faq-q" onclick="dpToggleFaq(this)"><span class="dp-faq-q-text">Ist mein Geld sicher?</span><span class="dp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="dp-faq-a"><div class="dp-faq-a-inner">Ja. Ihr Kapital gilt als gesetzliches Sondervermögen und ist auch im Fall einer Insolvenz der Depotbank vollständig geschützt.</div></div>
+      </div>
+      <div class="dp-faq-item">
+        <div class="dp-faq-q" onclick="dpToggleFaq(this)"><span class="dp-faq-q-text">Kann ich jederzeit kündigen?</span><span class="dp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="dp-faq-a"><div class="dp-faq-a-inner">Ja. Es gibt keine Mindestlaufzeit. Ein Verkauf ist börsentäglich möglich, die Auszahlung dauert 2-3 Bankarbeitstage.</div></div>
+      </div>
+      <div class="dp-faq-item">
+        <div class="dp-faq-q" onclick="dpToggleFaq(this)"><span class="dp-faq-q-text">Welches Portfolio passt zu mir?</span><span class="dp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="dp-faq-a"><div class="dp-faq-a-inner">Machen Sie unseren <a href="https://easyfolio.de/anlegertest">Anlegertest (5 Min.)</a> - kostenlos und ohne Anmeldung. Sie erhalten sofort eine persönliche Empfehlung.</div></div>
+      </div>
+      <div class="dp-faq-item">
+        <div class="dp-faq-q" onclick="dpToggleFaq(this)"><span class="dp-faq-q-text">Wie lange dauert die Depoteröffnung?</span><span class="dp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="dp-faq-a"><div class="dp-faq-a-inner">Die Online-Registrierung dauert ca. 5 Minuten. Die Legitimierung per VideoIdent erfolgt sofort. Ihr Depot ist in der Regel innerhalb von 1-2 Werktagen einsatzbereit.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOTLINE -->
+<section class="dp-section dp-section-bg" style="padding-bottom:48px!important;">
+  <div class="dp-hotline">
+    <div>
+      <h3>Fragen? Wir helfen gerne.</h3>
+      <p>Kostenfreie Hotline - Mo-Fr 9-17 Uhr</p>
+    </div>
+    <div class="dp-hotline-number">0800 12 305 070</div>
+  </div>
+</section>
+
+<div class="dp-disclaimer">
+  Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken.<br>
+  easyfolio GmbH &middot; Opernplatz 14 &middot; 60313 Frankfurt am Main
+</div>
+
+</div>
+
+<script>
+function dpToggleFaq(q){var item=q.closest('.dp-faq-item');var wasOpen=item.classList.contains('dp-faq-open');document.querySelectorAll('.dp-faq-item.dp-faq-open').forEach(function(x){x.classList.remove('dp-faq-open')});if(!wasOpen)item.classList.add('dp-faq-open')}
+</script>
