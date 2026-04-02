@@ -248,14 +248,8 @@ function dpSelectFonds(el){
   el.classList.add('dp-fonds-active');
 }
 function dpSubmitForm(){
-  var EBASE_URLS = {
-    "DE000EASY306": "https://portal.ebase.com/(e2)/deo-easyfolio/deo-direkt",
-    "DE000EASY505": "https://portal.ebase.com/(e3)/deo-easyfolio/deo-direkt",
-    "DE000EASY704": "https://portal.ebase.com/(e4)/deo-easyfolio/deo-direkt"
-  };
   var active = document.querySelector('.dp-fonds-btn.dp-fonds-active');
   var isin = active.getAttribute('data-isin');
-  var baseUrl = EBASE_URLS[isin];
   var anrede = document.getElementById('dpAnrede').value;
   var titel = document.getElementById('dpTitel').value;
   var vorname = document.getElementById('dpVorname').value;
@@ -269,7 +263,7 @@ function dpSubmitForm(){
     alert('Bitte alle Pflichtfelder ausfuellen.');
     return;
   }
-  var params = "?vermittlernummer=3947"
+  var params = "vermittlernummer=3947"
     + "&anrede=" + encodeURIComponent(anrede)
     + "&title=" + encodeURIComponent(titel)
     + "&vorname=" + encodeURIComponent(vorname)
@@ -282,6 +276,6 @@ function dpSubmitForm(){
     + "&isin=" + encodeURIComponent(isin)
     + "&coe=";
   if(code){ params += "&code=" + encodeURIComponent(code); }
-  window.open(baseUrl + params, "_blank");
+  window.open("https://portal.ebase.com/deo-easyfolio/deo-direkt?" + params, "_blank");
 }
 </script>
