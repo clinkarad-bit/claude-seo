@@ -171,9 +171,9 @@
       <div class="dp-form-group">
         <label>Wählen Sie Ihr easyfolio-Portfolio</label>
         <div class="dp-fonds-grid">
-          <div class="dp-fonds-btn" data-isin="DE000EASY306" data-ebase="e2" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 30</div><div class="dp-fonds-btn-rendite">3,9% Zielrendite</div></div>
-          <div class="dp-fonds-btn dp-fonds-active" data-isin="DE000EASY505" data-ebase="e3" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 50</div><div class="dp-fonds-btn-rendite">5,2% Zielrendite</div></div>
-          <div class="dp-fonds-btn" data-isin="DE000EASY704" data-ebase="e4" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 70</div><div class="dp-fonds-btn-rendite">7,2% Zielrendite</div></div>
+          <div class="dp-fonds-btn" data-isin="DE000EASY306" data-ebase="e5" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 30</div><div class="dp-fonds-btn-rendite">3,9% Zielrendite</div></div>
+          <div class="dp-fonds-btn dp-fonds-active" data-isin="DE000EASY505" data-ebase="e5" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 50</div><div class="dp-fonds-btn-rendite">5,2% Zielrendite</div></div>
+          <div class="dp-fonds-btn" data-isin="DE000EASY704" data-ebase="e5" onclick="dpSelectFonds(this)"><div class="dp-fonds-btn-name">easyfolio 70</div><div class="dp-fonds-btn-rendite">7,2% Zielrendite</div></div>
         </div>
       </div>
       <div class="dp-form-row">
@@ -256,7 +256,7 @@ function dpSubmitForm(){
   var land=document.getElementById('dpLand').value;
   var code=document.getElementById('dpCode').value;
   if(!vorname||!nachname||!strasse||!plz||!ort){alert('Bitte füllen Sie alle Pflichtfelder aus.');return}
-  var url='https://portal.ebase.com/deo-easyfolio/deo-direkt?vermittlernummer=3947'
+  var url='https://portal.ebase.com/('+ebase+')/deo-easyfolio/deo-direkt?vermittlernummer=3947'
     +'&anrede='+encodeURIComponent(anrede)
     +'&title='+encodeURIComponent(titel)
     +'&vorname='+encodeURIComponent(vorname)
