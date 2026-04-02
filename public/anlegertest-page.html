@@ -1,0 +1,273 @@
+<style>
+/* ANLEGERTEST PAGE – same design language as ginmon-landing */
+.at-page{--at-blue:rgb(76,121,199);--at-green:rgb(124,186,58);--at-text:#1a1a2e;--at-muted:#6b7280;--at-border:#e5e7eb;--at-bg:#f4f6fc;width:100%;overflow-x:hidden;color:var(--at-text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.at-page,.at-page *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
+.at-page img{max-width:100%;display:block}
+.at-page a{text-decoration:none!important;color:inherit}
+
+/* BUTTONS */
+.at-page .at-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;outline:none!important;box-shadow:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:none!important;transform:none!important}
+.at-page .at-btn:hover{transform:none!important;box-shadow:none!important;opacity:1!important}
+.at-btn-green{background:var(--at-green)!important;color:#fff!important}
+.at-btn-blue{background:var(--at-blue)!important;color:#fff!important}
+.at-btn-white{background:#fff!important;color:var(--at-text)!important}
+
+/* HERO */
+.at-hero-wrap{padding:16px 24px 0;background:#fff}
+.at-hero{position:relative;width:100%;min-height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border-radius:1rem;max-width:1380px;margin:0 auto;text-align:center}
+.at-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.at-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.7);z-index:1}
+.at-hero-content{position:relative;z-index:3;padding:48px 40px;max-width:800px}
+.at-hero-eyebrow{display:inline-block;background:var(--at-blue);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:20rem;margin-bottom:20px}
+.at-hero-content h1{font-size:3.2rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px}
+.at-hero-content p{font-size:1.15rem;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:28px}
+.at-hero-meta{display:flex;gap:24px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.at-hero-meta-item{font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+
+/* TRUST BAR */
+.at-trust{background:#fff;border-bottom:1px solid var(--at-border);overflow-x:auto;scrollbar-width:none}
+.at-trust::-webkit-scrollbar{display:none}
+.at-trust-inner{display:flex;justify-content:center;align-items:stretch;min-width:max-content;margin:0 auto;max-width:1100px}
+.at-trust-item{display:flex;align-items:center;gap:12px;padding:20px 32px;border-right:1px solid var(--at-border);flex-shrink:0}
+.at-trust-item:last-child{border-right:none}
+.at-trust-icon{width:36px;height:36px;border-radius:10px;background:var(--at-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.at-trust-label{font-size:13px;font-weight:700;color:var(--at-text)}
+.at-trust-sub{font-size:12px;color:var(--at-muted);margin-top:1px}
+
+/* STEPS SECTION */
+.at-steps-section{background:#fff;padding:80px 24px}
+.at-steps-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start}
+.at-steps-left h2{font-size:32px;font-weight:800;color:var(--at-text);margin-bottom:12px;line-height:1.2}
+.at-steps-left p{font-size:15px;color:var(--at-muted);line-height:1.7}
+.at-steps-eyebrow{display:inline-block;background:var(--at-green);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:20rem;margin-bottom:16px}
+.at-steps-list{display:flex;flex-direction:column;gap:0}
+.at-step{display:flex;gap:20px;align-items:flex-start;padding-bottom:32px;position:relative}
+.at-step:not(:last-child)::before{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:var(--at-border)}
+.at-step-num{width:40px;height:40px;border-radius:50%;background:var(--at-blue);color:#fff;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+.at-step-content h3{font-size:16px;font-weight:700;color:var(--at-text);margin-bottom:4px;padding-top:8px}
+.at-step-content p{font-size:14px;color:var(--at-muted);line-height:1.6}
+
+/* RESULTS SECTION */
+.at-results-section{background:var(--at-bg);padding:80px 24px}
+.at-results-head{text-align:center;max-width:600px;margin:0 auto 48px}
+.at-results-head h2{font-size:32px;font-weight:800;color:var(--at-text);margin-bottom:10px}
+.at-results-head p{font-size:16px;color:var(--at-muted)}
+.at-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.at-result-card{background:#fff;border-radius:20px;padding:36px 28px;border:1px solid #e0e4ec}
+.at-result-icon{width:52px;height:52px;border-radius:14px;background:rgba(76,121,199,.08);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.at-result-card h3{font-size:17px;font-weight:700;color:var(--at-text);margin-bottom:8px}
+.at-result-card p{font-size:14px;color:var(--at-muted);line-height:1.7}
+
+/* WHY SECTION */
+.at-why-section{background:#fff;padding:80px 24px}
+.at-why-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start}
+.at-why-left h2{font-size:32px;font-weight:800;color:var(--at-text);margin-bottom:12px;line-height:1.2}
+.at-why-left p{font-size:15px;color:var(--at-muted);line-height:1.7}
+.at-why-list{display:flex;flex-direction:column;gap:24px}
+.at-why-item{display:flex;gap:16px;align-items:flex-start}
+.at-why-check{width:26px;height:26px;border-radius:50%;background:rgba(124,186,58,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.at-why-item h3{font-size:15px;font-weight:700;color:var(--at-text);margin-bottom:4px}
+.at-why-item p{font-size:14px;color:var(--at-muted);line-height:1.6}
+
+/* ABOUT SECTION (existing content) */
+.at-about-section{background:#fff;padding:80px 24px}
+.at-about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start}
+.at-about-left h2{font-size:32px;font-weight:800;color:var(--at-text);line-height:1.2}
+.at-about-left h2 span{color:var(--at-blue)}
+.at-about-right p{font-size:15px;color:var(--at-muted);line-height:1.8;margin-bottom:20px}
+.at-about-right p:last-child{margin-bottom:0}
+
+/* FINAL CTA */
+.at-final{background:var(--at-bg);padding:80px 24px}
+.at-final-block{max-width:900px;margin:0 auto;background:var(--at-blue);border-radius:20px;padding:56px 48px;text-align:center}
+.at-final-block h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:12px}
+.at-final-block p{font-size:16px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+.at-final-stats{display:flex;gap:16px;justify-content:center;margin-bottom:32px;flex-wrap:wrap}
+.at-final-stat{background:rgba(255,255,255,.1);border-radius:14px;padding:16px 24px;text-align:center;min-width:100px}
+.at-final-stat-val{font-size:28px;font-weight:800;color:var(--at-green)}
+.at-final-stat-lbl{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px}
+
+.at-disclaimer{text-align:center;color:#b0b0b8;font-size:12px;padding:32px 24px 48px;max-width:900px;margin:0 auto;line-height:1.7}
+
+/* RESPONSIVE */
+@media(max-width:1040px){
+.at-steps-inner,.at-why-inner,.at-about-inner{grid-template-columns:1fr!important}
+.at-results-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:760px){
+.at-hero-wrap{padding:16px 16px 0!important}
+.at-hero{min-height:auto!important;aspect-ratio:4/3}
+.at-hero-content h1{font-size:2rem!important}
+.at-hero-content p{font-size:1rem!important}
+.at-hero-content{padding:28px 20px!important}
+.at-steps-section,.at-results-section,.at-why-section,.at-about-section{padding:48px 20px!important}
+.at-steps-left h2,.at-why-left h2,.at-about-left h2,.at-results-head h2{font-size:26px!important}
+.at-final-block{padding:36px 24px!important}
+.at-final-block h2{font-size:26px!important}
+.at-final-stats{gap:10px!important}
+.at-final-stat{min-width:70px!important;padding:12px 16px!important}
+}
+@media(max-width:480px){
+.at-hero-content h1{font-size:1.6rem!important}
+.at-hero-meta{gap:12px!important}
+}
+</style>
+<div class="at-page">
+
+<!-- HERO -->
+<div class="at-hero-wrap">
+<section class="at-hero">
+  <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Anlegertest_-_Arbeit_-_Office.jpg" alt="" class="at-hero-img">
+  <div class="at-hero-overlay"></div>
+  <div class="at-hero-content">
+    <span class="at-hero-eyebrow">Anlegertest</span>
+    <h1>Welcher Anlegertyp bin ich?</h1>
+    <p>In unter 5 Minuten zu Ihrem individuellen Ergebnis. 8 Fragen. Sofortige Empfehlung.</p>
+    <a href="https://easyfolio.de/anlegertest/test" class="at-btn at-btn-green" style="font-size:16px!important;padding:16px 36px!important;">Jetzt Test starten</a>
+    <div class="at-hero-meta">
+      <span class="at-hero-meta-item">5 Minuten</span>
+      <span class="at-hero-meta-item">8 Fragen</span>
+      <span class="at-hero-meta-item">Kostenlos</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- TRUST BAR -->
+<div class="at-trust">
+  <div class="at-trust-inner">
+    <div class="at-trust-item">
+      <div class="at-trust-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5 6.5-6.5" stroke="rgb(124,186,58)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="at-trust-label">3x Testsieger Handelsblatt</div><div class="at-trust-sub">2022-2024</div></div>
+    </div>
+    <div class="at-trust-item">
+      <div class="at-trust-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1l5.5 2.75v4.5c0 3-2.75 5.5-5.5 6.75C3.25 13.75.5 11.25.5 8.25v-4.5z" stroke="rgb(76,121,199)" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg></div>
+      <div><div class="at-trust-label">FNZ Bank</div><div class="at-trust-sub">Kapital gesetzlich geschützt</div></div>
+    </div>
+    <div class="at-trust-item">
+      <div class="at-trust-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="rgb(76,121,199)" stroke-width="1.5" fill="none"/><path d="M9 5.5v4l2.5 2.5" stroke="rgb(76,121,199)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="at-trust-label">Keine Anmeldung nötig</div><div class="at-trust-sub">100% kostenlos</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPS -->
+<section class="at-steps-section">
+  <div class="at-steps-inner">
+    <div class="at-steps-left">
+      <span class="at-steps-eyebrow">So funktioniert's</span>
+      <h2>In 5 Schritten zum Ergebnis</h2>
+      <p>5 einfache Schritte - in unter 5 Minuten fertig. Keine Anmeldung, kein Account.</p>
+    </div>
+    <div class="at-steps-list">
+      <div class="at-step">
+        <div class="at-step-num">1</div>
+        <div class="at-step-content"><h3>Anlageziel</h3><p>Wofür sparen Sie? Altersvorsorge, Eigenheim oder Vermögensaufbau?</p></div>
+      </div>
+      <div class="at-step">
+        <div class="at-step-num">2</div>
+        <div class="at-step-content"><h3>Zeithorizont</h3><p>Wie lange wollen Sie investiert bleiben - kurz, mittel oder langfristig?</p></div>
+      </div>
+      <div class="at-step">
+        <div class="at-step-num">3</div>
+        <div class="at-step-content"><h3>Anlagesumme</h3><p>Monatlicher Sparplan, Einmalanlage oder beides?</p></div>
+      </div>
+      <div class="at-step">
+        <div class="at-step-num">4</div>
+        <div class="at-step-content"><h3>Risikobereitschaft</h3><p>Wie reagieren Sie, wenn Kurse mal fallen? Ruhig bleiben oder lieber sicher?</p></div>
+      </div>
+      <div class="at-step">
+        <div class="at-step-num">5</div>
+        <div class="at-step-content"><h3>Ihr Ergebnis</h3><p>Sofortige Empfehlung mit Begründung und direktem Link zur Depoteröffnung.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="at-results-section">
+  <div class="at-results-head">
+    <h2>Was Sie am Ende wissen</h2>
+    <p>Drei konkrete Antworten - in 5 Minuten.</p>
+  </div>
+  <div class="at-results-grid">
+    <div class="at-result-card">
+      <div class="at-result-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><circle cx="12" cy="12" r="5" stroke="rgb(76,121,199)" stroke-width="1.2" opacity=".35" fill="none"/><circle cx="12" cy="12" r="2" fill="rgb(124,186,58)"/></svg></div>
+      <h3>Ihr Anlegertyp</h3>
+      <p>Defensiv, ausgewogen oder offensiv - basierend auf Ihren Zielen und Ihrer Risikobereitschaft.</p>
+    </div>
+    <div class="at-result-card">
+      <div class="at-result-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="14" width="4" height="8" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="9" y="9" width="4" height="13" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="15" y="4" width="4" height="18" rx="1.5" fill="rgb(76,121,199)"/><path d="M4 12l6-4 6 3 5-7" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Die passende Strategie</h3>
+      <p>easyfolio 30, 50 oder 70 - mit Begründung warum genau dieser Fonds zu Ihnen passt.</p>
+    </div>
+    <div class="at-result-card">
+      <div class="at-result-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3.5v5c0 4-3.5 6-7 7.5C5.5 17.5 2 15.5 2 11.5v-5z" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M8 12l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Der nächste Schritt</h3>
+      <p>Direkt ins Depot - oder in Ruhe weiterüberlegen. Kein Druck, keine Verpflichtung.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="at-why-section">
+  <div class="at-why-inner">
+    <div class="at-why-left">
+      <h2>Warum der Anlegertest?</h2>
+      <p>Viele wählen das falsche Produkt - weil sie ihr Risikoprofil nicht kennen.</p>
+    </div>
+    <div class="at-why-list">
+      <div class="at-why-item">
+        <div class="at-why-check"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h3>Keine Anmeldung</h3><p>Komplett anonym, keine E-Mail, kein Account nötig.</p></div>
+      </div>
+      <div class="at-why-item">
+        <div class="at-why-check"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h3>Wirklich nur 5 Minuten</h3><p>8 kurze Fragen, sofortiges Ergebnis ohne Wartezeit.</p></div>
+      </div>
+      <div class="at-why-item">
+        <div class="at-why-check"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h3>Beliebig oft wiederholbar</h3><p>Lebenssituation geändert? Einfach nochmal machen.</p></div>
+      </div>
+      <div class="at-why-item">
+        <div class="at-why-check"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h3>Wissenschaftlich fundiert</h3><p>Basiert auf moderner Portfoliotheorie - keine Willkür.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT (existing content preserved) -->
+<section class="at-about-section" style="background:var(--at-bg);">
+  <div class="at-about-inner">
+    <div class="at-about-left">
+      <h2>Anlegertyp <span>ermitteln</span></h2>
+    </div>
+    <div class="at-about-right">
+      <p>In unter 5 Minuten zu Ihrem persönlichen Anlegertyp. Mit dem Anlegertest ermitteln Sie in nur 5 Schritten Ihr individuelles Anlegerprofil. Finden Sie es jetzt heraus.</p>
+      <p>Der Anlegertest von easyfolio bietet eine schnelle und einfache Möglichkeit, Ihr Investmentprofil zu bestimmen - und das in unter 5 Minuten. Er ermöglicht eine umfassende Abfrage und Analyse aller wichtigen Faktoren, die für eine fundierte Anlageentscheidung relevant sind. Als praktische Orientierungshilfe unterstützt der Test Sie maßgeblich bei der Wahl des optimalen ETF-Portfolios. Ein großer Vorteil ist, dass Sie den Test beliebig oft wiederholen können, um Ihre Präferenzen anzupassen oder verschiedene Szenarien durchzuspielen. Zudem ist keine vorherige Anmeldung nötig, was den Zugang besonders unkompliziert macht.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="at-final">
+  <div class="at-final-block">
+    <h2>Bereit für Ihr Ergebnis?</h2>
+    <p>Kostenlos, anonym, in 5 Minuten. 17.000+ Wertpapiere aus 95 Ländern warten auf Sie.</p>
+    <div class="at-final-stats">
+      <div class="at-final-stat"><div class="at-final-stat-val">5 Min.</div><div class="at-final-stat-lbl">Dauer</div></div>
+      <div class="at-final-stat"><div class="at-final-stat-val">8</div><div class="at-final-stat-lbl">Fragen</div></div>
+      <div class="at-final-stat"><div class="at-final-stat-val">3</div><div class="at-final-stat-lbl">Empfehlungen</div></div>
+      <div class="at-final-stat"><div class="at-final-stat-val">0 Euro</div><div class="at-final-stat-lbl">Kosten</div></div>
+    </div>
+    <a href="https://easyfolio.de/anlegertest/test" class="at-btn at-btn-green" style="font-size:16px!important;padding:16px 36px!important;">Jetzt Test starten</a>
+  </div>
+</section>
+
+<div class="at-disclaimer">
+  Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken.<br>
+  easyfolio GmbH &middot; Opernplatz 14 &middot; 60313 Frankfurt am Main
+</div>
+
+</div>
