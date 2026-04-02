@@ -28,7 +28,9 @@
 .dp-trust-sub{font-size:12px;color:var(--dp-muted);margin-top:1px}
 
 /* MAIN 2-COL */
-.dp-main{max-width:1100px;margin:40px auto;padding:0 24px;display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+.dp-main{max-width:1100px;margin:40px auto;padding:0 24px;display:flex!important;gap:32px;align-items:flex-start!important}
+.dp-main>div:first-child{flex:1;min-width:0}
+.dp-main>.dp-sidebar{flex:0 0 360px}
 .dp-card{background:#fff;border-radius:20px;padding:40px 36px;border:1px solid #edf0f4;margin-bottom:24px}
 .dp-card h2{font-size:22px;font-weight:800;color:var(--dp-text);margin-bottom:20px}
 
@@ -68,7 +70,7 @@
 .dp-submit-btn{width:100%;background:var(--dp-green);color:#fff;padding:16px;border-radius:.35rem;font-size:16px;font-weight:700;cursor:pointer;border:none!important;outline:none;margin-top:8px;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important}
 
 /* SIDEBAR */
-.dp-sidebar{position:-webkit-sticky!important;position:sticky!important;top:24px!important;align-self:start!important}
+.dp-sidebar{position:-webkit-sticky!important;position:sticky!important;top:24px!important;align-self:flex-start!important;max-height:calc(100vh - 48px)!important;overflow-y:auto!important}
 .dp-sidebar-card{background:#fff;border-radius:20px;padding:32px 28px;border:1px solid #edf0f4;margin-bottom:20px}
 .dp-sidebar-card h3{font-size:17px;font-weight:800;color:var(--dp-text);margin-bottom:16px}
 .dp-konditionen{display:flex;flex-direction:column}
@@ -94,7 +96,8 @@
 
 /* RESPONSIVE */
 @media(max-width:1040px){
-.dp-main{grid-template-columns:1fr!important}
+.dp-main{flex-direction:column!important}
+.dp-main>.dp-sidebar{flex:none!important;width:100%!important;position:static!important}
 }
 @media(max-width:760px){
 .dp-hero-wrap{padding:16px 16px 0!important}
