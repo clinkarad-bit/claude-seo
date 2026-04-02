@@ -185,14 +185,18 @@
 }
 @media(max-width:760px){
 .gm-hero-wrap{padding:16px 16px 0!important}
-.gm-hero{min-height:auto!important;aspect-ratio:4/3}
-.gm-hero-content{padding:20px 20px 24px!important}
-.gm-hero-overlay{background:rgba(30,50,80,.35)!important}
-.gm-hero-titles{margin-bottom:0!important}
-.gm-hero-ctas{position:relative;z-index:5;padding:20px 0 0!important}
-.gm-hero-pill{font-size:1.15rem!important;padding:8px 16px!important;border-radius:.4rem!important}
-.gm-hp-green{margin-left:4px!important}
-.gm-hp-blue-sm{font-size:.85rem!important}
+.gm-hero{min-height:auto!important;flex-direction:column!important;justify-content:flex-start!important}
+.gm-hero-img{position:relative!important;width:100%!important;height:auto!important;aspect-ratio:4/3;inset:auto!important}
+.gm-hero-overlay{display:none!important}
+.gm-hero-content{padding:0!important;position:absolute!important;bottom:0!important;left:0!important;right:0!important;padding:16px 20px 20px!important;background:rgba(30,50,80,.45)!important}
+.gm-hero-titles{margin-bottom:16px!important}
+.gm-hero-pill{font-size:1rem!important;padding:7px 14px!important;border-radius:.4rem!important}
+.gm-hp-green{margin-left:0!important}
+.gm-hp-blue-sm{display:none!important}
+.gm-hero-ctas{flex-direction:column!important;gap:0!important}
+.gm-hero-ctas .gm-btn{width:100%!important;text-align:center!important}
+#gm-btn-hero-green{display:none!important}
+#gm-btn-hero-outline{background:var(--gm-green)!important;color:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 .gm-tab-panel.gm-active{grid-template-columns:1fr!important;gap:32px!important}
 .gm-tabs-title{font-size:28px!important}
 .gm-at-block{padding:28px 20px!important;flex-direction:column!important;gap:24px!important}
@@ -204,10 +208,7 @@
 .gm-rundum-card{flex:0 0 85%!important;height:340px!important}
 }
 @media(max-width:480px){
-.gm-hero{aspect-ratio:1/1}
-.gm-hero-pill{font-size:1rem!important;padding:7px 14px!important}
-.gm-hero-ctas{flex-direction:column!important;gap:10px!important}
-.gm-hero-ctas .gm-btn{width:100%!important}
+.gm-hero-pill{font-size:.9rem!important;padding:6px 12px!important}
 .gm-tabs-section{padding:48px 16px!important}
 .gm-fonds-section{padding:48px 16px 80px!important}
 .gm-rundum-card{flex:0 0 92%!important}
@@ -228,7 +229,7 @@
     </div>
     <div class="gm-hero-ctas">
       <a href="https://easyfolio.de/anlegertest" id="gm-btn-hero-green" class="gm-btn gm-btn-green">Welcher Fonds passt zu mir?</a>
-      <a href="https://easyfolio.de/depot/depot-anmeldung" id="gm-btn-hero-outline" class="gm-btn gm-btn-outline-white">Depot eröffnen</a>
+      <a href="https://easyfolio.de/depot/depot-anmeldung" id="gm-btn-hero-outline" class="gm-btn gm-btn-outline-white">Jetzt Depot eröffnen</a>
     </div>
   </div>
 </section>
