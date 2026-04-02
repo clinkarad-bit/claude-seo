@@ -243,32 +243,45 @@
 </div>
 
 <script>
-function dpSelectFonds(el){document.querySelectorAll('.dp-fonds-btn').forEach(function(b){b.classList.remove('dp-fonds-active')});el.classList.add('dp-fonds-active')}
+function dpSelectFonds(el){
+  document.querySelectorAll('.dp-fonds-btn').forEach(function(b){b.classList.remove('dp-fonds-active')});
+  el.classList.add('dp-fonds-active');
+}
 function dpSubmitForm(){
-  var active=document.querySelector('.dp-fonds-btn.dp-fonds-active');var isin=active.getAttribute('data-isin');var ebase=active.getAttribute('data-ebase');
-  var anrede=document.getElementById('dpAnrede').value;
-  var titel=document.getElementById('dpTitel').value;
-  var vorname=document.getElementById('dpVorname').value;
-  var nachname=document.getElementById('dpNachname').value;
-  var strasse=document.getElementById('dpStrasse').value;
-  var plz=document.getElementById('dpPlz').value;
-  var ort=document.getElementById('dpOrt').value;
-  var land=document.getElementById('dpLand').value;
-  var code=document.getElementById('dpCode').value;
-  if(!vorname||!nachname||!strasse||!plz||!ort){alert('Bitte füllen Sie alle Pflichtfelder aus.');return}
-  var url='https://portal.ebase.com/('+ebase+')/deo-easyfolio/deo-direkt?vermittlernummer=3947'
-    +'&anrede='+encodeURIComponent(anrede)
-    +'&title='+encodeURIComponent(titel)
-    +'&vorname='+encodeURIComponent(vorname)
-    +'&nachname='+encodeURIComponent(nachname)
-    +'&strasse='+encodeURIComponent(strasse)
-    +'&plz='+encodeURIComponent(plz)
-    +'&ort='+encodeURIComponent(ort)
-    +'&land='+encodeURIComponent(land)
-    +'&kundennummer=4060DoP30c'
-    +'&isin='+encodeURIComponent(isin)
-    +'&coe=';
-  if(code)url+='&code='+encodeURIComponent(code);
-  window.open(url,'_blank');
+  var EBASE_URLS = {
+    "DE000EASY306": "https://portal.ebase.com/(e2)/deo-easyfolio/deo-direkt",
+    "DE000EASY505": "https://portal.ebase.com/(e3)/deo-easyfolio/deo-direkt",
+    "DE000EASY704": "https://portal.ebase.com/(e4)/deo-easyfolio/deo-direkt"
+  };
+  var active = document.querySelector('.dp-fonds-btn.dp-fonds-active');
+  var isin = active.getAttribute('data-isin');
+  var baseUrl = EBASE_URLS[isin];
+  var anrede = document.getElementById('dpAnrede').value;
+  var titel = document.getElementById('dpTitel').value;
+  var vorname = document.getElementById('dpVorname').value;
+  var nachname = document.getElementById('dpNachname').value;
+  var strasse = document.getElementById('dpStrasse').value;
+  var plz = document.getElementById('dpPlz').value;
+  var ort = document.getElementById('dpOrt').value;
+  var land = document.getElementById('dpLand').value;
+  var code = document.getElementById('dpCode').value;
+  if(!vorname || !nachname || !strasse || !plz || !ort){
+    alert('Bitte alle Pflichtfelder ausfuellen.');
+    return;
+  }
+  var params = "?vermittlernummer=3947"
+    + "&anrede=" + encodeURIComponent(anrede)
+    + "&title=" + encodeURIComponent(titel)
+    + "&vorname=" + encodeURIComponent(vorname)
+    + "&nachname=" + encodeURIComponent(nachname)
+    + "&strasse=" + encodeURIComponent(strasse)
+    + "&plz=" + encodeURIComponent(plz)
+    + "&ort=" + encodeURIComponent(ort)
+    + "&land=" + encodeURIComponent(land)
+    + "&kundennummer=4060DoP30c"
+    + "&isin=" + encodeURIComponent(isin)
+    + "&coe=";
+  if(code){ params += "&code=" + encodeURIComponent(code); }
+  window.open(baseUrl + params, "_blank");
 }
 </script>
