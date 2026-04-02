@@ -1,224 +1,222 @@
 <style>
-/* ═══════════════════════════════════════
-   GINMON LANDING – SCOPED STYLES
-   Only rgb(76,121,199) + rgb(124,186,58)
-   Font: MuseoSans
-═══════════════════════════════════════ */
+/* GINMON LANDING v2 – scoped, no dark blue, no hover, modern */
+.gm-landing{--gm-blue:rgb(76,121,199);--gm-green:rgb(124,186,58);--gm-text:#1a1a2e;--gm-muted:#6b7280;--gm-border:#e5e7eb;--gm-bg:#f4f6fc;--gm-white:#ffffff;width:100%;overflow-x:hidden;color:var(--gm-text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.gm-landing,.gm-landing *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
+.gm-landing img{max-width:100%;display:block}
+.gm-landing a{text-decoration:none!important;color:inherit}
 
-/* VARIABLES */
-.gm-landing { --gm-blue: rgb(76,121,199); --gm-green: rgb(124,186,58); --gm-dark: #0a2a5e; --gm-text: #1a1a2e; --gm-muted: #6b7280; --gm-border: #e5e7eb; --gm-bg: #f4f6fc; --gm-white: #ffffff; --gm-r: 16px; }
-.gm-landing, .gm-landing * { font-family: 'MuseoSans', 'Nunito', system-ui, sans-serif !important; box-sizing: border-box !important; margin: 0; padding: 0; }
-.gm-landing { width: 100%; overflow-x: hidden; color: var(--gm-text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.gm-landing img { max-width: 100%; display: block; }
-.gm-landing a { text-decoration: none; color: inherit; }
+/* BUTTONS – forced by ID-level specificity */
+#gm-btn-hero-green,#gm-btn-hero-outline,#gm-btn-sparplan,#gm-btn-kind,#gm-btn-einmal,#gm-btn-depot,#gm-btn-anlegertest,#gm-btn-anlegertest2,#gm-btn-rundum1,#gm-btn-rundum2,#gm-btn-rundum3,#gm-btn-cta1,#gm-btn-cta2,
+.gm-landing .gm-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;outline:none!important;box-shadow:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:none!important;transform:none!important}
+.gm-landing .gm-btn:hover,.gm-landing .gm-btn:focus,.gm-landing .gm-btn:active{transform:none!important;box-shadow:none!important;opacity:1!important;border:none!important}
+.gm-btn-green{background:var(--gm-green)!important;color:#fff!important}
+.gm-btn-blue{background:var(--gm-blue)!important;color:#fff!important}
+.gm-btn-outline-white{background:rgba(255,255,255,.15)!important;color:#fff!important}
 
-/* ─── HERO ─── */
-.gm-hero { position: relative; width: 100%; min-height: 520px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
-.gm-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-.gm-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,31,92,.88) 0%, rgba(6,31,92,.55) 45%, rgba(6,31,92,.2) 100%); z-index: 1; }
-.gm-hero-content { position: relative; z-index: 3; padding: 48px 52px 56px; max-width: 1380px; width: 100%; margin: 0 auto; }
-.gm-hero-titles { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-.gm-hero-pill { display: inline-block; padding: 12px 26px; border-radius: 14px; font-weight: 800; font-size: 1.95rem; color: #fff; width: fit-content; line-height: 1.15; }
-.gm-hp-dark { background: var(--gm-dark); }
-.gm-hp-green { background: var(--gm-green); margin-left: 18px; }
-.gm-hp-blue { background: var(--gm-blue); font-size: 1.05rem; font-weight: 600; }
-.gm-hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+/* HERO */
+.gm-hero{position:relative;width:100%;min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.gm-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.gm-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.55);z-index:1}
+.gm-hero-content{position:relative;z-index:3;padding:48px 52px 56px;max-width:1380px;width:100%;margin:0 auto}
+.gm-hero-titles{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.gm-hero-pill{display:inline-block;padding:12px 26px;border-radius:14px;font-weight:800;font-size:1.95rem;color:#fff;width:fit-content;line-height:1.15}
+.gm-hp-blue{background:var(--gm-blue)}
+.gm-hp-green{background:var(--gm-green);margin-left:18px}
+.gm-hp-blue-sm{background:var(--gm-blue);font-size:1.05rem;font-weight:600}
+.gm-hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
 
-/* ─── BUTTONS ─── */
-.gm-btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 30px; border-radius: 60px; font-size: 14px; font-weight: 700; border: none !important; cursor: pointer; transition: opacity .18s ease; min-height: 48px; white-space: nowrap; line-height: 1; text-decoration: none; }
-.gm-btn:hover { opacity: .88; }
-.gm-btn-green { background: var(--gm-green) !important; color: #fff !important; }
-.gm-btn-blue { background: var(--gm-blue) !important; color: #fff !important; }
-.gm-btn-dark { background: var(--gm-dark) !important; color: #fff !important; }
-.gm-btn-outline-white { background: rgba(255,255,255,.12) !important; color: #fff !important; border: 2px solid rgba(255,255,255,.45) !important; }
+/* TRUST BAR */
+.gm-trust-bar{background:var(--gm-white);border-bottom:1px solid var(--gm-border);overflow-x:auto;scrollbar-width:none}
+.gm-trust-bar::-webkit-scrollbar{display:none}
+.gm-trust-inner{display:flex;justify-content:center;align-items:stretch;min-width:max-content;margin:0 auto;max-width:1200px}
+.gm-trust-item{display:flex;align-items:center;gap:13px;padding:22px 36px;border-right:1px solid var(--gm-border);flex-shrink:0}
+.gm-trust-item:last-child{border-right:none}
+.gm-trust-icon{width:42px;height:42px;border-radius:12px;background:var(--gm-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gm-trust-label{font-size:13px;font-weight:700;color:var(--gm-text)}
+.gm-trust-sub{font-size:12px;color:var(--gm-muted);margin-top:2px}
 
-/* ─── TRUST BAR ─── */
-.gm-trust-bar { background: var(--gm-white); border-bottom: 1px solid var(--gm-border); overflow-x: auto; scrollbar-width: none; }
-.gm-trust-bar::-webkit-scrollbar { display: none; }
-.gm-trust-inner { display: flex; justify-content: center; align-items: stretch; min-width: max-content; margin: 0 auto; max-width: 1200px; }
-.gm-trust-item { display: flex; align-items: center; gap: 13px; padding: 22px 36px; border-right: 1px solid var(--gm-border); flex-shrink: 0; }
-.gm-trust-item:last-child { border-right: none; }
-.gm-trust-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--gm-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.gm-trust-label { font-size: 13px; font-weight: 700; color: var(--gm-text); }
-.gm-trust-sub { font-size: 12px; color: var(--gm-muted); margin-top: 2px; }
+/* PRODUCT CARDS – light border, small radius, NO hover */
+.gm-products{background:var(--gm-bg);padding:48px 0 56px}
+.gm-products-title{text-align:center;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gm-blue);margin-bottom:28px;padding:0 20px}
+.gm-products-track{display:flex;gap:20px;max-width:1380px;margin:0 auto;padding:0 24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gm-products-track::-webkit-scrollbar{display:none}
+.gm-product-card{flex:1;min-width:180px;background:var(--gm-white);border-radius:12px;padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;scroll-snap-align:start;cursor:pointer;border:1px solid #e0e4ec!important;transition:none!important;transform:none!important;box-shadow:none!important}
+.gm-product-card:hover{transform:none!important;box-shadow:none!important}
+.gm-product-card.gm-product-active{background:var(--gm-blue)!important;border-color:var(--gm-blue)!important}
+.gm-product-card.gm-product-active .gm-product-name{color:#fff!important}
+.gm-product-card.gm-product-active .gm-product-desc{color:rgba(255,255,255,.75)!important}
+.gm-product-card.gm-product-active .gm-product-icon{background:rgba(255,255,255,.18)!important}
+.gm-product-card.gm-product-active .gm-product-icon svg *[stroke]{stroke:#fff}
+.gm-product-card.gm-product-active .gm-product-icon svg *[fill]:not([fill="none"]){fill:#fff}
+.gm-product-icon{width:56px;height:56px;border-radius:14px;background:var(--gm-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.gm-product-icon svg{width:28px;height:28px}
+.gm-product-name{font-size:15px;font-weight:700;color:var(--gm-text);margin-bottom:4px}
+.gm-product-desc{font-size:12px;color:var(--gm-muted);line-height:1.5}
 
-/* ─── PRODUCT CARDS (horizontal scroll on mobile) ─── */
-.gm-products { background: var(--gm-bg); padding: 48px 0 56px; }
-.gm-products-title { text-align: center; font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gm-blue); margin-bottom: 28px; padding: 0 20px; }
-.gm-products-track { display: flex; gap: 20px; max-width: 1380px; margin: 0 auto; padding: 0 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-.gm-products-track::-webkit-scrollbar { display: none; }
-.gm-product-card { flex: 0 0 240px; background: var(--gm-white); border-radius: 20px; padding: 32px 24px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; scroll-snap-align: start; transition: transform .2s ease; cursor: pointer; box-shadow: 0 2px 16px rgba(0,0,0,.06); }
-.gm-product-card:hover { transform: translateY(-4px); }
-.gm-product-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(76,121,199,.08); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-.gm-product-icon svg { width: 28px; height: 28px; }
-.gm-product-name { font-size: 15px; font-weight: 700; color: var(--gm-text); margin-bottom: 4px; }
-.gm-product-desc { font-size: 12px; color: var(--gm-muted); line-height: 1.5; }
+/* TABS */
+.gm-tabs-section{background:var(--gm-white);padding:80px 24px}
+.gm-tabs-head{text-align:center;max-width:700px;margin:0 auto 48px}
+.gm-tabs-title{font-size:36px;font-weight:800;color:var(--gm-text);line-height:1.2;margin-bottom:14px}
+.gm-tabs-sub{font-size:16px;color:var(--gm-muted);line-height:1.7}
+.gm-tabs-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.gm-tab-btn{padding:12px 32px;border-radius:.35rem!important;font-size:14px;font-weight:700;cursor:pointer;border:none!important;background:var(--gm-bg);color:var(--gm-muted);transition:none!important}
+.gm-tab-btn.gm-tab-active{background:var(--gm-blue)!important;color:#fff!important}
+.gm-tab-panels{max-width:1100px;margin:0 auto}
+.gm-tab-panel{display:none}
+.gm-tab-panel.gm-active{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.gm-tab-badge{display:inline-block;padding:6px 18px;border-radius:.35rem;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:18px;border:none!important}
+.gm-tb-green{background:var(--gm-green)}
+.gm-tb-blue{background:var(--gm-blue)}
+.gm-tab-text h2{font-size:32px;font-weight:800;color:var(--gm-text);line-height:1.2;margin-bottom:16px}
+.gm-tab-text p{font-size:15px;line-height:1.8;color:var(--gm-muted);margin-bottom:28px}
+.gm-check-list{display:flex;flex-direction:column;gap:14px;margin-bottom:34px}
+.gm-check-item{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--gm-text);font-weight:500}
+.gm-check-dot{width:22px;height:22px;border-radius:50%;background:rgba(124,186,58,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gm-tab-visual{border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:var(--gm-bg);display:flex;align-items:center;justify-content:center}
 
-/* ─── TABS SECTION ─── */
-.gm-tabs-section { background: var(--gm-white); padding: 80px 24px; }
-.gm-tabs-head { text-align: center; max-width: 700px; margin: 0 auto 48px; }
-.gm-tabs-title { font-size: 36px; font-weight: 800; color: var(--gm-text); line-height: 1.2; margin-bottom: 14px; }
-.gm-tabs-sub { font-size: 16px; color: var(--gm-muted); line-height: 1.7; }
-.gm-tabs-nav { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
-.gm-tab-btn { padding: 12px 32px; border-radius: 60px; font-size: 14px; font-weight: 700; cursor: pointer; border: none !important; background: var(--gm-bg); color: var(--gm-muted); transition: all .15s; min-height: 46px; }
-.gm-tab-btn:hover { color: var(--gm-blue); background: rgba(76,121,199,.08); }
-.gm-tab-btn.gm-tab-active { background: var(--gm-blue) !important; color: #fff !important; }
-.gm-tab-panels { max-width: 1100px; margin: 0 auto; }
-.gm-tab-panel { display: none; }
-.gm-tab-panel.gm-active { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-.gm-tab-badge { display: inline-block; padding: 6px 18px; border-radius: 60px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #fff; margin-bottom: 18px; border: none !important; }
-.gm-tb-green { background: var(--gm-green); }
-.gm-tb-blue { background: var(--gm-blue); }
-.gm-tab-text h2 { font-size: 32px; font-weight: 800; color: var(--gm-text); line-height: 1.2; margin-bottom: 16px; }
-.gm-tab-text p { font-size: 15px; line-height: 1.8; color: var(--gm-muted); margin-bottom: 28px; }
-.gm-check-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 34px; }
-.gm-check-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--gm-text); font-weight: 500; }
-.gm-check-dot { width: 22px; height: 22px; border-radius: 50%; background: rgba(124,186,58,.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.gm-tab-visual { border-radius: 24px; overflow: hidden; aspect-ratio: 4/3; background: var(--gm-bg); display: flex; align-items: center; justify-content: center; }
+/* FONDS */
+.gm-fonds-section{background:var(--gm-bg);padding:80px 24px 100px}
+.gm-fonds-head{text-align:center;margin-bottom:48px}
+.gm-fonds-head h2{font-size:36px;font-weight:800;color:var(--gm-text);margin-bottom:10px}
+.gm-fonds-head p{font-size:16px;color:var(--gm-muted)}
+.gm-fonds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.gm-fonds-card{background:var(--gm-white);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;position:relative;border:1px solid #e0e4ec}
+.gm-fonds-top{background:var(--gm-blue);padding:32px 24px 26px;text-align:center}
+.gm-fonds-type{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:4px}
+.gm-fonds-name{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px}
+.gm-fonds-bar{width:40px;height:3px;background:var(--gm-green);border-radius:2px;margin:0 auto}
+.gm-fonds-body{padding:28px 24px 32px;flex-grow:1;display:flex;flex-direction:column}
+.gm-fonds-yield{font-size:44px;font-weight:800;color:var(--gm-blue);line-height:1}
+.gm-fonds-yield-label{font-size:13px;color:var(--gm-muted);margin-top:4px;margin-bottom:20px}
+.gm-fonds-li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0f2f8;font-size:13px;color:var(--gm-text)}
+.gm-fonds-li:last-child{border-bottom:none}
+.gm-fonds-popular{position:absolute;top:14px;right:14px;background:var(--gm-green);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:.35rem;letter-spacing:.5px}
 
-/* ─── FONDS CARDS ─── */
-.gm-fonds-section { background: var(--gm-bg); padding: 80px 24px 100px; }
-.gm-fonds-head { text-align: center; margin-bottom: 48px; }
-.gm-fonds-head h2 { font-size: 36px; font-weight: 800; color: var(--gm-text); margin-bottom: 10px; }
-.gm-fonds-head p { font-size: 16px; color: var(--gm-muted); }
-.gm-fonds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
-.gm-fonds-card { background: var(--gm-white); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
-.gm-fonds-top { background: var(--gm-blue); padding: 32px 24px 26px; text-align: center; }
-.gm-fonds-type { font-size: 11px; color: rgba(255,255,255,.6); margin-bottom: 4px; }
-.gm-fonds-name { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-.gm-fonds-bar { width: 40px; height: 3px; background: var(--gm-green); border-radius: 2px; margin: 0 auto; }
-.gm-fonds-body { padding: 28px 24px 32px; flex-grow: 1; display: flex; flex-direction: column; }
-.gm-fonds-yield { font-size: 44px; font-weight: 800; color: var(--gm-blue); line-height: 1; }
-.gm-fonds-yield-label { font-size: 13px; color: var(--gm-muted); margin-top: 4px; margin-bottom: 20px; }
-.gm-fonds-li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f2f8; font-size: 13px; color: var(--gm-text); }
-.gm-fonds-li:last-child { border-bottom: none; }
-.gm-fonds-popular { position: absolute; top: 14px; right: 14px; background: var(--gm-green); color: #fff; font-size: 10px; font-weight: 800; padding: 4px 12px; border-radius: 60px; letter-spacing: .5px; }
+/* ANLEGERTEST BANNER */
+.gm-at-wrapper{position:relative;z-index:20;margin-top:-52px;padding:0 24px}
+.gm-at-block{max-width:1100px;margin:0 auto;background:var(--gm-blue);border-radius:20px;padding:48px 56px;display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+.gm-at-left{flex:1;min-width:240px}
+.gm-at-eye{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gm-green);margin-bottom:12px}
+.gm-at-left h2{font-size:28px;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.3}
+.gm-at-left p{font-size:14px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:24px}
+.gm-at-steps{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.gm-at-step{display:flex;align-items:center;gap:9px;font-size:13px;color:#fff;font-weight:500}
+.gm-at-num{width:30px;height:30px;background:var(--gm-green);color:#fff;border-radius:50%;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.gm-at-right{flex-shrink:0;display:flex;align-items:center}
 
-/* ─── ANLEGERTEST BANNER (overlapping) ─── */
-.gm-at-wrapper { position: relative; z-index: 20; margin-top: -52px; padding: 0 24px 0; }
-.gm-at-block { max-width: 1100px; margin: 0 auto; background: var(--gm-blue); border-radius: 24px; padding: 48px 56px; display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
-.gm-at-left { flex: 1; min-width: 240px; }
-.gm-at-eye { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gm-green); margin-bottom: 12px; }
-.gm-at-left h2 { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.3; }
-.gm-at-left p { font-size: 14px; color: rgba(255,255,255,.78); line-height: 1.7; margin-bottom: 24px; }
-.gm-at-steps { display: flex; gap: 24px; flex-wrap: wrap; }
-.gm-at-step { display: flex; align-items: center; gap: 9px; font-size: 13px; color: #fff; font-weight: 500; }
-.gm-at-num { width: 30px; height: 30px; background: var(--gm-green); color: #fff; border-radius: 50%; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.gm-at-right { text-align: center; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
-.gm-at-timer { font-size: 72px; font-weight: 800; color: #fff; line-height: 1; }
-.gm-at-timer-sub { font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 22px; }
+/* COMPARE */
+.gm-compare-section{background:var(--gm-white);padding:80px 24px}
+.gm-compare-inner{max-width:1100px;margin:0 auto;display:flex;gap:56px;align-items:flex-start;flex-wrap:wrap}
+.gm-compare-left{flex:0 0 280px}
+.gm-compare-left h2{font-size:30px;font-weight:800;color:var(--gm-text);margin-bottom:14px;line-height:1.2}
+.gm-compare-left p{font-size:15px;color:var(--gm-muted);line-height:1.7;margin-bottom:28px}
+.gm-compare-right{flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.gm-cmp-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;border:1px solid var(--gm-border);min-width:520px}
+.gm-cmp-table th{padding:16px 18px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;background:#f8faff;border-bottom:2px solid var(--gm-border);text-align:center;color:var(--gm-muted);white-space:nowrap}
+.gm-cmp-table th:first-child{text-align:left;color:var(--gm-text)}
+.gm-cmp-table th.gm-hl{background:var(--gm-blue);color:#fff}
+.gm-cmp-table td{padding:14px 18px;font-size:14px;text-align:center;border-bottom:1px solid #f0f2f8;vertical-align:middle}
+.gm-cmp-table td:first-child{text-align:left;font-weight:600;color:var(--gm-text)}
+.gm-cmp-table tr:last-child td{border-bottom:none}
+.gm-cmp-table td.gm-hl{background:rgba(76,121,199,.06)}
+.gm-cmp-yes{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:rgba(124,186,58,.12);border-radius:50%}
+.gm-cmp-no{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px}
+.gm-cmp-note{font-size:11px;font-weight:700;color:var(--gm-blue);display:block;margin-top:2px}
 
-/* ─── COMPARE TABLE ─── */
-.gm-compare-section { background: var(--gm-white); padding: 80px 24px; }
-.gm-compare-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 56px; align-items: flex-start; flex-wrap: wrap; }
-.gm-compare-left { flex: 0 0 280px; }
-.gm-compare-left h2 { font-size: 30px; font-weight: 800; color: var(--gm-text); margin-bottom: 14px; line-height: 1.2; }
-.gm-compare-left p { font-size: 15px; color: var(--gm-muted); line-height: 1.7; margin-bottom: 28px; }
-.gm-compare-right { flex: 1; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
-.gm-cmp-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--gm-border); min-width: 520px; }
-.gm-cmp-table th { padding: 16px 18px; font-size: 12px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; background: #f8faff; border-bottom: 2px solid var(--gm-border); text-align: center; color: var(--gm-muted); white-space: nowrap; }
-.gm-cmp-table th:first-child { text-align: left; color: var(--gm-text); }
-.gm-cmp-table th.gm-hl { background: var(--gm-blue); color: #fff; }
-.gm-cmp-table td { padding: 14px 18px; font-size: 14px; text-align: center; border-bottom: 1px solid #f0f2f8; vertical-align: middle; }
-.gm-cmp-table td:first-child { text-align: left; font-weight: 600; color: var(--gm-text); }
-.gm-cmp-table tr:last-child td { border-bottom: none; }
-.gm-cmp-table td.gm-hl { background: rgba(76,121,199,.06); }
-.gm-cmp-yes { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: rgba(124,186,58,.12); border-radius: 50%; }
-.gm-cmp-no { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; }
-.gm-cmp-note { font-size: 11px; font-weight: 700; color: var(--gm-blue); display: block; margin-top: 2px; }
+/* RUNDUM SORGLOS – 2 visible, 3rd slides in */
+.gm-rundum-section{background:var(--gm-bg);padding:80px 0;overflow:hidden}
+.gm-rundum-inner{max-width:1380px;margin:0 auto;padding:0 24px}
+.gm-rundum-top{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start}
+.gm-rundum-left h2{font-size:30px;font-weight:800;color:var(--gm-text);margin-bottom:14px;line-height:1.25}
+.gm-rundum-left p{font-size:14px;color:var(--gm-muted);line-height:1.7}
+.gm-rundum-eyebrow{display:inline-block;background:var(--gm-blue);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:.35rem;margin-bottom:16px;border:none!important}
+.gm-rundum-cards-wrap{position:relative;overflow:hidden}
+.gm-rundum-cards{display:flex;gap:20px;transition:transform .4s ease;padding:8px 0}
+.gm-rundum-card{flex:0 0 calc(50% - 10px);height:400px;border-radius:20px;overflow:hidden;position:relative;cursor:pointer}
+.gm-rundum-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gm-rundum-card-overlay{position:absolute;inset:0;background:rgba(30,50,80,.55);z-index:1}
+.gm-rundum-card-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:28px}
+.gm-rundum-card-content h3{font-size:20px;font-weight:800;color:#fff;margin-bottom:8px}
+.gm-rundum-card-content p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:16px}
+.gm-scroll-btn{width:44px;height:44px;border-radius:50%;background:var(--gm-white);border:none!important;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gm-text);box-shadow:none!important;transition:none!important}
+.gm-rundum-scroll-btns{display:flex;gap:10px;margin-top:20px}
 
-/* ─── RUNDUM SORGLOS (horizontal scroll cards with images) ─── */
-.gm-rundum-section { background: var(--gm-bg); padding: 80px 0; overflow: hidden; }
-.gm-rundum-inner { max-width: 1380px; margin: 0 auto; padding: 0 24px; }
-.gm-rundum-top { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
-.gm-rundum-left h2 { font-size: 30px; font-weight: 800; color: var(--gm-text); margin-bottom: 14px; line-height: 1.25; }
-.gm-rundum-left p { font-size: 14px; color: var(--gm-muted); line-height: 1.7; }
-.gm-rundum-eyebrow { display: inline-block; background: var(--gm-blue); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 16px; border-radius: 60px; margin-bottom: 16px; border: none !important; }
-.gm-rundum-cards { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 8px 0 8px; -webkit-overflow-scrolling: touch; }
-.gm-rundum-cards::-webkit-scrollbar { display: none; }
-.gm-rundum-card { flex: 0 0 320px; height: 400px; border-radius: 24px; overflow: hidden; position: relative; scroll-snap-align: start; cursor: pointer; }
-.gm-rundum-card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
-.gm-rundum-card:hover .gm-rundum-card-img { transform: scale(1.05); }
-.gm-rundum-card-overlay { position: absolute; inset: 0; background: linear-gradient(transparent 30%, rgba(10,42,94,.9) 100%); z-index: 1; }
-.gm-rundum-card-content { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 28px; }
-.gm-rundum-card-content h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-.gm-rundum-card-content p { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.6; margin-bottom: 16px; }
-.gm-rundum-scroll-btns { display: flex; gap: 10px; margin-top: 20px; }
-.gm-scroll-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--gm-white); border: none !important; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity .15s; color: var(--gm-text); }
-.gm-scroll-btn:hover { opacity: .7; }
+/* FAQ */
+.gm-faq-section{background:var(--gm-white);padding:80px 24px 48px}
+.gm-faq-head{text-align:center;margin-bottom:48px}
+.gm-faq-head h2{font-size:36px;font-weight:800;color:var(--gm-text);margin-bottom:10px}
+.gm-faq-head p{font-size:16px;color:var(--gm-muted)}
+.gm-faq-list{max-width:800px;margin:0 auto}
+.gm-faq-item{border-bottom:1px solid var(--gm-border)}
+.gm-faq-item:first-child{border-top:1px solid var(--gm-border)}
+.gm-faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;user-select:none;gap:16px}
+.gm-faq-q-text{font-size:16px;font-weight:700;color:var(--gm-text);flex:1;line-height:1.4}
+.gm-faq-chev{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--gm-bg);transition:transform .15s ease;color:var(--gm-muted)}
+.gm-faq-item.gm-faq-open .gm-faq-chev{background:var(--gm-blue);color:#fff;transform:rotate(180deg)}
+.gm-faq-a{max-height:0;overflow:hidden;transition:max-height .15s ease}
+.gm-faq-item.gm-faq-open .gm-faq-a{max-height:300px}
+.gm-faq-a-inner{padding:0 0 22px;font-size:15px;line-height:1.8;color:var(--gm-muted)}
 
-/* ─── FAQ ─── */
-.gm-faq-section { background: var(--gm-white); padding: 80px 24px 48px; }
-.gm-faq-head { text-align: center; margin-bottom: 48px; }
-.gm-faq-head h2 { font-size: 36px; font-weight: 800; color: var(--gm-text); margin-bottom: 10px; }
-.gm-faq-head p { font-size: 16px; color: var(--gm-muted); }
-.gm-faq-list { max-width: 800px; margin: 0 auto; }
-.gm-faq-item { border-bottom: 1px solid var(--gm-border); }
-.gm-faq-item:first-child { border-top: 1px solid var(--gm-border); }
-.gm-faq-q { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; cursor: pointer; user-select: none; gap: 16px; }
-.gm-faq-q-text { font-size: 16px; font-weight: 700; color: var(--gm-text); flex: 1; line-height: 1.4; }
-.gm-faq-chev { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--gm-bg); transition: transform .15s ease; color: var(--gm-muted); }
-.gm-faq-item.gm-faq-open .gm-faq-chev { background: var(--gm-blue); color: #fff; transform: rotate(180deg); }
-.gm-faq-a { max-height: 0; overflow: hidden; transition: max-height .15s ease; }
-.gm-faq-item.gm-faq-open .gm-faq-a { max-height: 300px; }
-.gm-faq-a-inner { padding: 0 0 22px; font-size: 15px; line-height: 1.8; color: var(--gm-muted); }
+/* FINAL CTA */
+.gm-final-section{background:var(--gm-bg);padding:80px 24px}
+.gm-final-headline{text-align:center;max-width:700px;margin:0 auto 48px}
+.gm-final-headline h2{font-size:38px;font-weight:800;color:var(--gm-text);margin-bottom:10px}
+.gm-final-headline p{font-size:16px;color:var(--gm-muted)}
+.gm-final-inner{max-width:1100px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap}
+.gm-cta-card{flex:1;min-width:280px;border-radius:20px;padding:48px 44px;display:flex;flex-direction:column;align-items:flex-start}
+.gm-cta-card.gm-cta-green{background:var(--gm-green)}
+.gm-cta-card.gm-cta-blue{background:var(--gm-blue)}
+.gm-cta-card-icon{width:56px;height:56px;background:rgba(255,255,255,.18);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+.gm-cta-card h3{font-size:24px;font-weight:800;color:#fff;margin-bottom:12px}
+.gm-cta-card p{font-size:15px;color:rgba(255,255,255,.82);line-height:1.7;margin-bottom:30px;flex-grow:1}
+.gm-cta-card-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;background:#fff!important;color:var(--gm-text)!important;border:none!important;cursor:pointer!important;text-decoration:none!important;box-shadow:none!important;transition:none!important}
 
-/* ─── FINAL CTA ─── */
-.gm-final-cta { background: var(--gm-bg); padding: 80px 24px; }
-.gm-final-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 24px; flex-wrap: wrap; }
-.gm-cta-card { flex: 1; min-width: 280px; border-radius: 24px; padding: 48px 44px; display: flex; flex-direction: column; align-items: flex-start; }
-.gm-cta-card.gm-cta-green { background: var(--gm-green); }
-.gm-cta-card.gm-cta-blue { background: var(--gm-blue); }
-.gm-cta-card-icon { width: 56px; height: 56px; background: rgba(255,255,255,.18); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; }
-.gm-cta-card h3 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 12px; }
-.gm-cta-card p { font-size: 15px; color: rgba(255,255,255,.82); line-height: 1.7; margin-bottom: 30px; flex-grow: 1; }
-.gm-cta-card-btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 30px; border-radius: 60px; font-size: 14px; font-weight: 700; background: #fff !important; color: var(--gm-text) !important; border: none !important; cursor: pointer; transition: opacity .15s; text-decoration: none; }
-.gm-cta-card-btn:hover { opacity: .88; }
+.gm-disclaimer{text-align:center;color:#b0b0b8;font-size:12px;padding:32px 24px 48px;max-width:900px;margin:0 auto;line-height:1.7}
 
-/* ─── DISCLAIMER ─── */
-.gm-disclaimer { text-align: center; color: #b0b0b8; font-size: 12px; padding: 32px 24px 48px; max-width: 900px; margin: 0 auto; line-height: 1.7; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 1040px) {
-  .gm-fonds-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; }
-  .gm-compare-inner { flex-direction: column !important; }
-  .gm-compare-left { flex: none !important; width: 100% !important; }
-  .gm-rundum-top { grid-template-columns: 1fr !important; }
+/* RESPONSIVE */
+@media(max-width:1040px){
+.gm-fonds-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))!important}
+.gm-compare-inner{flex-direction:column!important}
+.gm-compare-left{flex:none!important;width:100%!important}
+.gm-rundum-top{grid-template-columns:1fr!important}
+.gm-rundum-card{flex:0 0 calc(50% - 10px)!important}
 }
-@media (max-width: 760px) {
-  .gm-hero-content { padding: 28px 20px 36px !important; }
-  .gm-hero-pill { font-size: 1.35rem !important; padding: 10px 20px !important; }
-  .gm-hp-green { margin-left: 8px !important; }
-  .gm-tab-panel.gm-active { grid-template-columns: 1fr !important; gap: 32px !important; }
-  .gm-tabs-title { font-size: 28px !important; }
-  .gm-at-block { padding: 28px 20px !important; flex-direction: column !important; gap: 24px !important; }
-  .gm-at-right { flex-direction: row !important; gap: 16px !important; }
-  .gm-fonds-head h2, .gm-faq-head h2 { font-size: 28px !important; }
-  .gm-final-inner { flex-direction: column !important; }
-  .gm-product-card { flex: 0 0 200px !important; }
-  .gm-rundum-card { flex: 0 0 280px !important; height: 360px !important; }
+@media(max-width:760px){
+.gm-hero-content{padding:28px 20px 36px!important}
+.gm-hero-pill{font-size:1.35rem!important;padding:10px 20px!important}
+.gm-hp-green{margin-left:8px!important}
+.gm-tab-panel.gm-active{grid-template-columns:1fr!important;gap:32px!important}
+.gm-tabs-title{font-size:28px!important}
+.gm-at-block{padding:28px 20px!important;flex-direction:column!important;gap:24px!important}
+.gm-at-right{width:100%!important;justify-content:center!important}
+.gm-fonds-head h2,.gm-faq-head h2,.gm-final-headline h2{font-size:28px!important}
+.gm-final-inner{flex-direction:column!important}
+.gm-products-track{gap:12px!important;padding:0 16px!important}
+.gm-product-card{flex:0 0 170px!important;min-width:170px!important;padding:24px 16px 22px!important}
+.gm-rundum-card{flex:0 0 85%!important;height:340px!important}
 }
-@media (max-width: 480px) {
-  .gm-hero-pill { font-size: 1.1rem !important; }
-  .gm-tabs-section { padding: 48px 16px !important; }
-  .gm-fonds-section { padding: 48px 16px 80px !important; }
+@media(max-width:480px){
+.gm-hero-pill{font-size:1.1rem!important}
+.gm-tabs-section{padding:48px 16px!important}
+.gm-fonds-section{padding:48px 16px 80px!important}
+.gm-rundum-card{flex:0 0 92%!important}
 }
 </style>
 <div class="gm-landing">
 
 <!-- HERO -->
 <section class="gm-hero">
-  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80" alt="" class="gm-hero-img">
+  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&q=80" alt="" class="gm-hero-img">
   <div class="gm-hero-overlay"></div>
   <div class="gm-hero-content">
     <div class="gm-hero-titles">
-      <div class="gm-hero-pill gm-hp-dark">Bis zu 7,2% Zielrendite pro Jahr.</div>
+      <div class="gm-hero-pill gm-hp-blue">Bis zu 7,2% Zielrendite pro Jahr.</div>
       <div class="gm-hero-pill gm-hp-green">Global. Einfach. Ab 100&nbsp;Euro.</div>
-      <div class="gm-hero-pill gm-hp-blue">17.000+ Wertpapiere / 95 Länder / Seit 2014</div>
+      <div class="gm-hero-pill gm-hp-blue-sm">17.000+ Wertpapiere / 95 Länder / Seit 2014</div>
     </div>
     <div class="gm-hero-ctas">
-      <a href="#" class="gm-btn gm-btn-green">Welcher Fonds passt zu mir?</a>
-      <a href="#" class="gm-btn gm-btn-outline-white">Depot eröffnen</a>
+      <a href="#" id="gm-btn-hero-green" class="gm-btn gm-btn-green">Welcher Fonds passt zu mir?</a>
+      <a href="#" id="gm-btn-hero-outline" class="gm-btn gm-btn-outline-white">Depot eröffnen</a>
     </div>
   </div>
 </section>
@@ -227,81 +225,61 @@
 <div class="gm-trust-bar">
   <div class="gm-trust-inner">
     <div class="gm-trust-item">
-      <div class="gm-trust-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l7 3.5v6c0 4-3.5 7-7 8.5C4.5 18.5 1 15.5 1 11.5v-6z" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M7 11l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="gm-trust-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l7 3.5v6c0 4-3.5 7-7 8.5C4.5 18.5 1 15.5 1 11.5v-6z" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M7 11l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div><div class="gm-trust-label">FNZ Bank</div><div class="gm-trust-sub">Sondervermögen geschützt</div></div>
     </div>
     <div class="gm-trust-item">
-      <div class="gm-trust-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="7" width="18" height="13" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8"/><path d="M7 7V5a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round"/><circle cx="11" cy="14" r="2" fill="rgb(76,121,199)" opacity=".4"/></svg>
-      </div>
+      <div class="gm-trust-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="7" width="18" height="13" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M7 7V5a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="11" cy="14" r="2" fill="rgb(76,121,199)" opacity=".4"/></svg></div>
       <div><div class="gm-trust-label">Gesetzlich abgesichert</div><div class="gm-trust-sub">Kapital als Sondervermögen</div></div>
     </div>
     <div class="gm-trust-item">
-      <div class="gm-trust-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2 4 4.5.65-3.25 3.17.77 4.48L11 12.1 6.98 14.3l.77-4.48L4.5 6.65 9 6z" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg>
-      </div>
+      <div class="gm-trust-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2 4 4.5.65-3.25 3.17.77 4.48L11 12.1 6.98 14.3l.77-4.48L4.5 6.65 9 6z" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linejoin="round" fill="none"/></svg></div>
       <div><div class="gm-trust-label">3x Testsieger</div><div class="gm-trust-sub">Handelsblatt 2022-2024</div></div>
     </div>
     <div class="gm-trust-item">
-      <div class="gm-trust-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M11 7v4.5l3 3" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="gm-trust-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M11 7v4.5l3 3" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div><div class="gm-trust-label">0 Euro Performancegebühr</div><div class="gm-trust-sub">Keine versteckten Kosten</div></div>
     </div>
     <div class="gm-trust-item">
-      <div class="gm-trust-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="14" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M2 9h18" stroke="rgb(76,121,199)" stroke-width="1.8"/><circle cx="7" cy="14" r="1.5" fill="rgb(124,186,58)"/></svg>
-      </div>
+      <div class="gm-trust-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="14" rx="3" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M2 9h18" stroke="rgb(76,121,199)" stroke-width="1.8"/><circle cx="7" cy="14" r="1.5" fill="rgb(124,186,58)"/></svg></div>
       <div><div class="gm-trust-label">Kostenfreie Hotline</div><div class="gm-trust-sub">0800 12305070</div></div>
     </div>
   </div>
 </div>
 
-<!-- PRODUCT CARDS (horizontal scroll) -->
+<!-- PRODUCT CARDS -->
 <section class="gm-products">
   <div class="gm-products-title">Unsere Lösungen</div>
   <div class="gm-products-track">
     <a href="#" class="gm-product-card">
-      <div class="gm-product-icon">
-        <svg viewBox="0 0 28 28" fill="none"><rect x="3" y="16" width="4" height="10" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="9" y="11" width="4" height="15" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="15" y="6" width="4" height="20" rx="1.5" fill="rgb(76,121,199)" opacity=".8"/><path d="M4 14l7-5 7 3 6-8" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="gm-product-icon"><svg viewBox="0 0 28 28" fill="none"><rect x="3" y="16" width="4" height="10" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="9" y="11" width="4" height="15" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="15" y="6" width="4" height="20" rx="1.5" fill="rgb(76,121,199)" opacity=".8"/><path d="M4 14l7-5 7 3 6-8" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="gm-product-name">ETF-Sparplan</div>
       <div class="gm-product-desc">Ab 10 Euro monatlich</div>
     </a>
     <a href="#" class="gm-product-card">
-      <div class="gm-product-icon">
-        <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M6 24c0-5.5 3.6-9 8-9s8 3.5 8 9" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="22" cy="8" r="3.5" fill="none" stroke="rgb(124,186,58)" stroke-width="1.5"/><path d="M20.5 8l1.2 1.2 2.3-2.3" stroke="rgb(124,186,58)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="gm-product-icon"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M6 24c0-5.5 3.6-9 8-9s8 3.5 8 9" stroke="rgb(76,121,199)" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="22" cy="8" r="3.5" fill="none" stroke="rgb(124,186,58)" stroke-width="1.5"/><path d="M20.5 8l1.2 1.2 2.3-2.3" stroke="rgb(124,186,58)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="gm-product-name">Kindersparplan</div>
       <div class="gm-product-desc">Für die Zukunft</div>
     </a>
-    <a href="#" class="gm-product-card">
-      <div class="gm-product-icon" style="background:rgba(76,121,199,.12)">
-        <svg viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="14" rx="3.5" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M10 10V8a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="14" cy="17" r="2.5" fill="rgb(76,121,199)" opacity=".35"/><circle cx="14" cy="17" r="1.2" fill="rgb(76,121,199)"/></svg>
-      </div>
+    <a href="#" class="gm-product-card gm-product-active">
+      <div class="gm-product-icon"><svg viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="14" rx="3.5" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><path d="M10 10V8a4 4 0 018 0v2" stroke="rgb(76,121,199)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="14" cy="17" r="2.5" fill="rgb(76,121,199)" opacity=".35"/><circle cx="14" cy="17" r="1.2" fill="rgb(76,121,199)"/></svg></div>
       <div class="gm-product-name">Vermögensverwaltung</div>
       <div class="gm-product-desc">ETF-Strategien mit Beratung</div>
     </a>
     <a href="#" class="gm-product-card">
-      <div class="gm-product-icon">
-        <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><circle cx="14" cy="14" r="5" stroke="rgb(76,121,199)" stroke-width="1.2" opacity=".35" fill="none"/><circle cx="14" cy="14" r="2.5" fill="rgb(124,186,58)"/></svg>
-      </div>
+      <div class="gm-product-icon"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="rgb(76,121,199)" stroke-width="1.8" fill="none"/><circle cx="14" cy="14" r="5" stroke="rgb(76,121,199)" stroke-width="1.2" opacity=".35" fill="none"/><circle cx="14" cy="14" r="2.5" fill="rgb(124,186,58)"/></svg></div>
       <div class="gm-product-name">Einmalanlage</div>
       <div class="gm-product-desc">Direkt investieren</div>
     </a>
     <a href="#" class="gm-product-card">
-      <div class="gm-product-icon">
-        <svg viewBox="0 0 28 28" fill="none"><rect x="3" y="17" width="5" height="8" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="11" y="12" width="5" height="13" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="19" y="5" width="5" height="20" rx="1.5" fill="rgb(76,121,199)"/><path d="M4 15l8-5 8 4 5-10" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="gm-product-icon"><svg viewBox="0 0 28 28" fill="none"><rect x="3" y="17" width="5" height="8" rx="1.5" fill="rgb(76,121,199)" opacity=".3"/><rect x="11" y="12" width="5" height="13" rx="1.5" fill="rgb(76,121,199)" opacity=".55"/><rect x="19" y="5" width="5" height="20" rx="1.5" fill="rgb(76,121,199)"/><path d="M4 15l8-5 8 4 5-10" stroke="rgb(124,186,58)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="gm-product-name">VL sparen</div>
       <div class="gm-product-desc">Vermögenswirksame Leistungen</div>
     </a>
   </div>
 </section>
 
-<!-- TABS SECTION -->
+<!-- TABS -->
 <section class="gm-tabs-section">
   <div class="gm-tabs-head">
     <h2 class="gm-tabs-title">Alles aus einer Hand</h2>
@@ -324,14 +302,10 @@
           <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Änderung der Sparplanrate jederzeit möglich</div>
           <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Seit 10 Jahren am Markt und erfolgreich</div>
         </div>
-        <a href="#" class="gm-btn gm-btn-green">Sparplan eröffnen</a>
+        <a href="#" id="gm-btn-sparplan" class="gm-btn gm-btn-green">Sparplan eröffnen</a>
       </div>
       <div class="gm-tab-visual">
-        <svg width="260" height="200" viewBox="0 0 260 200" fill="none">
-          <rect x="20" y="130" width="22" height="60" rx="4" fill="rgb(76,121,199)" opacity=".25"/><rect x="58" y="100" width="22" height="90" rx="4" fill="rgb(76,121,199)" opacity=".4"/><rect x="96" y="115" width="22" height="75" rx="4" fill="rgb(76,121,199)" opacity=".55"/><rect x="134" y="75" width="22" height="115" rx="4" fill="rgb(76,121,199)" opacity=".7"/><rect x="172" y="42" width="22" height="148" rx="4" fill="rgb(76,121,199)"/>
-          <path d="M20 126 62 95 100 110 145 68 184 38" stroke="rgb(124,186,58)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="184" cy="38" r="6" fill="rgb(124,186,58)"/>
-        </svg>
+        <svg width="260" height="200" viewBox="0 0 260 200" fill="none"><rect x="20" y="130" width="22" height="60" rx="4" fill="rgb(76,121,199)" opacity=".25"/><rect x="58" y="100" width="22" height="90" rx="4" fill="rgb(76,121,199)" opacity=".4"/><rect x="96" y="115" width="22" height="75" rx="4" fill="rgb(76,121,199)" opacity=".55"/><rect x="134" y="75" width="22" height="115" rx="4" fill="rgb(76,121,199)" opacity=".7"/><rect x="172" y="42" width="22" height="148" rx="4" fill="rgb(76,121,199)"/><path d="M20 126 62 95 100 110 145 68 184 38" stroke="rgb(124,186,58)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="184" cy="38" r="6" fill="rgb(124,186,58)"/></svg>
       </div>
     </div>
     <div class="gm-tab-panel" id="gm-tab-kind">
@@ -344,7 +318,7 @@
           <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Großeltern und Paten können mitsparen</div>
           <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Professionell verwaltetes ETF-Portfolio</div>
         </div>
-        <a href="#" class="gm-btn gm-btn-green">Kindersparplan eröffnen</a>
+        <a href="#" id="gm-btn-kind" class="gm-btn gm-btn-green">Kindersparplan eröffnen</a>
       </div>
       <div class="gm-tab-visual">
         <svg width="220" height="200" viewBox="0 0 220 200" fill="none"><circle cx="110" cy="70" r="30" stroke="rgb(76,121,199)" stroke-width="2.5" fill="none"/><path d="M68 160c0-24 19-40 42-40s42 16 42 40" stroke="rgb(76,121,199)" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
@@ -360,7 +334,7 @@
           <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Global diversifiziertes ETF-Portfolio</div>
           <div class="gm-check-item"><span class="gm-check-dot"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Jederzeit Zuzahlungen möglich</div>
         </div>
-        <a href="#" class="gm-btn gm-btn-green">Jetzt investieren</a>
+        <a href="#" id="gm-btn-einmal" class="gm-btn gm-btn-green">Jetzt investieren</a>
       </div>
       <div class="gm-tab-visual">
         <svg width="220" height="200" viewBox="0 0 220 200" fill="none"><circle cx="110" cy="100" r="60" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".2" fill="none"/><circle cx="110" cy="100" r="40" stroke="rgb(76,121,199)" stroke-width="1.5" opacity=".35" fill="none"/><circle cx="110" cy="100" r="14" fill="rgb(76,121,199)"/><path d="M106 100l3 3 6-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -369,7 +343,7 @@
   </div>
 </section>
 
-<!-- FONDS CARDS -->
+<!-- FONDS -->
 <section class="gm-fonds-section">
   <div class="gm-fonds-head">
     <h2>Unsere drei ETF-Portfolios</h2>
@@ -432,7 +406,7 @@
   <p style="text-align:center;font-size:12px;color:#b0b0b8;margin-top:18px;padding:0 24px;">Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen.</p>
 </section>
 
-<!-- ANLEGERTEST BANNER (overlapping) -->
+<!-- ANLEGERTEST (overlapping) -->
 <div class="gm-at-wrapper">
   <div class="gm-at-block">
     <div class="gm-at-left">
@@ -446,25 +420,23 @@
       </div>
     </div>
     <div class="gm-at-right">
-      <div class="gm-at-timer">5'</div>
-      <div class="gm-at-timer-sub">nur 5 Minuten</div>
-      <a href="#" class="gm-btn gm-btn-dark" style="font-size:15px;padding:14px 34px;">Zum Anlegertest</a>
+      <a href="#" id="gm-btn-anlegertest" class="gm-btn gm-btn-green" style="font-size:15px;padding:14px 34px!important;">Zum Anlegertest</a>
     </div>
   </div>
 </div>
 
-<!-- COMPARE TABLE -->
+<!-- COMPARE -->
 <section class="gm-compare-section" style="padding-top:120px;">
   <div class="gm-compare-inner">
     <div class="gm-compare-left">
       <h2>easyfolio im Vergleich</h2>
       <p>Warum easyfolio mehr bietet als ein eigenes ETF-Portfolio oder ein klassischer Robo-Advisor.</p>
-      <a href="#" class="gm-btn gm-btn-green">Depot eröffnen</a>
+      <a href="#" id="gm-btn-depot" class="gm-btn gm-btn-green">Depot eröffnen</a>
     </div>
     <div class="gm-compare-right">
       <table class="gm-cmp-table">
         <thead><tr>
-          <th>Kriterium</th><th>Eigenes Portfolio</th><th>Robo-Advisor</th><th class="gm-hl">easyfolio</th>
+          <th>Vergleich</th><th>Eigenes Portfolio</th><th>Robo-Advisor</th><th class="gm-hl">easyfolio</th>
         </tr></thead>
         <tbody>
           <tr><td>In ETFs investieren</td><td><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
@@ -479,7 +451,7 @@
   </div>
 </section>
 
-<!-- RUNDUM SORGLOS (horizontal scroll with images) -->
+<!-- RUNDUM SORGLOS (2 visible, 3rd slides in) -->
 <section class="gm-rundum-section">
   <div class="gm-rundum-inner">
     <div class="gm-rundum-top">
@@ -488,36 +460,38 @@
         <h2>Das Rundum-Sorglos-Paket</h2>
         <p>Wir begleiten Sie nicht nur bei der initialen Geldanlage, sondern halten Sie stets auf dem Laufenden.</p>
         <div class="gm-rundum-scroll-btns">
-          <button class="gm-scroll-btn" onclick="document.getElementById('gmRundumTrack').scrollBy({left:-340,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button class="gm-scroll-btn" onclick="document.getElementById('gmRundumTrack').scrollBy({left:340,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="gm-scroll-btn" onclick="gmSlideRundum(-1)"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="gm-scroll-btn" onclick="gmSlideRundum(1)"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
       </div>
-      <div class="gm-rundum-cards" id="gmRundumTrack">
-        <div class="gm-rundum-card">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" alt="Anlegertest" class="gm-rundum-card-img">
-          <div class="gm-rundum-card-overlay"></div>
-          <div class="gm-rundum-card-content">
-            <h3>Anlegertest</h3>
-            <p>In unter 5 Minuten zu Ihrem persönlichen Anlegertyp und der passenden Strategie.</p>
-            <a href="#" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px;">Zum Anlegertest</a>
+      <div class="gm-rundum-cards-wrap">
+        <div class="gm-rundum-cards" id="gmRundumTrack">
+          <div class="gm-rundum-card">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" alt="Anlegertest" class="gm-rundum-card-img">
+            <div class="gm-rundum-card-overlay"></div>
+            <div class="gm-rundum-card-content">
+              <h3>Anlegertest</h3>
+              <p>In unter 5 Minuten zu Ihrem persönlichen Anlegertyp und der passenden Strategie.</p>
+              <a href="#" id="gm-btn-rundum1" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px!important;">Zum Anlegertest</a>
+            </div>
           </div>
-        </div>
-        <div class="gm-rundum-card">
-          <img src="https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=640&q=80" alt="Wissen" class="gm-rundum-card-img">
-          <div class="gm-rundum-card-overlay"></div>
-          <div class="gm-rundum-card-content">
-            <h3>Wissen und Aktuelles</h3>
-            <p>Spannende Blogartikel rund um ETFs und unsere Anlagestrategien.</p>
-            <a href="#" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px;">Zum Blog</a>
+          <div class="gm-rundum-card">
+            <img src="https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=640&q=80" alt="Wissen" class="gm-rundum-card-img">
+            <div class="gm-rundum-card-overlay"></div>
+            <div class="gm-rundum-card-content">
+              <h3>Wissen und Aktuelles</h3>
+              <p>Spannende Blogartikel rund um ETFs und unsere Anlagestrategien.</p>
+              <a href="#" id="gm-btn-rundum2" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px!important;">Zum Blog</a>
+            </div>
           </div>
-        </div>
-        <div class="gm-rundum-card">
-          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=640&q=80" alt="Philosophie" class="gm-rundum-card-img">
-          <div class="gm-rundum-card-overlay"></div>
-          <div class="gm-rundum-card-content">
-            <h3>Über easyfolio</h3>
-            <p>Erfahren Sie mehr über unsere Anlagephilosophie und wissenschaftlich fundiertes Investieren seit 2014.</p>
-            <a href="#" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px;">Mehr erfahren</a>
+          <div class="gm-rundum-card">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=640&q=80" alt="Philosophie" class="gm-rundum-card-img">
+            <div class="gm-rundum-card-overlay"></div>
+            <div class="gm-rundum-card-content">
+              <h3>Über easyfolio</h3>
+              <p>Unsere Anlagephilosophie und wissenschaftlich fundiertes Investieren seit 2014.</p>
+              <a href="#" id="gm-btn-rundum3" class="gm-btn gm-btn-blue" style="font-size:13px;padding:10px 22px!important;">Mehr erfahren</a>
+            </div>
           </div>
         </div>
       </div>
@@ -533,87 +507,62 @@
   </div>
   <div class="gm-faq-list" id="gmFaqList">
     <div class="gm-faq-item gm-faq-open">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Was ist easyfolio und wie funktioniert es?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Was ist easyfolio und wie funktioniert es?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">easyfolio ist ein professionell verwaltetes ETF-Portfolio. Sie wählen eines der drei Portfolios (30, 50 oder 70) je nach Ihrer Risikobereitschaft, und wir übernehmen das gesamte Management. Ihr Kapital wird in ein global diversifiziertes Portfolio aus ETFs investiert, das regelmäßig rebalanciert wird.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Ab welchem Betrag kann ich investieren?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Ab welchem Betrag kann ich investieren?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Sie können bereits ab 10 Euro monatlich mit einem Sparplan starten. Für eine Einmalanlage ist eine Mindestanlage von 100 Euro erforderlich.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Welche Kosten fallen bei easyfolio an?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Welche Kosten fallen bei easyfolio an?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Es gibt keine Ausgabeaufschläge, keine Performancegebühren und keine versteckten Kosten. Sie zahlen ausschließlich die laufenden Kosten der zugrunde liegenden ETFs.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Wie sicher ist mein Geld bei easyfolio?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Wie sicher ist mein Geld bei easyfolio?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Ihr Depot wird bei der FNZ Bank geführt. Ihr investiertes Kapital gilt als Sondervermögen und ist rechtlich vom Vermögen der Gesellschaft getrennt. Im Insolvenzfall ist Ihr Geld vollständig geschützt.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Kann ich jederzeit auf mein Geld zugreifen?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Kann ich jederzeit auf mein Geld zugreifen?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Ja. Es gibt keine Mindestlaufzeit. Sie können Ihren Sparplan jederzeit pausieren, anpassen oder kündigen. Nach einer Verkaufsorder dauert die Auszahlung in der Regel 2 bis 3 Bankarbeitstage.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Was ist der Unterschied zwischen easyfolio 30, 50 und 70?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Was ist der Unterschied zwischen easyfolio 30, 50 und 70?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Die Zahl gibt den Aktienanteil an. easyfolio 30 ist defensiv (30% Aktien, 70% Anleihen), easyfolio 50 ist ausgewogen, easyfolio 70 ist offensiv mit höherer Renditechance und stärkeren Schwankungen.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Wie öffne ich ein Depot bei easyfolio?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Wie öffne ich ein Depot bei easyfolio?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Die Depoteröffnung ist vollständig online möglich. Klicken Sie auf "Depot eröffnen", füllen Sie die Angaben aus und legitimieren Sie sich per Video-Ident oder Post-Ident.</div></div>
     </div>
     <div class="gm-faq-item">
-      <div class="gm-faq-q" onclick="gmToggleFaq(this)">
-        <span class="gm-faq-q-text">Kann ich auch für mein Kind ein Depot eröffnen?</span>
-        <span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+      <div class="gm-faq-q" onclick="gmToggleFaq(this)"><span class="gm-faq-q-text">Kann ich auch für mein Kind ein Depot eröffnen?</span><span class="gm-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       <div class="gm-faq-a"><div class="gm-faq-a-inner">Ja. Mit dem easyfolio Kindersparplan können Eltern, Großeltern und Paten gemeinsam für die Zukunft eines Kindes sparen. Das Depot wird auf den Namen des Kindes eröffnet und bei Volljährigkeit übertragen.</div></div>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="gm-final-cta">
+<section class="gm-final-section">
+  <div class="gm-final-headline">
+    <h2>Wie möchten Sie starten?</h2>
+    <p>Wählen Sie Ihren Einstieg und legen Sie noch heute los.</p>
+  </div>
   <div class="gm-final-inner">
     <div class="gm-cta-card gm-cta-green">
-      <div class="gm-cta-card-icon">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="8" width="22" height="17" rx="4" stroke="#fff" stroke-width="2" fill="none"/><path d="M9 8V6a5 5 0 0110 0v2" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="14" cy="17" r="2.5" fill="#fff" opacity=".6"/></svg>
-      </div>
+      <div class="gm-cta-card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="8" width="22" height="17" rx="4" stroke="#fff" stroke-width="2" fill="none"/><path d="M9 8V6a5 5 0 0110 0v2" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="14" cy="17" r="2.5" fill="#fff" opacity=".6"/></svg></div>
       <h3>Depot eröffnen</h3>
       <p>Starten Sie noch heute mit dem Vermögensaufbau. In nur wenigen Minuten online und ohne Papier.</p>
-      <a href="#" class="gm-cta-card-btn">Jetzt loslegen</a>
+      <a href="#" id="gm-btn-cta1" class="gm-cta-card-btn">Jetzt loslegen</a>
     </div>
     <div class="gm-cta-card gm-cta-blue">
-      <div class="gm-cta-card-icon">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#fff" stroke-width="2" fill="none"/><path d="M14 9v5l4 3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="gm-cta-card-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#fff" stroke-width="2" fill="none"/><path d="M14 9v5l4 3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h3>Anlegertest machen</h3>
       <p>Noch unsicher welches Portfolio passt? In 5 Minuten finden wir Ihren persönlichen Anlegertyp.</p>
-      <a href="#" class="gm-cta-card-btn">Zum Anlegertest</a>
+      <a href="#" id="gm-btn-cta2" class="gm-cta-card-btn">Zum Anlegertest</a>
     </div>
   </div>
 </section>
 
-<!-- DISCLAIMER -->
 <div class="gm-disclaimer">
   Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken. Die angegebenen Zielrenditen sind keine Garantien.<br>
   easyfolio GmbH &middot; Opernplatz 14 &middot; 60313 Frankfurt am Main
@@ -624,4 +573,5 @@
 <script>
 function gmOpenTab(id,btn){document.querySelectorAll('.gm-tab-panel').forEach(function(p){p.classList.remove('gm-active')});document.querySelectorAll('.gm-tab-btn').forEach(function(b){b.classList.remove('gm-tab-active')});document.getElementById('gm-tab-'+id).classList.add('gm-active');btn.classList.add('gm-tab-active')}
 function gmToggleFaq(q){var item=q.closest('.gm-faq-item');var wasOpen=item.classList.contains('gm-faq-open');document.querySelectorAll('.gm-faq-item.gm-faq-open').forEach(function(x){x.classList.remove('gm-faq-open')});if(!wasOpen)item.classList.add('gm-faq-open')}
+var gmRundumPos=0;function gmSlideRundum(dir){var track=document.getElementById('gmRundumTrack');var cards=track.querySelectorAll('.gm-rundum-card');var cardW=cards[0].offsetWidth+20;var maxPos=cards.length-2;gmRundumPos=Math.max(0,Math.min(maxPos,gmRundumPos+dir));track.style.transform='translateX(-'+gmRundumPos*cardW+'px)'}
 </script>
