@@ -13,8 +13,9 @@
 .gm-btn-blue{background:var(--gm-blue)!important;color:#fff!important}
 .gm-btn-outline-white{background:rgba(255,255,255,.15)!important;color:#fff!important}
 
-/* HERO */
-.gm-hero{position:relative;width:100%;min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+/* HERO – boxed with border-radius, whitespace left/right */
+.gm-hero-wrap{padding:16px 24px 0;background:var(--gm-bg)}
+.gm-hero{position:relative;width:100%;min-height:520px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;border-radius:1rem;max-width:1380px;margin:0 auto}
 .gm-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .gm-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.55);z-index:1}
 .gm-hero-content{position:relative;z-index:3;padding:48px 52px 56px;max-width:1380px;width:100%;margin:0 auto}
@@ -38,6 +39,7 @@
 /* PRODUCT CARDS – light border, small radius, NO hover */
 .gm-products{background:var(--gm-bg);padding:48px 0 56px}
 .gm-products-title{text-align:center;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gm-blue);margin-bottom:28px;padding:0 20px}
+.gm-at-eye-badge{display:inline-block;background:var(--gm-green);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:20rem;margin-bottom:12px}
 .gm-products-track{display:flex;gap:20px;max-width:1380px;margin:0 auto;padding:0 24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .gm-products-track::-webkit-scrollbar{display:none}
 .gm-product-card{flex:1;min-width:180px;background:var(--gm-white);border-radius:12px;padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;scroll-snap-align:start;cursor:pointer;border:1px solid #e0e4ec!important;transition:none!important;transform:none!important;box-shadow:none!important}
@@ -64,7 +66,7 @@
 .gm-tab-panels{max-width:1100px;margin:0 auto}
 .gm-tab-panel{display:none}
 .gm-tab-panel.gm-active{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.gm-tab-badge{display:inline-block;padding:6px 18px;border-radius:.35rem;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:18px;border:none!important}
+.gm-tab-badge{display:inline-block;padding:6px 18px;border-radius:20rem;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:18px;border:none!important}
 .gm-tb-green{background:var(--gm-green)}
 .gm-tb-blue{background:var(--gm-blue)}
 .gm-tab-text h2{font-size:32px;font-weight:800;color:var(--gm-text);line-height:1.2;margin-bottom:16px}
@@ -90,13 +92,13 @@
 .gm-fonds-yield-label{font-size:13px;color:var(--gm-muted);margin-top:4px;margin-bottom:20px}
 .gm-fonds-li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0f2f8;font-size:13px;color:var(--gm-text)}
 .gm-fonds-li:last-child{border-bottom:none}
-.gm-fonds-popular{position:absolute;top:14px;right:14px;background:var(--gm-green);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:.35rem;letter-spacing:.5px}
+.gm-fonds-popular{position:absolute;top:14px;right:14px;background:var(--gm-green);color:#fff;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20rem;letter-spacing:.5px}
 
 /* ANLEGERTEST BANNER */
 .gm-at-wrapper{position:relative;z-index:20;margin-top:-52px;padding:0 24px}
 .gm-at-block{max-width:1100px;margin:0 auto;background:var(--gm-blue);border-radius:20px;padding:48px 56px;display:flex;align-items:center;gap:48px;flex-wrap:wrap}
 .gm-at-left{flex:1;min-width:240px}
-.gm-at-eye{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gm-green);margin-bottom:12px}
+.gm-at-eye{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gm-green);margin-bottom:12px;display:inline-block}
 .gm-at-left h2{font-size:28px;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.3}
 .gm-at-left p{font-size:14px;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:24px}
 .gm-at-steps{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
@@ -129,7 +131,7 @@
 .gm-rundum-top{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start}
 .gm-rundum-left h2{font-size:30px;font-weight:800;color:var(--gm-text);margin-bottom:14px;line-height:1.25}
 .gm-rundum-left p{font-size:14px;color:var(--gm-muted);line-height:1.7}
-.gm-rundum-eyebrow{display:inline-block;background:var(--gm-blue);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:.35rem;margin-bottom:16px;border:none!important}
+.gm-rundum-eyebrow{display:inline-block;background:var(--gm-blue);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:20rem;margin-bottom:16px;border:none!important}
 .gm-rundum-cards-wrap{position:relative;overflow:hidden}
 .gm-rundum-cards{display:flex;gap:20px;transition:transform .4s ease;padding:8px 0}
 .gm-rundum-card{flex:0 0 calc(50% - 10px);height:400px;border-radius:20px;overflow:hidden;position:relative;cursor:pointer}
@@ -205,8 +207,9 @@
 <div class="gm-landing">
 
 <!-- HERO -->
+<div class="gm-hero-wrap">
 <section class="gm-hero">
-  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&q=80" alt="" class="gm-hero-img">
+  <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" alt="" class="gm-hero-img">
   <div class="gm-hero-overlay"></div>
   <div class="gm-hero-content">
     <div class="gm-hero-titles">
@@ -220,6 +223,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <!-- TRUST BAR -->
 <div class="gm-trust-bar">
@@ -467,7 +471,7 @@
       <div class="gm-rundum-cards-wrap">
         <div class="gm-rundum-cards" id="gmRundumTrack">
           <div class="gm-rundum-card">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" alt="Anlegertest" class="gm-rundum-card-img">
+            <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Newspaper__Newsletter.png" alt="Anlegertest" class="gm-rundum-card-img">
             <div class="gm-rundum-card-overlay"></div>
             <div class="gm-rundum-card-content">
               <h3>Anlegertest</h3>
@@ -476,7 +480,7 @@
             </div>
           </div>
           <div class="gm-rundum-card">
-            <img src="https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=640&q=80" alt="Wissen" class="gm-rundum-card-img">
+            <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Newsletter__Wissen_Aktuelles.png" alt="Wissen" class="gm-rundum-card-img">
             <div class="gm-rundum-card-overlay"></div>
             <div class="gm-rundum-card-content">
               <h3>Wissen und Aktuelles</h3>
@@ -485,7 +489,7 @@
             </div>
           </div>
           <div class="gm-rundum-card">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=640&q=80" alt="Philosophie" class="gm-rundum-card-img">
+            <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Globus__ueber_easyfolio.png" alt="Philosophie" class="gm-rundum-card-img">
             <div class="gm-rundum-card-overlay"></div>
             <div class="gm-rundum-card-content">
               <h3>Über easyfolio</h3>
