@@ -3,14 +3,23 @@ const { ipcRenderer } = require("electron");
 const btnOpen = document.getElementById("btn-open");
 const btnRemove = document.getElementById("btn-remove");
 const btnSave = document.getElementById("btn-save");
-const status = document.getElementById("status");
+const statusEl = document.getElementById("status");
 const progressBar = document.getElementById("progress-bar");
 const originalContainer = document.getElementById("original-container");
 const resultContainer = document.getElementById("result-container");
 const dropOverlay = document.getElementById("drop-overlay");
 
 let currentFile = null;
-let resultBuffer = null;
+let resultDataUrl = null;
+let removeBackgroundFn = null;
+
+// Dynamically load the background removal library
+async function loadLibrary() {
+  if (removeBackgroundFn) return removeBackgroundFn;
+  const module = await import("@anthropic-ai/background-removal" in {} ? "@anthropic-ai/background-removal" : "@imgly/background-removal");
+  removeBackgroundFn = module.removeBackground || module.imglyRemoveBackground || module.default;
+  return removeBackgroundFn;
+}
 
 // --- Open file ---
 btnOpen.addEventListener("click", async () => {
@@ -20,7 +29,7 @@ btnOpen.addEventListener("click", async () => {
 
 function loadImage(file) {
   currentFile = file;
-  resultBuffer = null;
+  resultDataUrl = null;
   btnRemove.disabled = false;
   btnSave.disabled = true;
 
@@ -28,7 +37,7 @@ function loadImage(file) {
   resultContainer.innerHTML = `<div class="placeholder"><div class="icon">&#10024;</div>Ergebnis erscheint hier</div>`;
   resultContainer.classList.remove("has-result");
 
-  status.textContent = `Geladen: ${file.name}`;
+  statusEl.textContent = `Geladen: ${file.name}`;
 }
 
 // --- Remove background ---
@@ -38,23 +47,43 @@ btnRemove.addEventListener("click", async () => {
   btnRemove.disabled = true;
   btnSave.disabled = true;
   btnOpen.disabled = true;
-  status.textContent = "Hintergrund wird entfernt... bitte warten (kann beim ersten Mal laenger dauern).";
+  statusEl.textContent = "Hintergrund wird entfernt... bitte warten (beim ersten Mal werden ~80MB Modell heruntergeladen).";
   progressBar.classList.add("indeterminate");
 
   try {
-    const result = await ipcRenderer.invoke("remove-background", currentFile.buffer, currentFile.mimeType);
-    resultBuffer = result;
+    // Import the library dynamically
+    const { removeBackground } = await import("@imgly/background-removal");
 
-    const blob = new Blob([new Uint8Array(result)], { type: "image/png" });
-    const url = URL.createObjectURL(blob);
+    // Convert data URL to Blob
+    const response = await fetch(currentFile.dataUrl);
+    const inputBlob = await response.blob();
 
-    resultContainer.innerHTML = `<img src="${url}" alt="Ergebnis">`;
+    // Run background removal (models auto-downloaded from CDN)
+    const resultBlob = await removeBackground(inputBlob, {
+      output: { format: "image/png", quality: 1 },
+      progress: (key, current, total) => {
+        if (total > 0) {
+          const pct = Math.round((current / total) * 100);
+          statusEl.textContent = `${key}: ${pct}%`;
+        }
+      },
+    });
+
+    // Convert result blob to data URL for display and saving
+    const reader = new FileReader();
+    resultDataUrl = await new Promise((resolve) => {
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(resultBlob);
+    });
+
+    resultContainer.innerHTML = `<img src="${resultDataUrl}" alt="Ergebnis">`;
     resultContainer.classList.add("has-result");
 
     btnSave.disabled = false;
-    status.textContent = "Fertig! Ergebnis kann gespeichert werden.";
+    statusEl.textContent = "Fertig! Ergebnis kann gespeichert werden.";
   } catch (err) {
-    status.textContent = "Fehler bei der Verarbeitung.";
+    statusEl.textContent = "Fehler bei der Verarbeitung.";
+    console.error("Background removal error:", err);
     alert(`Hintergrundentfernung fehlgeschlagen:\n${err.message || err}`);
   } finally {
     btnRemove.disabled = false;
@@ -65,18 +94,18 @@ btnRemove.addEventListener("click", async () => {
 
 // --- Save ---
 btnSave.addEventListener("click", async () => {
-  if (!resultBuffer) return;
+  if (!resultDataUrl) return;
 
   const baseName = currentFile.name.replace(/\.[^.]+$/, "");
   const defaultName = `${baseName}_freigestellt.png`;
 
   const savedPath = await ipcRenderer.invoke("save-file", {
-    buffer: resultBuffer,
+    dataUrl: resultDataUrl,
     defaultName,
   });
 
   if (savedPath) {
-    status.textContent = `Gespeichert: ${savedPath}`;
+    statusEl.textContent = `Gespeichert: ${savedPath}`;
   }
 });
 
@@ -112,24 +141,11 @@ document.addEventListener("drop", async (e) => {
 
   const reader = new FileReader();
   reader.onload = () => {
-    const arrayBuffer = reader.result;
-    const uint8 = new Uint8Array(arrayBuffer);
-    const base64 = btoa(String.fromCharCode(...uint8));
-    const mimeTypes = {
-      ".png": "image/png",
-      ".jpg": "image/jpeg",
-      ".jpeg": "image/jpeg",
-      ".bmp": "image/bmp",
-      ".webp": "image/webp",
-    };
-    const mime = mimeTypes[ext] || "image/png";
-
     loadImage({
       path: file.path,
       name: file.name,
-      dataUrl: `data:${mime};base64,${base64}`,
-      buffer: Array.from(uint8),
+      dataUrl: reader.result,
     });
   };
-  reader.readAsArrayBuffer(file);
+  reader.readAsDataURL(file);
 });

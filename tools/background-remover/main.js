@@ -1,10 +1,21 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, session } = require("electron");
 const path = require("path");
 const fs = require("fs");
 
 let mainWindow;
 
 function createWindow() {
+  // Enable SharedArrayBuffer for ONNX runtime (COOP/COEP headers)
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        "Cross-Origin-Opener-Policy": ["same-origin"],
+        "Cross-Origin-Embedder-Policy": ["require-corp"],
+      },
+    });
+  });
+
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 750,
@@ -27,7 +38,7 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
-// Open file dialog
+// Open file dialog - returns file info with base64 data
 ipcMain.handle("open-file", async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     title: "Bild auswaehlen",
@@ -58,25 +69,11 @@ ipcMain.handle("open-file", async () => {
     name: path.basename(filePath),
     dataUrl: `data:${mime};base64,${base64}`,
     mimeType: mime,
-    buffer: Array.from(buffer),
   };
 });
 
-// Remove background
-ipcMain.handle("remove-background", async (_event, imageBuffer, mimeType) => {
-  const { removeBackground } = await import("@imgly/background-removal-node");
-
-  const input = new Blob([new Uint8Array(imageBuffer)], { type: mimeType || "image/png" });
-  const blob = await removeBackground(input, {
-    output: { format: "image/png", quality: 1 },
-  });
-
-  const arrayBuffer = await blob.arrayBuffer();
-  return Array.from(new Uint8Array(arrayBuffer));
-});
-
-// Save file dialog
-ipcMain.handle("save-file", async (_event, { buffer, defaultName }) => {
+// Save file
+ipcMain.handle("save-file", async (_event, { dataUrl, defaultName }) => {
   const result = await dialog.showSaveDialog(mainWindow, {
     title: "Ergebnis speichern",
     defaultPath: defaultName,
@@ -88,6 +85,8 @@ ipcMain.handle("save-file", async (_event, { buffer, defaultName }) => {
 
   if (result.canceled) return null;
 
-  fs.writeFileSync(result.filePath, Buffer.from(buffer));
+  // Convert data URL to buffer
+  const base64 = dataUrl.replace(/^data:image\/png;base64,/, "");
+  fs.writeFileSync(result.filePath, Buffer.from(base64, "base64"));
   return result.filePath;
 });
