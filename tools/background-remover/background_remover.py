@@ -18,6 +18,14 @@ from tkinter import (
 )
 from tkinter.ttk import Progressbar, Style
 
+# When running as a PyInstaller bundle, set the .u2net model path
+# so rembg finds the bundled model files
+if getattr(sys, 'frozen', False):
+    _bundle_dir = Path(sys._MEIPASS)  # type: ignore[attr-defined]
+    _u2net_dir = _bundle_dir / ".u2net"
+    if _u2net_dir.exists():
+        os.environ["U2NET_HOME"] = str(_u2net_dir)
+
 try:
     from PIL import Image, ImageTk
 except ImportError:

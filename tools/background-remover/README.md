@@ -2,22 +2,39 @@
 
 Ein Windows-Desktop-Tool zum Entfernen von Bildhintergruenden mit KI (U2Net).
 
-## Installation
+## Standalone .exe bauen (kein Python noetig zum Ausfuehren!)
 
-```bash
-# Python 3.9+ erforderlich
-pip install -r requirements.txt
+Du brauchst Python nur **einmalig zum Bauen**. Danach laeuft die .exe ohne Python.
+
+### Option A: Ordner-Build (empfohlen, schnellerer Start)
+
 ```
+build.bat
+```
+
+Ergebnis: `dist\BackgroundRemover\BackgroundRemover.exe`
+Den ganzen Ordner `dist\BackgroundRemover` auf jeden PC kopieren und starten.
+
+### Option B: Einzelne .exe (einfacher zu verteilen)
+
+```
+build_onefile.bat
+```
+
+Ergebnis: `dist\BackgroundRemover.exe` (ca. 200-300 MB)
+Eine einzige Datei, auf jeden PC kopieren und starten.
+
+### Voraussetzungen zum Bauen
+
+- Windows 10/11
+- Python 3.9+ installiert ([python.org/downloads](https://www.python.org/downloads/))
+- Bei der Python-Installation **"Add Python to PATH"** ankreuzen
 
 ## Verwendung
 
-```bash
-python background_remover.py
-```
-
 1. **Bild oeffnen** - PNG, JPG, BMP oder WebP auswaehlen
 2. **Modell waehlen** (optional):
-   - `u2net` - Standard, gute Qualitaet (Standard)
+   - `u2net` - Standard, gute Qualitaet
    - `u2net_human_seg` - Optimiert fuer Personen
    - `isnet-general-use` - Neueres Modell, oft bessere Ergebnisse
    - `silueta` - Schneller, kleineres Modell
@@ -37,6 +54,7 @@ python background_remover.py
 
 ## Hinweise
 
-- Beim ersten Start wird das gewaehlte Modell heruntergeladen (~170 MB fuer u2net)
+- Beim ersten Build wird das AI-Modell heruntergeladen (~170 MB)
 - Die Verarbeitung laeuft komplett lokal - keine Daten werden hochgeladen
 - Ausgabe ist immer PNG mit transparentem Hintergrund
+- Die fertige .exe braucht kein Python, kein Internet, keine Installation
