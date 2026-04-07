@@ -11,15 +11,6 @@ const dropOverlay = document.getElementById("drop-overlay");
 
 let currentFile = null;
 let resultDataUrl = null;
-let removeBackgroundFn = null;
-
-// Dynamically load the background removal library
-async function loadLibrary() {
-  if (removeBackgroundFn) return removeBackgroundFn;
-  const module = await import("@anthropic-ai/background-removal" in {} ? "@anthropic-ai/background-removal" : "@imgly/background-removal");
-  removeBackgroundFn = module.removeBackground || module.imglyRemoveBackground || module.default;
-  return removeBackgroundFn;
-}
 
 // --- Open file ---
 btnOpen.addEventListener("click", async () => {
@@ -47,34 +38,15 @@ btnRemove.addEventListener("click", async () => {
   btnRemove.disabled = true;
   btnSave.disabled = true;
   btnOpen.disabled = true;
-  statusEl.textContent = "Hintergrund wird entfernt... bitte warten (beim ersten Mal werden ~80MB Modell heruntergeladen).";
+  statusEl.textContent = "Hintergrund wird entfernt... bitte warten (kann beim ersten Mal laenger dauern).";
   progressBar.classList.add("indeterminate");
 
   try {
-    // Import the library dynamically
-    const { removeBackground } = await import("@imgly/background-removal");
-
-    // Convert data URL to Blob
-    const response = await fetch(currentFile.dataUrl);
-    const inputBlob = await response.blob();
-
-    // Run background removal (models auto-downloaded from CDN)
-    const resultBlob = await removeBackground(inputBlob, {
-      output: { format: "image/png", quality: 1 },
-      progress: (key, current, total) => {
-        if (total > 0) {
-          const pct = Math.round((current / total) * 100);
-          statusEl.textContent = `${key}: ${pct}%`;
-        }
-      },
-    });
-
-    // Convert result blob to data URL for display and saving
-    const reader = new FileReader();
-    resultDataUrl = await new Promise((resolve) => {
-      reader.onload = () => resolve(reader.result);
-      reader.readAsDataURL(resultBlob);
-    });
+    resultDataUrl = await ipcRenderer.invoke(
+      "remove-background",
+      currentFile.dataUrl,
+      currentFile.mimeType
+    );
 
     resultContainer.innerHTML = `<img src="${resultDataUrl}" alt="Ergebnis">`;
     resultContainer.classList.add("has-result");
@@ -145,6 +117,7 @@ document.addEventListener("drop", async (e) => {
       path: file.path,
       name: file.name,
       dataUrl: reader.result,
+      mimeType: file.type || "image/png",
     });
   };
   reader.readAsDataURL(file);

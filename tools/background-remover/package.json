@@ -22,6 +22,10 @@
       "icon": null,
       "signAndEditExecutable": false
     },
+    "asarUnpack": [
+      "node_modules/@imgly/**/*",
+      "node_modules/onnxruntime-node/**/*"
+    ],
     "files": [
       "main.js",
       "index.html",
@@ -36,6 +40,6 @@
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "@imgly/background-removal": "^1.5.0"
+    "@imgly/background-removal-node": "^1.4.0"
   }
 }

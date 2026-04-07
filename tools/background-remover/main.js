@@ -1,21 +1,18 @@
-const { app, BrowserWindow, ipcMain, dialog, session } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs");
 
 let mainWindow;
 
-function createWindow() {
-  // Enable SharedArrayBuffer for ONNX runtime (COOP/COEP headers)
-  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    callback({
-      responseHeaders: {
-        ...details.responseHeaders,
-        "Cross-Origin-Opener-Policy": ["same-origin"],
-        "Cross-Origin-Embedder-Policy": ["require-corp"],
-      },
-    });
-  });
+function getResourcesPath() {
+  // In packaged app, node_modules is inside app.asar
+  if (app.isPackaged) {
+    return path.join(process.resourcesPath, "app.asar.unpacked", "node_modules", "@imgly", "background-removal-node", "dist");
+  }
+  return path.join(__dirname, "node_modules", "@imgly", "background-removal-node", "dist");
+}
 
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 750,
@@ -38,7 +35,7 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
-// Open file dialog - returns file info with base64 data
+// Open file dialog
 ipcMain.handle("open-file", async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     title: "Bild auswaehlen",
@@ -72,6 +69,27 @@ ipcMain.handle("open-file", async () => {
   };
 });
 
+// Remove background in main process
+ipcMain.handle("remove-background", async (_event, base64Data, mimeType) => {
+  const { removeBackground } = await import("@imgly/background-removal-node");
+
+  // Convert base64 to buffer
+  const base64Clean = base64Data.replace(/^data:[^;]+;base64,/, "");
+  const inputBuffer = Buffer.from(base64Clean, "base64");
+
+  // Create a Blob from the buffer
+  const inputBlob = new Blob([inputBuffer], { type: mimeType || "image/png" });
+
+  const resultBlob = await removeBackground(inputBlob, {
+    output: { format: "image/png", quality: 1 },
+    publicPath: getResourcesPath() + "/",
+  });
+
+  const arrayBuffer = await resultBlob.arrayBuffer();
+  const resultBase64 = Buffer.from(arrayBuffer).toString("base64");
+  return `data:image/png;base64,${resultBase64}`;
+});
+
 // Save file
 ipcMain.handle("save-file", async (_event, { dataUrl, defaultName }) => {
   const result = await dialog.showSaveDialog(mainWindow, {
@@ -85,7 +103,6 @@ ipcMain.handle("save-file", async (_event, { dataUrl, defaultName }) => {
 
   if (result.canceled) return null;
 
-  // Convert data URL to buffer
   const base64 = dataUrl.replace(/^data:image\/png;base64,/, "");
   fs.writeFileSync(result.filePath, Buffer.from(base64, "base64"));
   return result.filePath;
