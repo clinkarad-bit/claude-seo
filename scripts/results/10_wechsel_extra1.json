@@ -1,0 +1,1313 @@
+{
+    "version": "0.1.20260327",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "3.1984 sec.",
+    "cost": 0.075,
+    "tasks_count": 1,
+    "tasks_error": 0,
+    "tasks": [
+        {
+            "id": "04071135-1062-0367-0000-db207343573a",
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "time": "3.0615 sec.",
+            "cost": 0.075,
+            "result_count": 20,
+            "path": [
+                "v3",
+                "keywords_data",
+                "google_ads",
+                "search_volume",
+                "live"
+            ],
+            "data": {
+                "api": "keywords_data",
+                "function": "search_volume",
+                "se": "google_ads",
+                "keywords": [
+                    "messdienst wechseln kosten",
+                    "messdienstleister kündigen",
+                    "techem kündigen",
+                    "ista kündigen",
+                    "brunata kündigen",
+                    "minol kündigen",
+                    "techem erfahrungen",
+                    "ista erfahrungen",
+                    "brunata erfahrungen",
+                    "minol erfahrungen",
+                    "techem kosten",
+                    "ista kosten",
+                    "brunata kosten",
+                    "minol kosten",
+                    "techem bewertung",
+                    "ista bewertung",
+                    "heizkostenabrechnung wechseln",
+                    "abrechnungsservice wechseln",
+                    "heizkosten anbieter",
+                    "heizkosten dienstleister"
+                ],
+                "language_name": "German",
+                "location_code": 2276
+            },
+            "result": [
+                {
+                    "keyword": "messdienst wechseln kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "messdienstleister kündigen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "techem kündigen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 15,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": 0.5,
+                    "high_top_of_page_bid": 0.97,
+                    "cpc": 1.32,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 210
+                        }
+                    ]
+                },
+                {
+                    "keyword": "ista kündigen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 27,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": 0.38,
+                    "high_top_of_page_bid": 0.86,
+                    "cpc": 0.97,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 210
+                        }
+                    ]
+                },
+                {
+                    "keyword": "brunata kündigen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 9,
+                    "search_volume": 70,
+                    "low_top_of_page_bid": 0.39,
+                    "high_top_of_page_bid": 0.76,
+                    "cpc": 0.62,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 50
+                        }
+                    ]
+                },
+                {
+                    "keyword": "minol kündigen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 18,
+                    "search_volume": 20,
+                    "low_top_of_page_bid": 0.57,
+                    "high_top_of_page_bid": 0.81,
+                    "cpc": 1.02,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ]
+                },
+                {
+                    "keyword": "techem erfahrungen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 6,
+                    "search_volume": 210,
+                    "low_top_of_page_bid": 1.92,
+                    "high_top_of_page_bid": 7.11,
+                    "cpc": 4.92,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 170
+                        }
+                    ]
+                },
+                {
+                    "keyword": "ista erfahrungen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 4,
+                    "search_volume": 140,
+                    "low_top_of_page_bid": 1.87,
+                    "high_top_of_page_bid": 4.79,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 140
+                        }
+                    ]
+                },
+                {
+                    "keyword": "brunata erfahrungen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 3,
+                    "search_volume": 90,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 90
+                        }
+                    ]
+                },
+                {
+                    "keyword": "minol erfahrungen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 0,
+                    "search_volume": 30,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 30
+                        }
+                    ]
+                },
+                {
+                    "keyword": "techem kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 46,
+                    "search_volume": 70,
+                    "low_top_of_page_bid": 1.32,
+                    "high_top_of_page_bid": 5.59,
+                    "cpc": 3.65,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 70
+                        }
+                    ]
+                },
+                {
+                    "keyword": "ista kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 40,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": 1.38,
+                    "high_top_of_page_bid": 4.88,
+                    "cpc": 3.91,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 210
+                        }
+                    ]
+                },
+                {
+                    "keyword": "brunata kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 35,
+                    "search_volume": 50,
+                    "low_top_of_page_bid": 1.21,
+                    "high_top_of_page_bid": 4.13,
+                    "cpc": 3.54,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 30
+                        }
+                    ]
+                },
+                {
+                    "keyword": "minol kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 21,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ]
+                },
+                {
+                    "keyword": "techem bewertung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 3,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": 2.41,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 170
+                        }
+                    ]
+                },
+                {
+                    "keyword": "ista bewertung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 2,
+                    "search_volume": 210,
+                    "low_top_of_page_bid": 2.94,
+                    "high_top_of_page_bid": 5.85,
+                    "cpc": 6.48,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 210
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung wechseln",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "abrechnungsservice wechseln",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkosten anbieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 75,
+                    "search_volume": 40,
+                    "low_top_of_page_bid": 1.89,
+                    "high_top_of_page_bid": 6.57,
+                    "cpc": 6.47,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 50
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkosten dienstleister",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 67,
+                    "search_volume": 20,
+                    "low_top_of_page_bid": 2.22,
+                    "high_top_of_page_bid": 15.02,
+                    "cpc": 4.63,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

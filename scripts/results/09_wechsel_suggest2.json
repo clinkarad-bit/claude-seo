@@ -1,0 +1,789 @@
+{
+    "version": "0.1.20260327",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "2.0444 sec.",
+    "cost": 0.075,
+    "tasks_count": 1,
+    "tasks_error": 0,
+    "tasks": [
+        {
+            "id": "04071134-1062-0368-0000-a4d7b77a76f2",
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "time": "2.0271 sec.",
+            "cost": 0.075,
+            "result_count": 10,
+            "path": [
+                "v3",
+                "keywords_data",
+                "google_ads",
+                "keywords_for_keywords",
+                "live"
+            ],
+            "data": {
+                "api": "keywords_data",
+                "function": "keywords_for_keywords",
+                "se": "google_ads",
+                "keywords": [
+                    "techem alternative",
+                    "ista alternative",
+                    "messdienst kündigen"
+                ],
+                "language_name": "German",
+                "location_code": 2276
+            },
+            "result": [
+                {
+                    "keyword": "techem alternative",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 55,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": 1.6,
+                    "high_top_of_page_bid": 10.1,
+                    "cpc": 7.18,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 140
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": null
+                    }
+                },
+                {
+                    "keyword": "ista alternative",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 57,
+                    "search_volume": 90,
+                    "low_top_of_page_bid": 1.33,
+                    "high_top_of_page_bid": 6.44,
+                    "cpc": 3.98,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 90
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": null
+                    }
+                },
+                {
+                    "keyword": "messdienst kündigen",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null,
+                    "keyword_annotations": {
+                        "concepts": null
+                    }
+                },
+                {
+                    "keyword": "alternative zu techem und ista",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 54,
+                    "search_volume": 110,
+                    "low_top_of_page_bid": 0.96,
+                    "high_top_of_page_bid": 4.14,
+                    "cpc": 2.65,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 110
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": [
+                            {
+                                "name": "techem",
+                                "concept_group": {
+                                    "name": "Andere Marken",
+                                    "type": "OTHER_BRANDS"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "keyword": "alternative zu ista",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 59,
+                    "search_volume": 90,
+                    "low_top_of_page_bid": 1.18,
+                    "high_top_of_page_bid": 6.15,
+                    "cpc": 3.87,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 110
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": null
+                    }
+                },
+                {
+                    "keyword": "alternative zu techem",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 55,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": 1.6,
+                    "high_top_of_page_bid": 10.1,
+                    "cpc": 7.18,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 140
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": [
+                            {
+                                "name": "techem",
+                                "concept_group": {
+                                    "name": "Andere Marken",
+                                    "type": "OTHER_BRANDS"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "keyword": "alternative ista",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 56,
+                    "search_volume": 20,
+                    "low_top_of_page_bid": 1.54,
+                    "high_top_of_page_bid": 7.56,
+                    "cpc": 6.8,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": null
+                    }
+                },
+                {
+                    "keyword": "ista techem alternativen",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 71,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": 1.02,
+                    "high_top_of_page_bid": 6.64,
+                    "cpc": 5.85,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": [
+                            {
+                                "name": "techem",
+                                "concept_group": {
+                                    "name": "Andere Marken",
+                                    "type": "OTHER_BRANDS"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "keyword": "alternative zu ista und techem",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 49,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": 1.22,
+                    "high_top_of_page_bid": 4.08,
+                    "cpc": 3.27,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": [
+                            {
+                                "name": "techem",
+                                "concept_group": {
+                                    "name": "Andere Marken",
+                                    "type": "OTHER_BRANDS"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "keyword": "alternative techem",
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 59,
+                    "search_volume": 20,
+                    "low_top_of_page_bid": 1.9,
+                    "high_top_of_page_bid": 17.93,
+                    "cpc": 8.43,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ],
+                    "keyword_annotations": {
+                        "concepts": [
+                            {
+                                "name": "techem",
+                                "concept_group": {
+                                    "name": "Andere Marken",
+                                    "type": "OTHER_BRANDS"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
