@@ -11,23 +11,16 @@
   "build": {
     "appId": "com.background-remover.app",
     "productName": "Background Remover",
+    "forceCodeSigning": false,
     "win": {
       "target": [
         {
-          "target": "nsis",
+          "target": "dir",
           "arch": ["x64"]
         }
       ],
-      "icon": null
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": false,
-      "installerSidebar": null
-    },
-    "portable": {
-      "artifactName": "BackgroundRemover-Portable.exe"
+      "icon": null,
+      "signAndEditExecutable": false
     },
     "files": [
       "main.js",
