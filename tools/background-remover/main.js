@@ -64,9 +64,12 @@ ipcMain.handle("open-file", async () => {
 // Remove background
 ipcMain.handle("remove-background", async (_event, imageBuffer) => {
   const { removeBackground } = await import("@imgly/background-removal-node");
+  const sharp = require("sharp");
 
-  const input = new Uint8Array(imageBuffer);
-  const blob = await removeBackground(input, {
+  // Convert any format to PNG first so the library can process it
+  const pngBuffer = await sharp(Buffer.from(imageBuffer)).png().toBuffer();
+
+  const blob = await removeBackground(new Blob([pngBuffer], { type: "image/png" }), {
     output: { format: "image/png", quality: 1 },
   });
 
