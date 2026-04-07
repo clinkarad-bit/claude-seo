@@ -36,7 +36,6 @@
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "@imgly/background-removal-node": "^1.4.0",
-    "sharp": "^0.33.0"
+    "@imgly/background-removal-node": "^1.4.0"
   }
 }

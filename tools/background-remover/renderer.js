@@ -42,7 +42,7 @@ btnRemove.addEventListener("click", async () => {
   progressBar.classList.add("indeterminate");
 
   try {
-    const result = await ipcRenderer.invoke("remove-background", currentFile.buffer);
+    const result = await ipcRenderer.invoke("remove-background", currentFile.buffer, currentFile.mimeType);
     resultBuffer = result;
 
     const blob = new Blob([new Uint8Array(result)], { type: "image/png" });

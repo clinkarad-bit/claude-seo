@@ -57,19 +57,17 @@ ipcMain.handle("open-file", async () => {
     path: filePath,
     name: path.basename(filePath),
     dataUrl: `data:${mime};base64,${base64}`,
+    mimeType: mime,
     buffer: Array.from(buffer),
   };
 });
 
 // Remove background
-ipcMain.handle("remove-background", async (_event, imageBuffer) => {
+ipcMain.handle("remove-background", async (_event, imageBuffer, mimeType) => {
   const { removeBackground } = await import("@imgly/background-removal-node");
-  const sharp = require("sharp");
 
-  // Convert any format to PNG first so the library can process it
-  const pngBuffer = await sharp(Buffer.from(imageBuffer)).png().toBuffer();
-
-  const blob = await removeBackground(new Blob([pngBuffer], { type: "image/png" }), {
+  const input = new Blob([new Uint8Array(imageBuffer)], { type: mimeType || "image/png" });
+  const blob = await removeBackground(input, {
     output: { format: "image/png", quality: 1 },
   });
 
