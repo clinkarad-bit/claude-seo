@@ -1,0 +1,673 @@
+{
+    "version": "0.1.20260327",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "3.8336 sec.",
+    "cost": 0.075,
+    "tasks_count": 1,
+    "tasks_error": 0,
+    "tasks": [
+        {
+            "id": "04071112-1062-0367-0000-762963d1c76c",
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "time": "3.7067 sec.",
+            "cost": 0.075,
+            "result_count": 18,
+            "path": [
+                "v3",
+                "keywords_data",
+                "google_ads",
+                "search_volume",
+                "live"
+            ],
+            "data": {
+                "api": "keywords_data",
+                "function": "search_volume",
+                "se": "google_ads",
+                "keywords": [
+                    "messdienst münchen",
+                    "heizkostenabrechnung münchen",
+                    "messdienstleister münchen",
+                    "nebenkostenabrechnung münchen",
+                    "heizkosten abrechnung münchen",
+                    "wasserzähler münchen",
+                    "rauchwarnmelder münchen",
+                    "messtechnik münchen",
+                    "heizkostenverteiler münchen",
+                    "energieservice münchen",
+                    "betriebskostenabrechnung münchen",
+                    "messdienst bayern",
+                    "heizkostenabrechnung bayern",
+                    "messdienst süddeutschland",
+                    "messdienstleister bayern",
+                    "messdienst oberbayern",
+                    "heizkostenabrechnung stuttgart",
+                    "messdienst stuttgart"
+                ],
+                "language_name": "German",
+                "location_code": 2276
+            },
+            "result": [
+                {
+                    "keyword": "messdienst münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkostenabrechnung münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 75,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": 1.82,
+                    "high_top_of_page_bid": 11.4,
+                    "cpc": 4.92,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienstleister münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "nebenkostenabrechnung münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 75,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": 2.41,
+                    "high_top_of_page_bid": 6.55,
+                    "cpc": 9.13,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkosten abrechnung münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "wasserzähler münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 0,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "rauchwarnmelder münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 10,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messtechnik münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 28,
+                    "search_volume": 40,
+                    "low_top_of_page_bid": 0.85,
+                    "high_top_of_page_bid": 2.09,
+                    "cpc": 1.19,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 50
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenverteiler münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "energieservice münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "betriebskostenabrechnung münchen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "messdienst bayern",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkostenabrechnung bayern",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "messdienst süddeutschland",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "messdienstleister bayern",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "messdienst oberbayern",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkostenabrechnung stuttgart",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 23,
+                    "search_volume": 20,
+                    "low_top_of_page_bid": 2.91,
+                    "high_top_of_page_bid": 18.43,
+                    "cpc": 17.17,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienst stuttgart",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                }
+            ]
+        }
+    ]
+}

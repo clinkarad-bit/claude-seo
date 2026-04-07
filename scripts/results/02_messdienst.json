@@ -1,0 +1,827 @@
+{
+    "version": "0.1.20260327",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "4.6970 sec.",
+    "cost": 0.075,
+    "tasks_count": 1,
+    "tasks_error": 0,
+    "tasks": [
+        {
+            "id": "04071112-1062-0367-0000-b9734f6a3588",
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "time": "4.5074 sec.",
+            "cost": 0.075,
+            "result_count": 12,
+            "path": [
+                "v3",
+                "keywords_data",
+                "google_ads",
+                "search_volume",
+                "live"
+            ],
+            "data": {
+                "api": "keywords_data",
+                "function": "search_volume",
+                "se": "google_ads",
+                "keywords": [
+                    "messdienst",
+                    "messdienstleister",
+                    "messtechnik",
+                    "messservice",
+                    "messdienst heizkosten",
+                    "messdienst heizkostenabrechnung",
+                    "abrechnungsdienst heizkosten",
+                    "abrechnungsservice",
+                    "energieservice",
+                    "submetering",
+                    "messdienstleister vergleich",
+                    "messdienstleister kosten"
+                ],
+                "language_name": "German",
+                "location_code": 2276
+            },
+            "result": [
+                {
+                    "keyword": "messdienst",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 31,
+                    "search_volume": 140,
+                    "low_top_of_page_bid": 1.51,
+                    "high_top_of_page_bid": 10.21,
+                    "cpc": 5.68,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 170
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienstleister",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 38,
+                    "search_volume": 390,
+                    "low_top_of_page_bid": 1.03,
+                    "high_top_of_page_bid": 3.46,
+                    "cpc": 3.67,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 320
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messtechnik",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 22,
+                    "search_volume": 2400,
+                    "low_top_of_page_bid": 1.49,
+                    "high_top_of_page_bid": 6.06,
+                    "cpc": 3.76,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 1900
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 2400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 1600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 1900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 2400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 2900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 1900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 2400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 2400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 3600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 2900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 3600
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messservice",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 21,
+                    "search_volume": 20,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienst heizkosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 76,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": 1.43,
+                    "high_top_of_page_bid": 7.57,
+                    "cpc": 7.35,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 0
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienst heizkostenabrechnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "abrechnungsdienst heizkosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "abrechnungsservice",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 41,
+                    "search_volume": 210,
+                    "low_top_of_page_bid": 2.37,
+                    "high_top_of_page_bid": 12.68,
+                    "cpc": 13.36,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 260
+                        }
+                    ]
+                },
+                {
+                    "keyword": "energieservice",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 16,
+                    "search_volume": 90,
+                    "low_top_of_page_bid": 1.47,
+                    "high_top_of_page_bid": 4.95,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 110
+                        }
+                    ]
+                },
+                {
+                    "keyword": "submetering",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 8,
+                    "search_volume": 320,
+                    "low_top_of_page_bid": 1.98,
+                    "high_top_of_page_bid": 6.78,
+                    "cpc": 10.56,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 390
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienstleister vergleich",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 55,
+                    "search_volume": 110,
+                    "low_top_of_page_bid": 1.05,
+                    "high_top_of_page_bid": 8.09,
+                    "cpc": 6.91,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 90
+                        }
+                    ]
+                },
+                {
+                    "keyword": "messdienstleister kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 53,
+                    "search_volume": 70,
+                    "low_top_of_page_bid": 1.09,
+                    "high_top_of_page_bid": 5.47,
+                    "cpc": 3.81,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 90
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

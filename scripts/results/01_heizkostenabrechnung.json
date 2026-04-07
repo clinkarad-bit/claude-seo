@@ -1,0 +1,1496 @@
+{
+    "version": "0.1.20260327",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "4.6733 sec.",
+    "cost": 0.075,
+    "tasks_count": 1,
+    "tasks_error": 0,
+    "tasks": [
+        {
+            "id": "04071111-1062-0367-0000-92d14d3512ac",
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "time": "4.5712 sec.",
+            "cost": 0.075,
+            "result_count": 20,
+            "path": [
+                "v3",
+                "keywords_data",
+                "google_ads",
+                "search_volume",
+                "live"
+            ],
+            "data": {
+                "api": "keywords_data",
+                "function": "search_volume",
+                "se": "google_ads",
+                "keywords": [
+                    "heizkostenabrechnung",
+                    "nebenkostenabrechnung",
+                    "heizkostenabrechnung erstellen",
+                    "heizkostenabrechnung erstellen lassen",
+                    "heizkostenabrechnung dienstleister",
+                    "heizkostenabrechnung service",
+                    "heizkostenabrechnung anbieter",
+                    "heizkostenabrechnung firma",
+                    "betriebskostenabrechnung",
+                    "betriebskostenabrechnung erstellen",
+                    "nebenkostenabrechnung erstellen lassen",
+                    "heizkostenabrechnung kosten",
+                    "heizkostenabrechnung preis",
+                    "heizkostenverordnung",
+                    "heizkosten abrechnen",
+                    "heizkostenabrechnung vermieter",
+                    "heizkostenabrechnung mietwohnung",
+                    "warmwasserabrechnung",
+                    "heizkosten verbrauchsabhängig",
+                    "heizkostenabrechnung unternehmen"
+                ],
+                "language_name": "German",
+                "location_code": 2276
+            },
+            "result": [
+                {
+                    "keyword": "heizkostenabrechnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 44,
+                    "search_volume": 9900,
+                    "low_top_of_page_bid": 1.23,
+                    "high_top_of_page_bid": 7.18,
+                    "cpc": 5.16,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 40500
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 6600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 8100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 14800
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 6600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 5400
+                        }
+                    ]
+                },
+                {
+                    "keyword": "nebenkostenabrechnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 30,
+                    "search_volume": 27100,
+                    "low_top_of_page_bid": 0.65,
+                    "high_top_of_page_bid": 2.3,
+                    "cpc": 2.21,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 33100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 40500
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 22200
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 27100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 22200
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 33100
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung erstellen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 66,
+                    "search_volume": 140,
+                    "low_top_of_page_bid": 1.09,
+                    "high_top_of_page_bid": 5.72,
+                    "cpc": 3.93,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 110
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung erstellen lassen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 74,
+                    "search_volume": 70,
+                    "low_top_of_page_bid": 1.16,
+                    "high_top_of_page_bid": 7.98,
+                    "cpc": 3.52,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 40
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung dienstleister",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 60,
+                    "search_volume": 90,
+                    "low_top_of_page_bid": 1.47,
+                    "high_top_of_page_bid": 15.05,
+                    "cpc": 8.97,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 50
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung service",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 80,
+                    "search_volume": 50,
+                    "low_top_of_page_bid": 1.62,
+                    "high_top_of_page_bid": 12.56,
+                    "cpc": 4.58,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 40
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung anbieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 57,
+                    "search_volume": 170,
+                    "low_top_of_page_bid": 1.63,
+                    "high_top_of_page_bid": 15.49,
+                    "cpc": 7.83,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 110
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung firma",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 77,
+                    "search_volume": 480,
+                    "low_top_of_page_bid": 2.14,
+                    "high_top_of_page_bid": 17.92,
+                    "cpc": 4.88,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 720
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 720
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 480
+                        }
+                    ]
+                },
+                {
+                    "keyword": "betriebskostenabrechnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 22,
+                    "search_volume": 12100,
+                    "low_top_of_page_bid": 0.72,
+                    "high_top_of_page_bid": 2.63,
+                    "cpc": 2.47,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 9900
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 14800
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 18100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 12100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 12100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 12100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 9900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 12100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 9900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 9900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 9900
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 12100
+                        }
+                    ]
+                },
+                {
+                    "keyword": "betriebskostenabrechnung erstellen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 87,
+                    "search_volume": 390,
+                    "low_top_of_page_bid": 0.88,
+                    "high_top_of_page_bid": 3.45,
+                    "cpc": 2.94,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 480
+                        }
+                    ]
+                },
+                {
+                    "keyword": "nebenkostenabrechnung erstellen lassen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 71,
+                    "search_volume": 480,
+                    "low_top_of_page_bid": 0.92,
+                    "high_top_of_page_bid": 3.57,
+                    "cpc": 3.54,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 720
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 390
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 320
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 480
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung kosten",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 55,
+                    "search_volume": 110,
+                    "low_top_of_page_bid": 0.96,
+                    "high_top_of_page_bid": 3.66,
+                    "cpc": 3.87,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 90
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung preis",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkostenverordnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 11,
+                    "search_volume": 5400,
+                    "low_top_of_page_bid": 0.07,
+                    "high_top_of_page_bid": 2.16,
+                    "cpc": 1.24,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 8100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 6600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 6600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 6600
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkosten abrechnen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 44,
+                    "search_volume": 9900,
+                    "low_top_of_page_bid": 1.23,
+                    "high_top_of_page_bid": 7.18,
+                    "cpc": 5.16,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 40500
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 6600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 8100
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 14800
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 6600
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 5400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 4400
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 5400
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung vermieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 47,
+                    "search_volume": 140,
+                    "low_top_of_page_bid": 0.82,
+                    "high_top_of_page_bid": 3.72,
+                    "cpc": 3.5,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 170
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung mietwohnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 44,
+                    "search_volume": 30,
+                    "low_top_of_page_bid": 0.71,
+                    "high_top_of_page_bid": 3.98,
+                    "cpc": 2.96,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 40
+                        }
+                    ]
+                },
+                {
+                    "keyword": "warmwasserabrechnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 24,
+                    "search_volume": 40,
+                    "low_top_of_page_bid": 0.92,
+                    "high_top_of_page_bid": 3.2,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 70
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkosten verbrauchsabhängig",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 26,
+                    "search_volume": 30,
+                    "low_top_of_page_bid": 0.41,
+                    "high_top_of_page_bid": 3.15,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 30
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung unternehmen",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 90,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": 3.28,
+                    "high_top_of_page_bid": 20.91,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

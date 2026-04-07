@@ -1,0 +1,568 @@
+{
+    "version": "0.1.20260327",
+    "status_code": 20000,
+    "status_message": "Ok.",
+    "time": "2.3611 sec.",
+    "cost": 0.075,
+    "tasks_count": 1,
+    "tasks_error": 0,
+    "tasks": [
+        {
+            "id": "04071112-1062-0367-0000-741a01754086",
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "time": "2.2970 sec.",
+            "cost": 0.075,
+            "result_count": 11,
+            "path": [
+                "v3",
+                "keywords_data",
+                "google_ads",
+                "search_volume",
+                "live"
+            ],
+            "data": {
+                "api": "keywords_data",
+                "function": "search_volume",
+                "se": "google_ads",
+                "keywords": [
+                    "heizkostenabrechnung eigentümer",
+                    "heizkostenabrechnung mehrfamilienhaus",
+                    "nebenkostenabrechnung mehrfamilienhaus",
+                    "heizkostenabrechnung vermieter pflicht",
+                    "heizkosten abrechnen vermieter",
+                    "betriebskosten abrechnen vermieter",
+                    "nebenkostenabrechnung vermieter",
+                    "nebenkostenabrechnung erstellen vermieter",
+                    "heizkostenabrechnung eigentumswohnung",
+                    "heizkostenabrechnung wohnungseigentümer",
+                    "heizkosten mehrfamilienhaus"
+                ],
+                "language_name": "German",
+                "location_code": 2276
+            },
+            "result": [
+                {
+                    "keyword": "heizkostenabrechnung eigentümer",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkostenabrechnung mehrfamilienhaus",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 48,
+                    "search_volume": 140,
+                    "low_top_of_page_bid": 0.94,
+                    "high_top_of_page_bid": 3.89,
+                    "cpc": 4.31,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 260
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 90
+                        }
+                    ]
+                },
+                {
+                    "keyword": "nebenkostenabrechnung mehrfamilienhaus",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 45,
+                    "search_volume": 90,
+                    "low_top_of_page_bid": 0.89,
+                    "high_top_of_page_bid": 2.94,
+                    "cpc": 2.66,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 70
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung vermieter pflicht",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkosten abrechnen vermieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "betriebskosten abrechnen vermieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "nebenkostenabrechnung vermieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 79,
+                    "search_volume": 720,
+                    "low_top_of_page_bid": 0.7,
+                    "high_top_of_page_bid": 2.53,
+                    "cpc": 2.65,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 720
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 880
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 1300
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 590
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 480
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 720
+                        }
+                    ]
+                },
+                {
+                    "keyword": "nebenkostenabrechnung erstellen vermieter",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "HIGH",
+                    "competition_index": 84,
+                    "search_volume": 110,
+                    "low_top_of_page_bid": 0.74,
+                    "high_top_of_page_bid": 2.75,
+                    "cpc": 2.46,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 170
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 210
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 140
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 90
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 110
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 140
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung eigentumswohnung",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "MEDIUM",
+                    "competition_index": 57,
+                    "search_volume": 10,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 10
+                        }
+                    ]
+                },
+                {
+                    "keyword": "heizkostenabrechnung wohnungseigentümer",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": null,
+                    "competition_index": null,
+                    "search_volume": null,
+                    "low_top_of_page_bid": null,
+                    "high_top_of_page_bid": null,
+                    "cpc": null,
+                    "monthly_searches": null
+                },
+                {
+                    "keyword": "heizkosten mehrfamilienhaus",
+                    "spell": null,
+                    "location_code": 2276,
+                    "language_code": "de",
+                    "search_partners": false,
+                    "competition": "LOW",
+                    "competition_index": 28,
+                    "search_volume": 30,
+                    "low_top_of_page_bid": 1.32,
+                    "high_top_of_page_bid": 6.16,
+                    "cpc": null,
+                    "monthly_searches": [
+                        {
+                            "year": 2026,
+                            "month": 2,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2026,
+                            "month": 1,
+                            "search_volume": 70
+                        },
+                        {
+                            "year": 2025,
+                            "month": 12,
+                            "search_volume": 40
+                        },
+                        {
+                            "year": 2025,
+                            "month": 11,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 10,
+                            "search_volume": 50
+                        },
+                        {
+                            "year": 2025,
+                            "month": 9,
+                            "search_volume": 10
+                        },
+                        {
+                            "year": 2025,
+                            "month": 8,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 7,
+                            "search_volume": 20
+                        },
+                        {
+                            "year": 2025,
+                            "month": 6,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 5,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 4,
+                            "search_volume": 30
+                        },
+                        {
+                            "year": 2025,
+                            "month": 3,
+                            "search_volume": 20
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
