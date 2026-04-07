@@ -1,60 +1,36 @@
-# Background Remover Tool
+# Background Remover
 
-Ein Windows-Desktop-Tool zum Entfernen von Bildhintergruenden mit KI (U2Net).
+Ein Windows-Desktop-Tool zum Entfernen von Bildhintergruenden mit KI.
 
-## Standalone .exe bauen (kein Python noetig zum Ausfuehren!)
+## Windows Installer bauen
 
-Du brauchst Python nur **einmalig zum Bauen**. Danach laeuft die .exe ohne Python.
-
-### Option A: Ordner-Build (empfohlen, schnellerer Start)
+Voraussetzung: [Node.js](https://nodejs.org/) installieren (einmalig).
 
 ```
 build.bat
 ```
 
-Ergebnis: `dist\BackgroundRemover\BackgroundRemover.exe`
-Den ganzen Ordner `dist\BackgroundRemover` auf jeden PC kopieren und starten.
+Das erzeugt eine Setup-`.exe` im `dist`-Ordner. Diese installierst du wie jedes
+andere Windows-Programm - danach brauchst du weder Node.js noch sonst etwas.
 
-### Option B: Einzelne .exe (einfacher zu verteilen)
+Alternativ portable `.exe` (ohne Installation):
 
 ```
-build_onefile.bat
+npm install
+npm run build:portable
 ```
-
-Ergebnis: `dist\BackgroundRemover.exe` (ca. 200-300 MB)
-Eine einzige Datei, auf jeden PC kopieren und starten.
-
-### Voraussetzungen zum Bauen
-
-- Windows 10/11
-- Python 3.9+ installiert ([python.org/downloads](https://www.python.org/downloads/))
-- Bei der Python-Installation **"Add Python to PATH"** ankreuzen
 
 ## Verwendung
 
-1. **Bild oeffnen** - PNG, JPG, BMP oder WebP auswaehlen
-2. **Modell waehlen** (optional):
-   - `u2net` - Standard, gute Qualitaet
-   - `u2net_human_seg` - Optimiert fuer Personen
-   - `isnet-general-use` - Neueres Modell, oft bessere Ergebnisse
-   - `silueta` - Schneller, kleineres Modell
-3. **Hintergrund entfernen** klicken
-4. **Speichern unter** - Ergebnis als PNG mit Transparenz speichern
+1. **Bild oeffnen** oder per **Drag & Drop** ablegen
+2. **Hintergrund entfernen** klicken
+3. **Speichern unter** - Ergebnis als PNG mit Transparenz speichern
 
-## Modelle
+## Features
 
-| Modell | Beschreibung |
-|---|---|
-| `u2net` | Standard-Modell, gute Allround-Qualitaet |
-| `u2netp` | Leichtgewicht-Version von u2net |
-| `u2net_human_seg` | Speziell fuer Personen optimiert |
-| `isnet-general-use` | Neueres Modell, haeufig bessere Kanten |
-| `isnet-anime` | Optimiert fuer Anime/Illustrationen |
-| `silueta` | Kompaktes, schnelles Modell |
-
-## Hinweise
-
-- Beim ersten Build wird das AI-Modell heruntergeladen (~170 MB)
-- Die Verarbeitung laeuft komplett lokal - keine Daten werden hochgeladen
-- Ausgabe ist immer PNG mit transparentem Hintergrund
-- Die fertige .exe braucht kein Python, kein Internet, keine Installation
+- KI-basierte Hintergrundentfernung (laeuft komplett lokal)
+- Drag & Drop Support
+- Vorschau: Original und Ergebnis nebeneinander
+- Export als PNG mit transparentem Hintergrund
+- Keine Daten werden hochgeladen, alles offline
+- Kein Python noetig

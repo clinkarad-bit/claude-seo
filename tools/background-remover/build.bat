@@ -1,63 +1,31 @@
 @echo off
-setlocal enabledelayedexpansion
-
 echo ============================================
-echo   Background Remover - Build Script
-echo   Erstellt eine standalone .exe Datei
+echo   Background Remover - Windows Installer
 echo ============================================
 echo.
 
-:: Check Python
-python --version >nul 2>&1
+where node >nul 2>&1
 if errorlevel 1 (
-    echo [FEHLER] Python wurde nicht gefunden!
+    echo [FEHLER] Node.js wurde nicht gefunden!
     echo.
-    echo Bitte Python 3.9+ installieren von:
-    echo   https://www.python.org/downloads/
-    echo.
-    echo WICHTIG: Bei der Installation "Add Python to PATH" ankreuzen!
+    echo Bitte Node.js installieren von:
+    echo   https://nodejs.org/
     echo.
     pause
     exit /b 1
 )
 
-echo [1/4] Erstelle virtuelle Umgebung...
-if exist venv rmdir /s /q venv
-python -m venv venv
-call venv\Scripts\activate.bat
+echo [1/3] Installiere Abhaengigkeiten...
+call npm install
 
-echo [2/4] Installiere Abhaengigkeiten...
-pip install --quiet -r requirements.txt
-pip install --quiet pyinstaller
+echo [2/3] Erstelle Windows Installer...
+call npm run build
 
-echo [3/4] Lade AI-Modell vor (u2net)...
-python -c "from rembg import new_session; new_session('u2net')"
-
-echo [4/4] Erstelle .exe Datei...
-pyinstaller ^
-    --noconfirm ^
-    --onedir ^
-    --windowed ^
-    --name "BackgroundRemover" ^
-    --add-data "%USERPROFILE%\.u2net;.u2net" ^
-    --hidden-import=rembg ^
-    --hidden-import=onnxruntime ^
-    --hidden-import=PIL ^
-    --hidden-import=PIL.Image ^
-    --collect-all rembg ^
-    background_remover.py
-
+echo [3/3] Fertig!
 echo.
 echo ============================================
-echo   BUILD ERFOLGREICH!
+echo   Die Installationsdatei liegt in:
+echo   dist\Background Remover Setup *.exe
 echo ============================================
 echo.
-echo Die fertige Anwendung liegt in:
-echo   dist\BackgroundRemover\BackgroundRemover.exe
-echo.
-echo Du kannst den gesamten Ordner "dist\BackgroundRemover"
-echo auf jeden Windows-PC kopieren und dort starten.
-echo Kein Python noetig!
-echo.
-
 pause

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Remover</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="btn-open" id="btn-open">Bild oeffnen</button>
+    <button class="btn-remove" id="btn-remove" disabled>Hintergrund entfernen</button>
+    <button class="btn-save" id="btn-save" disabled>Speichern unter...</button>
+    <span class="status" id="status">Bild oeffnen oder per Drag &amp; Drop ablegen.</span>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-area">
+    <div class="preview-panel">
+      <div class="label">Original</div>
+      <div class="canvas-container" id="original-container">
+        <div class="placeholder">
+          <div class="icon">&#128444;</div>
+          Kein Bild geladen
+        </div>
+      </div>
+    </div>
+    <div class="preview-panel">
+      <div class="label">Ergebnis (ohne Hintergrund)</div>
+      <div class="canvas-container" id="result-container">
+        <div class="placeholder">
+          <div class="icon">&#10024;</div>
+          Ergebnis erscheint hier
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drag overlay -->
+  <div class="drop-overlay" id="drop-overlay">Bild hier ablegen</div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

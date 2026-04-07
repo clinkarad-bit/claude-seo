@@ -1,0 +1,49 @@
+{
+  "name": "background-remover",
+  "version": "1.0.0",
+  "description": "KI-basiertes Tool zum Entfernen von Bildhintergruenden",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build:portable": "electron-builder --win portable"
+  },
+  "build": {
+    "appId": "com.background-remover.app",
+    "productName": "Background Remover",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": null
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "installerSidebar": null
+    },
+    "portable": {
+      "artifactName": "BackgroundRemover-Portable.exe"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "renderer.js",
+      "styles.css",
+      "node_modules/**/*"
+    ],
+    "extraResources": []
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "@imgly/background-removal-node": "^1.4.0",
+    "sharp": "^0.33.0"
+  }
+}
