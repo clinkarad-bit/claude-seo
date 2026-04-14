@@ -173,15 +173,15 @@
       <div class="dp-form-group">
         <label>Wählen Sie Ihr easyfolio-Portfolio</label>
         <div class="dp-fonds-grid">
-          <div class="dp-fonds-btn" data-isin="DE000EASY306" onclick="dpSelectFonds(this)">
+          <div class="dp-fonds-btn" data-fonds="30" onclick="dpSelectFonds(this)">
             <svg width="56" height="56" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="86.7 202.3" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">30</text></svg>
             <div class="dp-fonds-btn-name">easyfolio 30</div><div class="dp-fonds-btn-rendite">3,9% Zielrendite</div>
           </div>
-          <div class="dp-fonds-btn dp-fonds-active" data-isin="DE000EASY505" onclick="dpSelectFonds(this)">
+          <div class="dp-fonds-btn dp-fonds-active" data-fonds="50" onclick="dpSelectFonds(this)">
             <svg width="56" height="56" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="144.5 144.5" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">50</text></svg>
             <div class="dp-fonds-btn-name">easyfolio 50</div><div class="dp-fonds-btn-rendite">5,2% Zielrendite</div>
           </div>
-          <div class="dp-fonds-btn" data-isin="DE000EASY704" onclick="dpSelectFonds(this)">
+          <div class="dp-fonds-btn" data-fonds="70" onclick="dpSelectFonds(this)">
             <svg width="56" height="56" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="202.3 86.7" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">70</text></svg>
             <div class="dp-fonds-btn-name">easyfolio 70</div><div class="dp-fonds-btn-rendite">7,2% Zielrendite</div>
           </div>
@@ -259,8 +259,14 @@ function dpSelectFonds(el){
   el.classList.add('dp-fonds-active');
 }
 function dpSubmitForm(){
+  var FONDS = {
+    "30": { isin: "DE000EASY306", path: "(e2)" },
+    "50": { isin: "DE000EASY504", path: "(e4)" },
+    "70": { isin: "DE000EASY702", path: "(7b5VhmcLUbDA2xvKY61IPIvtNsdycT-vKYo8ZFvoWO0Jugf7pKOK7lAn5VgX5gQk0LWjAyKDlo8KakOQIh8xaqye-bkrQcpP5UJxT-gk0QsG9uW52VOicoWMb00UW9YTg_szJZhMj2jv1VAMmSzUlMsbAmOCMEg!)" }
+  };
   var active = document.querySelector('.dp-fonds-btn.dp-fonds-active');
-  var isin = active.getAttribute('data-isin');
+  var fondsId = active.getAttribute('data-fonds');
+  var fonds = FONDS[fondsId];
   var anrede = document.getElementById('dpAnrede').value;
   var titel = document.getElementById('dpTitel').value;
   var vorname = document.getElementById('dpVorname').value;
@@ -284,9 +290,9 @@ function dpSubmitForm(){
     + "&ort=" + encodeURIComponent(ort)
     + "&land=" + encodeURIComponent(land)
     + "&kundennummer=4060DoP30c"
-    + "&isin=" + encodeURIComponent(isin)
+    + "&isin=" + encodeURIComponent(fonds.isin)
     + "&coe=";
   if(code){ params += "&code=" + encodeURIComponent(code); }
-  window.open("https://portal.ebase.com/deo-easyfolio/deo-direkt?" + params, "_blank");
+  window.open("https://portal.ebase.com/" + fonds.path + "/deo-easyfolio/deo-direkt?" + params, "_blank");
 }
 </script>
