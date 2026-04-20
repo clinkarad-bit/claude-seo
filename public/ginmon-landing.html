@@ -97,13 +97,13 @@
 .gm-fonds-li:last-child{border-bottom:none}
 .gm-fonds-popular{position:absolute;top:18px;right:-28px;background:var(--gm-green);color:#fff;font-size:10px;font-weight:800;padding:5px 36px;letter-spacing:.5px;transform:rotate(35deg);z-index:5}
 
-/* DONUT RINGS – 1:1 von easyfolio 50er Seite */
+/* DONUT RINGS */
 .gm-ring{width:140px;height:140px;margin:0 auto 16px;position:relative}
-.gm-ring-outer{width:100%;height:100%;border-radius:50%;border:8px solid rgba(255,255,255,0.18)}
-.gm-ring-fill{position:absolute;top:0;left:0;width:100%;height:100%}
+.gm-ring-outer{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(255,255,255,0.25)}
+.gm-ring-inner{position:absolute;top:14px;left:14px;right:14px;bottom:14px;border-radius:50%;background:rgba(255,255,255,0.12)}
+.gm-ring-fill{position:absolute;top:14px;left:14px;right:14px;bottom:14px}
 .gm-ring-fill svg{transform:rotate(-90deg);width:100%;height:100%;display:block}
-.gm-ring-bg{fill:none!important;stroke:rgba(255,255,255,0.18);stroke-width:9}
-.gm-ring-progress{fill:none!important;stroke:rgb(124,186,58);stroke-width:9;stroke-linecap:round}
+.gm-ring-progress{fill:none!important;stroke:rgb(124,186,58);stroke-width:10;stroke-linecap:round}
 .gm-ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:42px;font-weight:900;color:#fff;letter-spacing:-0.02em;line-height:1}
 
 /* ANLEGERTEST BANNER */
@@ -378,10 +378,10 @@
       <div class="gm-fonds-top">
         <div class="gm-ring">
           <div class="gm-ring-outer"></div>
+          <div class="gm-ring-inner"></div>
           <div class="gm-ring-fill">
             <svg viewBox="0 0 100 100">
-              <circle class="gm-ring-bg" cx="50" cy="50" r="40"/>
-              <circle class="gm-ring-progress" cx="50" cy="50" r="40" stroke-dasharray="75 251"/>
+              <circle class="gm-ring-progress" cx="50" cy="50" r="42" stroke-dasharray="79 265"/>
             </svg>
           </div>
           <span class="gm-ring-num">30</span>
@@ -404,10 +404,10 @@
       <div class="gm-fonds-top">
         <div class="gm-ring">
           <div class="gm-ring-outer"></div>
+          <div class="gm-ring-inner"></div>
           <div class="gm-ring-fill">
             <svg viewBox="0 0 100 100">
-              <circle class="gm-ring-bg" cx="50" cy="50" r="40"/>
-              <circle class="gm-ring-progress" cx="50" cy="50" r="40" stroke-dasharray="126 251"/>
+              <circle class="gm-ring-progress" cx="50" cy="50" r="42" stroke-dasharray="132 265"/>
             </svg>
           </div>
           <span class="gm-ring-num">50</span>
@@ -431,10 +431,10 @@
       <div class="gm-fonds-top">
         <div class="gm-ring">
           <div class="gm-ring-outer"></div>
+          <div class="gm-ring-inner"></div>
           <div class="gm-ring-fill">
             <svg viewBox="0 0 100 100">
-              <circle class="gm-ring-bg" cx="50" cy="50" r="40"/>
-              <circle class="gm-ring-progress" cx="50" cy="50" r="40" stroke-dasharray="176 251"/>
+              <circle class="gm-ring-progress" cx="50" cy="50" r="42" stroke-dasharray="185 265"/>
             </svg>
           </div>
           <span class="gm-ring-num">70</span>
