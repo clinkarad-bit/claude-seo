@@ -87,9 +87,10 @@
 .at-final-left h2{font-size:34px;font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.3px}
 .at-final-left p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:28px;max-width:420px}
 .at-final-stats{display:flex;gap:12px;flex-wrap:wrap}
-.at-final-stat{background:#fff;border-radius:14px;padding:18px 24px;text-align:center;flex:1;min-width:100px}
-.at-final-stat-val{font-size:24px;font-weight:800;color:var(--at-blue)}
-.at-final-stat-lbl{font-size:11px;color:var(--at-muted);margin-top:4px}
+.at-final-stat{background:#fff;border-radius:16px;padding:24px 20px;text-align:center;flex:1;min-width:110px}
+.at-final-stat-num{font-size:36px;font-weight:900;color:var(--at-blue);line-height:1;display:block}
+.at-final-stat-unit{font-size:14px;font-weight:700;color:var(--at-muted);display:block;margin-top:2px}
+.at-final-stat-lbl{font-size:11px;color:var(--at-muted);margin-top:6px;opacity:.7}
 .at-final-right{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
 .at-final-right .at-btn{font-size:17px!important;padding:18px 44px!important}
 
@@ -118,8 +119,8 @@
 .at-final-block{padding:32px 20px!important}
 .at-final-left h2{font-size:24px!important}
 .at-final-stats{gap:8px!important}
-.at-final-stat{min-width:65px!important;padding:10px 14px!important}
-.at-final-stat-val{font-size:20px!important}
+.at-final-stat{min-width:65px!important;padding:16px 12px!important}
+.at-final-stat-num{font-size:28px!important}
 .at-final-right .at-btn{font-size:15px!important;padding:14px 28px!important}
 }
 @media(max-width:480px){
@@ -272,10 +273,10 @@
       <h2>Bereit für Ihr Ergebnis?</h2>
       <p>Kostenlos, anonym, in 5 Minuten. 17.000+ Wertpapiere aus 95 Ländern warten auf Sie.</p>
       <div class="at-final-stats">
-        <div class="at-final-stat"><div class="at-final-stat-val">5 Min.</div><div class="at-final-stat-lbl">Dauer</div></div>
-        <div class="at-final-stat"><div class="at-final-stat-val">8</div><div class="at-final-stat-lbl">Fragen</div></div>
-        <div class="at-final-stat"><div class="at-final-stat-val">3</div><div class="at-final-stat-lbl">Empfehlungen</div></div>
-        <div class="at-final-stat"><div class="at-final-stat-val">0 Euro</div><div class="at-final-stat-lbl">Kosten</div></div>
+        <div class="at-final-stat"><span class="at-final-stat-num">8</span><span class="at-final-stat-lbl">Fragen</span></div>
+        <div class="at-final-stat"><span class="at-final-stat-num">5</span><span class="at-final-stat-unit">Min.</span><span class="at-final-stat-lbl">Dauer</span></div>
+        <div class="at-final-stat"><span class="at-final-stat-num">3</span><span class="at-final-stat-lbl">Empfehlungen</span></div>
+        <div class="at-final-stat"><span class="at-final-stat-num">0</span><span class="at-final-stat-unit">Euro</span><span class="at-final-stat-lbl">Kosten</span></div>
       </div>
     </div>
     <div class="at-final-right">
@@ -284,9 +285,5 @@
   </div>
 </section>
 
-<div class="at-disclaimer">
-  Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken.<br>
-  easyfolio GmbH &middot; Opernplatz 14 &middot; 60313 Frankfurt am Main
-</div>
 
 </div>
