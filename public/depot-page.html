@@ -69,6 +69,18 @@
 .dp-form-footer a{color:var(--dp-blue)}
 .dp-submit-btn{width:100%;background:var(--dp-green);color:#fff;padding:16px;border-radius:.35rem;font-size:16px;font-weight:700;cursor:pointer;border:none!important;outline:none;margin-top:8px;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important}
 
+/* WKN POPUP */
+.dp-popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9998;align-items:center;justify-content:center}
+.dp-popup-overlay.dp-popup-visible{display:flex!important}
+.dp-popup{background:#fff;border-radius:20px;padding:40px 36px;max-width:520px;width:calc(100% - 32px);position:relative;z-index:9999}
+.dp-popup h3{font-size:22px;font-weight:800;color:var(--dp-text);margin-bottom:8px}
+.dp-popup p{font-size:14px;color:var(--dp-muted);line-height:1.7;margin-bottom:24px}
+.dp-popup-wkn{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.dp-popup-wkn-row{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:var(--dp-bg);border-radius:12px}
+.dp-popup-wkn-name{font-size:15px;font-weight:700;color:var(--dp-text)}
+.dp-popup-wkn-code{font-size:16px;font-weight:800;color:var(--dp-blue);font-family:monospace,system-ui!important;letter-spacing:1px}
+.dp-popup-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--dp-bg);border:none!important;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dp-muted);font-size:18px}
+
 /* SIDEBAR */
 .dp-sidebar{position:-webkit-sticky!important;position:sticky!important;top:24px!important;align-self:flex-start!important}
 .dp-sidebar-card{background:#fff;border-radius:20px;padding:32px 28px;border:1px solid #edf0f4;margin-bottom:20px}
@@ -122,6 +134,7 @@
     <span class="dp-hero-eyebrow">Depot eröffnen</span>
     <h1>In 3 Schritten zum easyfolio-Depot</h1>
     <p>Komplett online, ohne Papierkram. Ihr Investment startet automatisch.</p>
+    <a href="#dpFormCard" class="dp-btn dp-btn-green" style="margin-top:24px!important;" onclick="event.preventDefault();document.getElementById('dpFormCard').scrollIntoView({behavior:'smooth'})">Jetzt Depot eröffnen</a>
   </div>
 </section>
 </div>
@@ -159,9 +172,9 @@
           <h3>Neues easyfolio-Depot bei FNZ Bank</h3>
           <p>0 Euro Transaktionsgebühren, direkt für easyfolio optimiert. Eröffnung komplett online.</p>
         </div>
-        <div class="dp-option">
+        <div class="dp-option" onclick="document.getElementById('dpWknPopup').classList.add('dp-popup-visible')" style="cursor:pointer;">
           <h3>Bestehendes Depot nutzen</h3>
-          <p>Kaufen Sie easyfolio über Ihre Hausbank oder Online-Broker - einfach WKN eingeben: EASY30 / EASY50 / EASY70.</p>
+          <p>Kaufen Sie easyfolio über Ihre Hausbank oder Online-Broker - WKN anzeigen lassen.</p>
         </div>
       </div>
     </div>
@@ -246,9 +259,24 @@
   </div>
 </div>
 
+<!-- WKN POPUP -->
+<div class="dp-popup-overlay" id="dpWknPopup" onclick="if(event.target===this)this.classList.remove('dp-popup-visible')">
+  <div class="dp-popup">
+    <button class="dp-popup-close" onclick="document.getElementById('dpWknPopup').classList.remove('dp-popup-visible')">&#10005;</button>
+    <h3>Bestehendes Depot nutzen</h3>
+    <p>Geben Sie einfach die WKN bei Ihrer Hausbank, Sparkasse oder Ihrem Online-Broker ein, um in easyfolio zu investieren.</p>
+    <div class="dp-popup-wkn">
+      <div class="dp-popup-wkn-row"><span class="dp-popup-wkn-name">easyfolio 30 (Defensiv)</span><span class="dp-popup-wkn-code">EASY30</span></div>
+      <div class="dp-popup-wkn-row"><span class="dp-popup-wkn-name">easyfolio 50 (Ausgewogen)</span><span class="dp-popup-wkn-code">EASY50</span></div>
+      <div class="dp-popup-wkn-row"><span class="dp-popup-wkn-name">easyfolio 70 (Offensiv)</span><span class="dp-popup-wkn-code">EASY70</span></div>
+    </div>
+    <p style="font-size:13px;color:var(--dp-muted);margin-bottom:0;">Nicht sicher welcher Fonds? <a href="https://easyfolio.de/anlegertest" style="color:var(--dp-blue);font-weight:600;">Zum Anlegertest</a></p>
+  </div>
+</div>
+
 <div class="dp-disclaimer">
   Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken.<br>
-  easyfolio GmbH &middot; Opernplatz 14 &middot; 60313 Frankfurt am Main
+  easyfolio GmbH &middot; Heidenkampsweg 73 &middot; 20097 Hamburg &middot; 0800 12305070 &middot; info@easyfolio.de
 </div>
 
 </div>
