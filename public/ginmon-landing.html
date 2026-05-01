@@ -23,7 +23,11 @@
 .gm-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.55);z-index:1;border-radius:1rem!important}
 .gm-hero-content{position:relative;z-index:3;padding:48px 52px 48px;max-width:1380px;width:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1}
 .gm-hero-titles{display:flex;flex-direction:column;gap:14px;margin-bottom:0;padding-top:80px}
-.gm-hero-pill{display:inline-block;padding:12px 26px;border-radius:.5rem;font-weight:800;font-size:1.95rem;color:#fff;width:fit-content;line-height:1.15}
+.gm-hero-pill{display:inline-block;padding:12px 26px;border-radius:.5rem;font-weight:800;font-size:1.95rem;color:#fff;width:fit-content;line-height:1.15;opacity:0;transform:translateX(-40px);animation:gmSlideIn .5s ease forwards}
+.gm-hero-pill:nth-child(1){animation-delay:.1s}
+.gm-hero-pill:nth-child(2){animation-delay:.3s}
+.gm-hero-pill:nth-child(3){animation-delay:.5s}
+@keyframes gmSlideIn{to{opacity:1;transform:translateX(0)}}
 .gm-hp-blue{background:var(--gm-blue)}
 .gm-hp-green{background:var(--gm-blue);margin-left:18px}
 .gm-hp-blue-sm{background:var(--gm-blue);font-size:1.05rem;font-weight:600}
@@ -109,8 +113,8 @@
 /* COMPARE responsive fix */
 .gm-compare-scroll-hint{display:none}
 .gm-compare-right{position:relative}
-.gm-compare-arrow{display:none;position:absolute;top:50%;right:-16px;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--gm-border)!important;cursor:pointer;align-items:center;justify-content:center;z-index:10;color:var(--gm-text);box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.gm-compare-arrow.gm-arrow-left{right:auto;left:-16px;display:none!important}
+.gm-compare-arrow{display:none;position:absolute;top:50%;right:0;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--gm-border)!important;cursor:pointer;align-items:center;justify-content:center;z-index:10;color:var(--gm-blue);box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.gm-compare-arrow.gm-arrow-left{right:auto;left:0;display:none!important}
 .gm-compare-arrow.gm-arrow-visible{display:flex!important}
 
 /* DONUT RINGS – bulletproof, alle styles forciert */
@@ -143,7 +147,7 @@
 .gm-compare-left{flex:0 0 280px}
 .gm-compare-left h2{font-size:30px;font-weight:800;color:var(--gm-text);margin-bottom:14px;line-height:1.2}
 .gm-compare-left p{font-size:15px;color:var(--gm-muted);line-height:1.7;margin-bottom:28px}
-.gm-compare-right{flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.gm-compare-right{flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;position:relative;padding:0 24px}
 .gm-cmp-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;border:1px solid var(--gm-border);min-width:520px}
 .gm-cmp-table th{padding:16px 18px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;background:#f8faff;border-bottom:2px solid var(--gm-border);text-align:center;color:var(--gm-muted);white-space:nowrap}
 .gm-cmp-table th:first-child{text-align:left;color:var(--gm-text)}
@@ -225,7 +229,7 @@
 .gm-hero-overlay{display:none!important}
 .gm-hero-content{padding:0 20px 0!important;position:absolute!important;bottom:-20px!important;left:0!important;right:0!important;z-index:5}
 .gm-hero-titles{margin-bottom:12px!important}
-.gm-hero-pill{font-size:1rem!important;padding:8px 16px!important;border-radius:.4rem!important;background:var(--gm-blue)!important}
+.gm-hero-pill{font-size:1.2rem!important;padding:10px 18px!important;border-radius:.4rem!important;background:var(--gm-blue)!important}
 .gm-hp-green{margin-left:0!important;background:var(--gm-blue)!important}
 .gm-hp-blue-sm{display:none!important}
 .gm-hero-seal{display:none!important}
