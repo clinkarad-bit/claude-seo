@@ -28,6 +28,7 @@
 .gm-hp-green{background:var(--gm-blue);margin-left:18px}
 .gm-hp-blue-sm{background:var(--gm-blue);font-size:1.05rem;font-weight:600}
 .gm-hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:48px}
+.gm-hero-seal{}
 
 /* TRUST BAR */
 .gm-trust-bar{background:var(--gm-white);border-bottom:1px solid var(--gm-border);overflow-x:auto;scrollbar-width:none}
@@ -108,9 +109,9 @@
 /* COMPARE responsive fix */
 .gm-compare-scroll-hint{display:none}
 .gm-compare-right{position:relative}
-.gm-compare-arrow{display:none;position:absolute;top:50%;right:-20px;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--gm-border)!important;cursor:pointer;align-items:center;justify-content:center;z-index:10;color:var(--gm-muted)}
-.gm-compare-arrow:active{transform:translateY(-50%) scale(.95)}
-.gm-compare-arrow.gm-arrow-left{right:auto;left:-20px}
+.gm-compare-arrow{display:none;position:absolute;top:50%;right:-16px;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--gm-border)!important;cursor:pointer;align-items:center;justify-content:center;z-index:10;color:var(--gm-text);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.gm-compare-arrow.gm-arrow-left{right:auto;left:-16px;display:none!important}
+.gm-compare-arrow.gm-arrow-visible{display:flex!important}
 
 /* DONUT RINGS – bulletproof, alle styles forciert */
 .gm-landing .gm-ring{width:120px!important;height:120px!important;margin:0 auto 16px!important;position:relative!important;display:block!important}
@@ -214,7 +215,7 @@
 .gm-compare-left{flex:none!important;width:100%!important}
 .gm-compare-right{width:100%!important;max-width:100%!important}
 .gm-cmp-table{min-width:600px!important}
-.gm-compare-arrow{display:flex!important}
+#gmCmpRight{display:flex!important}
 .gm-rundum-top{grid-template-columns:1fr!important}
 .gm-rundum-card{flex:0 0 calc(50% - 10px)!important}
 }
@@ -227,6 +228,7 @@
 .gm-hero-pill{font-size:1rem!important;padding:8px 16px!important;border-radius:.4rem!important;background:var(--gm-blue)!important}
 .gm-hp-green{margin-left:0!important;background:var(--gm-blue)!important}
 .gm-hp-blue-sm{display:none!important}
+.gm-hero-seal{display:none!important}
 .gm-hero-ctas{flex-direction:column!important;gap:0!important}
 #gm-btn-hero-green{display:none!important}
 #gm-btn-hero-outline{background:var(--gm-green)!important;color:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;width:fit-content!important;align-self:flex-start!important;border:none!important}
@@ -265,7 +267,7 @@
       <a href="https://easyfolio.de/depot/depot-anmeldung" id="gm-btn-hero-outline" class="gm-btn gm-btn-green" style="font-size:16px!important;padding:16px 36px!important;">Jetzt Depot eröffnen</a>
     </div>
   </div>
-  <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/HB_SV_BESTE_Finanzdienstleister_z3M_2022_2024_easyfolio.jpg" alt="Handelsblatt Testsieger" style="position:absolute;right:24px;bottom:-20px;width:130px;z-index:10;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.18);">
+  <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/HB_SV_BESTE_Finanzdienstleister_z3M_2022_2024_easyfolio.jpg" alt="Handelsblatt Testsieger" class="gm-hero-seal" style="position:absolute;right:24px;bottom:-20px;width:130px;z-index:10;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.18);">
 </section>
 </div>
 
@@ -624,5 +626,6 @@
 <script>
 function gmOpenTab(id,btn){document.querySelectorAll('.gm-tab-panel').forEach(function(p){p.classList.remove('gm-active')});document.querySelectorAll('.gm-tab-btn').forEach(function(b){b.classList.remove('gm-tab-active')});document.getElementById('gm-tab-'+id).classList.add('gm-active');btn.classList.add('gm-tab-active')}
 function gmToggleFaq(q){var item=q.closest('.gm-faq-item');var wasOpen=item.classList.contains('gm-faq-open');document.querySelectorAll('.gm-faq-item.gm-faq-open').forEach(function(x){x.classList.remove('gm-faq-open')});if(!wasOpen)item.classList.add('gm-faq-open')}
+var cmpRight=document.getElementById('gmCmpRight');var cmpLeft=document.getElementById('gmCmpLeft');var cmpScroll=document.querySelector('.gm-compare-right');if(cmpScroll){cmpScroll.addEventListener('scroll',function(){var sl=cmpScroll.scrollLeft;var sw=cmpScroll.scrollWidth-cmpScroll.clientWidth;if(sl>10){cmpLeft.classList.add('gm-arrow-visible')}else{cmpLeft.classList.remove('gm-arrow-visible')}if(sl>=sw-10){cmpRight.style.display='none'}else{cmpRight.style.display=''}},{passive:true})}
 var gmRundumPos=0;function gmSlideRundum(dir){var track=document.getElementById('gmRundumTrack');var cards=track.querySelectorAll('.gm-rundum-card');var cardW=cards[0].offsetWidth+20;var maxPos=cards.length-2;gmRundumPos=Math.max(0,Math.min(maxPos,gmRundumPos+dir));track.style.transform='translateX(-'+gmRundumPos*cardW+'px)'}
 </script>
