@@ -112,9 +112,9 @@
 
 /* COMPARE responsive fix */
 .gm-compare-scroll-hint{display:none}
-.gm-compare-right{position:relative}
-.gm-compare-arrow{display:none;position:absolute;top:50%;right:0;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--gm-border)!important;cursor:pointer;align-items:center;justify-content:center;z-index:10;color:var(--gm-blue);box-shadow:0 2px 12px rgba(0,0,0,.12)}
-.gm-compare-arrow.gm-arrow-left{right:auto;left:0;display:none!important}
+
+.gm-compare-arrow{display:none;position:absolute;top:50%;right:-20px;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--gm-border)!important;cursor:pointer;align-items:center;justify-content:center;z-index:10;color:var(--gm-blue);box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.gm-compare-arrow.gm-arrow-left{right:auto;left:-20px;display:none!important}
 .gm-compare-arrow.gm-arrow-visible{display:flex!important}
 
 /* DONUT RINGS – bulletproof, alle styles forciert */
@@ -143,11 +143,11 @@
 
 /* COMPARE */
 .gm-compare-section{background:var(--gm-white);padding:80px 24px}
-.gm-compare-inner{max-width:1100px;margin:0 auto;display:flex;gap:56px;align-items:flex-start;flex-wrap:wrap}
+.gm-compare-inner{max-width:1100px;margin:0 auto;display:flex;gap:56px;align-items:flex-start;flex-wrap:wrap;position:relative}
 .gm-compare-left{flex:0 0 280px}
 .gm-compare-left h2{font-size:30px;font-weight:800;color:var(--gm-text);margin-bottom:14px;line-height:1.2}
 .gm-compare-left p{font-size:15px;color:var(--gm-muted);line-height:1.7;margin-bottom:28px}
-.gm-compare-right{flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;position:relative;padding:0 24px}
+.gm-compare-right{flex:1;min-width:0;position:relative}
 .gm-cmp-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;border:1px solid var(--gm-border);min-width:520px}
 .gm-cmp-table th{padding:16px 18px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;background:#f8faff;border-bottom:2px solid var(--gm-border);text-align:center;color:var(--gm-muted);white-space:nowrap}
 .gm-cmp-table th:first-child{text-align:left;color:var(--gm-text)}
@@ -488,6 +488,7 @@
       <a href="https://easyfolio.de/depot/depot-anmeldung" id="gm-btn-depot" class="gm-btn gm-btn-green">Depot eröffnen</a>
     </div>
     <div class="gm-compare-right">
+      <div class="gm-compare-scroll" style="overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
       <table class="gm-cmp-table">
         <thead><tr>
           <th>Vergleich</th><th>Eigenes Portfolio</th><th>Robo-Advisor</th><th class="gm-hl">easyfolio</th>
@@ -501,8 +502,9 @@
           <tr><td>Prognosefreies Investieren</td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
         </tbody>
       </table>
-      <button class="gm-compare-arrow gm-arrow-left" id="gmCmpLeft" onclick="document.querySelector('.gm-compare-right').scrollBy({left:-200,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <button class="gm-compare-arrow" id="gmCmpRight" onclick="document.querySelector('.gm-compare-right').scrollBy({left:200,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <button class="gm-compare-arrow gm-arrow-left" id="gmCmpLeft" onclick="document.querySelector('.gm-compare-scroll').scrollBy({left:-200,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="gm-compare-arrow" id="gmCmpRight" style="right:-20px;" onclick="document.querySelector('.gm-compare-scroll').scrollBy({left:200,behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
     </div>
   </div>
 </section>
@@ -630,6 +632,6 @@
 <script>
 function gmOpenTab(id,btn){document.querySelectorAll('.gm-tab-panel').forEach(function(p){p.classList.remove('gm-active')});document.querySelectorAll('.gm-tab-btn').forEach(function(b){b.classList.remove('gm-tab-active')});document.getElementById('gm-tab-'+id).classList.add('gm-active');btn.classList.add('gm-tab-active')}
 function gmToggleFaq(q){var item=q.closest('.gm-faq-item');var wasOpen=item.classList.contains('gm-faq-open');document.querySelectorAll('.gm-faq-item.gm-faq-open').forEach(function(x){x.classList.remove('gm-faq-open')});if(!wasOpen)item.classList.add('gm-faq-open')}
-var cmpRight=document.getElementById('gmCmpRight');var cmpLeft=document.getElementById('gmCmpLeft');var cmpScroll=document.querySelector('.gm-compare-right');if(cmpScroll){cmpScroll.addEventListener('scroll',function(){var sl=cmpScroll.scrollLeft;var sw=cmpScroll.scrollWidth-cmpScroll.clientWidth;if(sl>10){cmpLeft.classList.add('gm-arrow-visible')}else{cmpLeft.classList.remove('gm-arrow-visible')}if(sl>=sw-10){cmpRight.style.display='none'}else{cmpRight.style.display=''}},{passive:true})}
+var cmpRight=document.getElementById('gmCmpRight');var cmpLeft=document.getElementById('gmCmpLeft');var cmpScroll=document.querySelector('.gm-compare-scroll');if(cmpScroll){cmpScroll.addEventListener('scroll',function(){var sl=cmpScroll.scrollLeft;var sw=cmpScroll.scrollWidth-cmpScroll.clientWidth;if(sl>10){cmpLeft.classList.add('gm-arrow-visible')}else{cmpLeft.classList.remove('gm-arrow-visible')}if(sl>=sw-10){cmpRight.style.display='none'}else{cmpRight.style.display=''}},{passive:true})}
 var gmRundumPos=0;function gmSlideRundum(dir){var track=document.getElementById('gmRundumTrack');var cards=track.querySelectorAll('.gm-rundum-card');var cardW=cards[0].offsetWidth+20;var maxPos=cards.length-2;gmRundumPos=Math.max(0,Math.min(maxPos,gmRundumPos+dir));track.style.transform='translateX(-'+gmRundumPos*cardW+'px)'}
 </script>
