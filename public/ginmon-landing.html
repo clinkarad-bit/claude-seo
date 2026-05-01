@@ -106,7 +106,9 @@
 .gm-at-num{width:30px;height:30px;background:#fff!important;color:var(--gm-blue)!important;border-radius:50%;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
 
 /* COMPARE responsive fix */
-.gm-compare-scroll-hint{display:none;text-align:center;color:var(--gm-muted);font-size:12px;margin-top:10px}
+.gm-compare-scroll-hint{display:none;align-items:center;justify-content:center;gap:8px;color:var(--gm-muted);font-size:13px;margin-top:14px;font-weight:600}
+.gm-compare-scroll-hint svg{animation:gmScrollBounce 1.5s ease-in-out infinite}
+@keyframes gmScrollBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 
 /* DONUT RINGS – bulletproof, alle styles forciert */
 .gm-landing .gm-ring{width:120px!important;height:120px!important;margin:0 auto 16px!important;position:relative!important;display:block!important}
@@ -210,7 +212,7 @@
 .gm-compare-left{flex:none!important;width:100%!important}
 .gm-compare-right{width:100%!important;max-width:100%!important}
 .gm-cmp-table{min-width:600px!important}
-.gm-compare-scroll-hint{display:block!important}
+.gm-compare-scroll-hint{display:flex!important}
 .gm-rundum-top{grid-template-columns:1fr!important}
 .gm-rundum-card{flex:0 0 calc(50% - 10px)!important}
 }
@@ -491,7 +493,7 @@
           <tr><td>Prognosefreies Investieren</td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td><span class="gm-cmp-no"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10" stroke="#d0d0d8" stroke-width="2" stroke-linecap="round"/></svg></span></td><td class="gm-hl"><span class="gm-cmp-yes"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="rgb(76,121,199)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td></tr>
         </tbody>
       </table>
-      <div class="gm-compare-scroll-hint">Zum Scrollen nach rechts wischen &rarr;</div>
+      <div class="gm-compare-scroll-hint">Zum Scrollen wischen <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></div>
     </div>
   </div>
 </section>
