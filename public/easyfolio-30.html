@@ -1,604 +1,354 @@
 <style>
-/* EASYFOLIO 30 PRODUCT PAGE – scoped ef30- prefix */
-.ef30-page{--ef30-blue:rgb(76,121,199);--ef30-green:rgb(124,186,58);--ef30-text:#1a1a2e;--ef30-muted:#6b7280;--ef30-border:#e5e7eb;--ef30-bg:#f4f6fc;--ef30-white:#ffffff;width:100%;overflow-x:hidden;color:var(--ef30-text);line-height:1.6;-webkit-font-smoothing:antialiased}
-.ef30-page,.ef30-page *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
-.ef30-page img{max-width:100%;display:block}
-.ef30-page a{text-decoration:none!important;color:inherit}
-
-/* BUTTONS */
-.ef30-page .ef30-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;outline:none!important;box-shadow:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:transform .15s ease!important}
-.ef30-page .ef30-btn:hover{transform:scale(1.03)!important;box-shadow:none!important;opacity:1!important;border:none!important}
-.ef30-page .ef30-btn:active{transform:scale(.98)!important}
-.ef30-btn-green{background:var(--ef30-green)!important;color:#fff!important}
-.ef30-btn-blue{background:var(--ef30-blue)!important;color:#fff!important}
-.ef30-btn-outline{background:rgba(255,255,255,.15)!important;color:#fff!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important}
-
-/* HERO */
-.ef30-hero-wrap{padding:16px 24px 24px;background:#fff}
-.ef30-hero{position:relative;width:100%;min-height:480px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border-radius:1rem!important;max-width:1380px;margin:0 auto}
-.ef30-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;border-radius:1rem!important}
-.ef30-hero-overlay{position:absolute;inset:0;background:rgba(30,50,80,.6);z-index:1;border-radius:1rem!important}
-.ef30-hero-content{position:relative;z-index:3;padding:48px 52px;max-width:1380px;width:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1}
-.ef30-hero-titles{display:flex;flex-direction:column;gap:14px;padding-top:60px}
-.ef30-hero-eyebrow{display:inline-block;background:var(--ef30-green);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:20rem;width:fit-content;margin-bottom:8px}
-.ef30-hero-titles h1{font-size:2.6rem;font-weight:800;color:#fff;line-height:1.15;margin-bottom:8px;letter-spacing:-.5px;opacity:0;transform:translateX(-40px);animation:ef30SlideIn .5s ease .1s forwards}
-.ef30-hero-titles p{font-size:1.05rem;color:rgba(255,255,255,.8);line-height:1.7;max-width:560px;opacity:0;transform:translateX(-40px);animation:ef30SlideIn .5s ease .3s forwards}
-@keyframes ef30SlideIn{to{opacity:1;transform:translateX(0)}}
-.ef30-hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:36px}
-.ef30-hero-stats{display:flex;gap:32px;margin-top:24px}
-.ef30-hero-stat{text-align:center}
-.ef30-hero-stat-num{font-size:2rem;font-weight:800;color:#fff;line-height:1}
-.ef30-hero-stat-label{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px}
-
-/* TRUST BAR */
-.ef30-trust{background:var(--ef30-white);border-bottom:1px solid var(--ef30-border);overflow-x:auto;scrollbar-width:none}
-.ef30-trust::-webkit-scrollbar{display:none}
-.ef30-trust-inner{display:flex;justify-content:center;align-items:stretch;min-width:max-content;margin:0 auto;max-width:1200px}
-.ef30-trust-item{display:flex;align-items:center;gap:13px;padding:22px 36px;border-right:1px solid var(--ef30-border);flex-shrink:0}
-.ef30-trust-item:last-child{border-right:none}
-.ef30-trust-icon{width:42px;height:42px;border-radius:12px;background:var(--ef30-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ef30-trust-label{font-size:13px;font-weight:700;color:var(--ef30-text)}
-.ef30-trust-sub{font-size:12px;color:var(--ef30-muted);margin-top:2px}
-
-/* PRODUCT CARD (single hero card) */
-.ef30-product-section{background:var(--ef30-bg);padding:56px 24px}
-.ef30-product-inner{max-width:1100px;margin:0 auto;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap}
-.ef30-product-card{flex:0 0 340px;background:var(--ef30-white);border-radius:20px;border:1px solid #e0e4ec;overflow:hidden}
-.ef30-product-card-top{background:var(--ef30-blue);padding:32px 24px 26px;text-align:center}
-.ef30-product-card-type{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:4px}
-.ef30-product-card-name{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
-.ef30-product-card-bar{width:40px;height:3px;background:var(--ef30-green);border-radius:2px;margin:0 auto}
-.ef30-product-card-body{padding:28px 24px 32px}
-.ef30-product-card-yield{font-size:44px;font-weight:800;color:var(--ef30-blue);line-height:1}
-.ef30-product-card-yield-label{font-size:13px;color:var(--ef30-muted);margin-top:4px;margin-bottom:20px}
-.ef30-product-card-li{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0f2f8;font-size:13px;color:var(--ef30-text)}
-.ef30-product-card-li:last-child{border-bottom:none}
-
-/* DONUT RING */
-.ef30-page .ef30-ring{width:120px!important;height:120px!important;margin:0 auto 16px!important;position:relative!important;display:block!important}
-.ef30-page .ef30-ring-outer{width:100%!important;height:100%!important;border-radius:50%!important;border:6px solid rgba(255,255,255,0.15)!important;background:transparent!important;display:block!important}
-.ef30-page .ef30-ring-fill{position:absolute!important;top:0!important;left:0!important;width:100%!important;height:100%!important}
-.ef30-page .ef30-ring-fill svg{transform:rotate(-90deg)!important;width:100%!important;height:100%!important;display:block!important;overflow:visible!important}
-.ef30-page .ef30-ring-bg{fill:none!important;stroke:rgba(255,255,255,0.15)!important;stroke-width:6!important}
-.ef30-page .ef30-ring-progress{fill:none!important;stroke:#7cba3a!important;stroke-width:6!important;stroke-linecap:round!important;stroke-dasharray:75 251!important}
-.ef30-page .ef30-ring-num{position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;font-size:36px!important;font-weight:900!important;color:#fff!important;letter-spacing:-0.02em!important;line-height:1!important;background:transparent!important;border:none!important;padding:0!important}
-
-/* PRODUCT INFO */
-.ef30-product-info{flex:1;min-width:300px}
-.ef30-product-info h2{font-size:32px;font-weight:800;color:var(--ef30-text);margin-bottom:14px;line-height:1.2}
-.ef30-product-info>p{font-size:15px;color:var(--ef30-muted);line-height:1.8;margin-bottom:28px}
-.ef30-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
-.ef30-info-item{background:var(--ef30-bg);border-radius:14px;padding:20px;border:1px solid #edf0f4}
-.ef30-info-item-label{font-size:11px;font-weight:700;color:var(--ef30-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.ef30-info-item-value{font-size:18px;font-weight:800;color:var(--ef30-text)}
-.ef30-info-item-value.ef30-val-blue{color:var(--ef30-blue)}
-.ef30-info-item-value.ef30-val-green{color:var(--ef30-green)}
-
-/* FEATURES (vs MSCI World) */
-.ef30-features-section{background:var(--ef30-white);padding:80px 24px}
-.ef30-features-head{text-align:center;max-width:700px;margin:0 auto 48px}
-.ef30-features-head h2{font-size:36px;font-weight:800;color:var(--ef30-text);line-height:1.2;margin-bottom:14px}
-.ef30-features-head p{font-size:16px;color:var(--ef30-muted);line-height:1.7}
-.ef30-features-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1100px;margin:0 auto;align-items:center}
-.ef30-features-list{display:flex;flex-direction:column;gap:20px}
-.ef30-feature-item{display:flex;gap:16px;align-items:flex-start}
-.ef30-feature-icon{width:44px;height:44px;border-radius:12px;background:rgba(124,186,58,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ef30-feature-text h3{font-size:16px;font-weight:700;color:var(--ef30-text);margin-bottom:4px}
-.ef30-feature-text p{font-size:14px;color:var(--ef30-muted);line-height:1.6}
-.ef30-features-compare{background:var(--ef30-bg);border-radius:20px;padding:36px;border:1px solid #edf0f4}
-.ef30-features-compare h3{font-size:18px;font-weight:800;color:var(--ef30-text);margin-bottom:20px;text-align:center}
-.ef30-cmp-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #edf0f4;font-size:14px}
-.ef30-cmp-row:last-child{border-bottom:none}
-.ef30-cmp-label{color:var(--ef30-muted);font-weight:500}
-.ef30-cmp-val{font-weight:700}
-.ef30-cmp-val.ef30-cmp-highlight{color:var(--ef30-green)}
-.ef30-cmp-val.ef30-cmp-neutral{color:var(--ef30-muted)}
-
-/* BENEFITS */
-.ef30-benefits-section{background:var(--ef30-bg);padding:80px 24px}
-.ef30-benefits-head{text-align:center;max-width:700px;margin:0 auto 48px}
-.ef30-benefits-head h2{font-size:36px;font-weight:800;color:var(--ef30-text);line-height:1.2;margin-bottom:14px}
-.ef30-benefits-head p{font-size:16px;color:var(--ef30-muted);line-height:1.7}
-.ef30-benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.ef30-benefit-card{background:var(--ef30-white);border-radius:20px;padding:36px 28px;border:1px solid #e0e4ec;text-align:center}
-.ef30-benefit-icon{width:56px;height:56px;border-radius:14px;background:var(--ef30-bg);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
-.ef30-benefit-card h3{font-size:16px;font-weight:700;color:var(--ef30-text);margin-bottom:8px}
-.ef30-benefit-card p{font-size:14px;color:var(--ef30-muted);line-height:1.7}
-
-/* PORTFOLIO TABS */
-.ef30-portfolio-section{background:var(--ef30-white);padding:80px 24px}
-.ef30-portfolio-head{text-align:center;max-width:700px;margin:0 auto 48px}
-.ef30-portfolio-head h2{font-size:36px;font-weight:800;color:var(--ef30-text);line-height:1.2;margin-bottom:14px}
-.ef30-portfolio-head p{font-size:16px;color:var(--ef30-muted);line-height:1.7}
-.ef30-tabs-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
-.ef30-tab-btn{padding:12px 32px;border-radius:.35rem!important;font-size:14px;font-weight:700;cursor:pointer;border:none!important;background:var(--ef30-bg);color:var(--ef30-muted);transition:none!important}
-.ef30-tab-btn.ef30-tab-active{background:var(--ef30-blue)!important;color:#fff!important}
-.ef30-tab-panel{display:none;max-width:1100px;margin:0 auto}
-.ef30-tab-panel.ef30-active{display:block}
-
-/* Tab: Allocation */
-.ef30-alloc-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.ef30-alloc-chart{position:relative;width:260px;height:260px;margin:0 auto}
-.ef30-alloc-chart svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ef30-alloc-chart-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
-.ef30-alloc-chart-num{font-size:42px;font-weight:900;color:var(--ef30-blue);line-height:1}
-.ef30-alloc-chart-label{font-size:13px;color:var(--ef30-muted);margin-top:4px}
-.ef30-alloc-legend{display:flex;flex-direction:column;gap:16px}
-.ef30-alloc-legend-item{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;color:var(--ef30-text)}
-.ef30-alloc-legend-dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
-.ef30-alloc-legend-bar{flex:1;height:8px;border-radius:4px;background:var(--ef30-bg);overflow:hidden;margin-left:8px}
-.ef30-alloc-legend-fill{height:100%;border-radius:4px}
-
-/* Tab: Details */
-.ef30-details-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;border:1px solid var(--ef30-border)}
-.ef30-details-table th{padding:14px 18px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;background:#f8faff;border-bottom:2px solid var(--ef30-border);text-align:left;color:var(--ef30-muted)}
-.ef30-details-table td{padding:14px 18px;font-size:14px;border-bottom:1px solid #f0f2f8;color:var(--ef30-text)}
-.ef30-details-table tr:last-child td{border-bottom:none}
-.ef30-details-table td:last-child{text-align:right;font-weight:700}
-
-/* Tab: Downloads */
-.ef30-downloads-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.ef30-download-item{display:flex;align-items:center;gap:16px;padding:20px 24px;background:var(--ef30-bg);border-radius:14px;border:1px solid #edf0f4}
-.ef30-download-icon{width:44px;height:44px;border-radius:12px;background:var(--ef30-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ef30-download-text{flex:1}
-.ef30-download-text h4{font-size:14px;font-weight:700;color:var(--ef30-text);margin-bottom:2px}
-.ef30-download-text p{font-size:12px;color:var(--ef30-muted)}
-.ef30-download-link{font-size:13px;font-weight:700;color:var(--ef30-blue)}
-
-/* CALCULATOR */
-.ef30-calc-section{background:var(--ef30-bg);padding:80px 24px}
-.ef30-calc-inner{max-width:900px;margin:0 auto}
-.ef30-calc-head{text-align:center;margin-bottom:48px}
-.ef30-calc-head h2{font-size:36px;font-weight:800;color:var(--ef30-text);line-height:1.2;margin-bottom:14px}
-.ef30-calc-head p{font-size:16px;color:var(--ef30-muted);line-height:1.7}
-.ef30-calc-card{background:var(--ef30-white);border-radius:20px;padding:40px 36px;border:1px solid #edf0f4}
-.ef30-calc-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:32px}
-.ef30-calc-group label{display:block;font-size:12px;font-weight:700;color:var(--ef30-text);margin-bottom:8px;letter-spacing:.3px}
-.ef30-calc-group input{width:100%;padding:13px 16px;border:1.5px solid var(--ef30-border);border-radius:12px;font-size:16px;color:var(--ef30-text);background:#fff;font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;outline:none;-webkit-appearance:none}
-.ef30-calc-group input:focus{border-color:var(--ef30-blue)}
-.ef30-calc-result{background:var(--ef30-bg);border-radius:16px;padding:32px;text-align:center}
-.ef30-calc-result-label{font-size:13px;color:var(--ef30-muted);margin-bottom:4px}
-.ef30-calc-result-value{font-size:42px;font-weight:800;color:var(--ef30-green);line-height:1}
-.ef30-calc-result-sub{font-size:13px;color:var(--ef30-muted);margin-top:8px}
-.ef30-calc-result-row{display:flex;justify-content:center;gap:48px;margin-top:20px}
-.ef30-calc-result-item{text-align:center}
-.ef30-calc-result-item-num{font-size:22px;font-weight:800;color:var(--ef30-blue);line-height:1}
-.ef30-calc-result-item-label{font-size:12px;color:var(--ef30-muted);margin-top:4px}
-.ef30-calc-disclaimer{font-size:11px;color:#b0b0b8;text-align:center;margin-top:16px;line-height:1.6}
-
-/* STICKY WIDGET */
-.ef30-sticky{position:fixed;bottom:0;left:0;right:0;z-index:9990;background:var(--ef30-white);border-top:1px solid var(--ef30-border);box-shadow:0 -4px 24px rgba(0,0,0,.08);transform:translateY(100%);transition:transform .3s ease;padding:14px 24px}
-.ef30-sticky.ef30-sticky-visible{transform:translateY(0)}
-.ef30-sticky-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.ef30-sticky-left{display:flex;align-items:center;gap:16px}
-.ef30-sticky-name{font-size:16px;font-weight:800;color:var(--ef30-text)}
-.ef30-sticky-yield{font-size:14px;font-weight:700;color:var(--ef30-green)}
-.ef30-sticky-meta{font-size:12px;color:var(--ef30-muted)}
-.ef30-sticky-right{display:flex;gap:12px;align-items:center}
-
-/* DISCLAIMER */
-.ef30-disclaimer{text-align:center;color:#888;font-size:13px;padding:40px 24px 56px;max-width:900px;margin:0 auto;line-height:1.8;border-top:1px solid var(--ef30-border)}
-
-/* RESPONSIVE */
-@media(max-width:1040px){
-.ef30-product-inner{flex-direction:column!important;align-items:center!important}
-.ef30-product-card{flex:none!important;width:100%!important;max-width:400px!important}
-.ef30-features-grid{grid-template-columns:1fr!important;gap:40px!important}
-.ef30-benefits-grid{grid-template-columns:1fr 1fr!important}
-.ef30-alloc-grid{grid-template-columns:1fr!important;gap:32px!important}
-.ef30-calc-inputs{grid-template-columns:1fr!important}
-}
-@media(max-width:760px){
-.ef30-hero-wrap{padding:16px 16px 24px!important}
-.ef30-hero{min-height:auto!important;aspect-ratio:4/3}
-.ef30-hero-titles h1{font-size:1.6rem!important}
-.ef30-hero-stats{flex-wrap:wrap!important;gap:16px!important}
-.ef30-features-head h2,.ef30-benefits-head h2,.ef30-portfolio-head h2,.ef30-calc-head h2{font-size:28px!important}
-.ef30-benefits-grid{grid-template-columns:1fr!important}
-.ef30-info-grid{grid-template-columns:1fr!important}
-.ef30-sticky-meta{display:none!important}
-.ef30-sticky-inner{flex-wrap:wrap!important;justify-content:center!important;gap:10px!important}
-}
-@media(max-width:480px){
-.ef30-hero-titles h1{font-size:1.3rem!important}
-.ef30-portfolio-section{padding:48px 16px!important}
-.ef30-calc-section{padding:48px 16px!important}
-}
+.ef30 *{margin:0;padding:0;box-sizing:border-box}
+.ef30{color:#1a202c;line-height:1.6}
+.ef30 h2{font-weight:800!important}
+.ef30-wrap{max-width:1100px;margin:0 auto;padding:0 40px;width:100%}
+@media(max-width:768px){.ef30-wrap{padding:0 20px}}
+@media(max-width:480px){.ef30-wrap{padding:0 16px}}
+.ef30-hero{background:linear-gradient(135deg,#4c79c7 0%,#3a5f9a 100%);padding:70px 0 90px;position:relative;overflow:hidden}
+.ef30-hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(120px);opacity:0.25;background:#7cba3a;top:-150px;right:-100px}
+.ef30-hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:50px;align-items:center}
+.ef30-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;color:#fff;margin-bottom:20px}
+.ef30-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%}
+.ef30-hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:18px;letter-spacing:-0.02em}
+.ef30-hero p{font-size:16px;color:rgba(255,255,255,0.9);line-height:1.7;margin-bottom:0;max-width:460px}
+.ef30-hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.ef30-hero-btn{padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex!important;width:auto!important;transition:all 0.2s;border:none;cursor:pointer;white-space:nowrap!important;min-height:48px;align-items:center;justify-content:center;box-shadow:none!important}
+.ef30-hero-btn.primary{background:#7cba3a;color:#fff}
+.ef30-hero-btn.primary:hover{background:#6ba832}
+.ef30-hero-btn.secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4)}
+.ef30-hero-btn.secondary:hover{background:rgba(255,255,255,0.1)}
+.ef30-hero-visual{position:relative}
+.ef30-hero-img{width:100%;max-width:420px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,0.25)}
+.ef30-hero-badge{position:absolute;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 12px 32px rgba(0,0,0,0.12)}
+.ef30-hero-badge-1{bottom:-16px;left:-16px}
+.ef30-hero-badge-1 small{font-size:11px;color:#718096;display:block;margin-bottom:2px}
+.ef30-hero-badge-1 strong{font-size:22px;font-weight:800;color:#4c79c7}
+.ef30-hero-badge-2{top:16px;right:-16px}
+.ef30-hero-badge-2 strong{font-size:24px;font-weight:800;color:#7cba3a;display:block}
+.ef30-hero-badge-2 small{font-size:11px;color:#718096}
+.ef30-trust{background:#f8fafc;padding:50px 0;border-bottom:1px solid #e2e8f0}
+.ef30-trust-inner{display:flex;justify-content:space-between;align-items:center;gap:0;flex-wrap:wrap}
+.ef30-trust-logo{height:110px;opacity:0.65;filter:grayscale(40%);transition:all 0.3s}
+.ef30-trust-logo:hover{opacity:1;filter:grayscale(0%)}
+.ef30-section{padding:90px 0}
+.ef30-section-white{background:#fff}
+.ef30-section-gray{background:#f8fafc}
+.ef30-badge{display:inline-block!important;width:auto!important;max-width:fit-content!important;background:linear-gradient(135deg,#4c79c7,#5b8ad4);color:#fff;padding:6px 16px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px;box-shadow:none;white-space:nowrap!important}
+.ef30-heading{font-size:clamp(26px,3.8vw,38px);font-weight:800!important;color:#1a202c;line-height:1.12;margin-bottom:16px}
+.ef30-subhead{font-size:16px;color:#64748b;max-width:620px;line-height:1.7;margin:0}
+.ef30-product-grid{display:grid;grid-template-columns:420px 1fr;gap:50px;align-items:center;min-height:650px}
+.ef30-product-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(76,121,199,0.1);border:1px solid #e2e8f0;position:sticky;top:24px}
+.ef30-product-top{background:linear-gradient(145deg,#4c79c7 0%,#3a5f9a 100%);padding:36px 28px;text-align:center;position:relative}
+.ef30-product-top::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:50px;height:3px;background:#7cba3a;border-radius:2px}
+.ef30-product-ring{width:120px;height:120px;margin:0 auto 16px;position:relative}
+.ef30-product-ring-outer{width:100%;height:100%;border-radius:50%;border:6px solid rgba(255,255,255,0.15)}
+.ef30-product-ring-fill{position:absolute;top:0;left:0;width:100%;height:100%}
+.ef30-product-ring-fill svg{transform:rotate(-90deg)}
+.ef30-product-ring-bg{fill:none;stroke:rgba(255,255,255,0.15);stroke-width:6}
+.ef30-product-ring-progress{fill:none;stroke:#7cba3a;stroke-width:6;stroke-linecap:round;stroke-dasharray:75 251}
+.ef30-product-ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:900;color:#fff;letter-spacing:-0.02em}
+.ef30-product-top small{font-size:12px;color:rgba(255,255,255,0.7);display:block;margin-top:4px}
+.ef30-product-top h2{font-size:20px;font-weight:800!important;color:#fff;margin:0}
+.ef30-product-content-single{padding:28px}
+.ef30-product-yield{text-align:center;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #f1f5f9}
+.ef30-product-yield strong{font-size:42px;font-weight:900;color:#4c79c7;display:block;letter-spacing:-0.02em}
+.ef30-product-yield small{font-size:13px;color:#718096;margin-top:4px;display:block}
+.ef30-product-list{margin-bottom:18px}
+.ef30-product-feat{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f1f5f9}
+.ef30-product-feat:last-child{border-bottom:none}
+.ef30-product-check{width:18px;height:18px;background:#e8f5e9;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ef30-product-check svg{width:10px;height:10px;stroke:#7cba3a;stroke-width:3}
+.ef30-product-feat span{font-size:13px;color:#475569}
+.ef30-product-btn{margin-top:8px;width:100%;background:#7cba3a;color:#fff;padding:16px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all 0.15s;text-decoration:none;display:flex;align-items:center;justify-content:center;min-height:48px;box-shadow:none}
+.ef30-product-btn:hover{background:#6ba832;box-shadow:none}
+.ef30-product-info{display:flex;flex-direction:column;justify-content:center;min-height:650px}
+.ef30-product-info h2{font-size:clamp(24px,3vw,32px);font-weight:800!important;color:#1a202c;line-height:1.15;margin-bottom:18px}
+.ef30-product-info p{font-size:15px;color:#475569;line-height:1.75;margin-bottom:14px}
+.ef30-features{background:#fff;padding:90px 0}
+.ef30-features-head{text-align:center;margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
+.ef30-features-head .ef30-heading{max-width:100%;margin-bottom:16px}
+.ef30-features-head .ef30-subhead{max-width:100%;margin:0 auto}
+.ef30-features-wrap{position:relative}
+.ef30-features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.ef30-feature{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:36px 28px;text-align:center;transition:all 0.3s}
+.ef30-feature:hover{transform:translateY(-8px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.ef30-feature-icon{width:80px;height:80px;margin:0 auto 24px;position:relative}
+.ef30-feature-icon-inner{width:100%;height:100%;background:linear-gradient(135deg,#e8f4fd,#d1e9fc);border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative}
+.ef30-feature-icon-inner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.9),rgba(255,255,255,0));border-radius:16px}
+.ef30-feature-icon svg{width:36px;height:36px;stroke:#4c79c7;stroke-width:2;fill:none;position:relative;z-index:2}
+.ef30-feature h3{font-size:17px;font-weight:700;color:#1a202c;margin-bottom:12px}
+.ef30-feature p{font-size:14px;color:#64748b;line-height:1.6}
+.ef30-benefits-head{margin-bottom:50px;text-align:center}
+.ef30-benefits-head .ef30-subhead{margin:0 auto}
+.ef30-benefits-wrap{position:relative}
+.ef30-benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ef30-benefit{background:#fff;padding:36px 32px;border-radius:16px;border:1px solid #e8eef5;box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:all 0.3s}
+.ef30-benefit:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+.ef30-benefit-icon{width:70px;height:70px;margin-bottom:20px;background-repeat:no-repeat;background-size:contain;background-position:center}
+.icon-weltportfolio{background-image:url('https://api.easyfolio.de/fileadmin/B2C/investieren/global__1_.png')}
+.icon-ultradiv{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/colours.png')}
+.icon-bip{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/justice-scale.png')}
+.icon-einfach{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/idea.png')}
+.icon-allcap{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/graphic.png')}
+.icon-allmarket{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/full-battery.png')}
+.ef30-benefit h3{font-size:18px;font-weight:800;color:#1a202c;margin-bottom:12px;line-height:1.3}
+.ef30-benefit p{font-size:14px;color:#64748b;line-height:1.7;margin:0}
+.ef30-tabs-head{margin-bottom:36px}
+.ef30-tabs-nav{display:inline-flex;background:#e2e8f0;padding:4px;border-radius:10px;gap:4px;margin-top:20px}
+.ef30-tabs-btn{padding:12px 28px;border:none;background:transparent;border-radius:8px;font-size:14px;font-weight:600;color:#64748b;cursor:pointer;transition:all 0.2s;min-height:44px}
+.ef30-tabs-btn.active{background:#fff;color:#4c79c7;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.ef30-tab-panel{display:none;animation:ef30Fade 0.3s ease}
+.ef30-tab-panel.active{display:block}
+@keyframes ef30Fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ef30-alloc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ef30-alloc-box{background:#fff;border-radius:16px;padding:28px;border:1px solid #e2e8f0}
+.ef30-alloc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.ef30-alloc-header h3{font-size:16px;font-weight:700;color:#1a202c}
+.ef30-alloc-header span{font-size:20px;font-weight:800;color:#4c79c7}
+.ef30-alloc-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f8fafc}
+.ef30-alloc-item:last-child{border-bottom:none}
+.ef30-alloc-left{flex:1}
+.ef30-alloc-name{font-size:13px;color:#1a202c;font-weight:600}
+.ef30-alloc-market{font-size:11px;color:#94a3b8}
+.ef30-alloc-bar{width:120px;display:flex;align-items:center;gap:10px}
+.ef30-alloc-track{flex:1;height:6px;background:#e2e8f0;border-radius:3px}
+.ef30-alloc-fill{height:100%;background:linear-gradient(90deg,#4c79c7,#7cba3a);border-radius:3px}
+.ef30-alloc-num{font-size:12px;font-weight:700;color:#1a202c;min-width:42px;text-align:right}
+.ef30-details-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ef30-detail{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;transition:all 0.2s}
+.ef30-detail:hover{border-color:#4c79c7;box-shadow:0 4px 12px rgba(76,121,199,0.08)}
+.ef30-detail small{font-size:10px;color:#4c79c7;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px}
+.ef30-detail strong{font-size:14px;font-weight:700;color:#1a202c}
+.ef30-downloads-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.ef30-download{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-decoration:none;transition:all 0.2s}
+.ef30-download:hover{border-color:#7cba3a;background:#f8fafc;transform:translateY(-2px)}
+.ef30-download-ico{width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.ef30-download-ico svg{width:18px;height:18px;stroke:#7cba3a}
+.ef30-download h4{font-size:13px;font-weight:700;color:#1a202c;margin-bottom:4px}
+.ef30-download span{font-size:12px;color:#7cba3a;font-weight:600}
+.ef30-calc-head{text-align:center;margin-bottom:50px}
+.ef30-calc-head .ef30-subhead{margin:0 auto}
+.ef30-calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+.ef30-calc-left{background:#f8fafc;border-radius:20px;padding:40px;display:flex;flex-direction:column;justify-content:center;gap:32px}
+.ef30-calc-label{font-size:13px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;display:block}
+.ef30-calc-value{font-size:32px;font-weight:800;color:#1a202c;margin-bottom:16px}
+.ef30-calc-slider{-webkit-appearance:none;appearance:none;width:100%;height:8px;background:#e2e8f0;border-radius:4px;outline:none;cursor:pointer;touch-action:pan-x}
+.ef30-calc-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;background:#4c79c7;cursor:grab;border:4px solid #fff;box-shadow:0 2px 8px rgba(76,121,199,0.3)}
+.ef30-calc-slider::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#4c79c7;cursor:grab;border:4px solid #fff;box-shadow:0 2px 8px rgba(76,121,199,0.3)}
+.ef30-calc-right{background:linear-gradient(145deg,#4c79c7 0%,#3a5f9a 100%);border-radius:20px;padding:40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.ef30-calc-result-label{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:8px}
+.ef30-calc-result{font-size:clamp(42px,6vw,56px);font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.ef30-calc-gain{font-size:18px;color:#7cba3a;font-weight:700;margin-bottom:28px}
+.ef30-calc-btn{background:#7cba3a;color:#fff;padding:16px 40px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.2s;border:none;cursor:pointer}
+.ef30-calc-btn:hover{background:#6ba832}
+.ef30-calc-note{font-size:11px;color:rgba(255,255,255,0.6);margin-top:20px;line-height:1.5;max-width:280px}
+.ef30-sticky{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(150%);max-width:600px;width:calc(100% - 40px);background:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.1);border:1px solid #e2e8f0;z-index:1000;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1)}
+.ef30-sticky.visible{transform:translateX(-50%) translateY(0)}
+.ef30-sticky-txt{font-size:15px;font-weight:600;color:#1a202c}
+.ef30-sticky-txt span{color:#64748b;font-weight:400;display:block;font-size:13px;margin-top:2px}
+.ef30-sticky-btn{background:#7cba3a;color:#fff;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;min-height:48px;border:none;cursor:pointer;flex-shrink:0}
+.ef30-sticky-btn:hover{background:#6ba832}
+@media(max-width:1100px){.ef30-hero-grid,.ef30-product-grid{grid-template-columns:1fr;gap:36px;min-height:auto}.ef30-hero-visual{order:-1}.ef30-product-card{position:static;max-width:480px;margin:0 auto}.ef30-features-grid{grid-template-columns:repeat(2,1fr)}.ef30-alloc-wrap{grid-template-columns:1fr}.ef30-details-grid{grid-template-columns:repeat(3,1fr)}.ef30-downloads-grid{grid-template-columns:repeat(3,1fr)}.ef30-benefits-grid{grid-template-columns:repeat(2,1fr)}.ef30-calc-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.ef30-wrap{padding:0 20px;max-width:100%}.ef30-section{padding:60px 0}.ef30-heading{font-size:28px}.ef30-hero{padding:50px 0 70px}.ef30-hero h1{font-size:32px}.ef30-hero-btns{flex-direction:column;align-items:stretch}.ef30-hero-btn{width:100%!important;text-align:center}.ef30-hero-badge{display:none}.ef30-trust{padding:40px 0}.ef30-trust-inner{gap:30px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.ef30-trust-inner::-webkit-scrollbar{display:none}.ef30-trust-logo{flex-shrink:0;height:70px}.ef30-features-wrap,.ef30-benefits-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.ef30-features-wrap::-webkit-scrollbar,.ef30-benefits-wrap::-webkit-scrollbar{display:none}.ef30-features-grid,.ef30-benefits-grid{display:flex;gap:16px;width:max-content}.ef30-feature,.ef30-benefit{min-width:280px;max-width:280px;flex-shrink:0}.ef30-product-card{max-width:100%;width:100%}.ef30-product-info{min-height:auto;margin-top:32px}.ef30-tabs-nav{flex-direction:column;width:100%;gap:6px}.ef30-tabs-btn{width:100%;text-align:center}.ef30-alloc-wrap{grid-template-columns:1fr}.ef30-details-grid{grid-template-columns:1fr 1fr}.ef30-downloads-grid{grid-template-columns:1fr}.ef30-calc-left,.ef30-calc-right{padding:28px}.ef30-calc-value{font-size:28px}.ef30-calc-result{font-size:40px}.ef30-sticky{flex-direction:column;gap:14px;padding:18px 20px;text-align:center}.ef30-sticky-btn{width:100%!important}}
+@media(max-width:480px){.ef30-hero h1{font-size:26px}.ef30-heading{font-size:24px}.ef30-section{padding:50px 0}.ef30-hero{padding:40px 0 60px}.ef30-feature,.ef30-benefit{min-width:260px;max-width:260px}.ef30-details-grid{grid-template-columns:1fr}.ef30-calc-value{font-size:24px}.ef30-calc-result{font-size:32px}.ef30-sticky{bottom:12px;width:calc(100% - 24px)}}
 </style>
-<div class="ef30-page">
-
-<!-- HERO -->
-<div class="ef30-hero-wrap">
+<div class="ef30">
 <section class="ef30-hero">
-  <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" alt="easyfolio 30 - Defensives ETF-Portfolio" class="ef30-hero-img">
-  <div class="ef30-hero-overlay"></div>
-  <div class="ef30-hero-content">
-    <div class="ef30-hero-titles">
-      <div class="ef30-hero-eyebrow">Defensives ETF-Portfolio</div>
-      <h1>easyfolio 30 &ndash; Stabilität mit Renditechance</h1>
-      <p>30% Aktien, 70% Anleihen. Global diversifiziert in über 17.000 Wertpapiere. Zielrendite 3,9% p.a. Ideal für sicherheitsbewusste Anleger.</p>
-    </div>
-    <div class="ef30-hero-stats">
-      <div class="ef30-hero-stat"><div class="ef30-hero-stat-num">3,9%</div><div class="ef30-hero-stat-label">Zielrendite p.a.</div></div>
-      <div class="ef30-hero-stat"><div class="ef30-hero-stat-num">30/70</div><div class="ef30-hero-stat-label">Aktien / Anleihen</div></div>
-      <div class="ef30-hero-stat"><div class="ef30-hero-stat-num">0,98%</div><div class="ef30-hero-stat-label">Kosten p.a.</div></div>
-    </div>
-    <div class="ef30-hero-ctas">
-      <a href="https://easyfolio.de/depot/depot-anmeldung" class="ef30-btn ef30-btn-green" style="font-size:16px!important;padding:16px 36px!important;">Jetzt investieren</a>
-      <a href="https://easyfolio.de/anlegertest" class="ef30-btn ef30-btn-outline">Anlegertest machen</a>
-    </div>
-  </div>
-</section>
+<div class="ef30-hero-glow"></div>
+<div class="ef30-wrap">
+<div class="ef30-hero-grid">
+<div>
+<div class="ef30-hero-tag"><span class="ef30-hero-tag-dot"></span>Defensives ETF-Portfolio mit 30% Aktien</div>
+<h1>Ihr Geld verdient einen besseren Job als auf dem Sparbuch zu liegen.</h1>
+<p>Sie arbeiten hart für Ihr Geld. Jetzt wird es Zeit, dass Ihr Geld für Sie arbeitet. Mit easyfolio 30 investieren Sie wie die Profis: automatisch diversifiziert, kontinuierlich überwacht und ohne dass Sie einen Finger rühren müssen.</p>
+<div class="ef30-hero-btns">
+<a href="https://easyfolio.de/depot" class="ef30-hero-btn primary">Jetzt Depot eröffnen</a>
+<a href="#produkt" class="ef30-hero-btn secondary">Portfolio entdecken</a>
 </div>
-
-<!-- TRUST LOGOS -->
-<div class="ef30-trust">
-  <div class="ef30-trust-inner">
-    <div class="ef30-trust-item">
-      <div class="ef30-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-4z" stroke="rgb(76,121,199)"/><path d="M9 12l2 2 4-4" stroke="rgb(124,186,58)" stroke-width="2"/></svg></div>
-      <div><div class="ef30-trust-label">FNZ Bank</div><div class="ef30-trust-sub">Sondervermögen geschützt</div></div>
-    </div>
-    <div class="ef30-trust-item">
-      <div class="ef30-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" stroke="rgb(76,121,199)"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="rgb(76,121,199)"/></svg></div>
-      <div><div class="ef30-trust-label">Gesetzlich abgesichert</div><div class="ef30-trust-sub">Kapital als Sondervermögen</div></div>
-    </div>
-    <div class="ef30-trust-item">
-      <div class="ef30-trust-icon"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/HB_SV_BESTE_Finanzdienstleister_z3M_2022_2024_easyfolio.jpg" alt="Handelsblatt" style="width:36px;height:36px;object-fit:contain;border-radius:4px;"></div>
-      <div><div class="ef30-trust-label">3x Testsieger</div><div class="ef30-trust-sub">Handelsblatt 2022-2024</div></div>
-    </div>
-    <div class="ef30-trust-item">
-      <div class="ef30-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgb(76,121,199)"/><path d="M8 12l3 3 5-5" stroke="rgb(124,186,58)" stroke-width="2"/></svg></div>
-      <div><div class="ef30-trust-label">0 Euro Performancegebühr</div><div class="ef30-trust-sub">Keine versteckten Kosten</div></div>
-    </div>
-    <div class="ef30-trust-item">
-      <div class="ef30-trust-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012 4.1 2 2 0 014 2h3a2 2 0 012 1.7c.4 1 .8 2 .7 2.8a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.1-1.1a2 2 0 012.1-.5c.8.1 1.8.5 2.8.7a2 2 0 011.7 2z" stroke="rgb(76,121,199)"/></svg></div>
-      <div><div class="ef30-trust-label">Kostenfreie Hotline</div><div class="ef30-trust-sub">0800 12305070</div></div>
-    </div>
-  </div>
 </div>
-
-<!-- PRODUCT CARD + PRODUCT INFO -->
-<section class="ef30-product-section">
-  <div class="ef30-product-inner">
-    <div class="ef30-product-card">
-      <div class="ef30-product-card-top">
-        <div class="ef30-ring"><div class="ef30-ring-outer"></div><div class="ef30-ring-fill"><svg viewBox="0 0 100 100"><circle class="ef30-ring-bg" cx="50" cy="50" r="40"/><circle class="ef30-ring-progress" cx="50" cy="50" r="40"/></svg></div><span class="ef30-ring-num">30</span></div>
-        <div class="ef30-product-card-type">Defensives ETF-Portfolio</div>
-        <div class="ef30-product-card-name">easyfolio 30</div>
-        <div class="ef30-product-card-bar"></div>
-      </div>
-      <div class="ef30-product-card-body">
-        <div class="ef30-product-card-yield">3,9%</div>
-        <div class="ef30-product-card-yield-label">Zielrendite pro Jahr</div>
-        <div class="ef30-product-card-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>30% Aktien | 70% Anleihen</div>
-        <div class="ef30-product-card-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Einmalanlage ab 100 Euro</div>
-        <div class="ef30-product-card-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Sparplan ab 10 Euro monatlich</div>
-        <div class="ef30-product-card-li"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="rgba(124,186,58,.12)"/><path d="M3.5 7l2.5 2.5 4.5-4.5" stroke="rgb(124,186,58)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Kein Ausgabeaufschlag</div>
-        <a href="https://easyfolio.de/depot/depot-anmeldung" class="ef30-btn ef30-btn-green" style="margin-top:20px;width:100%;text-align:center;">Jetzt investieren</a>
-      </div>
-    </div>
-    <div class="ef30-product-info">
-      <h2>Sicherheit und Wachstum vereint</h2>
-      <p>Der easyfolio 30 ist unser defensivstes Portfolio. Mit einem Anleihenanteil von 70% bietet er eine hohe Stabilität bei moderaten Renditechancen. Ideal für Anleger, die Wert auf Kapitalerhalt legen und gleichzeitig von den globalen Märkten profitieren möchten.</p>
-      <div class="ef30-info-grid">
-        <div class="ef30-info-item">
-          <div class="ef30-info-item-label">ISIN</div>
-          <div class="ef30-info-item-value ef30-val-blue">DE000EASY306</div>
-        </div>
-        <div class="ef30-info-item">
-          <div class="ef30-info-item-label">WKN</div>
-          <div class="ef30-info-item-value ef30-val-blue">EASY30</div>
-        </div>
-        <div class="ef30-info-item">
-          <div class="ef30-info-item-label">Kosten (TER)</div>
-          <div class="ef30-info-item-value">0,98% p.a.</div>
-        </div>
-        <div class="ef30-info-item">
-          <div class="ef30-info-item-label">Zielrendite</div>
-          <div class="ef30-info-item-value ef30-val-green">3,9% p.a.</div>
-        </div>
-        <div class="ef30-info-item">
-          <div class="ef30-info-item-label">Mindestanlage</div>
-          <div class="ef30-info-item-value">100 Euro</div>
-        </div>
-        <div class="ef30-info-item">
-          <div class="ef30-info-item-label">Sparplan ab</div>
-          <div class="ef30-info-item-value">10 Euro / Monat</div>
-        </div>
-      </div>
-      <a href="https://easyfolio.de/depot/depot-anmeldung" class="ef30-btn ef30-btn-green">Depot eröffnen</a>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES (vs MSCI World) -->
-<section class="ef30-features-section">
-  <div class="ef30-features-head">
-    <h2>Warum easyfolio 30 statt MSCI World?</h2>
-    <p>Ein einzelner MSCI-World-ETF bietet keine echte Diversifikation. easyfolio 30 kombiniert Aktien und Anleihen für ein stabileres Portfolio.</p>
-  </div>
-  <div class="ef30-features-grid">
-    <div class="ef30-features-list">
-      <div class="ef30-feature-item">
-        <div class="ef30-feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-4z" stroke="rgb(76,121,199)"/><path d="M9 12l2 2 4-4" stroke="rgb(124,186,58)" stroke-width="2"/></svg></div>
-        <div class="ef30-feature-text">
-          <h3>70% Anleihen als Puffer</h3>
-          <p>Anleihen federn Markteinbrüche ab. Der MSCI World hat keinerlei Anleihenanteil und schwankt deutlich stärker.</p>
-        </div>
-      </div>
-      <div class="ef30-feature-item">
-        <div class="ef30-feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgb(76,121,199)"/><path d="M2 12h20M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10A15 15 0 0112 2" stroke="rgb(76,121,199)"/></svg></div>
-        <div class="ef30-feature-text">
-          <h3>Echte globale Streuung</h3>
-          <p>17.000+ Wertpapiere aus 95 Ländern. Der MSCI World enthält nur Industrieländer-Aktien.</p>
-        </div>
-      </div>
-      <div class="ef30-feature-item">
-        <div class="ef30-feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4" stroke="rgb(76,121,199)" stroke-width="2.5"/></svg></div>
-        <div class="ef30-feature-text">
-          <h3>Professionelles Rebalancing</h3>
-          <p>Die Zielallokation von 30/70 wird automatisch beibehalten. Kein manuelles Eingreifen nötig.</p>
-        </div>
-      </div>
-      <div class="ef30-feature-item">
-        <div class="ef30-feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3" stroke="rgb(76,121,199)"/><path d="M2 10h20" stroke="rgb(76,121,199)"/></svg></div>
-        <div class="ef30-feature-text">
-          <h3>Keine versteckten Kosten</h3>
-          <p>0,98% p.a. all-in. Kein Ausgabeaufschlag, keine Performancegebühren, keine Transaktionskosten.</p>
-        </div>
-      </div>
-    </div>
-    <div class="ef30-features-compare">
-      <h3>easyfolio 30 vs. MSCI World ETF</h3>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Aktienquote</span><span class="ef30-cmp-val">30% vs. 100%</span></div>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Anleihenanteil</span><span class="ef30-cmp-val ef30-cmp-highlight">70% vs. 0%</span></div>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Positionen</span><span class="ef30-cmp-val ef30-cmp-highlight">17.000+ vs. 1.500</span></div>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Schwellenländer</span><span class="ef30-cmp-val ef30-cmp-highlight">Ja vs. Nein</span></div>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Rebalancing</span><span class="ef30-cmp-val ef30-cmp-highlight">Automatisch vs. Manuell</span></div>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Max. Drawdown (historisch)</span><span class="ef30-cmp-val ef30-cmp-highlight">~12% vs. ~34%</span></div>
-      <div class="ef30-cmp-row"><span class="ef30-cmp-label">Volatilität</span><span class="ef30-cmp-val ef30-cmp-highlight">Niedrig vs. Hoch</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- BENEFITS -->
-<section class="ef30-benefits-section">
-  <div class="ef30-benefits-head">
-    <h2>Ihre Vorteile mit easyfolio 30</h2>
-    <p>Professionelle Vermögensverwaltung, die bisher nur Großanlegern vorbehalten war.</p>
-  </div>
-  <div class="ef30-benefits-grid">
-    <div class="ef30-benefit-card">
-      <div class="ef30-benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-4z" stroke="rgb(76,121,199)"/><path d="M9 12l2 2 4-4" stroke="rgb(124,186,58)" stroke-width="2"/></svg></div>
-      <h3>Kapital geschützt</h3>
-      <p>Ihr Geld ist Sondervermögen bei der FNZ Bank. Selbst bei Insolvenz bleibt Ihr Kapital vollständig geschützt.</p>
-    </div>
-    <div class="ef30-benefit-card">
-      <div class="ef30-benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgb(76,121,199)"/><path d="M2 12h20M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10A15 15 0 0112 2" stroke="rgb(76,121,199)"/></svg></div>
-      <h3>Global diversifiziert</h3>
-      <p>Über 17.000 Wertpapiere aus 95 Ländern. Aktien, Anleihen, Immobilien und Rohstoffe in einem Portfolio.</p>
-    </div>
-    <div class="ef30-benefit-card">
-      <div class="ef30-benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8l2.8-2.8M17 7l2.8-2.8" stroke="rgb(76,121,199)"/></svg></div>
-      <h3>Geringe Schwankungen</h3>
-      <p>70% Anleihenanteil sorgt für Stabilität. Ideal für Anleger mit mittlerem bis kurzem Anlagehorizont.</p>
-    </div>
-    <div class="ef30-benefit-card">
-      <div class="ef30-benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3" stroke="rgb(76,121,199)"/><path d="M2 10h20" stroke="rgb(76,121,199)"/><circle cx="16" cy="15" r="2" fill="rgb(124,186,58)"/></svg></div>
-      <h3>Transparente Kosten</h3>
-      <p>Nur 0,98% p.a. Gesamtkosten. Kein Ausgabeaufschlag, keine Performancegebühr, keine Transaktionskosten.</p>
-    </div>
-    <div class="ef30-benefit-card">
-      <div class="ef30-benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke="rgb(76,121,199)"/><path d="M14 9l-4 6M9.5 9.5h.01M14.5 14.5h.01" stroke="rgb(76,121,199)" stroke-width="2"/></svg></div>
-      <h3>Flexibel & jederzeit kündbar</h3>
-      <p>Keine Mindestlaufzeit. Sparplan pausieren, anpassen oder kündigen. Auszahlung in 2-3 Bankarbeitstagen.</p>
-    </div>
-    <div class="ef30-benefit-card">
-      <div class="ef30-benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012 4.1 2 2 0 014 2h3a2 2 0 012 1.7c.4 1 .8 2 .7 2.8a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.1-1.1a2 2 0 012.1-.5c.8.1 1.8.5 2.8.7a2 2 0 011.7 2z" stroke="rgb(76,121,199)"/></svg></div>
-      <h3>Persönliche Beratung</h3>
-      <p>Kostenfreie Hotline unter 0800 12305070. Montag bis Freitag erreichbar für alle Ihre Fragen.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO TABS (Allocation / Details / Downloads) -->
-<section class="ef30-portfolio-section">
-  <div class="ef30-portfolio-head">
-    <h2>Portfolio im Detail</h2>
-    <p>Transparente Einblicke in die Zusammensetzung, die enthaltenen ETFs und wichtige Dokumente.</p>
-  </div>
-  <div class="ef30-tabs-nav">
-    <button class="ef30-tab-btn ef30-tab-active" onclick="ef30OpenTab('alloc',this)">Allokation</button>
-    <button class="ef30-tab-btn" onclick="ef30OpenTab('details',this)">ETF-Details</button>
-    <button class="ef30-tab-btn" onclick="ef30OpenTab('downloads',this)">Downloads</button>
-  </div>
-
-  <!-- Tab: Allokation -->
-  <div class="ef30-tab-panel ef30-active" id="ef30-tab-alloc">
-    <div class="ef30-alloc-grid">
-      <div>
-        <div class="ef30-alloc-chart">
-          <svg viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="#e0e4ec" stroke-width="8"/>
-            <circle cx="50" cy="50" r="40" fill="none" stroke="rgb(76,121,199)" stroke-width="8" stroke-dasharray="75 251" stroke-linecap="round"/>
-            <circle cx="50" cy="50" r="40" fill="none" stroke="rgb(124,186,58)" stroke-width="8" stroke-dasharray="176 251" stroke-dashoffset="-75" stroke-linecap="round"/>
-          </svg>
-          <div class="ef30-alloc-chart-center">
-            <div class="ef30-alloc-chart-num">30</div>
-            <div class="ef30-alloc-chart-label">% Aktien</div>
-          </div>
-        </div>
-      </div>
-      <div class="ef30-alloc-legend">
-        <div class="ef30-alloc-legend-item">
-          <span class="ef30-alloc-legend-dot" style="background:rgb(76,121,199);"></span>
-          Aktien (30%)
-          <div class="ef30-alloc-legend-bar"><div class="ef30-alloc-legend-fill" style="width:30%;background:rgb(76,121,199);"></div></div>
-        </div>
-        <div class="ef30-alloc-legend-item">
-          <span class="ef30-alloc-legend-dot" style="background:rgb(124,186,58);"></span>
-          Anleihen (70%)
-          <div class="ef30-alloc-legend-bar"><div class="ef30-alloc-legend-fill" style="width:70%;background:rgb(124,186,58);"></div></div>
-        </div>
-        <div style="margin-top:12px;padding:20px;background:var(--ef30-bg);border-radius:14px;border:1px solid #edf0f4;">
-          <div style="font-size:14px;font-weight:700;color:var(--ef30-text);margin-bottom:8px;">Aktien nach Region</div>
-          <div style="font-size:13px;color:var(--ef30-muted);line-height:2;">
-            Nordamerika: 13,5%<br>
-            Europa: 7,5%<br>
-            Asien-Pazifik: 4,5%<br>
-            Schwellenländer: 4,5%
-          </div>
-        </div>
-        <div style="padding:20px;background:var(--ef30-bg);border-radius:14px;border:1px solid #edf0f4;">
-          <div style="font-size:14px;font-weight:700;color:var(--ef30-text);margin-bottom:8px;">Anleihen nach Typ</div>
-          <div style="font-size:13px;color:var(--ef30-muted);line-height:2;">
-            Staatsanleihen: 42%<br>
-            Unternehmensanleihen: 18%<br>
-            Inflationsgeschützte: 10%
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tab: ETF-Details -->
-  <div class="ef30-tab-panel" id="ef30-tab-details">
-    <table class="ef30-details-table">
-      <thead>
-        <tr>
-          <th>ETF-Name</th>
-          <th>Anlageklasse</th>
-          <th>Region</th>
-          <th>Anteil</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>iShares Core MSCI World</td><td>Aktien</td><td>Global Industrieländer</td><td>13,5%</td></tr>
-        <tr><td>iShares Core MSCI EM IMI</td><td>Aktien</td><td>Schwellenländer</td><td>4,5%</td></tr>
-        <tr><td>iShares STOXX Europe 600</td><td>Aktien</td><td>Europa</td><td>7,5%</td></tr>
-        <tr><td>iShares Core MSCI Pacific</td><td>Aktien</td><td>Asien-Pazifik</td><td>4,5%</td></tr>
-        <tr><td>iShares Core Euro Govt Bond</td><td>Staatsanleihen</td><td>Eurozone</td><td>25%</td></tr>
-        <tr><td>iShares Global Govt Bond</td><td>Staatsanleihen</td><td>Global</td><td>17%</td></tr>
-        <tr><td>iShares Euro Corp Bond</td><td>Unternehmensanleihen</td><td>Europa</td><td>18%</td></tr>
-        <tr><td>iShares Euro Inflation Linked</td><td>Inflationsgeschützt</td><td>Eurozone</td><td>10%</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:12px;color:#b0b0b8;margin-top:14px;text-align:center;">Stand: April 2026. Die tatsächliche Zusammensetzung kann aufgrund von Rebalancing leicht abweichen.</p>
-  </div>
-
-  <!-- Tab: Downloads -->
-  <div class="ef30-tab-panel" id="ef30-tab-downloads">
-    <div class="ef30-downloads-grid">
-      <div class="ef30-download-item">
-        <div class="ef30-download-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div class="ef30-download-text">
-          <h4>Factsheet easyfolio 30</h4>
-          <p>Monatliches Factsheet mit Kennzahlen und Performance</p>
-        </div>
-        <a href="https://easyfolio.de/downloads/factsheet-ef30.pdf" class="ef30-download-link">PDF</a>
-      </div>
-      <div class="ef30-download-item">
-        <div class="ef30-download-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div class="ef30-download-text">
-          <h4>KIID / Basisinformationsblatt</h4>
-          <p>Wesentliche Anlegerinformationen (DE000EASY306)</p>
-        </div>
-        <a href="https://easyfolio.de/downloads/kiid-ef30.pdf" class="ef30-download-link">PDF</a>
-      </div>
-      <div class="ef30-download-item">
-        <div class="ef30-download-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div class="ef30-download-text">
-          <h4>Verkaufsprospekt</h4>
-          <p>Vollständiger Verkaufsprospekt des Fonds</p>
-        </div>
-        <a href="https://easyfolio.de/downloads/prospekt-ef30.pdf" class="ef30-download-link">PDF</a>
-      </div>
-      <div class="ef30-download-item">
-        <div class="ef30-download-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div class="ef30-download-text">
-          <h4>Halbjahresbericht</h4>
-          <p>Aktueller Halbjahresbericht des easyfolio 30</p>
-        </div>
-        <a href="https://easyfolio.de/downloads/halbjahresbericht-ef30.pdf" class="ef30-download-link">PDF</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CALCULATOR -->
-<section class="ef30-calc-section">
-  <div class="ef30-calc-inner">
-    <div class="ef30-calc-head">
-      <h2>Sparplanrechner</h2>
-      <p>Berechnen Sie, wie sich Ihr Vermögen mit dem easyfolio 30 entwickeln könnte.</p>
-    </div>
-    <div class="ef30-calc-card">
-      <div class="ef30-calc-inputs">
-        <div class="ef30-calc-group">
-          <label>Einmalanlage (Euro)</label>
-          <input type="number" id="ef30CalcInitial" value="1000" min="0" step="100" oninput="ef30Calculate()">
-        </div>
-        <div class="ef30-calc-group">
-          <label>Monatliche Sparrate (Euro)</label>
-          <input type="number" id="ef30CalcMonthly" value="100" min="0" step="10" oninput="ef30Calculate()">
-        </div>
-        <div class="ef30-calc-group">
-          <label>Anlagedauer (Jahre)</label>
-          <input type="number" id="ef30CalcYears" value="10" min="1" max="50" oninput="ef30Calculate()">
-        </div>
-      </div>
-      <div class="ef30-calc-result">
-        <div class="ef30-calc-result-label">Geschätzter Endbetrag</div>
-        <div class="ef30-calc-result-value" id="ef30CalcTotal">0 Euro</div>
-        <div class="ef30-calc-result-row">
-          <div class="ef30-calc-result-item">
-            <div class="ef30-calc-result-item-num" id="ef30CalcDeposit">0 Euro</div>
-            <div class="ef30-calc-result-item-label">Eingezahlt</div>
-          </div>
-          <div class="ef30-calc-result-item">
-            <div class="ef30-calc-result-item-num" id="ef30CalcGain">0 Euro</div>
-            <div class="ef30-calc-result-item-label">Wertzuwachs</div>
-          </div>
-        </div>
-        <div class="ef30-calc-result-sub">Berechnung bei 3,9% Zielrendite p.a. (easyfolio 30)</div>
-      </div>
-      <div class="ef30-calc-disclaimer">Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Die tatsächliche Rendite kann höher oder niedriger ausfallen.</div>
-    </div>
-  </div>
-</section>
-
-<!-- DISCLAIMER -->
-<div class="ef30-disclaimer">
-  Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Kapitalanlagen bergen Risiken. Die angegebenen Zielrenditen sind keine Garantien. ISIN: DE000EASY306 | WKN: EASY30<br><br>
-  easyfolio GmbH &middot; Heidenkampsweg 73 &middot; 20097 Hamburg<br>
-  Telefon 0800 12305070 &middot; info@easyfolio.de
+<div class="ef30-hero-visual">
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="Entspannte Anleger" class="ef30-hero-img">
+<div class="ef30-hero-badge ef30-hero-badge-1"><small>Zielrendite p.a.</small><strong>3,9%</strong></div>
+<div class="ef30-hero-badge ef30-hero-badge-2"><strong>17.000+</strong><small>Wertpapiere</small></div>
 </div>
-
-</div><!-- end .ef30-page -->
-
-<!-- STICKY WIDGET -->
+</div>
+</div>
+</section>
+<section class="ef30-trust">
+<div class="ef30-wrap">
+<div class="ef30-trust-inner">
+<img src="https://api.easyfolio.de/fileadmin/B2B/Auszeichnungen/Robo-Advisors-Test-2023-Siegel_sehr-gut_m_1_.jpg" alt="Award" class="ef30-trust-logo">
+<img src="https://api.easyfolio.de/fileadmin/B2B/Auszeichnungen/Boerse_Online_Award_-Bester_ETF_2022_sehrklein.jpg" alt="Award" class="ef30-trust-logo">
+<img src="https://api.easyfolio.de/fileadmin/B2B/Auszeichnungen/HB_SV_Dtlds_Beste_Finanzdienstleister2022_easyfolio_sehrklein.jpg" alt="Award" class="ef30-trust-logo">
+<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Euro_Analyse_ETF_200.png" alt="Award" class="ef30-trust-logo">
+</div>
+</div>
+</section>
+<section class="ef30-section ef30-section-gray" id="produkt">
+<div class="ef30-wrap">
+<div class="ef30-product-grid">
+<div class="ef30-product-card">
+<div class="ef30-product-top">
+<div class="ef30-product-ring"><div class="ef30-product-ring-outer"></div><div class="ef30-product-ring-fill"><svg viewBox="0 0 100 100"><circle class="ef30-product-ring-bg" cx="50" cy="50" r="40"/><circle class="ef30-product-ring-progress" cx="50" cy="50" r="40"/></svg></div><span class="ef30-product-ring-num">30</span></div>
+<small>Defensives ETF-Portfolio</small>
+<h2>easyfolio 30</h2>
+</div>
+<div class="ef30-product-content-single">
+<div class="ef30-product-yield"><strong>3,9%</strong><small>Zielrendite pro Jahr</small></div>
+<div class="ef30-product-list">
+<div class="ef30-product-feat"><div class="ef30-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>30% Aktien | 70% Anleihen</span></div>
+<div class="ef30-product-feat"><div class="ef30-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>WKN: EASY30</span></div>
+<div class="ef30-product-feat"><div class="ef30-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>Einmalanlage ab 100 Euro</span></div>
+<div class="ef30-product-feat"><div class="ef30-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>Sparplan ab 10 Euro monatlich</span></div>
+<div class="ef30-product-feat"><div class="ef30-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>Kein Ausgabeaufschlag</span></div>
+</div>
+<a href="https://easyfolio.de/depot" class="ef30-product-btn">Jetzt investieren</a>
+</div>
+</div>
+<div class="ef30-product-info">
+<span class="ef30-badge">Anlagestrategie</span>
+<h2>Schluss mit Tagesgeld-Hopping - Investieren Sie in das beste ETF-Portfolio für sicherheitsbewusste Anleger</h2>
+<p>Kennen Sie das auch? Alle paar Monate wieder auf der Jagd nach dem nächsten Tagesgeldangebot mit 0,2% mehr Zinsen. Sie eröffnen neue Konten, lesen Kleingedrucktes und ärgern sich über befristete Aktionskonditionen. Das ist anstrengend und auf Dauer keine Lösung für Ihr Vermögen.</p>
+<p>Mit easyfolio 30 investieren Sie Ihr Geld dort, wo es wirklich hingehört: In Ihren langfristigen Vermögensaufbau. Mit 70% Anleihen und nur 30% Aktien haben Sie maximale Sicherheit bei solider Renditeerwartung.</p>
+<p>Einmal einrichten, dann läuft alles automatisch. Keine nervigen Kontowechsel mehr, kein Vergleichen von Lockangeboten. Stattdessen professionelle Vermögensverwaltung wie bei den Superreichen. Nur eben schon ab 10 Euro im Monat.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="ef30-features">
+<div class="ef30-wrap">
+<div class="ef30-features-head">
+<span class="ef30-badge">easyfolio 30 vs MSCI World</span>
+<h2 class="ef30-heading">Warum geben Sie sich mit Durchschnitt zufrieden?</h2>
+<p class="ef30-subhead">Ein MSCI World ETF allein ist ein guter Start. Aber reicht Ihnen wirklich, was alle anderen auch haben? Wir bieten mehr.</p>
+</div>
+<div class="ef30-features-wrap">
+<div class="ef30-features-grid">
+<div class="ef30-feature"><div class="ef30-feature-icon"><div class="ef30-feature-icon-inner"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div></div><h3>Breiter diversifiziert</h3><p>70% Anleihen dämpfen Schwankungen. Der MSCI World bietet nur Aktien und keine Stabilität in Krisen.</p></div>
+<div class="ef30-feature"><div class="ef30-feature-icon"><div class="ef30-feature-icon-inner"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div></div><h3>Automatisch rebalanciert</h3><p>Wir passen Ihr Portfolio kontinuierlich an. Beim MSCI World müssen Sie selbst aktiv werden.</p></div>
+<div class="ef30-feature"><div class="ef30-feature-icon"><div class="ef30-feature-icon-inner"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div></div><h3>Ruhiger schlafen</h3><p>Mit 70% Anleihen bleiben Sie auch in Börsencrashs gelassen. Der MSCI World schwankt bis zu 50%.</p></div>
+<div class="ef30-feature"><div class="ef30-feature-icon"><div class="ef30-feature-icon-inner"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div></div><h3>Spart Ihnen Zeit</h3><p>Keine Recherche, kein Rebalancing. Beim MSCI World allein fehlt die professionelle Betreuung.</p></div>
+</div>
+</div>
+</div>
+</section>
+<section class="ef30-section ef30-section-white">
+<div class="ef30-wrap">
+<div class="ef30-benefits-head">
+<span class="ef30-badge">Ihre Vorteile</span>
+<h2 class="ef30-heading">Das macht easyfolio für Sie</h2>
+<p class="ef30-subhead">Vermögensverwaltung wie bei den Superreichen. Jetzt ab 10 Euro monatlich für jeden zugänglich.</p>
+</div>
+<div class="ef30-benefits-wrap">
+<div class="ef30-benefits-grid">
+<div class="ef30-benefit"><div class="ef30-benefit-icon icon-weltportfolio"></div><h3>Weltportfolio</h3><p>Ein fertiges ETF Portfolio bestehend aus 10-15 Aktien- und Anleihen ETFs aus der ganzen Welt.</p></div>
+<div class="ef30-benefit"><div class="ef30-benefit-icon icon-ultradiv"></div><h3>Ultradiversifikation</h3><p>Maximale globale Diversifikation mit über 17.000 Aktien und Anleihen.</p></div>
+<div class="ef30-benefit"><div class="ef30-benefit-icon icon-bip"></div><h3>BIP-Ländergewichtung</h3><p>Innovative Regionengewichtung nach 50% Wirtschaftsleistung und 50% Marktkapitalisierung.</p></div>
+<div class="ef30-benefit"><div class="ef30-benefit-icon icon-einfach"></div><h3>Einfach</h3><p>Eröffnen Sie direkt online ein neues Depot oder nutzen Sie das vorhandene Depot bei Ihrer Hausbank.</p></div>
+<div class="ef30-benefit"><div class="ef30-benefit-icon icon-allcap"></div><h3>All-Cap</h3><p>Berücksichtigung des Gesamtmarkts: Small Caps, Mid Caps und Large Caps.</p></div>
+<div class="ef30-benefit"><div class="ef30-benefit-icon icon-allmarket"></div><h3>All-Market</h3><p>Abdeckung aller Weltregionen: Industrieländer und Schwellenländer.</p></div>
+</div>
+</div>
+</div>
+</section>
+<section class="ef30-section ef30-section-gray">
+<div class="ef30-wrap">
+<div class="ef30-tabs-head">
+<span class="ef30-badge">Portfolio</span>
+<h2 class="ef30-heading">Was steckt in Ihrem Portfolio?</h2>
+<p class="ef30-subhead">Volle Transparenz bei jeder einzelnen Position</p>
+<div class="ef30-tabs-nav">
+<button class="ef30-tabs-btn active" data-tab="alloc">Allokation</button>
+<button class="ef30-tabs-btn" data-tab="details">Details</button>
+<button class="ef30-tabs-btn" data-tab="downloads">Downloads</button>
+</div>
+</div>
+<div class="ef30-tab-panel active" id="panel-alloc">
+<div class="ef30-alloc-wrap">
+<div class="ef30-alloc-box">
+<div class="ef30-alloc-header"><h3>Aktien-ETFs</h3><span>30%</span></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">UBS S&P 500 UCITS ETF</div><div class="ef30-alloc-market">Aktien USA</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:38%"></div></div><span class="ef30-alloc-num">11,5%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">LYXOR NASDAQ 100 UCITS ETF</div><div class="ef30-alloc-market">Aktien USA</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:15%"></div></div><span class="ef30-alloc-num">4,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">Lyxor Core STOXX Europe 600</div><div class="ef30-alloc-market">Aktien Europa</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:21%"></div></div><span class="ef30-alloc-num">6,3%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">UBS MSCI Emerging Markets</div><div class="ef30-alloc-market">Schwellenländer</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:12%"></div></div><span class="ef30-alloc-num">3,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">Xtrackers Nikkei 225</div><div class="ef30-alloc-market">Aktien Japan</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:8%"></div></div><span class="ef30-alloc-num">2,4%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">HSBC Pacific ex Japan</div><div class="ef30-alloc-market">Aktien Asien</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:4%"></div></div><span class="ef30-alloc-num">1,2%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">UBS MSCI Canada</div><div class="ef30-alloc-market">Aktien Kanada</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:3%"></div></div><span class="ef30-alloc-num">0,8%</span></div></div>
+</div>
+<div class="ef30-alloc-box">
+<div class="ef30-alloc-header"><h3>Anleihen-ETFs</h3><span>70%</span></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">iShares Global Aggregate Bond</div><div class="ef30-alloc-market">Anleihen Global</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:17%"></div></div><span class="ef30-alloc-num">11,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">Amundi Prime Euro Govies</div><div class="ef30-alloc-market">Staatsanleihen Europa</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:17%"></div></div><span class="ef30-alloc-num">11,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">Franklin Euro Short Maturity</div><div class="ef30-alloc-market">Staatsanleihen Ultrashort</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:17%"></div></div><span class="ef30-alloc-num">11,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">Amundi Euro Corporate 0-1Y</div><div class="ef30-alloc-market">Unternehmensanleihen</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:17%"></div></div><span class="ef30-alloc-num">11,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">iShares EUR Ultrashort Bond</div><div class="ef30-alloc-market">Anleihen Ultrashort</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:17%"></div></div><span class="ef30-alloc-num">11,6%</span></div></div>
+<div class="ef30-alloc-item"><div class="ef30-alloc-left"><div class="ef30-alloc-name">iShares EUR Floating Rate Bond</div><div class="ef30-alloc-market">Unternehmensanleihen</div></div><div class="ef30-alloc-bar"><div class="ef30-alloc-track"><div class="ef30-alloc-fill" style="width:17%"></div></div><span class="ef30-alloc-num">11,6%</span></div></div>
+</div>
+</div>
+</div>
+<div class="ef30-tab-panel" id="panel-details">
+<div class="ef30-details-grid">
+<div class="ef30-detail"><small>WKN</small><strong>EASY30</strong></div>
+<div class="ef30-detail"><small>ISIN</small><strong>DE000EASY306</strong></div>
+<div class="ef30-detail"><small>Ertragsverwendung</small><strong>Thesaurierend</strong></div>
+<div class="ef30-detail"><small>Auflagedatum</small><strong>01.01.2014</strong></div>
+<div class="ef30-detail"><small>Geschäftsjahr</small><strong>01.02 - 31.01</strong></div>
+<div class="ef30-detail"><small>Depotbank</small><strong>HAL Privatbank AG</strong></div>
+<div class="ef30-detail"><small>Asset Manager</small><strong>NFS Capital AG</strong></div>
+<div class="ef30-detail"><small>SRRI</small><strong>4 von 7</strong></div>
+<div class="ef30-detail"><small>Ausgabeaufschlag</small><strong>0,0%</strong></div>
+<div class="ef30-detail"><small>Laufende Kosten</small><strong>0,98% p.a.</strong></div>
+<div class="ef30-detail"><small>Währung</small><strong>Euro</strong></div>
+<div class="ef30-detail"><small>Mindestanlage</small><strong>100 Euro</strong></div>
+</div>
+</div>
+<div class="ef30-tab-panel" id="panel-downloads">
+<div class="ef30-downloads-grid">
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/FS_DE000EASY306_de.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Factsheet</h4><span>PDF herunterladen</span></a>
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/VP_DE000EASY306_DE_de.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Verkaufsprospekt</h4><span>PDF herunterladen</span></a>
+<a href="https://www.hal-privatbank.com/Downloads/Public/fondsportfolio/PRIIPS_DE000EASY306_DE_de.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Anlegerinformationen</h4><span>PDF herunterladen</span></a>
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/HB_DE000EASY306.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Halbjahresbericht</h4><span>PDF herunterladen</span></a>
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/JB_DE000EASY306.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Jahresbericht</h4><span>PDF herunterladen</span></a>
+</div>
+</div>
+</div>
+</section>
+<section class="ef30-section ef30-section-white" id="rechner">
+<div class="ef30-wrap">
+<div class="ef30-calc-head">
+<span class="ef30-badge">Rechner</span>
+<h2 class="ef30-heading">Was könnte aus Ihrem Geld werden?</h2>
+<p class="ef30-subhead">Berechnen Sie Ihr mögliches Vermögen mit easyfolio 30</p>
+</div>
+<div class="ef30-calc-grid">
+<div class="ef30-calc-left">
+<div class="ef30-calc-row"><label class="ef30-calc-label">Anlagesumme</label><div class="ef30-calc-value" id="calcAmountDisplay">10.000 Euro</div><input type="range" class="ef30-calc-slider" id="calcAmount" min="1000" max="100000" step="500" value="10000"></div>
+<div class="ef30-calc-row"><label class="ef30-calc-label">Anlagedauer</label><div class="ef30-calc-value" id="calcYearsDisplay">10 Jahre</div><input type="range" class="ef30-calc-slider" id="calcYears" min="1" max="30" step="1" value="10"></div>
+</div>
+<div class="ef30-calc-right">
+<div class="ef30-calc-result-label">Ihr mögliches Vermögen</div>
+<div class="ef30-calc-result" id="calcResult">14.674 Euro</div>
+<div class="ef30-calc-gain">+ <span id="calcGain">4.674 Euro</span> Wertzuwachs</div>
+<a href="https://easyfolio.de/depot" class="ef30-calc-btn">Los geht's</a>
+<div class="ef30-calc-note">Berechnung basiert auf 3,9% Zielrendite p.a. Keine Garantie für zukünftige Erträge.</div>
+</div>
+</div>
+</div>
+</section>
 <div class="ef30-sticky" id="ef30Sticky">
-  <div class="ef30-sticky-inner">
-    <div class="ef30-sticky-left">
-      <span class="ef30-sticky-name">easyfolio 30</span>
-      <span class="ef30-sticky-yield">3,9% Zielrendite</span>
-      <span class="ef30-sticky-meta">ISIN: DE000EASY306 &middot; 0,98% p.a.</span>
-    </div>
-    <div class="ef30-sticky-right">
-      <a href="https://easyfolio.de/anlegertest" class="ef30-btn ef30-btn-blue" style="padding:10px 22px!important;font-size:13px!important;">Anlegertest</a>
-      <a href="https://easyfolio.de/depot/depot-anmeldung" class="ef30-btn ef30-btn-green" style="padding:10px 22px!important;font-size:13px!important;">Jetzt investieren</a>
-    </div>
-  </div>
+<div class="ef30-sticky-txt">easyfolio 30 <span>3,9% Zielrendite - Ab 10 Euro monatlich</span></div>
+<a href="https://easyfolio.de/depot" class="ef30-sticky-btn">Depot eröffnen</a>
 </div>
-
+</div>
 <script>
-/* TABS */
-function ef30OpenTab(id,btn){document.querySelectorAll('.ef30-tab-panel').forEach(function(p){p.classList.remove('ef30-active')});document.querySelectorAll('.ef30-tab-btn').forEach(function(b){b.classList.remove('ef30-tab-active')});document.getElementById('ef30-tab-'+id).classList.add('ef30-active');btn.classList.add('ef30-tab-active')}
-
-/* CALCULATOR – rate 0.039 (3.9% p.a.) */
-function ef30Calculate(){var rate=0.039;var initial=parseFloat(document.getElementById('ef30CalcInitial').value)||0;var monthly=parseFloat(document.getElementById('ef30CalcMonthly').value)||0;var years=parseInt(document.getElementById('ef30CalcYears').value)||1;var monthlyRate=rate/12;var months=years*12;var futureInitial=initial*Math.pow(1+monthlyRate,months);var futureSavings=monthly*((Math.pow(1+monthlyRate,months)-1)/monthlyRate);var total=futureInitial+futureSavings;var deposited=initial+(monthly*months);var gain=total-deposited;document.getElementById('ef30CalcTotal').textContent=Math.round(total).toLocaleString('de-DE')+' Euro';document.getElementById('ef30CalcDeposit').textContent=Math.round(deposited).toLocaleString('de-DE')+' Euro';document.getElementById('ef30CalcGain').textContent=Math.round(gain).toLocaleString('de-DE')+' Euro'}
-ef30Calculate();
-
-/* STICKY WIDGET – show after scrolling past hero */
-(function(){var sticky=document.getElementById('ef30Sticky');var heroWrap=document.querySelector('.ef30-hero-wrap');if(!sticky||!heroWrap)return;var shown=false;window.addEventListener('scroll',function(){var heroBottom=heroWrap.getBoundingClientRect().bottom;if(heroBottom<0&&!shown){sticky.classList.add('ef30-sticky-visible');shown=true}else if(heroBottom>=0&&shown){sticky.classList.remove('ef30-sticky-visible');shown=false}},{passive:true})})();
+(function(){
+function formatNum(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+var amountSlider=document.getElementById('calcAmount'),yearsSlider=document.getElementById('calcYears'),amountDisplay=document.getElementById('calcAmountDisplay'),yearsDisplay=document.getElementById('calcYearsDisplay'),resultDisplay=document.getElementById('calcResult'),gainDisplay=document.getElementById('calcGain');
+function updateCalc(){var a=parseInt(amountSlider.value),y=parseInt(yearsSlider.value),r=0.039,res=a*Math.pow(1+r,y),g=res-a;amountDisplay.textContent=formatNum(a)+' Euro';yearsDisplay.textContent=y+(y===1?' Jahr':' Jahre');resultDisplay.textContent=formatNum(Math.round(res))+' Euro';gainDisplay.textContent=formatNum(Math.round(g))+' Euro'}
+amountSlider.addEventListener('input',updateCalc);yearsSlider.addEventListener('input',updateCalc);updateCalc();
+var tabs=document.querySelectorAll('.ef30-tabs-btn');tabs.forEach(function(btn){btn.addEventListener('click',function(){var t=this.dataset.tab;tabs.forEach(function(b){b.classList.remove('active')});document.querySelectorAll('.ef30-tab-panel').forEach(function(p){p.classList.remove('active')});this.classList.add('active');document.getElementById('panel-'+t).classList.add('active')})});
+var sticky=document.getElementById('ef30Sticky'),ticking=false;function updateSticky(){if(window.pageYOffset>500){sticky.classList.add('visible')}else{sticky.classList.remove('visible')}ticking=false}window.addEventListener('scroll',function(){if(!ticking){window.requestAnimationFrame(updateSticky);ticking=true}},{passive:true});
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+})();
 </script>
