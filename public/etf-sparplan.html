@@ -5,8 +5,8 @@
 .sp-wrap{max-width:1100px;margin:0 auto;padding:0 40px;width:100%}
 @media(max-width:768px){.sp-wrap{padding:0 20px}}
 @media(max-width:480px){.sp-wrap{padding:0 16px}}
-.sp-hero{background:rgb(76,121,199);padding:80px 0 100px;position:relative;overflow:hidden}
-.sp-hero::before{content:'';position:absolute;top:0;right:0;width:60%;height:100%;background:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/ETF_Sparplan__Investieren__Header.png') center/cover no-repeat;opacity:.18}
+.sp-hero{background:rgb(76,121,199);padding:90px 0 110px;position:relative;overflow:hidden}
+.sp-hero::before{content:'';position:absolute;top:-20%;right:-10%;width:500px;height:500px;border-radius:50%;background:rgba(124,186,58,.15);filter:blur(100px)}.sp-hero::after{content:'';position:absolute;bottom:-30%;left:-5%;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.08);filter:blur(80px)}
 .sp-hero-inner{position:relative;z-index:2;max-width:600px}
 .sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;margin-bottom:24px}
 .sp-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%}
@@ -20,7 +20,7 @@
 .sp-btn:hover{transform:scale(1.03)!important}
 .sp-btn-green{background:#7cba3a!important;color:#fff!important}
 .sp-btn-blue{background:rgb(76,121,199)!important;color:#fff!important}
-.sp-btn-outline{background:transparent!important;color:#fff!important;border:2px solid rgba(255,255,255,.4)!important}
+.sp-btn-outline{background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.35)!important}
 .sp-btn-white{background:#fff!important;color:#1a202c!important}
 .sp-badge{display:inline-block!important;background:rgb(76,121,199);color:#fff;padding:6px 16px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px}
 .sp-heading{font-size:clamp(26px,3.8vw,38px);font-weight:800!important;color:#1a202c;line-height:1.12;margin-bottom:16px}
@@ -114,10 +114,10 @@
 .sp-sticky-txt{font-size:15px;font-weight:600;color:#1a202c}
 .sp-sticky-txt span{color:#64748b;font-weight:400;display:block;font-size:13px;margin-top:2px}
 /* SCROLL REVEAL */
-.sp-reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.sp-reveal{opacity:0;transform:translateY(24px);transition:opacity .4s cubic-bezier(.4,0,.2,1),transform .4s cubic-bezier(.4,0,.2,1)}.sp-reveal:nth-child(2){transition-delay:.08s}.sp-reveal:nth-child(3){transition-delay:.16s}.sp-reveal:nth-child(4){transition-delay:.24s}.sp-reveal:nth-child(5){transition-delay:.32s}.sp-reveal:nth-child(6){transition-delay:.4s}
 .sp-reveal.sp-visible{opacity:1;transform:translateY(0)}
 /* RESPONSIVE */
-@media(max-width:1100px){.sp-hero-stats{gap:24px}.sp-features-grid{grid-template-columns:repeat(2,1fr)}.sp-portfolio-grid{grid-template-columns:repeat(2,1fr)}.sp-info-grid{grid-template-columns:1fr;gap:32px}.sp-calc-grid{grid-template-columns:1fr}.sp-steps-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1100px){.sp-hero-stats{gap:24px}.sp-features-grid{grid-template-columns:repeat(2,1fr)}.sp-portfolio-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}.sp-portfolio-grid::-webkit-scrollbar{display:none}.sp-portfolio-card{flex:0 0 320px!important;min-width:320px!important;scroll-snap-align:start!important}.sp-info-grid{grid-template-columns:1fr;gap:32px}.sp-calc-grid{grid-template-columns:1fr}.sp-steps-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.sp-wrap{padding:0 20px}.sp-section{padding:60px 0}.sp-hero{padding:50px 0 70px}.sp-hero h1{font-size:32px}.sp-hero-btns{flex-direction:column;align-items:stretch}.sp-hero-stats{flex-wrap:wrap;gap:16px}.sp-trust{padding:40px 0}.sp-trust-inner{gap:24px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.sp-trust-inner::-webkit-scrollbar{display:none}.sp-trust-logo{flex-shrink:0;height:70px}.sp-features-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.sp-features-wrap::-webkit-scrollbar{display:none}.sp-features-grid{display:flex;gap:16px;width:max-content}.sp-feature{min-width:280px;max-width:280px;flex-shrink:0}.sp-portfolio-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}.sp-steps-grid{grid-template-columns:1fr 1fr;gap:12px}.sp-info-img{aspect-ratio:4/3}.sp-sticky{flex-direction:column;gap:14px;text-align:center}.sp-sticky .sp-btn{width:100%!important}}
 @media(max-width:480px){.sp-hero h1{font-size:26px}.sp-heading{font-size:24px}.sp-section{padding:50px 0}.sp-hero{padding:40px 0 60px}.sp-steps-grid{grid-template-columns:1fr}.sp-calc-left,.sp-calc-right{padding:24px}.sp-calc-result{font-size:32px}.sp-sticky{bottom:12px;width:calc(100% - 24px)}}
 </style>
