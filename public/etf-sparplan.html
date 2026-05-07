@@ -1,100 +1,142 @@
 <style>
-.sp-page{--sp-blue:rgb(76,121,199);--sp-green:rgb(124,186,58);--sp-text:#1a1a2e;--sp-muted:#6b7280;--sp-border:#e5e7eb;--sp-bg:#f4f6fc;width:100%;color:var(--sp-text);line-height:1.6;-webkit-font-smoothing:antialiased}
-.sp-page,.sp-page *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
-.sp-page img{max-width:100%;display:block}
-.sp-page a{text-decoration:none!important;color:inherit}
-.sp-page h2{font-weight:800!important}
-.sp-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:transform .15s ease!important}
-.sp-btn:hover{transform:scale(1.03)!important}
-.sp-btn-green{background:var(--sp-green)!important;color:#fff!important}
-.sp-btn-blue{background:var(--sp-blue)!important;color:#fff!important}
-.sp-btn-outline{background:transparent!important;color:#fff!important;border:2px solid rgba(255,255,255,.4)!important}
+.sp *{margin:0;padding:0;box-sizing:border-box}
+.sp{color:#1a202c;line-height:1.6}
+.sp h2{font-weight:800!important}
 .sp-wrap{max-width:1100px;margin:0 auto;padding:0 40px;width:100%}
-.sp-badge{display:inline-block!important;width:auto!important;background:var(--sp-blue);color:#fff;padding:6px 16px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px}
-.sp-heading{font-size:clamp(26px,3.8vw,38px);font-weight:800!important;color:var(--sp-text);line-height:1.12;margin-bottom:16px}
-.sp-subhead{font-size:16px;color:var(--sp-muted);max-width:620px;line-height:1.7;margin:0}
-.sp-hero{background:linear-gradient(135deg,#4c79c7 0%,#3a5f9a 100%);padding:70px 0 90px;position:relative;overflow:hidden}
-.sp-hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(120px);opacity:.25;background:#7cba3a;top:-150px;right:-100px}
-.sp-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center}
-.sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;color:#fff;margin-bottom:20px}
+@media(max-width:768px){.sp-wrap{padding:0 20px}}
+@media(max-width:480px){.sp-wrap{padding:0 16px}}
+.sp-hero{background:rgb(76,121,199);padding:80px 0 100px;position:relative;overflow:hidden}
+.sp-hero::before{content:'';position:absolute;top:0;right:0;width:60%;height:100%;background:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/ETF_Sparplan__Investieren__Header.png') center/cover no-repeat;opacity:.18}
+.sp-hero-inner{position:relative;z-index:2;max-width:600px}
+.sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;margin-bottom:24px}
 .sp-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%}
-.sp-hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:18px;letter-spacing:-.02em}
-.sp-hero p{font-size:16px;color:rgba(255,255,255,.9);line-height:1.7;max-width:460px}
-.sp-hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.sp-hero-visual{position:relative}
-.sp-hero-img{width:100%;max-width:420px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.25)}
-.sp-hero-badge{position:absolute;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 12px 32px rgba(0,0,0,.12)}
-.sp-hero-badge-1{bottom:-16px;left:-16px}
-.sp-hero-badge-1 small{font-size:11px;color:#718096;display:block;margin-bottom:2px}
-.sp-hero-badge-1 strong{font-size:22px;font-weight:800;color:#4c79c7}
-.sp-hero-badge-2{top:16px;right:-16px}
-.sp-hero-badge-2 strong{font-size:24px;font-weight:800;color:#7cba3a;display:block}
-.sp-hero-badge-2 small{font-size:11px;color:#718096}
-.sp-trust{background:#f8fafc;padding:50px 0;border-bottom:1px solid #e2e8f0}
-.sp-trust-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0}
-.sp-trust-logo{height:110px;opacity:.65;filter:grayscale(40%);transition:all .3s}
-.sp-trust-logo:hover{opacity:1;filter:grayscale(0%)}
+.sp-hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;color:#fff;line-height:1.08;margin-bottom:20px;letter-spacing:-.03em}
+.sp-hero p{font-size:17px;color:rgba(255,255,255,.88);line-height:1.7;margin-bottom:32px}
+.sp-hero-stats{display:flex;gap:32px;margin-bottom:36px}
+.sp-hero-stat-num{font-size:32px;font-weight:900;color:#fff}
+.sp-hero-stat-lbl{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px}
+.sp-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.sp-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:15px 32px!important;border-radius:.35rem!important;font-size:15px!important;font-weight:700!important;border:none!important;cursor:pointer!important;min-height:50px!important;white-space:nowrap!important;text-decoration:none!important;transition:transform .15s!important}
+.sp-btn:hover{transform:scale(1.03)!important}
+.sp-btn-green{background:#7cba3a!important;color:#fff!important}
+.sp-btn-blue{background:rgb(76,121,199)!important;color:#fff!important}
+.sp-btn-outline{background:transparent!important;color:#fff!important;border:2px solid rgba(255,255,255,.4)!important}
+.sp-btn-white{background:#fff!important;color:#1a202c!important}
+.sp-badge{display:inline-block!important;background:rgb(76,121,199);color:#fff;padding:6px 16px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px}
+.sp-heading{font-size:clamp(26px,3.8vw,38px);font-weight:800!important;color:#1a202c;line-height:1.12;margin-bottom:16px}
+.sp-subhead{font-size:16px;color:#64748b;max-width:620px;line-height:1.7;margin:0}
 .sp-section{padding:90px 0}
 .sp-section-white{background:#fff}
 .sp-section-gray{background:#f8fafc}
+.sp-trust{background:#f8fafc;padding:50px 0;border-bottom:1px solid #e2e8f0}
+.sp-trust-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.sp-trust-logo{height:100px;opacity:.65;filter:grayscale(40%);transition:all .3s}
+.sp-trust-logo:hover{opacity:1;filter:grayscale(0%)}
+/* FEATURES */
 .sp-features-head{text-align:center;margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
+.sp-features-head .sp-subhead{margin:0 auto}
 .sp-features-wrap{position:relative}
 .sp-features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .sp-feature{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:36px 28px;transition:all .3s}
 .sp-feature:hover{transform:translateY(-6px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .sp-feature-icon{width:70px;height:70px;margin-bottom:20px;background-repeat:no-repeat;background-size:contain;background-position:center}
-.sp-feature h3{font-size:18px;font-weight:800;color:var(--sp-text);margin-bottom:12px;line-height:1.3}
-.sp-feature p{font-size:14px;color:var(--sp-muted);line-height:1.7}
-.sp-steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+.sp-feature h3{font-size:18px;font-weight:800;color:#1a202c;margin-bottom:12px}
+.sp-feature p{font-size:14px;color:#64748b;line-height:1.7}
+/* STEPS */
+.sp-steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
 .sp-step{text-align:center;padding:32px 20px;background:#fff;border-radius:16px;border:1px solid #e2e8f0}
-.sp-step-num{width:48px;height:48px;border-radius:50%;background:var(--sp-blue);color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-.sp-step h3{font-size:16px;font-weight:700;color:var(--sp-text);margin-bottom:8px}
-.sp-step p{font-size:13px;color:var(--sp-muted);line-height:1.6}
-.sp-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.sp-info-text h2{font-size:clamp(24px,3vw,34px);font-weight:800!important;color:var(--sp-text);line-height:1.15;margin-bottom:18px}
+.sp-step-num{width:48px;height:48px;border-radius:50%;background:rgb(76,121,199);color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.sp-step h3{font-size:16px;font-weight:700;color:#1a202c;margin-bottom:8px}
+.sp-step p{font-size:13px;color:#64748b;line-height:1.6}
+/* INFO BLOCKS with square images */
+.sp-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.sp-info-text h2{font-size:clamp(24px,3vw,34px);font-weight:800!important;color:#1a202c;line-height:1.15;margin-bottom:18px}
 .sp-info-text p{font-size:15px;color:#475569;line-height:1.75;margin-bottom:14px}
-.sp-info-img{border-radius:20px;overflow:hidden}
-.sp-info-img img{width:100%;height:auto}
+.sp-info-img{border-radius:20px;overflow:hidden;aspect-ratio:1/1}
+.sp-info-img img{width:100%;height:100%;object-fit:cover}
+/* PORTFOLIO CARDS */
+.sp-portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.sp-portfolio-card{background:#fff;border-radius:20px;overflow:hidden;border:1px solid #e2e8f0;transition:all .3s}
+.sp-portfolio-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.sp-portfolio-top{background:rgb(76,121,199);padding:28px 24px;text-align:center;position:relative}
+.sp-portfolio-top::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:40px;height:3px;background:#7cba3a;border-radius:2px}
+.sp-portfolio-ring{width:100px;height:100px;margin:0 auto 12px;position:relative}
+.sp-portfolio-ring-outer{width:100%;height:100%;border-radius:50%;border:5px solid rgba(255,255,255,.15)}
+.sp-portfolio-ring-fill{position:absolute;top:0;left:0;width:100%;height:100%}
+.sp-portfolio-ring-fill svg{transform:rotate(-90deg)}
+.sp-pr-bg{fill:none;stroke:rgba(255,255,255,.15);stroke-width:5}
+.sp-pr-progress{fill:none;stroke:#7cba3a;stroke-width:5;stroke-linecap:round}
+.sp-portfolio-ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:30px;font-weight:900;color:#fff}
+.sp-portfolio-top small{font-size:11px;color:rgba(255,255,255,.65)}
+.sp-portfolio-top h3{font-size:18px;font-weight:800;color:#fff;margin-top:4px}
+.sp-portfolio-body{padding:24px}
+.sp-portfolio-yield{text-align:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #f1f5f9}
+.sp-portfolio-yield strong{font-size:36px;font-weight:900;color:rgb(76,121,199);display:block}
+.sp-portfolio-yield small{font-size:12px;color:#718096}
+.sp-portfolio-feat{display:flex;align-items:center;gap:8px;padding:7px 0;font-size:13px;color:#475569}
+.sp-portfolio-check{width:16px;height:16px;background:#e8f5e9;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sp-portfolio-check svg{width:9px;height:9px;stroke:#7cba3a;stroke-width:3}
+.sp-portfolio-btn{display:block;width:100%;background:#7cba3a;color:#fff;padding:14px;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;text-decoration:none;text-align:center;margin-top:16px;transition:all .15s}
+.sp-portfolio-btn:hover{background:#6ba832}
+/* CALC */
+.sp-calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+.sp-calc-left{background:#f8fafc;border-radius:20px;padding:40px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+.sp-calc-label{font-size:13px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:block}
+.sp-calc-value{font-size:28px;font-weight:800;color:#1a202c;margin-bottom:14px}
+.sp-calc-slider{-webkit-appearance:none;width:100%;height:8px;background:#e2e8f0;border-radius:4px;outline:none;cursor:pointer}
+.sp-calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:rgb(76,121,199);cursor:grab;border:4px solid #fff;box-shadow:0 2px 8px rgba(76,121,199,.3)}
+.sp-calc-right{background:rgb(76,121,199);border-radius:20px;padding:40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.sp-calc-result-label{font-size:14px;color:rgba(255,255,255,.8);margin-bottom:8px}
+.sp-calc-result{font-size:clamp(38px,5vw,52px);font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.sp-calc-gain{font-size:18px;color:#7cba3a;font-weight:700;margin-bottom:24px}
+.sp-calc-note{font-size:11px;color:rgba(255,255,255,.5);margin-top:16px;max-width:280px}
+/* FAQ */
 .sp-faq-list{max-width:800px;margin:0 auto}
-.sp-faq-item{border-bottom:1px solid var(--sp-border)}
-.sp-faq-item:first-child{border-top:1px solid var(--sp-border)}
+.sp-faq-item{border-bottom:1px solid #e5e7eb}
+.sp-faq-item:first-child{border-top:1px solid #e5e7eb}
 .sp-faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;user-select:none;gap:16px}
-.sp-faq-q-text{font-size:16px;font-weight:700;color:var(--sp-text);flex:1;line-height:1.4}
-.sp-faq-chev{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--sp-bg);transition:transform .15s;color:var(--sp-muted)}
-.sp-faq-item.sp-faq-open .sp-faq-chev{background:var(--sp-blue);color:#fff;transform:rotate(180deg)}
+.sp-faq-q-text{font-size:16px;font-weight:700;color:#1a202c;flex:1;line-height:1.4}
+.sp-faq-chev{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#f4f6fc;transition:transform .15s;color:#6b7280}
+.sp-faq-item.sp-faq-open .sp-faq-chev{background:rgb(76,121,199);color:#fff;transform:rotate(180deg)}
 .sp-faq-a{max-height:0;overflow:hidden;transition:max-height .15s}
 .sp-faq-item.sp-faq-open .sp-faq-a{max-height:400px}
-.sp-faq-a-inner{padding:0 0 22px;font-size:15px;line-height:1.8;color:var(--sp-muted)}
-.sp-cta{background:var(--sp-blue);padding:90px 0;position:relative;overflow:hidden}
+.sp-faq-a-inner{padding:0 0 22px;font-size:15px;line-height:1.8;color:#6b7280}
+.sp-faq-a-inner a{color:rgb(76,121,199);font-weight:600}
+/* CTA */
+.sp-cta{background:rgb(76,121,199);padding:90px 0;position:relative;overflow:hidden}
+.sp-cta-glow{position:absolute;width:400px;height:400px;background:#7cba3a;border-radius:50%;filter:blur(150px);opacity:.15;top:50%;left:50%;transform:translate(-50%,-50%)}
 .sp-cta-inner{text-align:center;position:relative;z-index:2}
 .sp-cta-inner h2{font-size:clamp(26px,3.8vw,40px);font-weight:800;color:#fff;margin-bottom:14px}
 .sp-cta-inner p{font-size:16px;color:rgba(255,255,255,.85);max-width:560px;margin:0 auto;line-height:1.7}
+/* STICKY */
 .sp-sticky{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(150%);max-width:600px;width:calc(100% - 40px);background:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.15);border:1px solid #e2e8f0;z-index:1000;transition:transform .4s cubic-bezier(.4,0,.2,1)}
 .sp-sticky.visible{transform:translateX(-50%) translateY(0)}
-.sp-sticky-txt{font-size:15px;font-weight:600;color:var(--sp-text)}
-.sp-sticky-txt span{color:var(--sp-muted);font-weight:400;display:block;font-size:13px;margin-top:2px}
-@media(max-width:1100px){.sp-hero-grid,.sp-info-grid{grid-template-columns:1fr;gap:36px}.sp-hero-visual{order:-1}.sp-features-grid{grid-template-columns:repeat(2,1fr)}.sp-steps-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.sp-wrap{padding:0 20px}.sp-section{padding:60px 0}.sp-hero{padding:50px 0 70px}.sp-hero h1{font-size:32px}.sp-hero-btns{flex-direction:column;align-items:stretch}.sp-hero-badge{display:none}.sp-trust{padding:40px 0}.sp-trust-inner{gap:30px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.sp-trust-inner::-webkit-scrollbar{display:none}.sp-trust-logo{flex-shrink:0;height:70px}.sp-features-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.sp-features-wrap::-webkit-scrollbar{display:none}.sp-features-grid{display:flex;gap:16px;width:max-content}.sp-feature{min-width:280px;max-width:280px;flex-shrink:0}.sp-steps-grid{grid-template-columns:1fr 1fr;gap:16px}.sp-sticky{flex-direction:column;gap:14px;text-align:center}.sp-sticky .sp-btn{width:100%!important}}
-@media(max-width:480px){.sp-hero h1{font-size:26px}.sp-heading{font-size:24px}.sp-section{padding:50px 0}.sp-steps-grid{grid-template-columns:1fr}.sp-sticky{bottom:12px;width:calc(100% - 24px)}}
+.sp-sticky-txt{font-size:15px;font-weight:600;color:#1a202c}
+.sp-sticky-txt span{color:#64748b;font-weight:400;display:block;font-size:13px;margin-top:2px}
+/* SCROLL REVEAL */
+.sp-reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.sp-reveal.sp-visible{opacity:1;transform:translateY(0)}
+/* RESPONSIVE */
+@media(max-width:1100px){.sp-hero-stats{gap:24px}.sp-features-grid{grid-template-columns:repeat(2,1fr)}.sp-portfolio-grid{grid-template-columns:repeat(2,1fr)}.sp-info-grid{grid-template-columns:1fr;gap:32px}.sp-calc-grid{grid-template-columns:1fr}.sp-steps-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.sp-wrap{padding:0 20px}.sp-section{padding:60px 0}.sp-hero{padding:50px 0 70px}.sp-hero h1{font-size:32px}.sp-hero-btns{flex-direction:column;align-items:stretch}.sp-hero-stats{flex-wrap:wrap;gap:16px}.sp-trust{padding:40px 0}.sp-trust-inner{gap:24px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.sp-trust-inner::-webkit-scrollbar{display:none}.sp-trust-logo{flex-shrink:0;height:70px}.sp-features-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.sp-features-wrap::-webkit-scrollbar{display:none}.sp-features-grid{display:flex;gap:16px;width:max-content}.sp-feature{min-width:280px;max-width:280px;flex-shrink:0}.sp-portfolio-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}.sp-steps-grid{grid-template-columns:1fr 1fr;gap:12px}.sp-info-img{aspect-ratio:4/3}.sp-sticky{flex-direction:column;gap:14px;text-align:center}.sp-sticky .sp-btn{width:100%!important}}
+@media(max-width:480px){.sp-hero h1{font-size:26px}.sp-heading{font-size:24px}.sp-section{padding:50px 0}.sp-hero{padding:40px 0 60px}.sp-steps-grid{grid-template-columns:1fr}.sp-calc-left,.sp-calc-right{padding:24px}.sp-calc-result{font-size:32px}.sp-sticky{bottom:12px;width:calc(100% - 24px)}}
 </style>
-<div class="sp-page">
+<div class="sp">
 <section class="sp-hero">
-<div class="sp-hero-glow"></div>
 <div class="sp-wrap">
-<div class="sp-hero-grid">
-<div>
+<div class="sp-hero-inner">
 <div class="sp-hero-tag"><span class="sp-hero-tag-dot"></span>ETF-Sparplan von easyfolio</div>
-<h1>Sparen wie die Profis. Schon ab 10 Euro im Monat.</h1>
-<p>Mit dem easyfolio ETF-Sparplan investieren Sie monatlich in ein global diversifiziertes ETF-Portfolio. Automatisch, professionell verwaltet und jederzeit flexibel anpassbar.</p>
+<h1>Vermögen aufbauen. Automatisch. Ab 10 Euro.</h1>
+<p>Investieren Sie monatlich in ein global diversifiziertes ETF-Portfolio aus über 17.000 Wertpapieren. Professionell verwaltet, jederzeit flexibel, ohne versteckte Kosten.</p>
+<div class="sp-hero-stats">
+<div><div class="sp-hero-stat-num">10 Euro</div><div class="sp-hero-stat-lbl">Sparplan ab</div></div>
+<div><div class="sp-hero-stat-num">17.000+</div><div class="sp-hero-stat-lbl">Wertpapiere</div></div>
+<div><div class="sp-hero-stat-num">95</div><div class="sp-hero-stat-lbl">Länder</div></div>
+<div><div class="sp-hero-stat-num">0 Euro</div><div class="sp-hero-stat-lbl">Ausgabeaufschlag</div></div>
+</div>
 <div class="sp-hero-btns">
 <a href="https://easyfolio.de/depot" class="sp-btn sp-btn-green">Sparplan starten</a>
-<a href="#vorteile" class="sp-btn sp-btn-outline">Mehr erfahren</a>
-</div>
-</div>
-<div class="sp-hero-visual">
-<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/ETF_Sparplan__Investieren__Header.png" alt="ETF-Sparplan" class="sp-hero-img">
-<div class="sp-hero-badge sp-hero-badge-1"><small>Sparplan ab</small><strong>10 Euro</strong></div>
-<div class="sp-hero-badge sp-hero-badge-2"><strong>17.000+</strong><small>Wertpapiere</small></div>
+<a href="https://easyfolio.de/anlegertest" class="sp-btn sp-btn-outline">Welcher Fonds passt?</a>
 </div>
 </div>
 </div>
@@ -111,141 +153,180 @@
 </div>
 </section>
 
-<section class="sp-section sp-section-white" id="vorteile">
+<section class="sp-section sp-section-white">
 <div class="sp-wrap">
 <div class="sp-features-head">
 <span class="sp-badge">Vorteile</span>
-<h2 class="sp-heading">Warum ein ETF-Sparplan mit easyfolio?</h2>
-<p class="sp-subhead">Regelmäßig investieren, langfristig profitieren. Der easyfolio ETF-Sparplan macht Vermögensaufbau einfach.</p>
+<h2 class="sp-heading sp-reveal">Warum ein ETF-Sparplan mit easyfolio?</h2>
+<p class="sp-subhead" style="margin:0 auto">Regelmäßig investieren, langfristig profitieren.</p>
 </div>
 <div class="sp-features-wrap">
 <div class="sp-features-grid">
-<div class="sp-feature">
-<div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/investieren/global__1_.png')"></div>
-<h3>Global diversifiziert</h3>
-<p>Ihr Sparplan investiert in über 17.000 Wertpapiere aus 95 Ländern. Maximale Streuung, minimales Klumpenrisiko.</p>
-</div>
-<div class="sp-feature">
-<div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/idea.png')"></div>
-<h3>Schon ab 10 Euro</h3>
-<p>Starten Sie mit nur 10 Euro monatlich. Erhöhen, reduzieren oder pausieren Sie jederzeit - ohne Gebühren.</p>
-</div>
-<div class="sp-feature">
-<div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/colours.png')"></div>
-<h3>3 Risikoprofile</h3>
-<p>Wählen Sie zwischen easyfolio 30 (defensiv), 50 (ausgewogen) oder 70 (offensiv) - passend zu Ihrem Anlegertyp.</p>
-</div>
-<div class="sp-feature">
-<div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/graphic.png')"></div>
-<h3>Automatisches Rebalancing</h3>
-<p>Wir halten Ihr Portfolio im Gleichgewicht. Sie müssen sich um nichts kümmern.</p>
-</div>
-<div class="sp-feature">
-<div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/justice-scale.png')"></div>
-<h3>Keine versteckten Kosten</h3>
-<p>0 Euro Ausgabeaufschlag, 0 Euro Performancegebühr. Sie zahlen nur die laufenden Fondskosten.</p>
-</div>
-<div class="sp-feature">
-<div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/full-battery.png')"></div>
-<h3>Jederzeit kündbar</h3>
-<p>Keine Mindestlaufzeit, keine Kündigungsfrist. Verkauf ist börsentäglich möglich.</p>
-</div>
+<div class="sp-feature sp-reveal"><div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/investieren/global__1_.png')"></div><h3>Global diversifiziert</h3><p>Über 17.000 Wertpapiere aus 95 Ländern. Maximale Streuung, minimales Klumpenrisiko.</p></div>
+<div class="sp-feature sp-reveal"><div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/idea.png')"></div><h3>Schon ab 10 Euro</h3><p>Starten Sie mit nur 10 Euro monatlich. Erhöhen, reduzieren oder pausieren Sie jederzeit.</p></div>
+<div class="sp-feature sp-reveal"><div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/colours.png')"></div><h3>3 Risikoprofile</h3><p>easyfolio 30 (defensiv), 50 (ausgewogen) oder 70 (offensiv) - passend zu Ihrem Typ.</p></div>
+<div class="sp-feature sp-reveal"><div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/graphic.png')"></div><h3>Automatisches Rebalancing</h3><p>Wir halten Ihr Portfolio im Gleichgewicht. Sie müssen sich um nichts kümmern.</p></div>
+<div class="sp-feature sp-reveal"><div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/justice-scale.png')"></div><h3>Keine versteckten Kosten</h3><p>0 Euro Ausgabeaufschlag, 0 Euro Performancegebühr. Nur laufende Fondskosten.</p></div>
+<div class="sp-feature sp-reveal"><div class="sp-feature-icon" style="background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/full-battery.png')"></div><h3>Jederzeit kündbar</h3><p>Keine Mindestlaufzeit. Verkauf börsentäglich, Auszahlung in 2-3 Tagen.</p></div>
 </div>
 </div>
 </div>
 </section>
 
+<section class="sp-section sp-section-gray">
+<div class="sp-wrap">
+<div class="sp-info-grid sp-reveal">
+<div class="sp-info-text">
+<span class="sp-badge">Was ist das?</span>
+<h2>Was ist ein ETF-Sparplan?</h2>
+<p>Ein ETF-Sparplan ist die einfachste Methode, langfristig Vermögen aufzubauen. Sie investieren jeden Monat einen festen Betrag in ein breit gestreutes ETF-Portfolio - automatisch und ohne aktiv eingreifen zu müssen.</p>
+<p>Durch den Cost-Average-Effekt kaufen Sie bei niedrigen Kursen mehr Anteile und bei hohen weniger. Über die Zeit gleichen sich Schwankungen aus und Sie profitieren vom Wachstum der globalen Märkte.</p>
+<p>Mit easyfolio bekommen Sie kein einzelnes Produkt, sondern ein professionell zusammengestelltes Portfolio aus 10-15 ETFs - optimal diversifiziert über Aktien und Anleihen weltweit.</p>
+<a href="https://easyfolio.de/depot" class="sp-btn sp-btn-green" style="margin-top:20px;">Sparplan starten</a>
+</div>
+<div class="sp-info-img"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" alt="ETF-Sparplan"></div>
+</div>
+</div>
+</section>
+
+<!-- PORTFOLIO CARDS -->
+<section class="sp-section sp-section-white">
+<div class="sp-wrap">
+<div class="sp-features-head">
+<span class="sp-badge">Portfolios</span>
+<h2 class="sp-heading sp-reveal">Wählen Sie Ihr Risikoprofil</h2>
+<p class="sp-subhead" style="margin:0 auto">Alle drei investieren global in über 17.000 Positionen. Der Unterschied: die Balance zwischen Aktien und Anleihen.</p>
+</div>
+<div class="sp-portfolio-grid">
+<div class="sp-portfolio-card sp-reveal">
+<div class="sp-portfolio-top">
+<div class="sp-portfolio-ring"><div class="sp-portfolio-ring-outer"></div><div class="sp-portfolio-ring-fill"><svg viewBox="0 0 100 100"><circle class="sp-pr-bg" cx="50" cy="50" r="40"/><circle class="sp-pr-progress" cx="50" cy="50" r="40" stroke-dasharray="75 251"/></svg></div><span class="sp-portfolio-ring-num">30</span></div>
+<small>Defensives Portfolio</small><h3>easyfolio 30</h3>
+</div>
+<div class="sp-portfolio-body">
+<div class="sp-portfolio-yield"><strong>3,9%</strong><small>Zielrendite p.a.</small></div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>30% Aktien | 70% Anleihen</div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>Sparplan ab 10 Euro</div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>Kein Ausgabeaufschlag</div>
+<a href="https://easyfolio.de/easyfolio-30" class="sp-portfolio-btn">Mehr erfahren</a>
+</div>
+</div>
+<div class="sp-portfolio-card sp-reveal">
+<div class="sp-portfolio-top">
+<div class="sp-portfolio-ring"><div class="sp-portfolio-ring-outer"></div><div class="sp-portfolio-ring-fill"><svg viewBox="0 0 100 100"><circle class="sp-pr-bg" cx="50" cy="50" r="40"/><circle class="sp-pr-progress" cx="50" cy="50" r="40" stroke-dasharray="126 251"/></svg></div><span class="sp-portfolio-ring-num">50</span></div>
+<small>Ausgewogenes Portfolio</small><h3>easyfolio 50</h3>
+</div>
+<div class="sp-portfolio-body">
+<div class="sp-portfolio-yield"><strong>5,5%</strong><small>Zielrendite p.a.</small></div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>50% Aktien | 50% Anleihen</div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>Sparplan ab 10 Euro</div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>Kein Ausgabeaufschlag</div>
+<a href="https://easyfolio.de/easyfolio-50" class="sp-portfolio-btn">Mehr erfahren</a>
+</div>
+</div>
+<div class="sp-portfolio-card sp-reveal">
+<div class="sp-portfolio-top">
+<div class="sp-portfolio-ring"><div class="sp-portfolio-ring-outer"></div><div class="sp-portfolio-ring-fill"><svg viewBox="0 0 100 100"><circle class="sp-pr-bg" cx="50" cy="50" r="40"/><circle class="sp-pr-progress" cx="50" cy="50" r="40" stroke-dasharray="176 251"/></svg></div><span class="sp-portfolio-ring-num">70</span></div>
+<small>Offensives Portfolio</small><h3>easyfolio 70</h3>
+</div>
+<div class="sp-portfolio-body">
+<div class="sp-portfolio-yield"><strong>7,2%</strong><small>Zielrendite p.a.</small></div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>70% Aktien | 30% Anleihen</div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>Sparplan ab 10 Euro</div>
+<div class="sp-portfolio-feat"><div class="sp-portfolio-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div>Kein Ausgabeaufschlag</div>
+<a href="https://easyfolio.de/easyfolio-70" class="sp-portfolio-btn">Mehr erfahren</a>
+</div>
+</div>
+</div>
+<p style="text-align:center;margin-top:24px;font-size:14px;color:#64748b;">Nicht sicher? <a href="https://easyfolio.de/anlegertest" style="color:rgb(76,121,199);font-weight:600;">Anlegertest machen</a> - in 5 Minuten zur Empfehlung.</p>
+</div>
+</section>
+
+<!-- STEPS -->
 <section class="sp-section sp-section-gray">
 <div class="sp-wrap">
 <div class="sp-features-head">
 <span class="sp-badge">So funktioniert's</span>
-<h2 class="sp-heading">In 4 Schritten zum ETF-Sparplan</h2>
-<p class="sp-subhead">Komplett online, kein Papierkram, in wenigen Minuten eingerichtet.</p>
+<h2 class="sp-heading sp-reveal">In 4 Schritten zum ETF-Sparplan</h2>
+<p class="sp-subhead" style="margin:0 auto">Komplett online, kein Papierkram, in wenigen Minuten.</p>
 </div>
 <div class="sp-steps-grid">
-<div class="sp-step"><div class="sp-step-num">1</div><h3>Anlegertest machen</h3><p>In 5 Minuten ermitteln wir Ihr Risikoprofil und empfehlen das passende Portfolio.</p></div>
-<div class="sp-step"><div class="sp-step-num">2</div><h3>Depot eröffnen</h3><p>Online-Registrierung in 5 Minuten. Legitimierung per VideoIdent bequem von zuhause.</p></div>
-<div class="sp-step"><div class="sp-step-num">3</div><h3>Sparrate festlegen</h3><p>Wählen Sie Ihren monatlichen Betrag ab 10 Euro. Jederzeit änderbar.</p></div>
-<div class="sp-step"><div class="sp-step-num">4</div><h3>Automatisch investieren</h3><p>Ihr Sparplan wird monatlich ausgeführt. Sie lehnen sich zurück.</p></div>
+<div class="sp-step sp-reveal"><div class="sp-step-num">1</div><h3>Anlegertest</h3><p>In 5 Minuten Ihr Risikoprofil ermitteln und Portfolio-Empfehlung erhalten.</p></div>
+<div class="sp-step sp-reveal"><div class="sp-step-num">2</div><h3>Depot eröffnen</h3><p>Online-Registrierung in 5 Minuten. VideoIdent bequem von zuhause.</p></div>
+<div class="sp-step sp-reveal"><div class="sp-step-num">3</div><h3>Sparrate wählen</h3><p>Ab 10 Euro monatlich. Jederzeit änderbar, pausierbar, kündbar.</p></div>
+<div class="sp-step sp-reveal"><div class="sp-step-num">4</div><h3>Zurücklehnen</h3><p>Ihr Sparplan wird automatisch ausgeführt. Wir managen alles.</p></div>
 </div>
 </div>
 </section>
 
+<!-- FOR WHO -->
 <section class="sp-section sp-section-white">
 <div class="sp-wrap">
-<div class="sp-info-grid">
-<div class="sp-info-text">
-<span class="sp-badge">ETF-Sparplan</span>
-<h2>Was ist ein ETF-Sparplan?</h2>
-<p>Ein ETF-Sparplan ist eine der einfachsten und effektivsten Methoden, langfristig Vermögen aufzubauen. Sie investieren regelmäßig einen festen Betrag in ein breit gestreutes ETF-Portfolio - automatisch und ohne dass Sie sich aktiv darum kümmern müssen.</p>
-<p>Der große Vorteil: Durch den Cost-Average-Effekt kaufen Sie bei niedrigen Kursen automatisch mehr Anteile und bei hohen Kursen weniger. Über die Zeit gleichen sich Schwankungen aus und Sie profitieren vom langfristigen Wachstum der globalen Märkte.</p>
-<p>Mit easyfolio bekommen Sie nicht nur einen einzelnen ETF, sondern ein professionell zusammengestelltes Portfolio aus 10-15 ETFs - optimal diversifiziert über Aktien und Anleihen, Industrieländer und Schwellenländer.</p>
-<a href="https://easyfolio.de/depot" class="sp-btn sp-btn-green" style="margin-top:20px;">Sparplan starten</a>
-</div>
-<div class="sp-info-img">
-<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" alt="ETF-Sparplan starten">
-</div>
-</div>
-</div>
-</section>
-
-<section class="sp-section sp-section-gray">
-<div class="sp-wrap">
-<div class="sp-info-grid" style="direction:rtl;">
+<div class="sp-info-grid sp-reveal" style="direction:rtl;">
 <div class="sp-info-text" style="direction:ltr;">
 <span class="sp-badge">Für wen?</span>
-<h2>Der easyfolio ETF-Sparplan ist ideal für Sie, wenn...</h2>
-<p>Sie möchten langfristig Vermögen aufbauen, ohne sich ständig mit Finanzmärkten beschäftigen zu müssen. Sie suchen eine professionelle Lösung, die automatisch für Sie arbeitet.</p>
-<p>Ob Altersvorsorge, Eigenheim oder einfach ein finanzielles Polster - der ETF-Sparplan passt sich Ihren Zielen an. Und wenn sich Ihre Lebenssituation ändert, passen Sie den Sparplan einfach an: Rate erhöhen, reduzieren, pausieren oder kündigen - alles jederzeit möglich.</p>
+<h2>Der ETF-Sparplan ist perfekt für Sie, wenn...</h2>
+<p>Sie langfristig Vermögen aufbauen möchten, ohne sich ständig mit Finanzmärkten zu beschäftigen. Ob Altersvorsorge, Eigenheim oder finanzielle Freiheit - der Sparplan passt sich Ihren Zielen an.</p>
+<p>Besonders geeignet für Einsteiger: Sie brauchen kein Vorwissen, kein großes Startkapital und keinen Finanzberater. easyfolio übernimmt das professionelle Management für Sie.</p>
 <a href="https://easyfolio.de/anlegertest" class="sp-btn sp-btn-blue" style="margin-top:20px;">Zum Anlegertest</a>
 </div>
-<div class="sp-info-img" style="direction:ltr;">
-<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Kindersparplan-_Investieren.jpg" alt="Für wen ist der Sparplan">
+<div class="sp-info-img" style="direction:ltr;"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Kindersparplan-_Investieren.jpg" alt="Für wen"></div>
+</div>
+</div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="sp-section sp-section-gray" id="rechner">
+<div class="sp-wrap">
+<div class="sp-features-head">
+<span class="sp-badge">Sparplan-Rechner</span>
+<h2 class="sp-heading sp-reveal">Was könnte aus Ihrem Sparplan werden?</h2>
+<p class="sp-subhead" style="margin:0 auto">Sehen Sie, wie sich regelmäßiges Sparen langfristig auszahlt.</p>
+</div>
+<div class="sp-calc-grid sp-reveal">
+<div class="sp-calc-left">
+<div><label class="sp-calc-label">Monatliche Sparrate</label><div class="sp-calc-value" id="spRateDisplay">100 Euro</div><input type="range" class="sp-calc-slider" id="spRate" min="10" max="1000" step="10" value="100"></div>
+<div><label class="sp-calc-label">Anlagedauer</label><div class="sp-calc-value" id="spYearsDisplay">10 Jahre</div><input type="range" class="sp-calc-slider" id="spYears" min="1" max="30" step="1" value="10"></div>
+<div><label class="sp-calc-label">Rendite (Zielrendite)</label><div class="sp-calc-value" id="spRenditeDisplay">5,5% p.a.</div><input type="range" class="sp-calc-slider" id="spRendite" min="39" max="72" step="1" value="55"></div>
+</div>
+<div class="sp-calc-right">
+<div class="sp-calc-result-label">Ihr mögliches Vermögen</div>
+<div class="sp-calc-result" id="spResult">16.388 Euro</div>
+<div class="sp-calc-gain">davon <span id="spGain">4.388 Euro</span> Wertzuwachs</div>
+<a href="https://easyfolio.de/depot" class="sp-btn sp-btn-green" style="margin-top:8px;">Sparplan starten</a>
+<div class="sp-calc-note">Berechnung basiert auf der gewählten Zielrendite. Keine Garantie für zukünftige Erträge.</div>
 </div>
 </div>
 </div>
 </section>
 
+<!-- FAQ -->
 <section class="sp-section sp-section-white">
 <div class="sp-wrap">
 <div class="sp-features-head">
 <span class="sp-badge">FAQ</span>
-<h2 class="sp-heading">Häufige Fragen zum ETF-Sparplan</h2>
+<h2 class="sp-heading sp-reveal">Häufige Fragen zum ETF-Sparplan</h2>
 </div>
 <div class="sp-faq-list">
-<div class="sp-faq-item sp-faq-open">
-<div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Ab welchem Betrag kann ich einen Sparplan starten?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-<div class="sp-faq-a"><div class="sp-faq-a-inner">Sie können bereits ab 10 Euro monatlich mit Ihrem ETF-Sparplan starten. Eine Einmalanlage ist nicht erforderlich, kann aber optional ab 100 Euro hinzugefügt werden.</div></div>
-</div>
-<div class="sp-faq-item">
-<div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Kann ich die Sparrate jederzeit ändern?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-<div class="sp-faq-a"><div class="sp-faq-a-inner">Ja. Sie können Ihre Sparrate jederzeit erhöhen, reduzieren oder komplett pausieren. Es gibt keine Mindestlaufzeit und keine Gebühren für Änderungen.</div></div>
-</div>
-<div class="sp-faq-item">
-<div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Welche Kosten fallen an?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-<div class="sp-faq-a"><div class="sp-faq-a-inner">Es gibt keinen Ausgabeaufschlag und keine Performancegebühr. Sie zahlen lediglich die laufenden Kosten des gewählten easyfolio-Portfolios (zwischen 0,88% und 0,98% p.a.).</div></div>
-</div>
-<div class="sp-faq-item">
-<div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Welches Portfolio soll ich wählen?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-<div class="sp-faq-a"><div class="sp-faq-a-inner">Das hängt von Ihrem persönlichen Risikoprofil ab. Machen Sie unseren <a href="https://easyfolio.de/anlegertest" style="color:rgb(76,121,199);font-weight:600;">kostenlosen Anlegertest</a> - in 5 Minuten erhalten Sie eine individuelle Empfehlung.</div></div>
-</div>
-<div class="sp-faq-item">
-<div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Ist mein Geld sicher?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-<div class="sp-faq-a"><div class="sp-faq-a-inner">Ja. Ihr Depot wird bei der FNZ Bank geführt. Ihr investiertes Kapital gilt als Sondervermögen und ist auch im Insolvenzfall vollständig geschützt.</div></div>
-</div>
-<div class="sp-faq-item">
-<div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Kann ich auch für mein Kind einen Sparplan einrichten?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-<div class="sp-faq-a"><div class="sp-faq-a-inner">Ja. Mit dem easyfolio Kindersparplan können Eltern, Großeltern und Paten gemeinsam für die Zukunft eines Kindes sparen. Das Kinderdepot ist bis zum 18. Lebensjahr kostenlos.</div></div>
-</div>
+<div class="sp-faq-item sp-faq-open"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Ab welchem Betrag kann ich starten?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Bereits ab 10 Euro monatlich. Eine Einmalanlage ist nicht nötig, kann aber optional ab 100 Euro hinzugefügt werden.</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Kann ich die Sparrate jederzeit ändern?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Ja. Erhöhen, reduzieren, pausieren oder kündigen - alles jederzeit, ohne Gebühren.</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Welche Kosten fallen an?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Kein Ausgabeaufschlag, keine Performancegebühr. Nur laufende Fondskosten (0,88%-0,98% p.a. je nach Portfolio).</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Welches Portfolio soll ich wählen?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Machen Sie unseren <a href="https://easyfolio.de/anlegertest">kostenlosen Anlegertest</a> - in 5 Minuten erhalten Sie eine individuelle Empfehlung.</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Ist mein Geld sicher?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Ja. Ihr Kapital wird bei der FNZ Bank als gesetzliches Sondervermögen verwahrt - auch im Insolvenzfall geschützt.</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Was ist der Cost-Average-Effekt?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Bei regelmäßigen Einzahlungen kaufen Sie bei niedrigen Kursen automatisch mehr Anteile und bei hohen weniger. Über die Zeit senkt das Ihren durchschnittlichen Einstiegskurs.</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Kann ich auch einen Kindersparplan einrichten?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Ja. Mit dem <a href="https://easyfolio.de/kindersparplan">easyfolio Kindersparplan</a> können Eltern, Großeltern und Paten gemeinsam sparen. Kinderdepot bis 18 kostenlos.</div></div></div>
+<div class="sp-faq-item"><div class="sp-faq-q" onclick="spToggleFaq(this)"><span class="sp-faq-q-text">Brauche ich Vorwissen über ETFs?</span><span class="sp-faq-chev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 4.5l4.5 5 4.5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="sp-faq-a"><div class="sp-faq-a-inner">Nein. easyfolio ist speziell für Einsteiger konzipiert. Sie wählen Ihr Risikoprofil, wir kümmern uns um alles andere: Zusammenstellung, Rebalancing, Überwachung.</div></div></div>
 </div>
 </div>
 </section>
 
+<!-- CTA -->
 <section class="sp-cta">
+<div class="sp-cta-glow"></div>
 <div class="sp-wrap">
 <div class="sp-cta-inner">
 <h2>Bereit für Ihren ETF-Sparplan?</h2>
-<p>Starten Sie noch heute mit dem Vermögensaufbau. Ab 10 Euro monatlich, komplett online, jederzeit kündbar.</p>
+<p>Ab 10 Euro monatlich, komplett online, jederzeit kündbar. Starten Sie noch heute mit dem Vermögensaufbau.</p>
 <div style="display:flex;gap:14px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
 <a href="https://easyfolio.de/depot" class="sp-btn sp-btn-green" style="font-size:16px!important;padding:16px 36px!important;">Sparplan starten</a>
 <a href="https://easyfolio.de/anlegertest" class="sp-btn sp-btn-outline">Erst Anlegertest machen</a>
@@ -255,13 +336,27 @@
 </section>
 
 <div class="sp-sticky" id="spSticky">
-<div class="sp-sticky-txt">ETF-Sparplan <span>Ab 10 Euro monatlich - Jederzeit kündbar</span></div>
+<div class="sp-sticky-txt">ETF-Sparplan <span>Ab 10 Euro - 17.000+ Wertpapiere - Jederzeit kündbar</span></div>
 <a href="https://easyfolio.de/depot" class="sp-btn sp-btn-green">Sparplan starten</a>
 </div>
 </div>
 
 <script>
-function spToggleFaq(q){var item=q.closest('.sp-faq-item');var wasOpen=item.classList.contains('sp-faq-open');document.querySelectorAll('.sp-faq-item.sp-faq-open').forEach(function(x){x.classList.remove('sp-faq-open')});if(!wasOpen)item.classList.add('sp-faq-open')}
-(function(){var sticky=document.getElementById('spSticky');window.addEventListener('scroll',function(){if(window.pageYOffset>500){sticky.classList.add('visible')}else{sticky.classList.remove('visible')}},{passive:true});
-document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})})})();
+function spToggleFaq(q){var item=q.closest('.sp-faq-item');var w=item.classList.contains('sp-faq-open');document.querySelectorAll('.sp-faq-item.sp-faq-open').forEach(function(x){x.classList.remove('sp-faq-open')});if(!w)item.classList.add('sp-faq-open')}
+(function(){
+function fmt(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+var rateS=document.getElementById('spRate'),yearsS=document.getElementById('spYears'),renditeS=document.getElementById('spRendite');
+var rateD=document.getElementById('spRateDisplay'),yearsD=document.getElementById('spYearsDisplay'),renditeD=document.getElementById('spRenditeDisplay');
+var resD=document.getElementById('spResult'),gainD=document.getElementById('spGain');
+function calc(){var r=parseInt(rateS.value),y=parseInt(yearsS.value),p=parseInt(renditeS.value)/1000;
+var months=y*12,mr=p/12,total=0;for(var i=0;i<months;i++)total=(total+r)*(1+mr);
+var invested=r*months,gain=total-invested;
+rateD.textContent=fmt(r)+' Euro';yearsD.textContent=y+(y===1?' Jahr':' Jahre');renditeD.textContent=(parseInt(renditeS.value)/10).toFixed(1).replace('.',',')+'% p.a.';
+resD.textContent=fmt(Math.round(total))+' Euro';gainD.textContent=fmt(Math.round(gain))+' Euro'}
+rateS.addEventListener('input',calc);yearsS.addEventListener('input',calc);renditeS.addEventListener('input',calc);calc();
+var sticky=document.getElementById('spSticky');window.addEventListener('scroll',function(){sticky.classList.toggle('visible',window.pageYOffset>500)},{passive:true});
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+var reveals=document.querySelectorAll('.sp-reveal');var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('sp-visible');observer.unobserve(e.target)}})},{threshold:.15});
+reveals.forEach(function(el){observer.observe(el)});
+})();
 </script>
