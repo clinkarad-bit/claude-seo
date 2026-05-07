@@ -6,20 +6,20 @@
 @media(max-width:768px){.sp-cta{padding:0 16px 60px!important}.sp-cta-box{padding:48px 24px!important;border-radius:20px!important}.sp-wrap{padding:0 20px}}
 @media(max-width:480px){.sp-wrap{padding:0 16px}}
 .sp-hero{background:linear-gradient(135deg,#4c79c7 0%,#3a5f9a 100%);padding:80px 0 90px;position:relative;overflow:hidden}
-.sp-hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(120px);opacity:.2;background:#7cba3a;top:-150px;right:-100px}
+.sp-hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(120px);opacity:.2;background:#7cba3a;top:-150px;right:-100px;animation:spFloat 8s ease-in-out infinite}@keyframes spFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,20px)}}
 .sp-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;position:relative;z-index:2}
 .sp-hero-inner{}
 .sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;color:#fff;margin-bottom:24px}
-.sp-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%}
-.sp-hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;color:#fff;line-height:1.08;margin-bottom:20px;letter-spacing:-.03em}
+.sp-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%;animation:spPulse 2s ease-in-out infinite}@keyframes spPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.sp-hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;color:#fff;line-height:1.08;margin-bottom:20px;letter-spacing:-.03em}.sp-hero h1 em{font-style:normal;color:#7cba3a}
 .sp-hero p{font-size:17px;color:rgba(255,255,255,.88);line-height:1.7;margin-bottom:32px}
 .sp-hero-stats{display:flex;gap:32px;margin-bottom:36px}
-.sp-hero-stat-num{font-size:32px;font-weight:900;color:#fff}
+.sp-hero-stat-num{font-size:32px;font-weight:900;color:#fff;letter-spacing:-.02em}
 .sp-hero-stat-lbl{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px}
 .sp-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .sp-hero-visual{position:relative}
-.sp-hero-img{width:100%;max-width:420px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.25)}
-.sp-hero-badge{position:absolute;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.sp-hero-img{width:100%;max-width:420px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.25);animation:spImgIn .8s ease forwards;opacity:0;transform:translateY(20px) scale(.97)}@keyframes spImgIn{to{opacity:1;transform:translateY(0) scale(1)}}
+.sp-hero-badge{position:absolute;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 12px 32px rgba(0,0,0,.12);animation:spBadgeFloat 4s ease-in-out infinite}@keyframes spBadgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.sp-hero-badge-2{animation-delay:1.3s}.sp-hero-badge-3{animation-delay:2.6s}
 .sp-hero-badge-1{bottom:-12px;left:-12px}
 .sp-hero-badge-1 small{font-size:11px;color:#718096;display:block;margin-bottom:2px}
 .sp-hero-badge-1 strong{font-size:20px;font-weight:800;color:#4c79c7}
@@ -141,7 +141,7 @@
 <div class="sp-hero-grid">
 <div class="sp-hero-inner">
 <div class="sp-hero-tag"><span class="sp-hero-tag-dot"></span>ETF-Sparplan von easyfolio</div>
-<h1>Vermögen aufbauen. Automatisch. Ab 10 Euro.</h1>
+<h1>Vermögen aufbauen. <em>Automatisch.</em> Ab 10 Euro.</h1>
 <p>Investieren Sie monatlich in ein global diversifiziertes ETF-Portfolio aus über 17.000 Wertpapieren. Professionell verwaltet, jederzeit flexibel, ohne versteckte Kosten.</p>
 <div class="sp-hero-stats">
 <div><div class="sp-hero-stat-num">10 Euro</div><div class="sp-hero-stat-lbl">Sparplan ab</div></div>
