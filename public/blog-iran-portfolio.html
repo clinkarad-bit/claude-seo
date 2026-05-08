@@ -1,104 +1,93 @@
-<style>
-.blog-page{--bl-blue:rgb(76,121,199);--bl-green:rgb(124,186,58);--bl-text:#1a202c;--bl-muted:#64748b;--bl-border:#e5e7eb;--bl-bg:#f8fafc;width:100%;color:var(--bl-text);line-height:1.8;-webkit-font-smoothing:antialiased}
-.blog-page,.blog-page *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
-.blog-page a{color:var(--bl-blue);text-decoration:none}
-.blog-page a:hover{text-decoration:underline}
-.blog-page img{max-width:100%;display:block}
-.blog-wrap{max-width:780px;margin:0 auto;padding:0 24px}
-.blog-hero{background:var(--bl-blue);padding:60px 24px;text-align:center;position:relative;overflow:hidden}
-.blog-hero-eyebrow{display:inline-block;background:var(--bl-green);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 16px;border-radius:20rem;margin-bottom:20px}
-.blog-hero h1{font-size:clamp(28px,4vw,44px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px;max-width:800px;margin-left:auto;margin-right:auto;letter-spacing:-.02em}
-.blog-hero p{font-size:16px;color:rgba(255,255,255,.75);max-width:640px;margin:0 auto;line-height:1.7}
-.blog-meta{display:flex;align-items:center;gap:14px;padding:24px 0;border-bottom:1px solid var(--bl-border);margin-bottom:32px;flex-wrap:wrap}
-.blog-meta-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--bl-blue)}
-.blog-meta-name{font-size:15px;font-weight:700;color:var(--bl-text)}
-.blog-meta-role{font-size:12px;color:var(--bl-muted)}
-.blog-meta-date{font-size:13px;color:var(--bl-muted);margin-left:auto}
-.blog-meta-read{font-size:12px;color:var(--bl-muted);background:var(--bl-bg);padding:4px 10px;border-radius:20rem}
-/* CONTENT */
-.blog-content h2{font-size:28px;font-weight:800;color:var(--bl-text);margin:48px 0 16px;line-height:1.2}
-.blog-content h3{font-size:21px;font-weight:700;color:var(--bl-text);margin:36px 0 12px;line-height:1.3}
-.blog-content p{font-size:16px;color:#334155;margin-bottom:18px}
-.blog-content ul,.blog-content ol{margin:16px 0 24px 20px}
-.blog-content li{margin-bottom:10px;font-size:16px;color:#334155}
-/* TABLE */
-.blog-table-wrap{overflow-x:auto;margin:24px 0;border-radius:12px;border:1px solid var(--bl-border)}
-.blog-table{width:100%;border-collapse:collapse;min-width:500px}
-.blog-table thead{background:rgba(76,121,199,.06)}
-.blog-table th{padding:12px 16px;font-size:13px;font-weight:700;color:var(--bl-text);text-align:left;border-bottom:2px solid var(--bl-border)}
-.blog-table td{padding:11px 16px;font-size:14px;color:#475569;border-bottom:1px solid #f1f5f9}
-.blog-table tr:last-child td{border-bottom:none}
-/* BOXES */
-.blog-tldr{background:var(--bl-bg);border-radius:16px;padding:28px 28px 20px;margin:32px 0;border-left:4px solid var(--bl-green)}
-.blog-tldr-title{font-size:16px;font-weight:800;color:var(--bl-green);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.blog-tldr ul{margin:0 0 0 18px}
-.blog-tldr li{font-size:14px;color:#475569;margin-bottom:8px;line-height:1.6}
-.blog-info-box{background:rgba(76,121,199,.04);border-radius:12px;padding:20px 24px;margin:24px 0;border:1px solid rgba(76,121,199,.12)}
-.blog-info-box-title{font-size:14px;font-weight:700;color:var(--bl-blue);margin-bottom:8px}
-.blog-info-box p{font-size:14px;margin-bottom:0}
-.blog-quote{position:relative;margin:32px 0;padding:24px 28px;background:#fff;border-radius:12px;border:1px solid var(--bl-border)}
-.blog-quote::before{content:'\201C';position:absolute;left:14px;top:8px;font-size:40px;color:rgba(76,121,199,.15);line-height:1}
-.blog-quote p{font-size:17px;font-weight:500;color:var(--bl-text);margin-bottom:8px;padding-left:20px;font-style:italic}
-.blog-quote cite{font-size:13px;color:var(--bl-muted);font-style:normal;padding-left:20px}
-/* AUTHOR BOX */
-.blog-author{display:flex;gap:20px;padding:28px;background:var(--bl-bg);border-radius:16px;margin:48px 0;align-items:flex-start}
-.blog-author-img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--bl-blue)}
-.blog-author-name{font-size:18px;font-weight:800;color:var(--bl-text);margin-bottom:2px}
-.blog-author-title{font-size:13px;color:var(--bl-muted);margin-bottom:10px}
-.blog-author-bio{font-size:14px;color:#475569;line-height:1.6}
-.blog-author-links{display:flex;gap:10px;margin-top:10px}
-.blog-author-links a{color:var(--bl-muted);font-size:13px;font-weight:600}
-.blog-author-links a:hover{color:var(--bl-blue)}
-/* TOC */
-.blog-toc{position:fixed;bottom:20px;right:20px;z-index:999}
-.blog-toc-btn{width:48px;height:48px;border-radius:50%;background:#fff;border:1px solid var(--bl-border);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--bl-muted);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.blog-toc-panel{display:none;position:absolute;bottom:60px;right:0;width:300px;background:#fff;border:1px solid var(--bl-border);border-radius:14px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.12);max-height:60vh;overflow-y:auto}
-.blog-toc-panel.open{display:block}
-.blog-toc-title{font-size:14px;font-weight:800;color:var(--bl-text);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bl-border)}
-.blog-toc-link{display:block;padding:6px 0 6px 14px;font-size:13px;color:var(--bl-muted);text-decoration:none;border-left:2px solid transparent;line-height:1.4}
-.blog-toc-link:hover{color:var(--bl-blue);border-left-color:var(--bl-blue);text-decoration:none}
-/* CTA INLINE */
-.blog-cta-inline{background:var(--bl-blue);border-radius:16px;padding:32px;margin:40px 0;text-align:center;color:#fff}
-.blog-cta-inline h3{font-size:22px;font-weight:800;margin-bottom:10px;color:#fff}
-.blog-cta-inline p{font-size:14px;color:rgba(255,255,255,.8);margin-bottom:20px}
-.blog-cta-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:.35rem;font-size:15px;font-weight:700;background:var(--bl-green);color:#fff;border:none;cursor:pointer;text-decoration:none!important}
-/* RESPONSIVE */
-@media(max-width:768px){.blog-hero{padding:40px 20px}.blog-hero h1{font-size:26px}.blog-content h2{font-size:24px}.blog-content h3{font-size:19px}.blog-author{flex-direction:column;align-items:center;text-align:center}.blog-toc-panel{width:260px;right:-10px}}
-</style>
 <div class="row justify-content-center"><div class="col-md-12"><section class="container-fluid"><div class="container text standard"><div class="row justify-content-center"><div class="col-md-12"><div class="mt-xsmall"><div class="teaser body-text">
-<div class="blog-page">
 
-<!-- HERO -->
-<div class="blog-hero">
-<span class="blog-hero-eyebrow">Marktanalyse</span>
-<h1>Krieg im Nahen Osten: Was bedeutet das für Ihr easyfolio-Portfolio?</h1>
-<p>Ölpreis-Schock, Hormus-Drohungen, Panik-Schlagzeilen. Eine nüchterne Analyse Ihres tatsächlichen Exposures und warum Ruhe die beste Strategie ist.</p>
-</div>
+<style>
+.bl-wrap{--bl-blue:rgb(76,121,199);--bl-green:rgb(124,186,58);--bl-text:#1a202c;--bl-muted:#64748b;--bl-border:#e5e7eb;--bl-bg:#f8fafc;position:relative;color:var(--bl-text);line-height:1.8;max-width:100%}
+.bl-wrap,.bl-wrap *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important}
+.bl-wrap a{color:var(--bl-blue);text-decoration:none}
+.bl-wrap a:hover{text-decoration:underline}
+.bl-layout{display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:start}
+.bl-main{}
+.bl-side{position:sticky;top:24px;align-self:start}
+/* META */
+.bl-meta{display:flex;align-items:center;gap:14px;padding:20px 0 28px;border-bottom:1px solid var(--bl-border);margin-bottom:36px;flex-wrap:wrap}
+.bl-meta-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--bl-blue)}
+.bl-meta-name{font-size:14px;font-weight:700;color:var(--bl-text)}
+.bl-meta-role{font-size:12px;color:var(--bl-muted)}
+.bl-meta-date{font-size:12px;color:var(--bl-muted);margin-left:auto}
+.bl-meta-read{font-size:11px;color:var(--bl-muted);background:var(--bl-bg);padding:3px 10px;border-radius:20rem;font-weight:600}
+/* CONTENT */
+.bl-main h2{font-size:26px;font-weight:800;color:var(--bl-text);margin:48px 0 14px;line-height:1.2;letter-spacing:-.02em}
+.bl-main h3{font-size:20px;font-weight:700;color:var(--bl-text);margin:32px 0 10px}
+.bl-main p{font-size:16px;color:#334155;margin-bottom:18px}
+.bl-main ul,.bl-main ol{margin:14px 0 22px 20px}
+.bl-main li{margin-bottom:8px;font-size:15px;color:#334155}
+/* TABLE */
+.bl-table-wrap{overflow-x:auto;margin:20px 0;border-radius:10px;border:1px solid var(--bl-border)}
+.bl-table{width:100%;border-collapse:collapse;min-width:480px}
+.bl-table thead{background:rgba(76,121,199,.05)}
+.bl-table th{padding:10px 14px;font-size:12px;font-weight:700;color:var(--bl-text);text-align:left;border-bottom:2px solid var(--bl-border)}
+.bl-table td{padding:10px 14px;font-size:14px;color:#475569;border-bottom:1px solid #f1f5f9}
+.bl-table tr:last-child td{border-bottom:none}
+/* TLDR */
+.bl-tldr{background:var(--bl-bg);border-radius:14px;padding:24px;margin:28px 0}
+.bl-tldr-title{font-size:15px;font-weight:800;color:var(--bl-green);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.bl-tldr ul{margin:0 0 0 16px}
+.bl-tldr li{font-size:14px;color:#475569;margin-bottom:6px;line-height:1.6}
+/* INFO BOX */
+.bl-info{background:rgba(76,121,199,.03);border-radius:10px;padding:18px 20px;margin:20px 0;border:1px solid rgba(76,121,199,.08)}
+.bl-info-title{font-size:13px;font-weight:700;color:var(--bl-blue);margin-bottom:6px}
+.bl-info p{font-size:14px;margin-bottom:0;color:#475569}
+/* QUOTE */
+.bl-quote{margin:28px 0;padding:20px 24px;background:var(--bl-bg);border-radius:10px;position:relative}
+.bl-quote p{font-size:16px;font-weight:500;color:var(--bl-text);margin-bottom:6px;font-style:italic}
+.bl-quote cite{font-size:12px;color:var(--bl-muted);font-style:normal}
+/* CTA INLINE */
+.bl-cta{background:var(--bl-blue);border-radius:12px;padding:24px 28px;margin:32px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.bl-cta-text{color:#fff;font-size:15px;font-weight:600}
+.bl-cta-text small{display:block;font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:2px}
+.bl-cta-btn{display:inline-flex;align-items:center;padding:10px 24px;border-radius:.35rem;font-size:13px;font-weight:700;background:var(--bl-green);color:#fff;border:none;cursor:pointer;text-decoration:none!important;white-space:nowrap}
+/* SMALL CTA */
+.bl-cta-sm{background:var(--bl-bg);border-radius:10px;padding:14px 18px;margin:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--bl-border)}
+.bl-cta-sm-text{font-size:13px;color:var(--bl-text);font-weight:600}
+.bl-cta-sm-btn{font-size:12px;font-weight:700;color:var(--bl-blue);white-space:nowrap}
+/* AUTHOR */
+.bl-author{display:flex;gap:18px;padding:24px;background:var(--bl-bg);border-radius:14px;margin:48px 0;align-items:flex-start}
+.bl-author-img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--bl-blue)}
+.bl-author-name{font-size:16px;font-weight:800;color:var(--bl-text);margin-bottom:2px}
+.bl-author-title{font-size:12px;color:var(--bl-muted);margin-bottom:8px}
+.bl-author-bio{font-size:13px;color:#475569;line-height:1.6}
+.bl-author-links{display:flex;gap:10px;margin-top:8px}
+.bl-author-links a{color:var(--bl-muted);font-size:12px;font-weight:600}
+/* SIDE TOC */
+.bl-toc{font-size:13px}
+.bl-toc-title{font-size:12px;font-weight:800;color:var(--bl-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.bl-toc-link{display:block;padding:5px 0 5px 12px;color:var(--bl-muted);text-decoration:none;border-left:2px solid transparent;line-height:1.4;font-size:12px;transition:all .15s}
+.bl-toc-link:hover,.bl-toc-link.active{color:var(--bl-blue);border-left-color:var(--bl-blue);text-decoration:none}
+/* RESPONSIVE */
+@media(max-width:900px){.bl-layout{grid-template-columns:1fr!important}.bl-side{position:static!important;display:none}}
+</style>
 
-<div class="blog-wrap">
+<div class="bl-wrap">
+<div class="bl-layout">
+<div class="bl-main">
 
 <!-- META -->
-<div class="blog-meta">
-<img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.jpg" alt="Julian-André Winter" class="blog-meta-avatar">
-<div>
-<div class="blog-meta-name">Julian-André Winter</div>
-<div class="blog-meta-role">Geschäftsführer, easyfolio</div>
+<div class="bl-meta">
+<img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.jpg" alt="Julian-André Winter" class="bl-meta-avatar">
+<div><div class="bl-meta-name">Julian-André Winter</div><div class="bl-meta-role">Geschäftsführer</div></div>
+<span class="bl-meta-date">15. März 2026</span>
+<span class="bl-meta-read">15 Min.</span>
 </div>
-<span class="blog-meta-date">März 2026</span>
-<span class="blog-meta-read">15 Min. Lesezeit</span>
-</div>
-
-<div class="blog-content">
 
 <!-- TLDR -->
-<div class="blog-tldr">
-<div class="blog-tldr-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgb(124,186,58)" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Das Wichtigste auf einen Blick</div>
+<div class="bl-tldr">
+<div class="bl-tldr-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgb(124,186,58)" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Das Wichtigste in Kürze</div>
 <ul>
-<li><strong>Ihr direktes Middle-East-Exposure ist minimal:</strong> Israel macht etwa 0,2% im MSCI World aus. Iran, Irak, Saudi-Arabien sind nicht enthalten.</li>
-<li><strong>Energie ist der am stärksten betroffene Sektor:</strong> Energieaktien machen im MSCI World etwa 4-5% aus und wirken als natürlicher Hedge.</li>
-<li><strong>Eine Hormus-Schließung wäre ein Schock, aber verkraftbar:</strong> Historische Vergleiche zeigen: Selbst extreme Ölschocks wurden innerhalb von Monaten verdaut.</li>
-<li><strong>Historische Krisen bestätigen: Panik zahlt sich nicht aus.</strong> Golfkrieg 1990, Irak 2003, Ukraine 2022 - breit diversifizierte Portfolios erholten sich immer.</li>
-<li><strong>Was Sie jetzt tun sollten: Nichts Überstürztes.</strong> Bleiben Sie Ihrer Anlagestrategie treu und lassen Sie Zeit und Diversifikation für sich arbeiten.</li>
+<li><strong>Direktes Middle-East-Exposure minimal:</strong> Israel ca. 0,2% im MSCI World. Iran, Irak, Saudi-Arabien nicht enthalten.</li>
+<li><strong>Energiesektor als natürlicher Hedge:</strong> 4-5% Energieaktien profitieren von steigenden Ölpreisen.</li>
+<li><strong>Hormus-Blockade wäre verkraftbar:</strong> Historisch wurden selbst extreme Ölschocks innerhalb von Monaten verdaut.</li>
+<li><strong>Panik zahlt sich nie aus:</strong> Golfkrieg, Irak, Ukraine - breit diversifizierte Portfolios erholten sich immer.</li>
+<li><strong>Strategie beibehalten.</strong> Zeit und Diversifikation arbeiten für Sie.</li>
 </ul>
 </div>
 
@@ -106,216 +95,187 @@
 
 <p>In diesem Artikel analysieren wir konkret, wie hoch Ihr Exposure gegenüber der Krisenregion ist, welche Sektoren am stärksten reagieren und was die Schließung der Straße von Hormus für Ihr Portfolio bedeuten würde.</p>
 
-<h2 id="nahost-anteil">Wie hoch ist der Anteil des Nahen Ostens im MSCI World?</h2>
+<h2 id="s1">Wie hoch ist der Anteil des Nahen Ostens im MSCI World?</h2>
 
-<p>Die kurze Antwort: verschwindend gering. Der MSCI World, der die Basis für den Aktienanteil in <a href="https://easyfolio.de/easyfolio-30">easyfolio</a> bildet, ist ein Industrieländer-Index. Er enthält keine Aktien aus dem Iran, dem Irak, Saudi-Arabien, den VAE oder Katar.</p>
+<p>Die kurze Antwort: verschwindend gering. Der MSCI World enthält keine Aktien aus dem Iran, dem Irak, Saudi-Arabien, den VAE oder Katar. Israel ist das einzige Land der Region mit etwa 0,2-0,3% Anteil.</p>
 
-<p>Israel ist das einzige Land der Region, das im MSCI World vertreten ist. Der Anteil liegt bei etwa 0,2 bis 0,3 Prozent des Gesamtindex. Das bedeutet: Von 10.000 Euro in einem MSCI World ETF sind statistisch etwa 20 bis 30 Euro in israelischen Unternehmen investiert.</p>
+<p>Das bedeutet: Von 10.000 Euro in einem MSCI World ETF sind statistisch etwa 20 bis 30 Euro in israelischen Unternehmen investiert.</p>
 
-<div class="blog-info-box">
-<div class="blog-info-box-title">Wussten Sie?</div>
-<p>Der MSCI World enthält ausschließlich Industrieländer. Länder wie Iran, Irak oder Saudi-Arabien sind entweder nicht als entwickelte Märkte klassifiziert oder unterliegen Sanktionen. Mehr über die Zusammensetzung erfahren Sie in unserem Artikel <a href="https://easyfolio.de/aktuelles/details/ist-der-msci-world-ein-tech-index">Ist der MSCI World ein Tech-Index?</a></p>
-</div>
-
-<h3>Ländergewichtung im MSCI World</h3>
-
-<div class="blog-table-wrap">
-<table class="blog-table">
-<thead><tr><th>Land</th><th>Anteil</th><th>Von Iran-Krise betroffen?</th></tr></thead>
+<div class="bl-table-wrap">
+<table class="bl-table">
+<thead><tr><th>Land</th><th>Anteil</th><th>Von Krise betroffen?</th></tr></thead>
 <tbody>
 <tr><td>USA</td><td>ca. 71%</td><td>Indirekt (Energie, Verteidigung)</td></tr>
 <tr><td>Japan</td><td>ca. 6%</td><td>Indirekt (Energieimporte)</td></tr>
 <tr><td>Großbritannien</td><td>ca. 4%</td><td>Indirekt (Shell, BP)</td></tr>
-<tr><td>Frankreich</td><td>ca. 3%</td><td>Indirekt (TotalEnergies)</td></tr>
 <tr><td>Kanada</td><td>ca. 3%</td><td>Profiteur (Öl-Exporte)</td></tr>
-<tr><td>Deutschland</td><td>ca. 2,5%</td><td>Indirekt (Industrie, Chemie)</td></tr>
+<tr><td>Deutschland</td><td>ca. 2,5%</td><td>Indirekt (Industrie)</td></tr>
 <tr><td>Israel</td><td>ca. 0,2%</td><td>Direkt betroffen</td></tr>
 <tr><td>Iran, Irak, Saudi-Arabien</td><td>0%</td><td>Nicht im Index</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Auch im <a href="https://easyfolio.de/aktuelles/details/emerging-markets-etf">MSCI Emerging Markets</a> bleibt das Nahost-Exposure begrenzt. Saudi-Arabien und die VAE machen zusammen etwa 4-5% des EM-Index aus. Da der Emerging-Markets-Anteil in easyfolio nur einen Teil des Aktienanteils ausmacht, liegt Ihr effektives Exposure gegenüber der gesamten Golfregion bei etwa 1-2% des Gesamtportfolios.</p>
+<p>Im <a href="https://easyfolio.de/aktuelles/details/emerging-markets-etf">MSCI Emerging Markets</a> liegt das Nahost-Exposure bei ca. 4-5%. Da dieser nur einen Teil des Aktienanteils in easyfolio ausmacht, liegt Ihr effektives Exposure bei 1-2% des Gesamtportfolios.</p>
 
-<div class="blog-quote">
-<p>Das direkte Länder-Exposure ist minimal. Deutlich relevanter ist das indirekte Exposure über global tätige Unternehmen.</p>
-<cite>Julian-André Winter, easyfolio</cite>
-</div>
+<h3>Direktes vs. indirektes Exposure</h3>
 
-<h2 id="sektoren">Welche Sektoren sind am stärksten betroffen?</h2>
+<p>Relevanter als das direkte Länder-Exposure ist das indirekte: ExxonMobil oder BP profitieren von steigenden Ölpreisen, Airlines leiden unter höheren Kerosinkosten. Diese Effekte betreffen alle global diversifizierten Portfolios gleichermaßen.</p>
 
-<p>Geopolitische Krisen wirken sich nicht gleichmäßig auf alle Branchen aus. Einige profitieren kurzfristig, andere leiden erheblich.</p>
+<h2 id="s2">Welche Sektoren sind am stärksten betroffen?</h2>
 
-<div class="blog-table-wrap">
-<table class="blog-table">
-<thead><tr><th>Sektor</th><th>Anteil MSCI World</th><th>Reaktion bei Ölpreis-Schock</th></tr></thead>
+<div class="bl-table-wrap">
+<table class="bl-table">
+<thead><tr><th>Sektor</th><th>Anteil MSCI World</th><th>Reaktion</th></tr></thead>
 <tbody>
-<tr><td>Energie (Öl & Gas)</td><td>ca. 4-5%</td><td>Stark positiv</td></tr>
-<tr><td>Rüstung/Verteidigung</td><td>ca. 1-2%</td><td>Positiv</td></tr>
+<tr><td>Energie</td><td>ca. 4-5%</td><td>Stark positiv</td></tr>
 <tr><td>Technologie</td><td>ca. 24%</td><td>Neutral</td></tr>
 <tr><td>Gesundheit</td><td>ca. 12%</td><td>Neutral (defensiv)</td></tr>
 <tr><td>Finanzwerte</td><td>ca. 15%</td><td>Gemischt</td></tr>
-<tr><td>Industrie</td><td>ca. 11%</td><td>Leicht negativ</td></tr>
 <tr><td>Transport/Airlines</td><td>ca. 2%</td><td>Stark negativ</td></tr>
-<tr><td>Chemie</td><td>ca. 2%</td><td>Negativ</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>In einem <a href="https://easyfolio.de/easyfolio-70">easyfolio 70 Portfolio</a> bedeutet das konkret: Etwa 3-4% stecken in Energieaktien, die kurzfristig profitieren. Etwa 17% liegen in Technologiewerten, die kaum direkt betroffen sind. Der Energiesektor wirkt als natürlicher Hedge.</p>
+<p>In einem <a href="https://easyfolio.de/easyfolio-70">easyfolio 70 Portfolio</a> stecken ca. 3-4% in Energieaktien, die kurzfristig profitieren. Ca. 17% liegen in Technologiewerten, die kaum betroffen sind.</p>
 
-<div class="blog-info-box">
-<div class="blog-info-box-title">Natürlicher Hedge im Portfolio</div>
-<p>Während Airlines unter steigenden Kerosinkosten leiden, gleichen die Gewinne bei Energieaktien einen Teil dieser Verluste aus. Diese Gegenläufigkeit ist ein Kernvorteil der <a href="https://easyfolio.de/aktuelles/details/richtig-diversifizieren-mit-easyfolio">breiten Diversifikation</a>.</p>
+<div class="bl-quote">
+<p>Energieaktien wirken als natürlicher Hedge: Während Airlines unter Kerosinkosten leiden, gleichen Ölkonzerne einen Teil der Verluste aus.</p>
 </div>
 
-<h2 id="hormus">Was passiert bei einer Schließung der Straße von Hormus?</h2>
+<div class="bl-cta-sm">
+<span class="bl-cta-sm-text">Wie ist Ihr Portfolio aufgebaut?</span>
+<a href="https://easyfolio.de/anlegertest" class="bl-cta-sm-btn">Anlegertest machen →</a>
+</div>
 
-<p>Die Straße von Hormus ist das wichtigste Nadelöhr des globalen Ölhandels. Täglich fließen 17-21 Millionen Barrel Rohöl hindurch - etwa 20% des weltweiten Ölhandels.</p>
+<h2 id="s3">Was passiert bei einer Schließung der Straße von Hormus?</h2>
 
-<div class="blog-table-wrap">
-<table class="blog-table">
-<thead><tr><th>Szenario</th><th>Dauer</th><th>Erwarteter Ölpreis</th><th>Wahrscheinlichkeit</th></tr></thead>
+<p>Die Meerenge ist nur 33 Kilometer breit. Täglich fließen 17-21 Millionen Barrel Rohöl hindurch - etwa 20% des weltweiten Ölhandels und 25% des LNG-Handels.</p>
+
+<div class="bl-table-wrap">
+<table class="bl-table">
+<thead><tr><th>Szenario</th><th>Dauer</th><th>Ölpreis</th><th>Wahrscheinlichkeit</th></tr></thead>
 <tbody>
-<tr><td>Kurzfristige Eskalation</td><td>Tage bis Wochen</td><td>90-110 USD</td><td>Hoch</td></tr>
-<tr><td>Teilweise Blockade</td><td>Wochen bis Monate</td><td>110-130 USD</td><td>Mittel</td></tr>
+<tr><td>Kurzfristige Eskalation</td><td>Tage-Wochen</td><td>90-110 USD</td><td>Hoch</td></tr>
+<tr><td>Teilweise Blockade</td><td>Wochen-Monate</td><td>110-130 USD</td><td>Mittel</td></tr>
 <tr><td>Vollständige Blockade</td><td>Monate</td><td>130-180 USD</td><td>Gering</td></tr>
-<tr><td>Langfristiger Konflikt</td><td>Jahre</td><td>100-200 USD</td><td>Sehr gering</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Selbst im Extremszenario einer monatelangen Blockade zeigen historische Vergleiche: Breit diversifizierte Portfolios überstehen solche Schocks. Strategische Ölreserven von 1,5 Milliarden Barrel bieten Puffer für mehrere Monate.</p>
+<p>Strategische Ölreserven von 1,5 Milliarden Barrel bieten Puffer für mehrere Monate. Selbst im Extremszenario zeigen historische Vergleiche: Breit diversifizierte Portfolios überstehen solche Schocks.</p>
 
-<h2 id="historie">Wie haben sich Portfolios in früheren Krisen entwickelt?</h2>
+<h2 id="s4">Wie haben sich Portfolios in früheren Krisen entwickelt?</h2>
 
-<div class="blog-quote">
-<p>Wer im August 1990 in Panik verkauft hatte, realisierte Verluste und verpasste eine der stärksten Rallyes des Jahrzehnts.</p>
-</div>
-
-<div class="blog-table-wrap">
-<table class="blog-table">
-<thead><tr><th>Ereignis</th><th>Rückgang</th><th>Erholung</th><th>Rendite 12 Mon. nach Tief</th></tr></thead>
+<div class="bl-table-wrap">
+<table class="bl-table">
+<thead><tr><th>Ereignis</th><th>Rückgang</th><th>Erholung</th><th>12 Mon. nach Tief</th></tr></thead>
 <tbody>
-<tr><td>Golfkrieg 1990</td><td>ca. 20%</td><td>ca. 6 Monate</td><td>+33%</td></tr>
-<tr><td>9/11 Anschläge 2001</td><td>ca. 12%</td><td>ca. 2 Monate</td><td>+16%</td></tr>
-<tr><td>Irak-Invasion 2003</td><td>ca. 14%</td><td>ca. 1 Monat</td><td>+33%</td></tr>
-<tr><td>Ukraine-Krieg 2022</td><td>ca. 25%</td><td>ca. 10 Monate</td><td>+22%</td></tr>
+<tr><td>Golfkrieg 1990</td><td>-20%</td><td>6 Monate</td><td>+33%</td></tr>
+<tr><td>9/11 2001</td><td>-12%</td><td>2 Monate</td><td>+16%</td></tr>
+<tr><td>Irak 2003</td><td>-14%</td><td>1 Monat</td><td>+33%</td></tr>
+<tr><td>Ukraine 2022</td><td>-25%</td><td>10 Monate</td><td>+22%</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Das Muster ist konsistent: Die besten Renditen werden oft unmittelbar nach dem Tiefpunkt erzielt. Wer zu diesem Zeitpunkt verkauft hatte, verpasste die Erholung. Mehr dazu in unserem Artikel <a href="https://easyfolio.de/aktuelles/details/das-passiert-wenn-sie-die-besten-boersentage-verpassen">Was passiert, wenn Sie die besten Börsentage verpassen</a>.</p>
+<p>Das Muster ist konsistent: Die besten Renditen werden unmittelbar nach dem Tiefpunkt erzielt. Mehr dazu: <a href="https://easyfolio.de/aktuelles/details/das-passiert-wenn-sie-die-besten-boersentage-verpassen">Was passiert, wenn Sie die besten Börsentage verpassen</a>.</p>
 
-<!-- INLINE CTA -->
-<div class="blog-cta-inline">
-<h3>Nicht sicher, welches Portfolio passt?</h3>
-<p>In 5 Minuten ermitteln wir Ihr persönliches Risikoprofil.</p>
-<a href="https://easyfolio.de/anlegertest" class="blog-cta-btn">Zum Anlegertest</a>
+<div class="bl-info">
+<div class="bl-info-title">Historische Perspektive</div>
+<p>Über 15-Jahres-Zeiträume hat der MSCI World noch nie eine negative Rendite erzielt. Je länger Ihr Anlagehorizont, desto irrelevanter ist die aktuelle Krise. Mehr: <a href="https://easyfolio.de/aktuelles/details/cool-bleiben-beim-investieren">Cool bleiben beim Investieren</a>.</p>
 </div>
 
-<h2 id="vorbereitet">Warum ist Ihr Portfolio bereits auf solche Krisen vorbereitet?</h2>
+<h2 id="s5">Warum ist Ihr easyfolio-Portfolio bereits vorbereitet?</h2>
 
-<p>Ein <a href="https://easyfolio.de/easyfolio-50">easyfolio-Portfolio</a> investiert über ETFs in 6.000 bis 12.000 Einzeltitel weltweit. Diese Streuung über Länder, Sektoren und Unternehmensgrößen sorgt dafür, dass kein einzelnes Ereignis das Gesamtportfolio aus der Bahn werfen kann.</p>
+<p>Ein <a href="https://easyfolio.de/easyfolio-50">easyfolio-Portfolio</a> investiert in 6.000-12.000 Einzeltitel weltweit. Diese Streuung sorgt dafür, dass kein einzelnes Ereignis das Gesamtportfolio aus der Bahn wirft.</p>
 
 <ul>
-<li>Direktes Exposure gegenüber Israel: ca. 0,2%, Golfregion: 1-2%</li>
-<li>Energieaktien (4-5%) wirken als natürlicher Hedge bei steigenden Ölpreisen</li>
-<li>Defensive Sektoren (Gesundheit 12%, Basiskonsumgüter 7%) bieten Stabilität</li>
-<li>Der <a href="https://easyfolio.de/easyfolio-30">Anleihenanteil</a> dämpft Schwankungen zusätzlich</li>
+<li>Direktes Exposure Israel: 0,2%, Golfregion: 1-2%</li>
+<li>Energieaktien (4-5%) als natürlicher Hedge</li>
+<li>Defensive Sektoren (Gesundheit, Basiskonsumgüter) für Stabilität</li>
+<li><a href="https://easyfolio.de/easyfolio-30">Anleihenanteil</a> dämpft Schwankungen zusätzlich</li>
 <li>Automatisches <a href="https://easyfolio.de/aktuelles/details/wie-funktioniert-das-rebalancing">Rebalancing</a> verhindert Klumpenrisiken</li>
 </ul>
 
-<div class="blog-info-box">
-<div class="blog-info-box-title">Langfristig denken</div>
-<p>Über 15-Jahres-Zeiträume hat der MSCI World noch nie eine negative Rendite erzielt. Je länger Ihr Anlagehorizont, desto irrelevanter ist die aktuelle Krise für Ihr Endergebnis. Mehr dazu: <a href="https://easyfolio.de/aktuelles/details/cool-bleiben-beim-investieren">Cool bleiben beim Investieren</a>.</p>
+<!-- CTA -->
+<div class="bl-cta">
+<div class="bl-cta-text">Nicht sicher, welches Portfolio passt?<small>In 5 Minuten zum persönlichen Ergebnis.</small></div>
+<a href="https://easyfolio.de/anlegertest" class="bl-cta-btn">Zum Anlegertest</a>
 </div>
 
-<h2 id="handeln">Was sollten Sie als easyfolio-Anleger jetzt tun?</h2>
+<h2 id="s6">Was sollten Sie jetzt tun?</h2>
 
-<div class="blog-quote">
-<p>Die beste Strategie in einer Krise ist oft die einfachste: Nichts tun. Ihr Portfolio arbeitet für Sie, auch wenn die Schlagzeilen anderes suggerieren.</p>
-<cite>Julian-André Winter</cite>
+<div class="bl-quote">
+<p>Die beste Strategie in einer Krise ist oft die einfachste: Nichts tun.</p>
+<cite>Julian-André Winter, Geschäftsführer easyfolio</cite>
 </div>
 
-<h3>Ruhe bewahren</h3>
-<p>Ihr Portfolio ist so konstruiert, dass es mit solchen Situationen umgehen kann. Anleger, die in Krisen verkaufen, erzielen im Schnitt 3-4 Prozentpunkte weniger Rendite pro Jahr als der Markt.</p>
+<p><strong>Ruhe bewahren.</strong> Anleger, die in Krisen verkaufen, erzielen im Schnitt 3-4 Prozentpunkte weniger Rendite pro Jahr als der Markt.</p>
 
-<h3>Sparplan weiterlaufen lassen</h3>
-<p>Fallende Kurse bedeuten, dass Sie für Ihre <a href="https://easyfolio.de/etf-sparplan">Sparrate</a> mehr Anteile kaufen. Der <a href="https://easyfolio.de/aktuelles/details/der-cost-average-effekt">Cost-Average-Effekt</a> wirkt langfristig zu Ihren Gunsten.</p>
+<p><strong>Sparplan weiterlaufen lassen.</strong> Fallende Kurse bedeuten mehr Anteile für Ihre <a href="https://easyfolio.de/etf-sparplan">Sparrate</a>. Der <a href="https://easyfolio.de/aktuelles/details/der-cost-average-effekt">Cost-Average-Effekt</a> wirkt langfristig.</p>
 
-<h3>Was Sie NICHT tun sollten</h3>
+<p><strong>Was Sie NICHT tun sollten:</strong></p>
 <ul>
-<li>Nicht verkaufen, um Verluste zu begrenzen - Verluste sind nur Buchverluste</li>
+<li>Nicht verkaufen um Verluste zu begrenzen - Verluste sind nur Buchverluste</li>
 <li>Nicht die Strategie wechseln - Krisengewinner wechseln jedes Mal</li>
-<li>Nicht täglich ins Depot schauen - je öfter Sie schauen, desto emotionaler handeln Sie</li>
-<li>Nicht auf Timing setzen - wer die 10 besten Börsentage eines 30-Jahres-Zeitraums verpasst, <a href="https://easyfolio.de/aktuelles/details/das-passiert-wenn-sie-die-besten-boersentage-verpassen">halbiert seine Rendite</a></li>
+<li>Nicht täglich ins Depot schauen - je öfter, desto emotionaler</li>
+<li>Nicht auf <a href="https://easyfolio.de/aktuelles/details/market-timing-mit-etfs">Timing setzen</a> - wer die 10 besten Tage verpasst, halbiert die Rendite</li>
 </ul>
 
-<h2 id="fazit">Fazit: Ihr Portfolio ist robuster, als Sie denken</h2>
+<h2 id="s7">Fazit</h2>
 
-<p>Die Iran-Krise ist real, aber für Ihr easyfolio-Portfolio kein Grund zur Panik. Ihr direktes Exposure liegt unter 2%. Historische Vergleiche zeigen: Breit diversifizierte Portfolios erholen sich innerhalb von Monaten. Wer investiert bleibt, wird langfristig belohnt.</p>
+<p>Die Iran-Krise ist real, aber für Ihr easyfolio-Portfolio kein Grund zur Panik. Ihr direktes Exposure liegt unter 2%. Historisch erholen sich breit diversifizierte Portfolios innerhalb von Monaten. Was heute dramatisch erscheint, wird in zehn Jahren nur eine kleine Delle im Chart sein.</p>
 
-<p>Bleiben Sie Ihrer Strategie treu. Was heute dramatisch erscheint, wird in zehn Jahren nur eine kleine Delle im Chart sein.</p>
-
-<!-- INLINE CTA -->
-<div class="blog-cta-inline">
-<h3>Jetzt Depot eröffnen</h3>
-<p>Ab 10 Euro monatlich in über 17.000 Wertpapiere investieren.</p>
-<a href="https://easyfolio.de/depot/depot-anmeldung" class="blog-cta-btn">Depot eröffnen</a>
+<div class="bl-cta-sm">
+<span class="bl-cta-sm-text">Jetzt Depot eröffnen - ab 10 Euro monatlich</span>
+<a href="https://easyfolio.de/depot/depot-anmeldung" class="bl-cta-sm-btn">Depot eröffnen →</a>
 </div>
 
-</div><!-- end blog-content -->
-
-<!-- AUTHOR BOX -->
-<div class="blog-author">
-<img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.jpg" alt="Julian-André Winter" class="blog-author-img">
+<!-- AUTHOR -->
+<div class="bl-author">
+<img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.jpg" alt="Julian-André Winter" class="bl-author-img">
 <div>
-<div class="blog-author-name">Julian-André Winter</div>
-<div class="blog-author-title">Geschäftsführer, easyfolio GmbH</div>
-<div class="blog-author-bio">Julian-André Winter berichtet monatlich über aktuelle Geschehnisse am Kapitalmarkt. Er teilt sein Expertenwissen im Bereich privater Altersvorsorge und Indexfonds. Seine Vision ist es, Menschen einen bequemen Zugang in den Vermögensaufbau zu ermöglichen.</div>
-<div class="blog-author-links">
-<a href="mailto:info@easyfolio.de">E-Mail</a>
-<a href="https://de.linkedin.com/in/julian-andre-winter" target="_blank">LinkedIn</a>
-</div>
+<div class="bl-author-name">Julian-André Winter</div>
+<div class="bl-author-title">Geschäftsführer, easyfolio GmbH</div>
+<div class="bl-author-bio">Julian-André Winter berichtet monatlich über aktuelle Geschehnisse am Kapitalmarkt. Er teilt sein Expertenwissen im Bereich privater Altersvorsorge und Indexfonds.</div>
+<div class="bl-author-links"><a href="mailto:info@easyfolio.de">E-Mail</a> <a href="https://de.linkedin.com/in/julian-andre-winter" target="_blank">LinkedIn</a></div>
 </div>
 </div>
 
-</div><!-- end blog-wrap -->
+</div><!-- end bl-main -->
 
-<!-- TOC -->
-<div class="blog-toc">
-<button class="blog-toc-btn" onclick="this.nextElementSibling.classList.toggle('open')">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg>
-</button>
-<div class="blog-toc-panel">
-<div class="blog-toc-title">Inhaltsverzeichnis</div>
-<a class="blog-toc-link" href="#nahost-anteil" onclick="event.preventDefault();document.getElementById('nahost-anteil').scrollIntoView({behavior:'smooth'})">Nahost-Anteil im Portfolio</a>
-<a class="blog-toc-link" href="#sektoren" onclick="event.preventDefault();document.getElementById('sektoren').scrollIntoView({behavior:'smooth'})">Betroffene Sektoren</a>
-<a class="blog-toc-link" href="#hormus" onclick="event.preventDefault();document.getElementById('hormus').scrollIntoView({behavior:'smooth'})">Straße von Hormus</a>
-<a class="blog-toc-link" href="#historie" onclick="event.preventDefault();document.getElementById('historie').scrollIntoView({behavior:'smooth'})">Historische Krisen</a>
-<a class="blog-toc-link" href="#vorbereitet" onclick="event.preventDefault();document.getElementById('vorbereitet').scrollIntoView({behavior:'smooth'})">Portfolio-Robustheit</a>
-<a class="blog-toc-link" href="#handeln" onclick="event.preventDefault();document.getElementById('handeln').scrollIntoView({behavior:'smooth'})">Was jetzt tun?</a>
-<a class="blog-toc-link" href="#fazit" onclick="event.preventDefault();document.getElementById('fazit').scrollIntoView({behavior:'smooth'})">Fazit</a>
+<!-- SIDE TOC -->
+<div class="bl-side">
+<div class="bl-toc">
+<div class="bl-toc-title">Inhalt</div>
+<a class="bl-toc-link" href="#s1" onclick="event.preventDefault();document.getElementById('s1').scrollIntoView({behavior:'smooth'})">Nahost-Anteil im Portfolio</a>
+<a class="bl-toc-link" href="#s2" onclick="event.preventDefault();document.getElementById('s2').scrollIntoView({behavior:'smooth'})">Betroffene Sektoren</a>
+<a class="bl-toc-link" href="#s3" onclick="event.preventDefault();document.getElementById('s3').scrollIntoView({behavior:'smooth'})">Straße von Hormus</a>
+<a class="bl-toc-link" href="#s4" onclick="event.preventDefault();document.getElementById('s4').scrollIntoView({behavior:'smooth'})">Historische Krisen</a>
+<a class="bl-toc-link" href="#s5" onclick="event.preventDefault();document.getElementById('s5').scrollIntoView({behavior:'smooth'})">Portfolio-Robustheit</a>
+<a class="bl-toc-link" href="#s6" onclick="event.preventDefault();document.getElementById('s6').scrollIntoView({behavior:'smooth'})">Was jetzt tun?</a>
+<a class="bl-toc-link" href="#s7" onclick="event.preventDefault();document.getElementById('s7').scrollIntoView({behavior:'smooth'})">Fazit</a>
 </div>
 </div>
 
-</div><!-- end blog-page -->
+</div><!-- end bl-layout -->
+</div><!-- end bl-wrap -->
 
-<!-- FAQ SCHEMA -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Sollte ich jetzt Energieaktien kaufen?","acceptedAnswer":{"@type":"Answer","text":"In Ihrem easyfolio-Portfolio sind Energieaktien bereits enthalten (ca. 4-5%). Eine zusätzliche Investition würde ein Klumpenrisiko schaffen. Die breite Diversifikation ist der bessere Ansatz."}},
-{"@type":"Question","name":"Ist Gold jetzt eine sichere Alternative?","acceptedAnswer":{"@type":"Answer","text":"Gold kann als Stabilisator wirken, ist aber kein Ersatz für ein diversifiziertes Portfolio. Langfristig liegt die Rendite von Gold deutlich unter der von Aktien."}},
-{"@type":"Question","name":"Wie lange dauert die Markterholung nach geopolitischen Krisen?","acceptedAnswer":{"@type":"Answer","text":"Historisch erholen sich breit diversifizierte Portfolios innerhalb von 6-12 Monaten. Golfkrieg 1990: 6 Monate, 9/11: 2 Monate, Ukraine 2022: 10 Monate."}},
-{"@type":"Question","name":"Sollte ich meinen Sparplan pausieren?","acceptedAnswer":{"@type":"Answer","text":"Genau das Gegenteil. In fallenden Märkten kaufen Sie für Ihre Sparrate mehr Anteile. Der Cost-Average-Effekt wirkt langfristig zu Ihren Gunsten."}},
-{"@type":"Question","name":"Was wenn die Krise eskaliert?","acceptedAnswer":{"@type":"Answer","text":"Selbst im Corona-Crash 2020 mit -35% erholten sich die Märkte innerhalb von 6 Monaten. Ihr easyfolio-Portfolio ist so konstruiert, dass es auch Extremszenarien übersteht."}}
+{"@type":"Question","name":"Sollte ich jetzt Energieaktien kaufen?","acceptedAnswer":{"@type":"Answer","text":"In Ihrem easyfolio-Portfolio sind Energieaktien bereits enthalten (ca. 4-5%). Eine zusätzliche Investition würde ein Klumpenrisiko schaffen."}},
+{"@type":"Question","name":"Wie lange dauert die Markterholung nach geopolitischen Krisen?","acceptedAnswer":{"@type":"Answer","text":"Historisch erholen sich breit diversifizierte Portfolios innerhalb von 6-12 Monaten."}},
+{"@type":"Question","name":"Sollte ich meinen Sparplan pausieren?","acceptedAnswer":{"@type":"Answer","text":"Genau das Gegenteil. In fallenden Märkten kaufen Sie mehr Anteile. Der Cost-Average-Effekt wirkt langfristig."}},
+{"@type":"Question","name":"Ist Gold jetzt eine sichere Alternative?","acceptedAnswer":{"@type":"Answer","text":"Gold kann stabilisieren, ersetzt aber kein diversifiziertes Portfolio. Langfristig liegt die Rendite unter Aktien."}},
+{"@type":"Question","name":"Was wenn die Krise eskaliert?","acceptedAnswer":{"@type":"Answer","text":"Selbst im Corona-Crash 2020 mit -35% erholten sich die Märkte in 6 Monaten. Ihr Portfolio übersteht auch Extremszenarien."}}
 ]}
 </script>
-</div></div></div></div></div></section></div></div>
-
-<!-- ARTICLE SCHEMA -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Krieg im Nahen Osten: Was bedeutet das für Ihr easyfolio-Portfolio?","author":{"@type":"Person","name":"Julian-André Winter","jobTitle":"Geschäftsführer","url":"https://de.linkedin.com/in/julian-andre-winter"},"publisher":{"@type":"Organization","name":"easyfolio GmbH","url":"https://easyfolio.de"},"datePublished":"2026-03-15","dateModified":"2026-05-08"}
+{"@context":"https://schema.org","@type":"Article","headline":"Krieg im Nahen Osten: Was bedeutet das für Ihr easyfolio-Portfolio?","author":{"@type":"Person","name":"Julian-André Winter","jobTitle":"Geschäftsführer"},"publisher":{"@type":"Organization","name":"easyfolio GmbH","url":"https://easyfolio.de"},"datePublished":"2026-03-15","dateModified":"2026-05-08"}
 </script>
+<script>
+(function(){var links=document.querySelectorAll('.bl-toc-link');var sections=[];links.forEach(function(l){var id=l.getAttribute('href').replace('#','');var el=document.getElementById(id);if(el)sections.push({el:el,link:l})});window.addEventListener('scroll',function(){var pos=window.scrollY+100;sections.forEach(function(s){if(s.el.offsetTop<=pos){links.forEach(function(l){l.classList.remove('active')});s.link.classList.add('active')}})},{passive:true})})();
+</script>
+
 </div></div></div></div></div></section></div></div>
