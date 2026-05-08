@@ -11,7 +11,7 @@
 @keyframes spFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
 .sp-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
 .sp-hero-inner{}
-.sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:8px 18px;border-radius:60px;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:28px}
+.sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:none!important;padding:10px 22px;border-radius:60px;font-size:13px;font-weight:600;color:#fff;margin-bottom:28px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .sp-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%;animation:spPulse 2s ease-in-out infinite}@keyframes spPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
 .sp-hero h1{font-size:clamp(32px,4.5vw,56px);font-weight:800;color:#fff;line-height:1.06;margin-bottom:22px;letter-spacing:-.03em}
 .sp-hero h1 em{font-style:normal;color:#7cba3a;position:relative}
@@ -23,15 +23,15 @@
 .sp-hero-counter-lbl{font-size:12px;color:rgba(255,255,255,.45);margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
 .sp-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .sp-hero-visual{position:relative}
-.sp-hero-img{width:100%;max-width:440px;border-radius:20px;box-shadow:0 40px 80px rgba(0,0,0,.25);animation:spImgIn .8s ease forwards;opacity:0;transform:translateY(20px) scale(.97)}
+.sp-hero-img{width:100%;max-width:500px;filter:drop-shadow(0 20px 40px rgba(0,0,0,.2));animation:spImgIn .8s ease forwards;opacity:0;transform:translateY(20px) scale(.97);border-radius:0!important}
 @keyframes spImgIn{to{opacity:1;transform:translateY(0) scale(1)}}
-.sp-hero-badge{position:absolute;background:#fff;border-radius:14px;padding:14px 18px;box-shadow:0 12px 32px rgba(0,0,0,.12);animation:spBadgeFloat 5s ease-in-out infinite}
+.sp-hero-badge{position:absolute;background:#fff;border-radius:16px;padding:16px 20px;box-shadow:0 16px 40px rgba(0,0,0,.1);animation:spBadgeFloat 5s ease-in-out infinite;transition:transform .3s ease}.sp-hero-badge:hover{transform:translateY(-14px)!important;box-shadow:0 20px 48px rgba(0,0,0,.15)}
 @keyframes spBadgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .sp-hero-badge-1{bottom:-14px;left:-14px}
 .sp-hero-badge-1 small{font-size:11px;color:#718096;display:block;margin-bottom:2px}
-.sp-hero-badge-1 strong{font-size:22px;font-weight:800;color:rgb(76,121,199)}
+.sp-hero-badge-1 strong{font-size:26px;font-weight:900;color:rgb(76,121,199)}
 .sp-hero-badge-2{top:16px;right:-14px;animation-delay:1.5s}
-.sp-hero-badge-2 strong{font-size:24px;font-weight:800;color:rgb(124,186,58);display:block}
+.sp-hero-badge-2 strong{font-size:28px;font-weight:900;color:rgb(124,186,58);display:block}
 .sp-hero-badge-2 small{font-size:11px;color:#718096}
 .sp-hero-badge-3{bottom:50px;right:-18px;animation-delay:3s}
 .sp-hero-badge-3 strong{font-size:15px;font-weight:700;color:#1a202c}
@@ -149,8 +149,8 @@
 <div class="sp-hero-grid">
 <div class="sp-hero-inner">
 <div class="sp-hero-tag"><span class="sp-hero-tag-dot"></span>ETF-Sparplan von easyfolio</div>
-<h1>Ihr Geld. <em>Automatisch</em> investiert. Weltweit.</h1>
-<p>Monatlich ab 10 Euro in über 17.000 Wertpapiere aus 95 Ländern investieren. Professionell gemanagt, jederzeit flexibel, ohne versteckte Kosten.</p>
+<h1>Starten Sie Ihren <em>Sparplan</em> und lassen Sie Ihr Geld für sich arbeiten.</h1>
+<p>Schon ab 10 Euro monatlich bauen Sie ein global diversifiziertes Vermögen auf. Ohne Vorkenntnisse, ohne versteckte Kosten, ohne Stress. Wir kümmern uns um alles.</p>
 <div class="sp-hero-counters">
 <div class="sp-hero-counter"><div class="sp-hero-counter-num" data-target="17000">0</div><div class="sp-hero-counter-lbl">Wertpapiere</div></div>
 <div class="sp-hero-counter"><div class="sp-hero-counter-num" data-target="95">0</div><div class="sp-hero-counter-lbl">Länder</div></div>
@@ -162,10 +162,10 @@
 </div>
 </div>
 <div class="sp-hero-visual">
-<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/ETF_Sparplan__Investieren__Header.png" alt="ETF-Sparplan" class="sp-hero-img">
-<div class="sp-hero-badge sp-hero-badge-1"><small>Zielrendite bis</small><strong>7,2%</strong></div>
-<div class="sp-hero-badge sp-hero-badge-2"><strong>95</strong><small>Länder</small></div>
-<div class="sp-hero-badge sp-hero-badge-3"><strong>3x Testsieger</strong><small>Handelsblatt 2022-2024</small></div>
+<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" style="border-radius:20px!important;" alt="ETF-Sparplan" class="sp-hero-img">
+<div class="sp-hero-badge sp-hero-badge-1"><small>Sparplan ab</small><strong>10 Euro</strong><small>Pro Monat</small></div>
+<div class="sp-hero-badge sp-hero-badge-2"><small>Zielrendite</small><strong>+7,2%</strong><small>Pro Jahr</small></div>
+<div class="sp-hero-badge sp-hero-badge-3"><small>Wertpapiere</small><strong>17.000+</strong><small>Weltweit</small></div>
 </div>
 </div>
 </div>
