@@ -4,7 +4,7 @@
 .bl-wrap{--bl-blue:rgb(76,121,199);--bl-green:rgb(124,186,58);--bl-text:#1a202c;--bl-muted:#64748b;--bl-border:#e5e7eb;--bl-bg:#f8fafc;position:relative;color:var(--bl-text);line-height:1.8;max-width:100%}
 .bl-wrap,.bl-wrap *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important}
 .bl-wrap a{color:var(--bl-blue);text-decoration:none}
-.bl-wrap a:hover{text-decoration:underline}
+.bl-wrap a:hover{text-decoration:underline}.bl-wrap h1{color:#1a202c!important}
 .bl-layout{display:grid;grid-template-columns:1fr 220px;gap:48px;align-items:start}
 .bl-main{}
 .bl-side{position:sticky;top:24px;align-self:start}
@@ -31,8 +31,8 @@
 /* TLDR */
 .bl-tldr{background:var(--bl-bg);border-radius:14px;padding:24px;margin:28px 0}
 .bl-tldr-title{font-size:15px;font-weight:800;color:var(--bl-green);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.bl-tldr ul{margin:0 0 0 16px}
-.bl-tldr li{font-size:14px;color:#475569;margin-bottom:6px;line-height:1.6}
+.bl-tldr ul{margin:0;list-style:none;padding:0}
+.bl-tldr li{font-size:14px;color:#475569;margin-bottom:8px;line-height:1.6;padding-left:18px;position:relative}.bl-tldr li::before{content:"—";position:absolute;left:0;top:0;color:var(--bl-blue);font-weight:700}
 /* INFO BOX */
 .bl-info{background:rgba(76,121,199,.03);border-radius:10px;padding:18px 20px;margin:20px 0;border:1px solid rgba(76,121,199,.08)}
 .bl-info-title{font-size:13px;font-weight:700;color:var(--bl-blue);margin-bottom:6px}
@@ -45,7 +45,7 @@
 .bl-cta{background:var(--bl-blue);border-radius:12px;padding:24px 28px;margin:32px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .bl-cta-text{color:#fff;font-size:15px;font-weight:600}
 .bl-cta-text small{display:block;font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:2px}
-.bl-cta-btn{display:inline-flex;align-items:center;padding:10px 24px;border-radius:.35rem;font-size:13px;font-weight:700;background:var(--bl-green);color:#fff;border:none;cursor:pointer;text-decoration:none!important;white-space:nowrap}
+.bl-cta-btn{display:inline-flex;align-items:center;padding:10px 24px;border-radius:.35rem;font-size:13px;font-weight:700;background:var(--bl-green);color:#fff!important;border:none;cursor:pointer;text-decoration:none!important;white-space:nowrap}
 /* SMALL CTA */
 .bl-cta-sm{background:var(--bl-bg);border-radius:10px;padding:14px 18px;margin:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--bl-border)}
 .bl-cta-sm-text{font-size:13px;color:var(--bl-text);font-weight:600}
@@ -59,10 +59,10 @@
 .bl-author-links{display:flex;gap:10px;margin-top:8px}
 .bl-author-links a{color:var(--bl-muted);font-size:12px;font-weight:600}
 /* SIDE TOC */
-.bl-toc{font-size:13px}
+.bl-toc{font-size:13px;background:#fff;border:1px solid var(--bl-border);border-radius:14px;padding:20px}
 .bl-toc-title{font-size:12px;font-weight:800;color:var(--bl-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
-.bl-toc-link{display:block;padding:5px 0 5px 12px;color:var(--bl-muted);text-decoration:none;border-left:2px solid transparent;line-height:1.4;font-size:12px;transition:all .15s}
-.bl-toc-link:hover,.bl-toc-link.active{color:var(--bl-blue);border-left-color:var(--bl-blue);text-decoration:none}
+.bl-toc-link{display:block;padding:5px 0 5px 12px;color:var(--bl-text);text-decoration:none;border-left:2px solid transparent;line-height:1.4;font-size:12px;transition:all .15s}
+.bl-toc-link:hover{color:var(--bl-blue);text-decoration:none}.bl-toc-link.active{color:var(--bl-blue);border-left-color:var(--bl-blue);font-weight:700;text-decoration:none}
 /* RESPONSIVE */
 @media(max-width:900px){.bl-layout{grid-template-columns:1fr!important}.bl-side{position:static!important;display:none}}
 </style>
@@ -145,7 +145,7 @@
 
 <div class="bl-cta-sm">
 <span class="bl-cta-sm-text">Wie ist Ihr Portfolio aufgebaut?</span>
-<a href="https://easyfolio.de/anlegertest" class="bl-cta-sm-btn">Anlegertest machen →</a>
+<a href="https://easyfolio.de/anlegertest" class="bl-cta-sm-btn">Anlegertest machen ›</a>
 </div>
 
 <h2 id="s3">Was passiert bei einer Schließung der Straße von Hormus?</h2>
@@ -229,7 +229,7 @@
 
 <div class="bl-cta-sm">
 <span class="bl-cta-sm-text">Jetzt Depot eröffnen - ab 10 Euro monatlich</span>
-<a href="https://easyfolio.de/depot/depot-anmeldung" class="bl-cta-sm-btn">Depot eröffnen →</a>
+<a href="https://easyfolio.de/depot/depot-anmeldung" class="bl-cta-sm-btn">Depot eröffnen ›</a>
 </div>
 
 <!-- AUTHOR -->
