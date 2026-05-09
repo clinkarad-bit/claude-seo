@@ -9,8 +9,9 @@
 .sp-hero-glow1{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(140px);opacity:.15;background:rgb(124,186,58);top:-200px;right:-100px;animation:spFloat 10s ease-in-out infinite}
 .sp-hero-glow2{position:absolute;width:400px;height:400px;border-radius:50%;filter:blur(100px);opacity:.08;background:rgb(76,121,199);bottom:-100px;left:-50px;animation:spFloat 12s ease-in-out infinite reverse}
 @keyframes spFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
-.sp-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+.sp-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:2}
 .sp-hero-inner{}
+.sp-hero-visual{display:flex;justify-content:center;align-items:center}
 .sp-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:none!important;padding:10px 22px;border-radius:60px;font-size:13px;font-weight:600;color:#fff;margin-bottom:28px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .sp-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%;animation:spPulse 2s ease-in-out infinite}@keyframes spPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
 .sp-hero h1{font-size:clamp(32px,4.5vw,56px);font-weight:800;color:#fff;line-height:1.06;margin-bottom:22px;letter-spacing:-.03em}
@@ -23,7 +24,8 @@
 .sp-hero-counter-lbl{font-size:12px;color:rgba(255,255,255,.45);margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
 .sp-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
 .sp-hero-visual{position:relative}
-.sp-hero-img{width:100%;max-width:420px;aspect-ratio:1/1;object-fit:cover;border-radius:20px!important;box-shadow:0 24px 48px rgba(0,0,0,.15);animation:spImgIn .8s ease forwards;opacity:0;transform:translateY(20px) scale(.97)}
+.sp-hero-img-wrap{position:relative;width:100%;max-width:440px;margin:0 auto}
+.sp-hero-img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px!important;box-shadow:0 24px 48px rgba(0,0,0,.15);animation:spImgIn .8s ease forwards;opacity:0;transform:translateY(20px) scale(.97);display:block}
 @keyframes spImgIn{to{opacity:1;transform:translateY(0) scale(1)}}
 .sp-hero-badge{position:absolute;background:#fff;border-radius:16px;padding:16px 20px;box-shadow:0 12px 32px rgba(0,0,0,.08);animation:spBadgeFloat 5s ease-in-out infinite}
 @keyframes spBadgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -62,25 +64,23 @@
 .sp-feature-icon{width:70px;height:70px;margin-bottom:20px;background-repeat:no-repeat;background-size:contain;background-position:center}
 .sp-feature h3{font-size:18px;font-weight:800;color:#1a202c;margin-bottom:12px}
 .sp-feature p{font-size:14px;color:#64748b;line-height:1.7}
-/* TIMELINE STEPS - vertical scroll widget with alternating layout */
-.sp-timeline{position:relative;max-width:1000px;margin:60px auto 0;padding-left:80px}
-.sp-timeline::before{content:"";position:absolute;left:35px;top:0;bottom:0;width:3px;background:#e2e8f0;border-radius:2px}
-.sp-timeline-progress{position:absolute;left:35px;top:0;width:3px;background:linear-gradient(180deg,rgb(124,186,58),rgb(140,200,72));height:0;transition:height .25s linear;border-radius:2px;box-shadow:0 0 18px rgba(124,186,58,.55);z-index:1}
-.sp-step{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:120px;opacity:0;transform:translateY(48px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+/* TIMELINE STEPS - vertical scroll widget */
+.sp-timeline{position:relative;max-width:1000px;margin:60px auto 0;padding-left:96px;padding-bottom:60px}
+.sp-timeline::before{content:"";position:absolute;left:30px;top:0;bottom:0;width:4px;background:#e2e8f0;border-radius:2px}
+.sp-timeline-progress{position:absolute;left:30px;top:0;width:4px;background:linear-gradient(180deg,rgb(124,186,58),rgb(140,200,72));height:0;transition:height .25s linear;border-radius:2px;box-shadow:0 0 18px rgba(124,186,58,.55);z-index:1}
+.sp-step{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:96px;opacity:0;transform:translateY(48px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
 .sp-step:last-child{margin-bottom:0}
 .sp-step.sp-visible{opacity:1;transform:translateY(0)}
-.sp-step-num{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid #e2e8f0;color:#94a3b8;display:flex;align-items:center;justify-content:center;position:absolute;left:-82px;top:8px;z-index:3;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.sp-step-num{width:64px;height:64px;border-radius:50%;background:#fff;border:4px solid #e2e8f0;color:#94a3b8;display:flex;align-items:center;justify-content:center;position:absolute;left:-96px;top:50%;margin-top:-32px;z-index:3;transition:all .4s cubic-bezier(.4,0,.2,1)}
 .sp-step-num svg{width:28px;height:28px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .sp-step.sp-step-active .sp-step-num{background:rgb(124,186,58);border-color:rgb(124,186,58);color:#fff;transform:scale(1.1);box-shadow:0 12px 32px rgba(124,186,58,.4)}
-.sp-step-img{aspect-ratio:4/3;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.12)}
+.sp-step-img{aspect-ratio:4/3;border-radius:20px;overflow:hidden}
 .sp-step-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
 .sp-step:hover .sp-step-img img{transform:scale(1.05)}
 .sp-step-tag{display:inline-block;font-size:12px;font-weight:800;color:rgb(124,186,58);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
 .sp-step h3{font-size:clamp(22px,2.6vw,30px);font-weight:800!important;color:#1a202c;line-height:1.2;margin-bottom:14px}
 .sp-step p{font-size:16px;color:#475569;line-height:1.7;margin:0;max-width:none}
-.sp-step.sp-step-reverse .sp-step-img{order:2}
-.sp-step.sp-step-reverse .sp-step-body{order:1}
-@media(max-width:900px){.sp-timeline{padding-left:56px;margin-top:40px}.sp-timeline::before,.sp-timeline-progress{left:22px}.sp-step{grid-template-columns:1fr;gap:24px;margin-bottom:64px}.sp-step-num{left:-56px;top:0;width:48px;height:48px}.sp-step-num svg{width:22px;height:22px}.sp-step.sp-step-reverse .sp-step-img{order:0}.sp-step.sp-step-reverse .sp-step-body{order:0}.sp-step-img{aspect-ratio:16/10}}
+@media(max-width:900px){.sp-timeline{padding-left:64px;margin-top:40px;padding-bottom:40px}.sp-timeline::before,.sp-timeline-progress{left:22px}.sp-step{grid-template-columns:1fr;gap:24px;margin-bottom:56px}.sp-step-num{left:-66px;top:0;margin-top:0;width:52px;height:52px;border-width:3px}.sp-step-num svg{width:24px;height:24px}.sp-step-img{aspect-ratio:16/10}}
 /* INFO BLOCKS with square images */
 .sp-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .sp-info-text h2{font-size:clamp(24px,3vw,34px);font-weight:800!important;color:#1a202c;line-height:1.15;margin-bottom:18px}
@@ -150,8 +150,8 @@
 .sp-reveal{opacity:0;transform:translateY(24px);transition:opacity .4s cubic-bezier(.4,0,.2,1),transform .4s cubic-bezier(.4,0,.2,1)}.sp-reveal:nth-child(2){transition-delay:.08s}.sp-reveal:nth-child(3){transition-delay:.16s}.sp-reveal:nth-child(4){transition-delay:.24s}.sp-reveal:nth-child(5){transition-delay:.32s}.sp-reveal:nth-child(6){transition-delay:.4s}
 .sp-reveal.sp-visible{opacity:1;transform:translateY(0)}
 /* RESPONSIVE */
-@media(max-width:1100px){.sp-hero-grid{grid-template-columns:1fr;gap:40px}.sp-hero-visual{order:-1}.sp-hero-counters{gap:24px}.sp-features-grid{grid-template-columns:repeat(2,1fr)}.sp-portfolio-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}.sp-portfolio-grid::-webkit-scrollbar{display:none}.sp-portfolio-card{flex:0 0 320px!important;min-width:320px!important;scroll-snap-align:start!important}.sp-info-grid{grid-template-columns:1fr;gap:32px}.sp-calc-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.sp-cta{padding:0 16px 60px!important}.sp-cta-box{padding:48px 24px!important;border-radius:20px!important}.sp-wrap{padding:0 20px}.sp-section{padding:60px 0}.sp-hero{padding:60px 0 70px;min-height:auto}.sp-hero h1{font-size:28px}.sp-hero-btns{flex-direction:column;align-items:stretch}.sp-hero-badge{display:none}.sp-hero-counters{gap:20px}.sp-hero-counter-num{font-size:28px}.sp-trust{padding:40px 0}.sp-trust-inner{gap:24px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.sp-trust-inner::-webkit-scrollbar{display:none}.sp-trust-logo{flex-shrink:0;height:70px}.sp-features-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.sp-features-wrap::-webkit-scrollbar{display:none}.sp-features-grid{display:flex;gap:16px;width:max-content}.sp-feature{min-width:280px;max-width:280px;flex-shrink:0}.sp-portfolio-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}.sp-steps-grid{grid-template-columns:1fr 1fr;gap:12px}.sp-info-img{aspect-ratio:4/3}.sp-sticky{flex-direction:column;gap:14px;text-align:center}.sp-sticky .sp-btn{width:100%!important}}
+@media(max-width:1100px){.sp-hero-counters{gap:24px}.sp-features-grid{grid-template-columns:repeat(2,1fr)}.sp-portfolio-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}.sp-portfolio-grid::-webkit-scrollbar{display:none}.sp-portfolio-card{flex:0 0 320px!important;min-width:320px!important;scroll-snap-align:start!important}.sp-info-grid{grid-template-columns:1fr;gap:32px}.sp-calc-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.sp-cta{padding:0 16px 60px!important}.sp-cta-box{padding:48px 24px!important;border-radius:20px!important}.sp-wrap{padding:0 20px}.sp-section{padding:60px 0}.sp-hero-grid{grid-template-columns:1fr;gap:40px}.sp-hero{padding:60px 0 70px;min-height:auto}.sp-hero h1{font-size:28px}.sp-hero-btns{flex-direction:column;align-items:stretch}.sp-hero-badge{display:none}.sp-hero-counters{gap:20px}.sp-hero-counter-num{font-size:28px}.sp-trust{padding:40px 0}.sp-trust-inner{gap:24px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.sp-trust-inner::-webkit-scrollbar{display:none}.sp-trust-logo{flex-shrink:0;height:70px}.sp-features-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.sp-features-wrap::-webkit-scrollbar{display:none}.sp-features-grid{display:flex;gap:16px;width:max-content}.sp-feature{min-width:280px;max-width:280px;flex-shrink:0}.sp-portfolio-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}.sp-steps-grid{grid-template-columns:1fr 1fr;gap:12px}.sp-info-img{aspect-ratio:4/3}.sp-sticky{flex-direction:column;gap:14px;text-align:center}.sp-sticky .sp-btn{width:100%!important}}
 @media(max-width:480px){.sp-hero h1{font-size:26px}.sp-heading{font-size:24px}.sp-section{padding:50px 0}.sp-hero{padding:40px 0 60px}.sp-calc-left,.sp-calc-right{padding:24px}.sp-calc-result{font-size:32px}.sp-sticky{bottom:12px;width:calc(100% - 24px)}}
 </style>
 <div class="sp">
@@ -171,10 +171,12 @@
 </div>
 </div>
 <div class="sp-hero-visual">
+<div class="sp-hero-img-wrap">
 <img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" style="border-radius:20px!important;" alt="ETF-Sparplan" class="sp-hero-img">
 <div class="sp-hero-badge sp-hero-badge-1"><small>Sparplan ab</small><strong>10 Euro</strong><svg width="80" height="24" viewBox="0 0 80 24" style="margin-top:6px;display:block;"><path d="M0 20 L12 16 L24 18 L36 12 L48 14 L60 8 L72 4 L80 2" fill="none" stroke="rgb(124,186,58)" stroke-width="2" stroke-linecap="round"/><path d="M0 20 L12 16 L24 18 L36 12 L48 14 L60 8 L72 4 L80 2 L80 24 L0 24Z" fill="rgba(124,186,58,.1)"/></svg></div>
 <div class="sp-hero-badge sp-hero-badge-2"><small>Portfolio</small><strong style="color:rgb(124,186,58)">+7,2%</strong><svg width="80" height="24" viewBox="0 0 80 24" style="margin-top:6px;display:block;"><rect x="0" y="16" width="8" height="8" rx="2" fill="rgba(76,121,199,.2)"/><rect x="12" y="12" width="8" height="12" rx="2" fill="rgba(76,121,199,.3)"/><rect x="24" y="14" width="8" height="10" rx="2" fill="rgba(76,121,199,.2)"/><rect x="36" y="8" width="8" height="16" rx="2" fill="rgba(76,121,199,.4)"/><rect x="48" y="10" width="8" height="14" rx="2" fill="rgba(76,121,199,.3)"/><rect x="60" y="4" width="8" height="20" rx="2" fill="rgb(124,186,58)"/><rect x="72" y="2" width="8" height="22" rx="2" fill="rgb(124,186,58)"/></svg></div>
 <div class="sp-hero-badge sp-hero-badge-3"><small>Diversifikation</small><strong>95 Länder</strong><svg width="80" height="24" viewBox="0 0 80 24" style="margin-top:6px;display:block;"><circle cx="12" cy="12" r="10" fill="none" stroke="rgba(76,121,199,.2)" stroke-width="3"/><circle cx="12" cy="12" r="10" fill="none" stroke="rgb(124,186,58)" stroke-width="3" stroke-dasharray="47 63" stroke-linecap="round" transform="rotate(-90 12 12)"/><circle cx="40" cy="12" r="10" fill="none" stroke="rgba(76,121,199,.2)" stroke-width="3"/><circle cx="40" cy="12" r="10" fill="none" stroke="rgb(76,121,199)" stroke-width="3" stroke-dasharray="31 63" stroke-linecap="round" transform="rotate(-90 40 12)"/><circle cx="68" cy="12" r="10" fill="none" stroke="rgba(76,121,199,.2)" stroke-width="3"/><circle cx="68" cy="12" r="10" fill="none" stroke="rgb(124,186,58)" stroke-width="3" stroke-dasharray="55 63" stroke-linecap="round" transform="rotate(-90 68 12)"/></svg></div>
+</div>
 </div>
 </div>
 </div>
@@ -294,7 +296,7 @@
 <div class="sp-step-img"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" alt="Anlegertest"></div>
 <div class="sp-step-body"><span class="sp-step-tag">Schritt 1</span><h3>Anlegertest machen</h3><p>In nur 5 Minuten ermitteln Sie Ihr persönliches Risikoprofil und erhalten eine individuelle Portfolio-Empfehlung – kostenlos, unverbindlich und ohne Anmeldung.</p></div>
 </div>
-<div class="sp-step sp-step-reverse">
+<div class="sp-step">
 <div class="sp-step-num"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></div>
 <div class="sp-step-img"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Kindersparplan-_Investieren.jpg" alt="Depot eröffnen"></div>
 <div class="sp-step-body"><span class="sp-step-tag">Schritt 2</span><h3>Depot online eröffnen</h3><p>Komplett papierlos in 5 Minuten: Daten eingeben, per VideoIdent von zuhause legitimieren – schon ist Ihr Depot bei der FNZ Bank eröffnet und einsatzbereit.</p></div>
@@ -304,7 +306,7 @@
 <div class="sp-step-img"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Investieren-gluecklich-Startseite-Header.jpg" alt="Sparrate wählen"></div>
 <div class="sp-step-body"><span class="sp-step-tag">Schritt 3</span><h3>Sparrate festlegen</h3><p>Ab 10 Euro monatlich – Sie bestimmen den Betrag. Jederzeit erhöhen, reduzieren, pausieren oder kündigen, ohne Gebühren und ohne Mindestlaufzeit.</p></div>
 </div>
-<div class="sp-step sp-step-reverse">
+<div class="sp-step">
 <div class="sp-step-num"><svg viewBox="0 0 24 24"><path d="M5 13c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M3 13h2M19 13h2M12 4V2M5.6 6.6L4.2 5.2M18.4 6.6l1.4-1.4"/><path d="M8 19a4 4 0 0 1 8 0v3H8z"/></svg></div>
 <div class="sp-step-img"><img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/Finale_Bilder/Kindersparplan-_Investieren.jpg" alt="Zurücklehnen"></div>
 <div class="sp-step-body"><span class="sp-step-tag">Schritt 4</span><h3>Zurücklehnen & wachsen lassen</h3><p>Ihr Sparplan wird automatisch ausgeführt, das Portfolio regelmäßig rebalanciert und überwacht. Sie müssen sich um nichts kümmern – wir managen alles.</p></div>
