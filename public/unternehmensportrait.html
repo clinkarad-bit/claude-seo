@@ -1,307 +1,201 @@
 <style>
 .up-sp *{margin:0;padding:0;box-sizing:border-box}
 .up-sp{color:#212529;line-height:1.6;font-family:inherit;-webkit-font-smoothing:antialiased}
-.up-sp a{text-decoration:none;color:inherit}
-.up-sp img{max-width:100%;display:block}
-
-/* ---------- BUTTONS ---------- */
-.up-btn--green{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;border:none;cursor:pointer;background:#9bdb5a;color:#0a1a3a;transition:transform .15s ease,box-shadow .15s ease}
-.up-btn--green:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(155,219,90,.4)}
-.up-btn--ghost{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;background:rgba(255,255,255,.1);color:#fff;border:2px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .15s ease}
-.up-btn--ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.18)}
-.up-btn--lg{padding:16px 40px;font-size:16px;min-height:52px}
-
-/* ---------- HERO ---------- */
-.up-hero{position:relative;min-height:600px;display:flex;align-items:center;justify-content:center;background:rgb(76,121,199);overflow:hidden}
-.up-hero__bg{position:absolute;inset:0;z-index:0}
-.up-hero__bg video{width:100%;height:100%;object-fit:cover}
-.up-hero__overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(76,121,199,.92) 0%,rgba(76,121,199,.7) 50%,rgba(76,121,199,.85) 100%);z-index:1}
-.up-hero__content{position:relative;z-index:2;text-align:center;padding:100px 24px 80px;max-width:860px}
-.up-hero__badge{display:inline-block;background:rgba(255,255,255,.12);color:#fff;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;padding:6px 20px;border-radius:40px;margin-bottom:24px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.up-hero h1{font-size:3.2rem;font-weight:800;color:#fff;line-height:1.12;margin-bottom:20px}
+.up-sp h2,.up-sp h3{font-weight:700}
+.up-wrap{max-width:1180px;margin:0 auto;padding:0 24px;width:100%}
+@media(max-width:640px){.up-wrap{padding:0 16px}}
+.up-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:.6rem;font-size:15px;font-weight:600;border:none;outline:none;cursor:pointer;text-decoration:none;transition:background .15s ease,color .15s ease,transform .15s ease;white-space:nowrap;font-family:inherit;line-height:1.2}
+.up-btn:active{transform:scale(.98)}
+.up-btn--green{background:#7cba3a;color:#fff!important}.up-btn--green:hover{background:#6aa531;color:#fff!important}
+.up-btn--blue{background:#4c79c7;color:#fff!important}.up-btn--blue:hover{background:#3d6bb5;color:#fff!important}
+.up-btn--ghost{background:rgba(255,255,255,.14);color:#fff!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}.up-btn--ghost:hover{background:rgba(255,255,255,.24);color:#fff!important}
+.up-btn--lg{padding:16px 34px;font-size:16px}
+.up-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7cba3a;background:rgba(124,186,58,.1);padding:6px 14px;border-radius:.5rem;margin-bottom:16px}
+.up-heading{font-size:clamp(28px,3.8vw,40px);font-weight:700;color:#0f172a;line-height:1.15;margin-bottom:14px;letter-spacing:-.02em}
+.up-sub{font-size:16px;color:#64748b;line-height:1.65;margin:0}
+.up-section{padding:96px 0}
+.up-section--white{background:#fff}.up-section--gray{background:#f7f9fc}
+.up-head{text-align:center;max-width:720px;margin:0 auto 56px}.up-head .up-sub{margin:0 auto}
+.up-hero{position:relative;min-height:64vh;max-height:640px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgb(76,121,199);isolation:isolate}
+.up-hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:block}
+.up-hero__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(76,121,199,.5) 0%,rgba(76,121,199,.6) 55%,rgba(76,121,199,.82) 100%);z-index:1}
+.up-hero__center{position:relative;z-index:2;text-align:center;max-width:880px;margin:0 auto;color:#fff;padding:72px 24px 92px;width:100%}
+.up-hero__tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:9px 18px;border-radius:.5rem;font-size:13px;font-weight:600;color:#fff;margin-bottom:22px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.up-hero__dot{width:8px;height:8px;background:#9bdb5a;border-radius:50%;box-shadow:0 0 0 4px rgba(155,219,90,.3)}
+.up-hero h1{font-size:clamp(36px,5vw,64px);font-weight:700;color:#fff;line-height:1.04;margin-bottom:20px;letter-spacing:-.025em;hyphens:none;-webkit-hyphens:none;overflow-wrap:normal;word-break:normal;text-wrap:balance}
 .up-hero h1 em{font-style:normal;color:#9bdb5a}
-.up-hero__sub{font-size:1.15rem;color:rgba(255,255,255,.85);max-width:620px;margin:0 auto 36px;line-height:1.75}
-.up-hero__ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.up-hero__scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);width:2px;height:48px;background:rgba(255,255,255,.2);border-radius:2px;z-index:3;overflow:hidden}
-.up-hero__scroll::after{content:'';display:block;width:100%;height:50%;background:#fff;border-radius:2px;animation:upScrollLine 1.8s ease-in-out infinite}
-@keyframes upScrollLine{0%{transform:translateY(-100%)}50%{transform:translateY(100%)}100%{transform:translateY(-100%)}}
-
-/* ---------- STATS ---------- */
-.up-stats{background:#f8f9fc;padding:64px 24px}
-.up-stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 32px;max-width:960px;margin:0 auto;text-align:center}
-.up-stat__num{font-size:2.8rem;font-weight:800;color:#0a1a3a;line-height:1.1}
-.up-stat__label{font-size:14px;color:#6b7280;margin-top:6px;font-weight:600}
-
-/* ---------- SECTION ---------- */
-.up-section{padding:80px 24px;max-width:960px;margin:0 auto}
-.up-section--alt{background:#f8f9fc}
-.up-section__eyebrow{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#9bdb5a;margin-bottom:10px}
-.up-section__title{font-size:2.2rem;font-weight:800;color:#0a1a3a;line-height:1.2;margin-bottom:16px}
-.up-section__text{font-size:1.05rem;color:#4b5563;line-height:1.8;max-width:720px}
-
-/* ---------- INFO (sticky title) ---------- */
-.up-info{display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start}
-.up-info__title{position:sticky;top:100px}
-.up-info__body{display:flex;flex-direction:column;gap:20px}
-
-/* ---------- QUOTE ---------- */
-.up-quote{position:relative;background:linear-gradient(135deg,#0a1a3a 0%,#132d5e 100%);padding:96px 24px;text-align:center;overflow:hidden}
-.up-quote__glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(155,219,90,.15) 0%,transparent 70%);pointer-events:none}
-.up-quote__mark{font-family:'Playfair Display',Georgia,serif;font-size:8rem;font-weight:700;color:rgba(255,255,255,.06);line-height:1;user-select:none;position:absolute;z-index:0}
-.up-quote__mark--open{top:16px;left:32px}
-.up-quote__mark--close{bottom:16px;right:32px}
-.up-quote__text{position:relative;z-index:1;font-family:'Playfair Display',Georgia,serif;font-size:1.85rem;font-weight:700;color:#fff;max-width:740px;margin:0 auto 20px;line-height:1.5;font-style:italic}
-.up-quote__author{position:relative;z-index:1;font-size:14px;color:rgba(255,255,255,.7);font-weight:600}
-.up-quote__accent{display:block;width:48px;height:3px;background:#9bdb5a;border-radius:3px;margin:20px auto 0}
-
-/* ---------- TEAM ---------- */
-.up-team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px}
-.up-card{background:#fff;border-radius:.75rem;overflow:hidden;border:1px solid #e5e7eb;text-align:center;transition:transform .2s ease,box-shadow .2s ease}
-.up-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
-.up-card__img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#e0e7f1}
-.up-card__body{padding:24px 20px}
-.up-card__name{font-size:1.1rem;font-weight:800;color:#0a1a3a;margin-bottom:2px}
-.up-card__role{font-size:13px;color:#2563eb;font-weight:700;margin-bottom:10px}
-.up-card__desc{font-size:13px;color:#6b7280;line-height:1.7}
-
-/* ---------- PARTNERS ---------- */
-.up-partners{text-align:center}
-.up-partners__logos{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:32px}
-.up-partners__logo{display:flex;flex-direction:column;align-items:center;gap:8px}
-.up-partners__logo-img{width:140px;height:70px;object-fit:contain}
-.up-partners__logo-name{font-size:13px;font-weight:700;color:#0a1a3a}
-.up-partners__logo-role{font-size:11px;color:#6b7280}
-
-/* ---------- CTA ---------- */
-.up-cta{position:relative;background:linear-gradient(135deg,#0a1a3a 0%,#132d5e 100%);padding:96px 24px;text-align:center;overflow:hidden}
-.up-cta__glow{position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(155,219,90,.12) 0%,transparent 70%);pointer-events:none}
-.up-cta__box{position:relative;z-index:1;max-width:640px;margin:0 auto}
-.up-cta__title{font-size:2.2rem;font-weight:800;color:#fff;margin-bottom:12px}
-.up-cta__sub{font-size:1.05rem;color:rgba(255,255,255,.8);margin-bottom:36px;line-height:1.7}
-.up-cta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-
-/* ---------- REVEAL ---------- */
-.up-reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
-.up-reveal.up-visible{opacity:1;transform:translateY(0)}
-
-/* ---------- MOBILE ---------- */
-@media(max-width:768px){.up-hero{min-height:480px}.up-hero h1{font-size:2rem}.up-hero__sub{font-size:1rem}.up-hero__ctas{flex-direction:column;align-items:center}}
+.up-hero p{font-size:clamp(15px,1.5vw,17px);color:rgba(255,255,255,.86);line-height:1.6;margin:0 auto 30px;max-width:600px;text-wrap:balance}
+.up-hero__btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.up-hero__scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;width:1px;height:46px;background:rgba(255,255,255,.22);overflow:hidden;border-radius:2px}
+.up-hero__scroll::after{content:"";position:absolute;top:-24px;left:50%;transform:translateX(-50%);width:1px;height:24px;background:linear-gradient(180deg,transparent,#9bdb5a);animation:upScrollLine 2.2s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes upScrollLine{0%{top:-24px}100%{top:46px}}
+@media(max-width:768px){.up-hero{min-height:58vh}.up-hero__center{padding:56px 20px 76px}.up-hero h1{font-size:36px}.up-hero__btns{flex-direction:column;width:100%;max-width:320px;margin:0 auto}.up-hero__btns .up-btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.up-hero__scroll::after{animation:none}.up-hero__bg{display:none}}
+.up-stats{background:#fff;padding:72px 0}
+.up-stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.up-stat__num{font-size:clamp(36px,4.4vw,48px);font-weight:800;color:#4c79c7;line-height:1;margin-bottom:10px;letter-spacing:-.02em}
+.up-stat__label{font-size:14px;color:#64748b;line-height:1.4}
 @media(max-width:768px){.up-stats__grid{grid-template-columns:repeat(2,1fr);gap:40px 24px}.up-stats{padding:56px 0}.up-stat__num{white-space:nowrap}.up-stat__label{font-size:12px}}
-@media(max-width:768px){.up-info{grid-template-columns:1fr;gap:28px}.up-info__title{position:static}}
-@media(max-width:768px){.up-team__grid{grid-template-columns:1fr}.up-section__title{font-size:1.5rem}.up-quote__text{font-size:1.3rem}.up-quote__mark{font-size:5rem}.up-partners__logos{gap:28px}}
+.up-info{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start;max-width:1100px;margin:0 auto}
+.up-info__title{font-size:clamp(36px,5vw,56px);font-weight:700;color:#0f172a;line-height:1.05;margin:0;letter-spacing:-.025em;position:sticky;top:24px}
+.up-info__text p{font-size:16px;color:#475569;line-height:1.75;margin-bottom:18px}
+.up-info__text p:last-child{margin-bottom:0}
+@media(max-width:900px){.up-info{grid-template-columns:1fr;gap:24px}.up-info__title{position:static}}
+.up-quote{position:relative;background:linear-gradient(135deg,#4c79c7 0%,#3f6cbb 100%);padding:120px 24px;overflow:hidden;isolation:isolate}
+.up-quote__glow{position:absolute;width:520px;height:520px;background:#9bdb5a;border-radius:50%;filter:blur(180px);opacity:.22;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0}
+.up-quote__mark{position:absolute;font-family:'Playfair Display','Times New Roman',serif;font-weight:700;color:#fff;opacity:.08;line-height:.8;z-index:0;user-select:none;pointer-events:none}
+.up-quote__mark--top{top:-30px;left:6%;font-size:clamp(220px,28vw,360px)}
+.up-quote__mark--bottom{bottom:-150px;right:6%;font-size:clamp(220px,28vw,360px);transform:rotate(180deg)}
+.up-quote__inner{position:relative;z-index:2;max-width:880px;margin:0 auto;text-align:center;color:#fff}
+.up-quote__label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:8px 16px;border-radius:.5rem;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:28px}
+.up-quote__label-dot{width:7px;height:7px;background:#9bdb5a;border-radius:50%;box-shadow:0 0 0 4px rgba(155,219,90,.3)}
+.up-quote__text{font-size:clamp(28px,4.2vw,48px);font-weight:700;line-height:1.2;letter-spacing:-.02em;text-wrap:balance}
+.up-quote__accent{color:#9bdb5a;position:relative;display:inline-block}
+.up-quote__accent::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.08em;background:#9bdb5a;opacity:.35;border-radius:4px}
+.up-team{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1100px;margin:0 auto}
+.up-card{background:#fff;border-radius:1rem;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease}
+.up-card:hover{box-shadow:0 24px 48px rgba(15,23,42,.08);transform:translateY(-4px)}
+.up-card__img{aspect-ratio:4/4;overflow:hidden;background:#eef2f8}
+.up-card__img img{width:100%;height:100%;object-fit:cover;display:block}
+.up-card__body{padding:24px 26px 28px;text-align:center}
+.up-card__role{display:inline-block;font-size:11.5px;font-weight:700;color:#4c79c7;background:rgba(76,121,199,.1);padding:6px 14px;border-radius:.5rem;margin-bottom:12px;letter-spacing:.06em;text-transform:uppercase}
+.up-card__name{font-size:20px;font-weight:700;color:#0f172a;line-height:1.2;margin:0}
+@media(max-width:900px){.up-team{grid-template-columns:1fr;max-width:420px}}
+.up-partners{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:center;justify-items:center}
+.up-partners a{display:flex;align-items:center;justify-content:center;width:100%;padding:28px;border-radius:1rem;background:#f7f9fc;transition:background .2s,transform .2s;min-height:130px}
+.up-partners a:hover{background:#eef2f8;transform:translateY(-2px)}
+.up-partners img{max-width:100%;max-height:64px;width:auto;height:auto;opacity:.85;filter:grayscale(20%);transition:opacity .2s,filter .2s}
+.up-partners a:hover img{opacity:1;filter:grayscale(0)}
+@media(max-width:768px){.up-partners{grid-template-columns:1fr;max-width:340px}}
+.up-cta{padding:0 24px 96px}
+.up-cta__box{background:linear-gradient(135deg,#4c79c7,#3f6cbb);border-radius:1rem;padding:72px 40px;position:relative;overflow:hidden;max-width:1180px;margin:0 auto;text-align:center}
+.up-cta__glow{position:absolute;width:380px;height:380px;background:#7cba3a;border-radius:50%;filter:blur(150px);opacity:.2;top:50%;left:50%;transform:translate(-50%,-50%)}
+.up-cta__inner{position:relative;z-index:2}
+.up-cta__inner h2{font-size:clamp(28px,3.8vw,40px);font-weight:700;color:#fff;margin-bottom:14px}
+.up-cta__inner p{font-size:16px;color:rgba(255,255,255,.85);max-width:560px;margin:0 auto;line-height:1.65}
+.up-cta__btns{display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+@media(max-width:640px){.up-cta{padding:0 16px 64px}.up-cta__box{padding:48px 24px}.up-cta__btns .up-btn{width:100%}}
+.up-reveal{opacity:0;transform:translateY(22px);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
+.up-reveal:nth-child(2){transition-delay:.07s}.up-reveal:nth-child(3){transition-delay:.14s}.up-reveal:nth-child(4){transition-delay:.21s}
+.up-reveal.up-vis{opacity:1;transform:translateY(0)}
 </style>
 
 <div class="up-sp">
-
-  <!-- HERO -->
-  <section class="up-hero">
-    <div class="up-hero__bg">
-      <video autoplay muted loop playsinline>
-        <source src="hamburg-bg.mp4" type="video/mp4">
-      </video>
+<section class="up-hero">
+  <video class="up-hero__bg" autoplay muted loop playsinline preload="auto">
+    <source src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/hamburg-bg.mp4" type="video/mp4">
+  </video>
+  <div class="up-hero__overlay"></div>
+  <div class="up-hero__center">
+    <div class="up-hero__tag"><span class="up-hero__dot"></span>Unternehmensportrait · Hamburg</div>
+    <h1>Unser Team und<br><em>unsere Vision.</em></h1>
+    <p>Immer an Ihrer Seite – und der Ihres Portfolios. Seit 2014 macht easyfolio aus Hamburg smarte ETF-Geldanlage einfach, transparent und für alle zugänglich.</p>
+    <div class="up-hero__btns">
+      <a href="https://easyfolio.de/depot" class="up-btn up-btn--green up-btn--lg">Depot eröffnen</a>
+      <a href="https://easyfolio.de/kontakt" class="up-btn up-btn--ghost up-btn--lg">Kontakt aufnehmen</a>
     </div>
-    <div class="up-hero__overlay"></div>
-    <div class="up-hero__content">
-      <span class="up-hero__badge">Unternehmensportrait</span>
-      <h1>Ihr Vermögen in <em>erfahrenen</em> Händen</h1>
-      <p class="up-hero__sub">easyfolio ist Ihr digitaler Vermögensverwalter aus Hamburg – mit über 11 Jahren Erfahrung, mehr als 17.000 zufriedenen Kunden und einer klaren Mission: Geldanlage einfach, transparent und erfolgreich zu machen.</p>
-      <div class="up-hero__ctas">
-        <a href="/anlegertest" class="up-btn--green up-btn--lg">Jetzt Anlegertest starten</a>
-        <a href="#wer-wir-sind" class="up-btn--ghost up-btn--lg">Mehr erfahren</a>
-      </div>
-    </div>
-    <div class="up-hero__scroll"></div>
-  </section>
-
-  <!-- STATS -->
-  <section class="up-stats up-reveal">
+  </div>
+  <div class="up-hero__scroll" aria-hidden="true"></div>
+</section>
+<section class="up-stats">
+  <div class="up-wrap">
     <div class="up-stats__grid">
-      <div class="up-stat">
-        <div class="up-stat__num">&gt;17.000</div>
-        <div class="up-stat__label">Zufriedene Kunden</div>
-      </div>
-      <div class="up-stat">
-        <div class="up-stat__num">95</div>
-        <div class="up-stat__label">Kundenzufriedenheit (%)</div>
-      </div>
-      <div class="up-stat">
-        <div class="up-stat__num">&gt;11 Jahre</div>
-        <div class="up-stat__label">Erfolgreiches Investment</div>
-      </div>
-      <div class="up-stat">
-        <div class="up-stat__num">&gt;3.000</div>
-        <div class="up-stat__label">Aktive Portfolios</div>
+      <div class="up-stat"><div class="up-stat__num">&gt;17.000</div><div class="up-stat__label">Wertpapiere</div></div>
+      <div class="up-stat"><div class="up-stat__num">95</div><div class="up-stat__label">Länder im Portfolio</div></div>
+      <div class="up-stat"><div class="up-stat__num">&gt;11 Jahre</div><div class="up-stat__label">Erfolgreiches Investment</div></div>
+      <div class="up-stat"><div class="up-stat__num">&gt;3.000</div><div class="up-stat__label">Gemanagte ETF-Portfolios</div></div>
+    </div>
+  </div>
+</section>
+<section class="up-section up-section--gray">
+  <div class="up-wrap">
+    <div class="up-info up-reveal">
+      <h2 class="up-info__title">Wer wir sind</h2>
+      <div class="up-info__text">
+        <p>Wir bei easyfolio glauben daran, dass jeder Mensch die Möglichkeit haben sollte, sein Vermögen einfach, transparent und kostengünstig anzulegen. Seit unserer Gründung im Jahr 2014 haben wir uns genau diesem Ziel verschrieben: eine smarte Geldanlage zu ermöglichen, die auch ohne Finanzexpertenwissen funktioniert. Mit Erfolg.</p>
+        <p>Als Teil der Netfonds AG, Deutschlands führender B2B-Investmentplattform, verbinden wir Stabilität mit Innovation. Unsere digitalen ETF-Portfolios machen die Geldanlage für alle zugänglich – egal, ob Einsteiger oder erfahrener Investor. Dabei setzen wir auf wissenschaftlich fundierte Anlagestrategien, die weltweit diversifiziert und langfristig ausgerichtet sind.</p>
+        <p>Als Hamburger Kaufleute stehen wir für Klarheit, Fairness und Vertrauen. Unsere Lösungen sind so gestaltet, dass sie die besten Chancen für den langfristigen Vermögensaufbau bieten – ohne versteckte Kosten oder intransparente Strukturen.</p>
+        <p>Mit easyfolio entscheiden Sie sich für eine Geldanlage, die einfach ist und funktioniert – für Ihre Ziele, für Ihre Zukunft, für Ihr Leben.</p>
       </div>
     </div>
-  </section>
-
-  <!-- WER WIR SIND -->
-  <section id="wer-wir-sind" class="up-section up-reveal">
-    <div class="up-info">
-      <div class="up-info__title">
-        <span class="up-section__eyebrow">Über uns</span>
-        <h2 class="up-section__title">Wer wir sind</h2>
+  </div>
+</section>
+<section class="up-quote">
+  <div class="up-quote__glow"></div>
+  <span class="up-quote__mark up-quote__mark--top">"</span>
+  <span class="up-quote__mark up-quote__mark--bottom">"</span>
+  <div class="up-quote__inner">
+    <span class="up-quote__label"><span class="up-quote__label-dot"></span>Unsere Mission</span>
+    <p class="up-quote__text">Eine einfache Geldanlage,<br><span class="up-quote__accent">wissenschaftlich fundiert.</span></p>
+  </div>
+</section>
+<section class="up-section up-section--white">
+  <div class="up-wrap">
+    <div class="up-head">
+      <span class="up-eyebrow">Unser Team</span>
+      <h2 class="up-heading">Profis für Ihre Geldanlage</h2>
+      <p class="up-sub">Unser Team besteht aus Profis in der digitalen Geldanlage – mit der Erfahrung aus über 20 Jahren Vermögensverwaltung.</p>
+    </div>
+    <div class="up-team">
+      <div class="up-card up-reveal">
+        <div class="up-card__img"><img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.png" alt="Julian-André Winter, CEO easyfolio"></div>
+        <div class="up-card__body"><span class="up-card__role">CEO</span><h3 class="up-card__name">Julian-André Winter</h3></div>
       </div>
-      <div class="up-info__body">
-        <p class="up-section__text">easyfolio wurde mit einer einfachen Idee gegründet: Professionelle Vermögensverwaltung sollte nicht nur den Wohlhabenden vorbehalten sein. Von unserem Standort in Hamburg aus verbinden wir modernste Technologie mit fundiertem Finanzwissen, um für jeden Anleger das optimale Portfolio zusammenzustellen.</p>
-        <p class="up-section__text">Unser Team vereint Expertise aus den Bereichen Finanzmärkte, Portfoliomanagement und Technologie. Als regulierter Vermögensverwalter unterliegen wir der Aufsicht durch die BaFin und arbeiten ausschließlich mit etablierten Partnerbanken zusammen.</p>
-        <p class="up-section__text">Seit unserer Gründung haben wir über 17.000 Kunden dabei geholfen, ihr Geld intelligent und diversifiziert anzulegen – mit ETF-Portfolios, die auf der modernen Portfoliotheorie basieren.</p>
-        <p class="up-section__text">Transparenz, Fairness und Kundennähe sind die Grundpfeiler unserer Arbeit. Wir glauben daran, dass jeder Mensch Zugang zu einer professionellen Geldanlage verdient – unabhängig vom Vermögen.</p>
+      <div class="up-card up-reveal">
+        <div class="up-card__img"><img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Johannes_Kaesbauer.png" alt="Johannes Käsbauer, Portfolio-Manager easyfolio"></div>
+        <div class="up-card__body"><span class="up-card__role">Portfolio-Manager</span><h3 class="up-card__name">Johannes Käsbauer</h3></div>
+      </div>
+      <div class="up-card up-reveal">
+        <div class="up-card__img"><img src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Raoul_Goedel.png" alt="Raoul Gödel, Marketing &amp; Content Manager easyfolio"></div>
+        <div class="up-card__body"><span class="up-card__role">Marketing &amp; Content Manager</span><h3 class="up-card__name">Raoul Gödel</h3></div>
       </div>
     </div>
-  </section>
-
-  <!-- QUOTE -->
-  <section class="up-quote up-reveal">
-    <div class="up-quote__glow"></div>
-    <span class="up-quote__mark up-quote__mark--open">&ldquo;</span>
-    <span class="up-quote__mark up-quote__mark--close">&rdquo;</span>
-    <p class="up-quote__text">Eine einfache Geldanlage, wissenschaftlich fundiert – das ist unsere Mission seit Tag eins.</p>
-    <span class="up-quote__author">— Julian-André Winter, CEO &amp; Gründer</span>
-    <span class="up-quote__accent"></span>
-  </section>
-
-  <!-- TEAM -->
-  <section class="up-section up-reveal">
-    <span class="up-section__eyebrow">Unser Team</span>
-    <h2 class="up-section__title">Die Menschen hinter easyfolio</h2>
-    <p class="up-section__text">Erfahrene Experten aus Finanzen, Technologie und Kundenbetreuung – vereint durch die Vision, Geldanlage besser zu machen.</p>
-    <div class="up-team__grid">
-      <div class="up-card">
-        <img class="up-card__img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.png" alt="Julian-André Winter">
-        <div class="up-card__body">
-          <div class="up-card__name">Julian-André Winter</div>
-          <div class="up-card__role">CEO &amp; Gründer</div>
-          <p class="up-card__desc">Visionär und Finanzexperte mit über 15 Jahren Erfahrung in der Vermögensverwaltung. Julian-André gründete easyfolio mit dem Ziel, Geldanlage zu demokratisieren.</p>
-        </div>
-      </div>
-      <div class="up-card">
-        <img class="up-card__img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Johannes_Kaesbauer.png" alt="Johannes Käsbauer">
-        <div class="up-card__body">
-          <div class="up-card__name">Johannes Käsbauer</div>
-          <div class="up-card__role">Portfolio-Manager</div>
-          <p class="up-card__desc">Verantwortlich für die Portfoliokonstruktion und Anlagestrategien. Johannes verbindet quantitative Analyse mit einem tiefen Verständnis der globalen Finanzmärkte.</p>
-        </div>
-      </div>
-      <div class="up-card">
-        <img class="up-card__img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Raoul_Goedel.png" alt="Raoul Gödel">
-        <div class="up-card__body">
-          <div class="up-card__name">Raoul Gödel</div>
-          <div class="up-card__role">Marketing</div>
-          <p class="up-card__desc">Raoul sorgt dafür, dass die Mission von easyfolio die richtigen Menschen erreicht – mit authentischer Kommunikation und datengetriebenem Marketing.</p>
-        </div>
+  </div>
+</section>
+<section class="up-section up-section--gray">
+  <div class="up-wrap">
+    <div class="up-info up-reveal">
+      <h2 class="up-info__title">Unsere Vision</h2>
+      <div class="up-info__text">
+        <p>Bei easyfolio verfolgen wir die Vision, jedem Menschen selbstständig die Möglichkeit zu bieten, einfach und wissenschaftlich fundiert zu investieren. Das Thema Sparen und Vermögensaufbau ist zu wichtig, als dass Sie es vernachlässigen sollten.</p>
+        <p>Wir sind davon überzeugt: Jeder kann auf einfache Weise selbst Verantwortung für seine Zukunft übernehmen, Investitionen tätigen und sich so seine persönliche Freiheit durch finanzielle Unabhängigkeit sichern.</p>
+        <p>Unsere ETF-Portfolios sind so konzipiert, dass sie den Vermögensaufbau optimal unterstützen und dabei leicht verständlich sind. Wir haben ein Produkt erschaffen, das für jeden zugänglich ist – damit wirklich jeder die Chance erhält, von den Vorteilen einer wissenschaftlich fundierten Anlagestrategie zu profitieren.</p>
+        <p>Deshalb ermöglichen wir den Einstieg bereits mit kleinen Beträgen und geben Ihnen damit die Freiheit, selbst den Grundstein für eine finanziell sichere Zukunft zu legen.</p>
       </div>
     </div>
-  </section>
-
-  <!-- VISION -->
-  <section class="up-section up-section--alt up-reveal">
-    <div class="up-info">
-      <div class="up-info__title">
-        <span class="up-section__eyebrow">Unsere Vision</span>
-        <h2 class="up-section__title">Woran wir glauben</h2>
-      </div>
-      <div class="up-info__body">
-        <p class="up-section__text"><strong>Transparenz:</strong> Keine versteckten Gebühren, keine komplexen Produkte. Unsere Kunden wissen jederzeit, wie ihr Geld angelegt ist und was es kostet.</p>
-        <p class="up-section__text"><strong>Wissenschaftlich fundiert:</strong> Unsere Anlagestrategien basieren auf der modernen Portfoliotheorie und werden kontinuierlich optimiert – nicht auf Bauchgefühl, sondern auf Daten.</p>
-        <p class="up-section__text"><strong>Kundennähe:</strong> Digital bedeutet bei uns nicht anonym. Unser Hamburger Team ist persönlich erreichbar und begleitet jeden Kunden individuell auf seinem Anlageweg.</p>
-        <p class="up-section__text"><strong>Langfristigkeit:</strong> Wir denken in Jahrzehnten, nicht in Quartalen. Unsere Strategien sind darauf ausgelegt, langfristig und nachhaltig Vermögen aufzubauen.</p>
-      </div>
+  </div>
+</section>
+<section class="up-section up-section--white">
+  <div class="up-wrap">
+    <div class="up-head">
+      <span class="up-eyebrow">Partner</span>
+      <h2 class="up-heading">Gutes Investment braucht starke Partner</h2>
+      <p class="up-sub">Wir vertrauen auf Partner, die für Stabilität, Sicherheit und höchste Standards stehen.</p>
     </div>
-  </section>
-
-  <!-- PARTNERS -->
-  <section class="up-section up-reveal">
     <div class="up-partners">
-      <span class="up-section__eyebrow">Unsere Partner</span>
-      <h2 class="up-section__title">Starke Partner an unserer Seite</h2>
-      <p class="up-section__text" style="margin:0 auto">Wir arbeiten ausschließlich mit regulierten, renommierten Finanzinstituten zusammen.</p>
-      <div class="up-partners__logos">
-        <div class="up-partners__logo">
-          <img class="up-partners__logo-img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/partner/netfonds-logo.png" alt="Netfonds AG">
-          <span class="up-partners__logo-name">Netfonds AG</span>
-          <span class="up-partners__logo-role">Haftungsdach</span>
-        </div>
-        <div class="up-partners__logo">
-          <img class="up-partners__logo-img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/partner/nfs-logo.png" alt="NFS Hamburger Vermögen">
-          <span class="up-partners__logo-name">NFS Hamburger Vermögen</span>
-          <span class="up-partners__logo-role">Vermögensverwaltung</span>
-        </div>
-        <div class="up-partners__logo">
-          <img class="up-partners__logo-img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/partner/hal-logo.png" alt="HAL Privatbank">
-          <span class="up-partners__logo-name">HAL Privatbank</span>
-          <span class="up-partners__logo-role">Depotführung</span>
-        </div>
-      </div>
+      <a href="https://netfonds.de/" target="_blank" rel="noopener" aria-label="Netfonds AG"><img src="https://api.easyfolio.de/fileadmin/B2C/Partner/easyfolio_NF-netfondsAG_logo.svg" alt="Netfonds AG"></a>
+      <a href="https://netfonds.de/" target="_blank" rel="noopener" aria-label="NFS Netfonds Financial Service"><img src="https://api.easyfolio.de/fileadmin/B2B/images/easyfolio_b2b_Partner_NFS-HV_logo.svg" alt="NFS Netfonds Hamburger Vermögen"></a>
+      <a href="https://www.hal-privatbank.com/" target="_blank" rel="noopener" aria-label="HAL Privatbank"><img src="https://api.easyfolio.de/fileadmin/B2C/Partner/RZ_HAL_Logo_blue_RGB.png" alt="HAL Privatbank"></a>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="up-cta up-reveal">
+  </div>
+</section>
+<section class="up-cta">
+  <div class="up-cta__box">
     <div class="up-cta__glow"></div>
-    <div class="up-cta__box">
-      <h2 class="up-cta__title">Investieren leicht gemacht</h2>
-      <p class="up-cta__sub">Starten Sie in wenigen Minuten – unverbindlich und kostenlos. Unser Anlegertest findet die passende Strategie für Sie.</p>
+    <div class="up-cta__inner">
+      <h2>Investieren leicht gemacht</h2>
+      <p>Starten Sie noch heute mit easyfolio – einfach, transparent und professionell gemanagt. Bereits ab 10 € monatlich oder 100 € einmalig.</p>
       <div class="up-cta__btns">
-        <a href="/anlegertest" class="up-btn--green up-btn--lg">Anlegertest starten</a>
-        <a href="/kontakt" class="up-btn--ghost up-btn--lg">Kontakt aufnehmen</a>
+        <a href="https://easyfolio.de/depot" class="up-btn up-btn--green up-btn--lg">Depot eröffnen</a>
+        <a href="https://easyfolio.de/anlegertest" class="up-btn up-btn--ghost up-btn--lg">Erst Anlegertest machen</a>
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
 </div>
-
-<!-- JSON-LD Schema -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "easyfolio",
-  "url": "https://www.easyfolio.de",
-  "description": "Digitaler Vermögensverwalter aus Hamburg – professionelle Geldanlage mit ETF-Portfolios, über 11 Jahre Erfahrung und mehr als 17.000 zufriedenen Kunden.",
-  "foundingDate": "2014",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Hamburg",
-    "addressCountry": "DE"
-  },
-  "numberOfEmployees": {
-    "@type": "QuantitativeValue",
-    "minValue": 10,
-    "maxValue": 50
-  },
-  "member": [
-    {
-      "@type": "Person",
-      "name": "Julian-André Winter",
-      "jobTitle": "CEO & Gründer"
-    },
-    {
-      "@type": "Person",
-      "name": "Johannes Käsbauer",
-      "jobTitle": "Portfolio-Manager"
-    },
-    {
-      "@type": "Person",
-      "name": "Raoul Gödel",
-      "jobTitle": "Marketing"
-    }
-  ],
-  "knowsAbout": ["Vermögensverwaltung", "ETF", "Geldanlage", "Robo-Advisor", "Portfoliomanagement"],
-  "sameAs": []
-}
+{"@context":"https://schema.org","@graph":[{"@type":"AboutPage","name":"Unternehmensportrait – easyfolio","url":"https://easyfolio.de/unternehmensportrait","description":"Unser Team und unsere Vision. easyfolio – seit 2014 smarte, wissenschaftlich fundierte ETF-Geldanlage aus Hamburg.","mainEntity":{"@id":"https://easyfolio.de/#organization"}},{"@type":"Organization","@id":"https://easyfolio.de/#organization","name":"easyfolio","url":"https://easyfolio.de","logo":"https://api.easyfolio.de/fileadmin/user_upload/logo.png","foundingDate":"2014","slogan":"Eine einfache Geldanlage, wissenschaftlich fundiert.","parentOrganization":{"@type":"Organization","name":"Netfonds AG","url":"https://netfonds.de"},"address":{"@type":"PostalAddress","addressLocality":"Hamburg","addressCountry":"DE"},"areaServed":"DE","knowsAbout":["ETF-Portfolio","ETF-Sparplan","Einmalanlage","Kindersparplan","Vermögenswirksame Leistungen","Vermögensverwaltung"],"employee":[{"@type":"Person","name":"Julian-André Winter","jobTitle":"CEO","image":"https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.png","worksFor":{"@id":"https://easyfolio.de/#organization"}},{"@type":"Person","name":"Johannes Käsbauer","jobTitle":"Portfolio-Manager","image":"https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Johannes_Kaesbauer.png","worksFor":{"@id":"https://easyfolio.de/#organization"}},{"@type":"Person","name":"Raoul Gödel","jobTitle":"Marketing & Content Manager","image":"https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Raoul_Goedel.png","worksFor":{"@id":"https://easyfolio.de/#organization"}}]}]}
 </script>
-
-<!-- IntersectionObserver animation -->
 <script>
-(function(){
-  var els=document.querySelectorAll('.up-reveal');
-  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('up-visible')});return}
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){entry.target.classList.add('up-visible');obs.unobserve(entry.target)}
-    });
-  },{threshold:0.15});
-  els.forEach(function(e){obs.observe(e)});
-})();
+(function(){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('up-vis');obs.unobserve(e.target)}})},{threshold:.15});document.querySelectorAll('.up-reveal').forEach(function(el){obs.observe(el)})})();
 </script>
