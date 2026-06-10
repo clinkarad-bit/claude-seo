@@ -306,7 +306,7 @@ function dpSubmitForm(){
   var plz = document.getElementById('dpPlz').value;
   var ort = document.getElementById('dpOrt').value;
   var land = document.getElementById('dpLand').value;
-  var code = document.getElementById('dpCode').value;
+  var codeEl = document.getElementById('dpCode'); var code = codeEl ? codeEl.value : '';
   if(!vorname || !nachname || !strasse || !plz || !ort){
     alert('Bitte alle Pflichtfelder ausfuellen.');
     return;
