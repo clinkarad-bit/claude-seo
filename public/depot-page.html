@@ -290,7 +290,7 @@ function dpSelectFonds(el){
   el.classList.add("dp-fonds-active");
 }
 function dpSubmitForm(){
-  var FONDS={"30":{isin:"DE000EASY306",path:"(e2)"},"50":{isin:"DE000EASY504",path:"(e4)"},"70":{isin:"DE000EASY702",path:"(e5)"}};
+  var FONDS={"30":{isin:"DE000EASY306",paths:["(e2)","(e3)","(e1)"]},"50":{isin:"DE000EASY504",paths:["(e4)","(e3)","(e5)"]},"70":{isin:"DE000EASY702",paths:["(e5)","(e7)","(e6)"]}};
   var active=document.querySelector(".dp-fonds-btn.dp-fonds-active");
   var fondsId=active.getAttribute("data-fonds");
   var fonds=FONDS[fondsId];
@@ -305,6 +305,6 @@ function dpSubmitForm(){
   if(!vorname||!nachname||!strasse||!plz||!ort){alert("Bitte alle Pflichtfelder ausfuellen.");return;}
   try{var fd=new FormData();fd.append("access_key","994bdaf5-a913-4395-a8e0-8b26270daad1");fd.append("subject","Neue Depot-Anmeldung - "+vorname+" "+nachname);fd.append("from_name","easyfolio Depot-Anmeldung");fd.append("name",vorname+" "+nachname);fd.append("email","info@easyfolio.de");fd.append("Anrede",anrede);fd.append("Vorname",vorname);fd.append("Nachname",nachname);fd.append("Strasse",strasse);fd.append("PLZ",plz);fd.append("Ort",ort);fd.append("Land",land==="de"?"Deutschland":"Oesterreich");fd.append("Portfolio","easyfolio "+fondsId);fd.append("ISIN",fonds.isin);fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}).catch(function(e){console.error(e)})}catch(e){console.error(e)}
   var params="vermittlernummer=3947&anrede="+encodeURIComponent(anrede)+"&title="+encodeURIComponent(titel)+"&vorname="+encodeURIComponent(vorname)+"&nachname="+encodeURIComponent(nachname)+"&strasse="+encodeURIComponent(strasse)+"&plz="+encodeURIComponent(plz)+"&ort="+encodeURIComponent(ort)+"&land="+encodeURIComponent(land)+"&kundennummer=4060DoP30c&isin="+encodeURIComponent(fonds.isin)+"&coe=";
-  window.open("https://portal.ebase.com/"+fonds.path+"/deo-easyfolio/deo-direkt?"+params,"_blank");
+  window.open("https://portal.ebase.com/"+fonds.paths[0]+"/deo-easyfolio/deo-direkt?"+params,"_blank");
 }
 </script>
