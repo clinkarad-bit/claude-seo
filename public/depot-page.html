@@ -310,6 +310,7 @@ function dpSubmitForm(){
   if(!vorname || !nachname || !strasse || !plz || !ort){
     alert('Bitte alle Pflichtfelder ausfuellen.');
     return;
+  }
 
   try {
     var formData = new FormData();
@@ -332,7 +333,7 @@ function dpSubmitForm(){
       body: formData
     }).then(function(r){return r.json()}).then(function(j){console.log("Mail:", j)}).catch(function(e){console.error("Mail:", e)});
   } catch(e){ console.error("Mail:", e); }
-  }
+
   var params = "vermittlernummer=3947"
     + "&anrede=" + encodeURIComponent(anrede)
     + "&title=" + encodeURIComponent(titel)
