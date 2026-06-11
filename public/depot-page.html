@@ -138,7 +138,7 @@
     <span class="dp-hero-eyebrow">Depot eröffnen</span>
     <h1>In 3 Schritten zum easyfolio-Depot</h1>
     <p>Komplett online, ohne Papierkram. Ihr Investment startet automatisch.</p>
-    <a href="#dpFormCard" class="dp-btn dp-btn-green" style="margin-top:24px!important;" onclick="event.preventDefault();document.getElementById('dpFormCard').scrollIntoView({behavior:'smooth'})">Jetzt Depot eröffnen</a>
+    <a href="https://easyfolio.de/depot/depot-anmeldung" class="dp-btn dp-btn-green" style="margin-top:24px!important;">Jetzt Depot eröffnen</a>
   </div>
 </section>
 </div>
@@ -183,45 +183,6 @@
       </div>
     </div>
 
-    <!-- FORM -->
-    <div class="dp-card" id="dpFormCard">
-      <h2>Jetzt registrieren</h2>
-      <p style="font-size:14px;color:var(--dp-muted);margin-bottom:24px;">Ihre Daten werden sicher übertragen und nicht weitergegeben.</p>
-      <div class="dp-form-group">
-        <label>Wählen Sie Ihr easyfolio-Portfolio</label>
-        <div class="dp-fonds-grid">
-          <div class="dp-fonds-btn" data-fonds="30" onclick="dpSelectFonds(this)">
-            <svg width="56" height="56" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="86.7 202.3" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">30</text></svg>
-            <div class="dp-fonds-btn-name">easyfolio 30</div><div class="dp-fonds-btn-rendite">3,9% Zielrendite</div>
-          </div>
-          <div class="dp-fonds-btn dp-fonds-active" data-fonds="50" onclick="dpSelectFonds(this)">
-            <svg width="56" height="56" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="144.5 144.5" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">50</text></svg>
-            <div class="dp-fonds-btn-name">easyfolio 50</div><div class="dp-fonds-btn-rendite">5,2% Zielrendite</div>
-          </div>
-          <div class="dp-fonds-btn" data-fonds="70" onclick="dpSelectFonds(this)">
-            <svg width="56" height="56" viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="202.3 86.7" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">70</text></svg>
-            <div class="dp-fonds-btn-name">easyfolio 70</div><div class="dp-fonds-btn-rendite">7,2% Zielrendite</div>
-          </div>
-        </div>
-      </div>
-      <div class="dp-form-row">
-        <div class="dp-form-group"><label>Anrede</label><select id="dpAnrede"><option value="Herr">Herr</option><option value="Frau">Frau</option></select></div>
-        <div class="dp-form-group"><label>Titel (optional)</label><select id="dpTitel"><option value="">----------</option><option value="Dr.">Dr.</option><option value="Prof.">Prof.</option><option value="Prof. Dr.">Prof. Dr.</option></select></div>
-      </div>
-      <div class="dp-form-row">
-        <div class="dp-form-group"><label>Vorname</label><input type="text" id="dpVorname" placeholder="Max"></div>
-        <div class="dp-form-group"><label>Nachname</label><input type="text" id="dpNachname" placeholder="Mustermann"></div>
-      </div>
-      <div class="dp-form-group"><label>Straße und Hausnummer</label><input type="text" id="dpStrasse" placeholder="Musterstraße 1"></div>
-      <div class="dp-form-row">
-        <div class="dp-form-group"><label>PLZ</label><input type="text" id="dpPlz" placeholder="20095" inputmode="numeric"></div>
-        <div class="dp-form-group"><label>Ort</label><input type="text" id="dpOrt" placeholder="Hamburg"></div>
-      </div>
-      <div class="dp-form-group"><label>Land</label><select id="dpLand"><option value="de">Deutschland</option><option value="at">Österreich</option></select></div>
-      <div class="dp-form-group"><label>Rabattcode (optional)</label><input type="text" id="dpCode" placeholder=""></div>
-      <button class="dp-submit-btn" onclick="dpSubmitForm()">Jetzt easyfolio-Depot eröffnen</button>
-      <div class="dp-form-footer">Im nächsten Schritt werden alle für die Depoteröffnung notwendigen Informationen erhoben.<br>Die <a href="#">statusbezogenen Informationen (§ 12 FinVermV)</a> können Sie hier herunterladen.</div>
-    </div>
   </div>
 
   <!-- SIDEBAR -->
@@ -285,27 +246,3 @@
 
 </div>
 
-<script>
-function dpSelectFonds(el){
-  document.querySelectorAll(".dp-fonds-btn").forEach(function(b){b.classList.remove("dp-fonds-active")});
-  el.classList.add("dp-fonds-active");
-}
-function dpSubmitForm(){
-  var FONDS={"30":{isin:"DE000EASY306"},"50":{isin:"DE000EASY504"},"70":{isin:"DE000EASY702"}};
-  var active=document.querySelector(".dp-fonds-btn.dp-fonds-active");
-  var fondsId=active.getAttribute("data-fonds");
-  var fonds=FONDS[fondsId];
-  var anrede=document.getElementById("dpAnrede").value;
-  var titel=document.getElementById("dpTitel").value;
-  var vorname=document.getElementById("dpVorname").value;
-  var nachname=document.getElementById("dpNachname").value;
-  var strasse=document.getElementById("dpStrasse").value;
-  var plz=document.getElementById("dpPlz").value;
-  var ort=document.getElementById("dpOrt").value;
-  var land=document.getElementById("dpLand").value;
-  if(!vorname||!nachname||!strasse||!plz||!ort){alert("Bitte alle Pflichtfelder ausfuellen.");return;}
-  try{var fd=new FormData();fd.append("access_key","994bdaf5-a913-4395-a8e0-8b26270daad1");fd.append("subject","Neue Depot-Anmeldung - "+vorname+" "+nachname);fd.append("from_name","easyfolio Depot-Anmeldung");fd.append("name",vorname+" "+nachname);fd.append("email","info@easyfolio.de");fd.append("Anrede",anrede);fd.append("Vorname",vorname);fd.append("Nachname",nachname);fd.append("Strasse",strasse);fd.append("PLZ",plz);fd.append("Ort",ort);fd.append("Land",land==="de"?"Deutschland":"Oesterreich");fd.append("Portfolio","easyfolio "+fondsId);fd.append("ISIN",fonds.isin);fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}).catch(function(e){console.error(e)})}catch(e){console.error(e)}
-  var params="vermittlernummer=3947&anrede="+encodeURIComponent(anrede)+"&title="+encodeURIComponent(titel)+"&vorname="+encodeURIComponent(vorname)+"&nachname="+encodeURIComponent(nachname)+"&strasse="+encodeURIComponent(strasse)+"&plz="+encodeURIComponent(plz)+"&ort="+encodeURIComponent(ort)+"&land="+encodeURIComponent(land)+"&kundennummer=4060DoP30c&isin="+encodeURIComponent(fonds.isin)+"&coe=";
-  window.open("https://portal.ebase.com/(e2)/deo-easyfolio/deo-direkt?"+params,"_blank");
-}
-</script>
