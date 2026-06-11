@@ -312,23 +312,26 @@ function dpSubmitForm(){
     return;
 
   try {
-    var now = new Date();
-    var pad = function(n){return String(n).padStart(2,"0")};
-    var eingang = pad(now.getDate())+"."+pad(now.getMonth()+1)+"."+now.getFullYear()+" · "+pad(now.getHours())+":"+pad(now.getMinutes())+" Uhr";
-    var landText = land === "de" ? "Deutschland" : (land === "at" ? "Österreich" : land);
+    var formData = new FormData();
+    formData.append("access_key", "994bdaf5-a913-4395-a8e0-8b26270daad1");
+    formData.append("subject", "Neue Depot-Anmeldung – " + vorname + " " + nachname);
+    formData.append("from_name", "easyfolio Depot-Anmeldung");
+    formData.append("name", vorname + " " + nachname);
+    formData.append("email", "info@easyfolio.de");
+    formData.append("Anrede", anrede);
+    formData.append("Vorname", vorname);
+    formData.append("Nachname", nachname);
+    formData.append("Strasse", strasse);
+    formData.append("PLZ", plz);
+    formData.append("Ort", ort);
+    formData.append("Land", land === "de" ? "Deutschland" : "Österreich");
+    formData.append("Portfolio", "easyfolio " + fondsId);
+    formData.append("ISIN", fonds.isin);
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      headers: {"Content-Type": "application/json", "Accept": "application/json"},
-      body: JSON.stringify({
-        access_key: "994bdaf5-a913-4395-a8e0-8b26270daad1",
-        subject: "Neue Depot-Anmeldung – " + vorname + " " + nachname,
-        from_name: "easyfolio Depot-Anmeldung",
-        Anrede: anrede, Titel: titel || "—", Vorname: vorname, Nachname: nachname,
-        Strasse: strasse, PLZ: plz, Ort: ort, Land: landText,
-        Portfolio: fonds.name || fondsId, ISIN: fonds.isin, Eingang: eingang
-      })
-    }).catch(function(err){ console.error("Mail-Send:", err); });
-  } catch(e){ console.error("Mail-Send:", e); }
+      body: formData
+    }).then(function(r){return r.json()}).then(function(j){console.log("Mail:", j)}).catch(function(e){console.error("Mail:", e)});
+  } catch(e){ console.error("Mail:", e); }
   }
   var params = "vermittlernummer=3947"
     + "&anrede=" + encodeURIComponent(anrede)
