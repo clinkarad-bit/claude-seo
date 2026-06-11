@@ -286,67 +286,25 @@
 
 <script>
 function dpSelectFonds(el){
-  document.querySelectorAll('.dp-fonds-btn').forEach(function(b){b.classList.remove('dp-fonds-active')});
-  el.classList.add('dp-fonds-active');
+  document.querySelectorAll(".dp-fonds-btn").forEach(function(b){b.classList.remove("dp-fonds-active")});
+  el.classList.add("dp-fonds-active");
 }
 function dpSubmitForm(){
-  var FONDS = {
-    "30": { isin: "DE000EASY306", path: "(e2)" },
-    "50": { isin: "DE000EASY504", path: "(e4)" },
-    "70": { isin: "DE000EASY702", path: "(7b5VhmcLUbDA2xvKY61IPIvtNsdycT-vKYo8ZFvoWO0Jugf7pKOK7lAn5VgX5gQk0LWjAyKDlo8KakOQIh8xaqye-bkrQcpP5UJxT-gk0QsG9uW52VOicoWMb00UW9YTg_szJZhMj2jv1VAMmSzUlMsbAmOCMEg!)" }
-  };
-  var active = document.querySelector('.dp-fonds-btn.dp-fonds-active');
-  var fondsId = active.getAttribute('data-fonds');
-  var fonds = FONDS[fondsId];
-  var anrede = document.getElementById('dpAnrede').value;
-  var titel = document.getElementById('dpTitel').value;
-  var vorname = document.getElementById('dpVorname').value;
-  var nachname = document.getElementById('dpNachname').value;
-  var strasse = document.getElementById('dpStrasse').value;
-  var plz = document.getElementById('dpPlz').value;
-  var ort = document.getElementById('dpOrt').value;
-  var land = document.getElementById('dpLand').value;
-  var codeEl = document.getElementById('dpCode'); var code = codeEl ? codeEl.value : '';
-  if(!vorname || !nachname || !strasse || !plz || !ort){
-    alert('Bitte alle Pflichtfelder ausfuellen.');
-    return;
-  }
-
-  try {
-    var formData = new FormData();
-    formData.append("access_key", "994bdaf5-a913-4395-a8e0-8b26270daad1");
-    formData.append("subject", "Neue Depot-Anmeldung – " + vorname + " " + nachname);
-    formData.append("from_name", "easyfolio Depot-Anmeldung");
-    formData.append("name", vorname + " " + nachname);
-    formData.append("email", "info@easyfolio.de");
-    formData.append("Anrede", anrede);
-    formData.append("Vorname", vorname);
-    formData.append("Nachname", nachname);
-    formData.append("Strasse", strasse);
-    formData.append("PLZ", plz);
-    formData.append("Ort", ort);
-    formData.append("Land", land === "de" ? "Deutschland" : "Österreich");
-    formData.append("Portfolio", "easyfolio " + fondsId);
-    formData.append("ISIN", fonds.isin);
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    }).then(function(r){return r.json()}).then(function(j){console.log("Mail:", j)}).catch(function(e){console.error("Mail:", e)});
-  } catch(e){ console.error("Mail:", e); }
-
-  var params = "vermittlernummer=3947"
-    + "&anrede=" + encodeURIComponent(anrede)
-    + "&title=" + encodeURIComponent(titel)
-    + "&vorname=" + encodeURIComponent(vorname)
-    + "&nachname=" + encodeURIComponent(nachname)
-    + "&strasse=" + encodeURIComponent(strasse)
-    + "&plz=" + encodeURIComponent(plz)
-    + "&ort=" + encodeURIComponent(ort)
-    + "&land=" + encodeURIComponent(land)
-    + "&kundennummer=4060DoP30c"
-    + "&isin=" + encodeURIComponent(fonds.isin)
-    + "&coe=";
-  if(code){ params += "&code=" + encodeURIComponent(code); }
-  window.open("https://portal.ebase.com/" + fonds.path + "/deo-easyfolio/deo-direkt?" + params, "_blank");
+  var FONDS={"30":{isin:"DE000EASY306",path:"(e2)"},"50":{isin:"DE000EASY504",path:"(e4)"},"70":{isin:"DE000EASY702",path:"(7b5VhmcLUbDA2xvKY61IPIvtNsdycT-vKYo8ZFvoWO0Jugf7pKOK7lAn5VgX5gQk0LWjAyKDlo8KakOQIh8xaqye-bkrQcpP5UJxT-gk0QsG9uW52VOicoWMb00UW9YTg_szJZhMj2jv1VAMmSzUlMsbAmOCMEg!)"}};
+  var active=document.querySelector(".dp-fonds-btn.dp-fonds-active");
+  var fondsId=active.getAttribute("data-fonds");
+  var fonds=FONDS[fondsId];
+  var anrede=document.getElementById("dpAnrede").value;
+  var titel=document.getElementById("dpTitel").value;
+  var vorname=document.getElementById("dpVorname").value;
+  var nachname=document.getElementById("dpNachname").value;
+  var strasse=document.getElementById("dpStrasse").value;
+  var plz=document.getElementById("dpPlz").value;
+  var ort=document.getElementById("dpOrt").value;
+  var land=document.getElementById("dpLand").value;
+  if(!vorname||!nachname||!strasse||!plz||!ort){alert("Bitte alle Pflichtfelder ausfuellen.");return;}
+  try{var fd=new FormData();fd.append("access_key","994bdaf5-a913-4395-a8e0-8b26270daad1");fd.append("subject","Neue Depot-Anmeldung - "+vorname+" "+nachname);fd.append("from_name","easyfolio Depot-Anmeldung");fd.append("name",vorname+" "+nachname);fd.append("email","info@easyfolio.de");fd.append("Anrede",anrede);fd.append("Vorname",vorname);fd.append("Nachname",nachname);fd.append("Strasse",strasse);fd.append("PLZ",plz);fd.append("Ort",ort);fd.append("Land",land==="de"?"Deutschland":"Oesterreich");fd.append("Portfolio","easyfolio "+fondsId);fd.append("ISIN",fonds.isin);fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}).catch(function(e){console.error(e)})}catch(e){console.error(e)}
+  var params="vermittlernummer=3947&anrede="+encodeURIComponent(anrede)+"&title="+encodeURIComponent(titel)+"&vorname="+encodeURIComponent(vorname)+"&nachname="+encodeURIComponent(nachname)+"&strasse="+encodeURIComponent(strasse)+"&plz="+encodeURIComponent(plz)+"&ort="+encodeURIComponent(ort)+"&land="+encodeURIComponent(land)+"&kundennummer=4060DoP30c&isin="+encodeURIComponent(fonds.isin)+"&coe=";
+  window.open("https://portal.ebase.com/"+fonds.path+"/deo-easyfolio/deo-direkt?"+params,"_blank");
 }
 </script>
