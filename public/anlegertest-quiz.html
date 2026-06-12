@@ -106,7 +106,7 @@
 <div class="aq-page" id="aqApp">
 
 <!-- PROGRESS BAR -->
-<div class="aq-progress">
+<div class="aq-progress" id="aqProgress">
   <div class="aq-progress-inner">
     <div class="aq-progress-bar"><div class="aq-progress-fill" id="aqProgressFill" style="width:7.14%"></div></div>
     <div class="aq-progress-text" id="aqProgressText">1 / 14</div>
@@ -331,9 +331,7 @@ function showResult(){
     $('aqResultBadge').textContent='Ihre Empfehlung';
     $('aqResultBadge').style.background='rgba(124,186,58,.1)';
     $('aqResultBadge').style.color='rgb(124,186,58)';
-    $('aqResultCard').style.setProperty('--card-color',p.color);
-    var bar=document.querySelector('.aq-result-card::before');
-    $('aqResultCard').querySelector(':scope').style.borderTop='5px solid '+p.color;
+    $('aqResultCard').style.borderTop='5px solid '+p.color;
 
     $('aqResultTitle').textContent=p.name;
     $('aqResultDesc').textContent=p.desc;
