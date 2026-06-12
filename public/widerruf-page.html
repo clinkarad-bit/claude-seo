@@ -1,0 +1,388 @@
+<style>
+.wr-sp *{margin:0;padding:0;box-sizing:border-box}
+.wr-sp{color:#212529;line-height:1.6;font-family:inherit;-webkit-font-smoothing:antialiased}
+.wr-sp h2,.wr-sp h3{font-weight:700}
+.wr-wrap{max-width:1180px;margin:0 auto;padding:0 24px;width:100%}
+@media(max-width:640px){.wr-wrap{padding:0 16px}}
+
+.wr-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:.6rem;font-size:15px;font-weight:600;border:none;outline:none;cursor:pointer;text-decoration:none;transition:background .15s ease,color .15s ease,transform .15s ease;white-space:nowrap;font-family:inherit;line-height:1.2}
+.wr-btn:active{transform:scale(.98)}
+.wr-btn--green{background:#7cba3a;color:#fff!important}.wr-btn--green:hover{background:#6aa531;color:#fff!important}
+.wr-btn--blue{background:#4c79c7;color:#fff!important}.wr-btn--blue:hover{background:#3d6bb5;color:#fff!important}
+.wr-btn--ghost{background:#f1f5f9;color:#0f172a!important}.wr-btn--ghost:hover{background:#e2e8f0;color:#0f172a!important}
+.wr-btn--lg{padding:16px 34px;font-size:16px}
+.wr-btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+
+.wr-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7cba3a;background:rgba(124,186,58,.1);padding:6px 14px;border-radius:.5rem;margin-bottom:16px}
+.wr-section{padding:88px 0}
+.wr-section--white{background:#fff}.wr-section--gray{background:#f7f9fc}
+
+.wr-hero{background:linear-gradient(135deg,#4c79c7 0%,#4470bd 55%,#3f6cbb 100%);position:relative;overflow:hidden;padding:88px 0 96px;text-align:center}
+.wr-hero__bg1{position:absolute;width:560px;height:560px;border-radius:50%;filter:blur(140px);opacity:.22;background:#7cba3a;top:-200px;right:-100px}
+.wr-hero__bg2{position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(120px);opacity:.14;background:#8fd1ff;bottom:-160px;left:-80px}
+.wr-hero__inner{position:relative;z-index:2;max-width:780px;margin:0 auto;color:#fff}
+.wr-hero__tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:9px 18px;border-radius:.5rem;font-size:13px;font-weight:600;color:#fff;margin-bottom:22px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.wr-hero__dot{width:8px;height:8px;background:#9bdb5a;border-radius:50%;box-shadow:0 0 0 4px rgba(155,219,90,.3)}
+.wr-hero h1{font-size:clamp(36px,5vw,60px);font-weight:700;color:#fff;line-height:1.05;margin-bottom:20px;letter-spacing:-.025em;text-wrap:balance}
+.wr-hero h1 em{font-style:normal;color:#9bdb5a}
+.wr-hero p{font-size:17px;color:rgba(255,255,255,.85);line-height:1.65;max-width:620px;margin:0 auto;text-wrap:balance}
+
+.wr-info{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.wr-info__card{background:#fff;border-radius:1rem;padding:28px 26px;display:flex;flex-direction:column;gap:10px}
+.wr-info__icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,rgba(76,121,199,.18),rgba(76,121,199,.05));color:#4c79c7;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.wr-info__icon svg{width:24px;height:24px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wr-info__num{font-size:11px;font-weight:700;color:#4c79c7;letter-spacing:.14em;text-transform:uppercase}
+.wr-info__t{font-size:17px;font-weight:700;color:#0f172a;line-height:1.3}
+.wr-info__d{font-size:14px;color:#64748b;line-height:1.6}
+@media(max-width:768px){.wr-info{grid-template-columns:1fr}}
+
+.wr-form-wrap{max-width:760px;margin:0 auto}
+.wr-form-card{background:#fff;border-radius:1.2rem;padding:48px 44px;box-shadow:0 12px 40px rgba(15,23,42,.06)}
+.wr-form-card h2{font-size:clamp(24px,3vw,32px);font-weight:700;color:#0f172a;line-height:1.2;margin-bottom:8px;letter-spacing:-.02em}
+.wr-form-card>p{font-size:15px;color:#64748b;line-height:1.65;margin-bottom:32px}
+.wr-field{margin-bottom:22px;position:relative}
+.wr-field__label{display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:8px;letter-spacing:.01em}
+.wr-field__label .wr-req{color:#dc2626;margin-left:3px}
+.wr-input,.wr-textarea{width:100%;background:#f7f9fc;border:1.5px solid transparent;border-radius:.6rem;padding:14px 16px;font-size:15px;color:#0f172a;font-family:inherit;line-height:1.4;transition:border-color .15s ease,background .15s ease;outline:none}
+.wr-input:hover,.wr-textarea:hover{background:#eef2f8}
+.wr-input:focus,.wr-textarea:focus{background:#fff;border-color:#4c79c7;box-shadow:0 0 0 4px rgba(76,121,199,.12)}
+.wr-textarea{resize:vertical;min-height:120px}
+.wr-input.is-invalid,.wr-textarea.is-invalid{border-color:#dc2626;background:#fef2f2}
+.wr-field__err{display:none;font-size:12.5px;color:#dc2626;margin-top:6px;font-weight:500}
+.wr-field.is-invalid .wr-field__err{display:block}
+.wr-grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.wr-grid2{grid-template-columns:1fr;gap:0}.wr-form-card{padding:32px 22px}}
+
+.wr-checkbox{display:flex;align-items:flex-start;gap:12px;background:#f7f9fc;border-radius:.6rem;padding:16px 18px;cursor:pointer;transition:background .15s}
+.wr-checkbox:hover{background:#eef2f8}
+.wr-checkbox input{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:1.5px solid #cbd5e1;border-radius:.35rem;flex-shrink:0;cursor:pointer;position:relative;background:#fff;transition:border-color .15s,background .15s;margin-top:1px}
+.wr-checkbox input:checked{background:#4c79c7;border-color:#4c79c7}
+.wr-checkbox input:checked::after{content:"";position:absolute;left:5px;top:1px;width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.wr-checkbox span{font-size:14px;color:#334155;line-height:1.55}
+.wr-checkbox.is-invalid{background:#fef2f2}
+.wr-checkbox.is-invalid input{border-color:#dc2626}
+
+.wr-actions{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+.wr-actions .wr-btn{min-width:200px}
+@media(max-width:480px){.wr-actions .wr-btn{width:100%}}
+
+.wr-meta{font-size:12.5px;color:#94a3b8;margin-top:18px;line-height:1.6}
+.wr-meta a{color:#4c79c7;font-weight:600;text-decoration:none}
+
+.wr-error-msg{display:none;background:#fef2f2;border-radius:.6rem;padding:14px 18px;font-size:14px;color:#b91c1c;line-height:1.55;margin-top:16px}
+.wr-error-msg.is-active{display:block}
+
+.wr-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .25s ease}
+.wr-modal.is-active{display:flex;opacity:1}
+.wr-modal__backdrop{position:absolute;inset:0;background:rgba(10,26,58,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.wr-modal__card{position:relative;background:#fff;border-radius:1.4rem;max-width:560px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 30px 80px rgba(15,23,42,.3);transform:scale(.92);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.wr-modal.is-active .wr-modal__card{transform:scale(1)}
+.wr-modal__close{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:#f1f5f9;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;transition:background .15s,color .15s;z-index:2}
+.wr-modal__close:hover{background:#e2e8f0;color:#0f172a}
+.wr-modal__close svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wr-modal__body{padding:52px 44px 44px;text-align:center}
+.wr-modal__icon{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#9bdb5a,#6aa531);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:wrPop .5s cubic-bezier(.16,1,.3,1);box-shadow:0 10px 30px rgba(124,186,58,.35)}
+.wr-modal__icon svg{width:46px;height:46px;stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+@keyframes wrPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.wr-modal h2{font-size:clamp(24px,2.8vw,30px);font-weight:700;color:#0f172a;line-height:1.2;margin-bottom:12px;letter-spacing:-.02em}
+.wr-modal__lead{font-size:15.5px;color:#64748b;line-height:1.6;margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto}
+.wr-receipt{background:#f7f9fc;border-radius:.8rem;padding:20px 22px;margin-bottom:24px;text-align:left}
+.wr-receipt__head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #e6e9ef;margin-bottom:12px;flex-wrap:wrap}
+.wr-receipt__title{font-size:12px;font-weight:700;color:#4c79c7;letter-spacing:.08em;text-transform:uppercase}
+.wr-receipt__time{font-size:12.5px;color:#64748b;font-variant-numeric:tabular-nums}
+.wr-receipt__row{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:6px 0;font-size:13.5px;align-items:baseline}
+.wr-receipt__k{color:#94a3b8;font-weight:600;font-size:12px;letter-spacing:.02em}
+.wr-receipt__v{color:#0f172a;line-height:1.5;word-break:break-word;white-space:pre-wrap}
+@media(max-width:560px){.wr-modal__body{padding:44px 24px 32px}.wr-receipt__row{grid-template-columns:1fr;gap:2px}.wr-receipt__k{font-size:11.5px}}
+.wr-modal__actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.wr-modal__actions .wr-btn{min-width:160px}
+@media(max-width:480px){.wr-modal__actions .wr-btn{width:100%}}
+
+.wr-faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.wr-faq__item{background:#fff;border-radius:.6rem;overflow:hidden}
+.wr-faq__q{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 22px;cursor:pointer;user-select:none}
+.wr-faq__q-text{font-size:15.5px;font-weight:600;color:#0f172a;line-height:1.4}
+.wr-faq__chev{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#f1f5f9;color:#4c79c7;transition:transform .25s,background .2s,color .2s}
+.wr-faq__chev svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wr-faq__item.is-open .wr-faq__chev{background:#4c79c7;color:#fff;transform:rotate(180deg)}
+.wr-faq__a{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.wr-faq__item.is-open .wr-faq__a{max-height:600px}
+.wr-faq__a-inner{padding:0 22px 20px;font-size:14.5px;line-height:1.7;color:#475569}
+</style>
+
+<div class="wr-sp">
+
+<section class="wr-hero">
+  <div class="wr-hero__bg1"></div>
+  <div class="wr-hero__bg2"></div>
+  <div class="wr-wrap">
+    <div class="wr-hero__inner">
+      <div class="wr-hero__tag"><span class="wr-hero__dot"></span>Verbraucherschutz · Widerrufsrecht</div>
+      <h1>Vertrag <em>widerrufen.</em></h1>
+      <p>Sie möchten einen mit easyfolio geschlossenen Vertrag widerrufen? Reichen Sie hier Ihre Widerrufserklärung ein – wir bestätigen den Eingang umgehend per E-Mail.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wr-section wr-section--gray" style="padding:64px 0">
+  <div class="wr-wrap">
+    <div class="wr-info">
+      <div class="wr-info__card">
+        <div class="wr-info__icon"><svg viewBox="0 0 24 24"><path d="M4 4v15a1 1 0 0 0 1 1h14"/><path d="M8 13l3 3 6-6"/></svg></div>
+        <span class="wr-info__num">Schritt 1</span>
+        <div class="wr-info__t">Daten ausfüllen</div>
+        <div class="wr-info__d">Name, E-Mail und Vertrags­details angeben – wir nutzen die Angaben ausschließlich zur Bearbeitung Ihres Widerrufs.</div>
+      </div>
+      <div class="wr-info__card">
+        <div class="wr-info__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.5 2.5 5.5-5.5"/></svg></div>
+        <span class="wr-info__num">Schritt 2</span>
+        <div class="wr-info__t">Widerruf bestätigen</div>
+        <div class="wr-info__d">Mit einem Klick auf „Widerruf bestätigen" übermitteln Sie Ihre Erklärung rechtsverbindlich an easyfolio.</div>
+      </div>
+      <div class="wr-info__card">
+        <div class="wr-info__icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <span class="wr-info__num">Schritt 3</span>
+        <div class="wr-info__t">Eingangsbestätigung</div>
+        <div class="wr-info__d">Sie erhalten unmittelbar eine Eingangsbestätigung an die von Ihnen im Formular angegebene E-Mail-Adresse – mit Inhalt, Datum und Uhrzeit Ihres Widerrufs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wr-section wr-section--white">
+  <div class="wr-wrap">
+    <div class="wr-form-wrap">
+
+      <form class="wr-form-card" id="wrForm" novalidate>
+        <h2>Widerrufserklärung einreichen</h2>
+        <p>Bitte füllen Sie alle Pflichtfelder aus. Mit Klick auf „Widerruf bestätigen" übermitteln Sie Ihre Erklärung. Sie erhalten anschließend eine Eingangsbestätigung an die von Ihnen angegebene E-Mail-Adresse – mit Inhalt, Datum und Uhrzeit.</p>
+
+        <div class="wr-field">
+          <label class="wr-field__label" for="wrName">Name<span class="wr-req">*</span></label>
+          <input class="wr-input" id="wrName" name="name" type="text" autocomplete="name" required>
+          <div class="wr-field__err">Bitte geben Sie Ihren Namen an.</div>
+        </div>
+
+        <div class="wr-grid2">
+          <div class="wr-field">
+            <label class="wr-field__label" for="wrEmail">E-Mail-Adresse<span class="wr-req">*</span></label>
+            <input class="wr-input" id="wrEmail" name="email" type="email" autocomplete="email" required>
+            <div class="wr-field__err">Bitte geben Sie eine gültige E-Mail-Adresse an.</div>
+          </div>
+          <div class="wr-field">
+            <label class="wr-field__label" for="wrPhone">Telefon <span style="color:#94a3b8;font-weight:500">(optional)</span></label>
+            <input class="wr-input" id="wrPhone" name="phone" type="tel" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="wr-field">
+          <label class="wr-field__label" for="wrVertrag">Angaben zur Identifizierung des Vertrags<span class="wr-req">*</span></label>
+          <input class="wr-input" id="wrVertrag" name="vertrag" type="text" placeholder="z. B. Depotnummer, Vertragsnummer, Vertragsdatum oder Produkt" required>
+          <div class="wr-field__err">Bitte geben Sie an, welcher Vertrag widerrufen werden soll.</div>
+        </div>
+
+        <div class="wr-field">
+          <label class="wr-field__label" for="wrDetails">Weitere Details <span style="color:#94a3b8;font-weight:500">(optional)</span></label>
+          <textarea class="wr-textarea" id="wrDetails" name="details" placeholder="Anmerkungen zum Widerruf, z. B. teilweiser Widerruf oder zusätzliche Informationen"></textarea>
+        </div>
+
+        <div class="wr-field">
+          <label class="wr-checkbox" for="wrConfirm">
+            <input type="checkbox" id="wrConfirm" name="confirm" required>
+            <span>Ich bestätige, dass die oben eingetragenen Angaben korrekt sind.</span>
+          </label>
+          <div class="wr-field__err">Bitte bestätigen Sie Ihren Widerruf.</div>
+        </div>
+
+        <input type="text" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+
+        <div class="wr-actions">
+          <button type="submit" class="wr-btn wr-btn--green wr-btn--lg" id="wrSubmit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Widerruf bestätigen
+          </button>
+        </div>
+
+        <div class="wr-error-msg" id="wrError">Es ist ein Fehler bei der Übermittlung aufgetreten. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt an <a href="mailto:info@easyfolio.de" style="color:#4c79c7;font-weight:600">info@easyfolio.de</a>.</div>
+
+        <p class="wr-meta">Ihre Daten werden ausschließlich zur Bearbeitung Ihres Widerrufs verwendet. Details: <a href="https://easyfolio.de/datenschutz">Datenschutzerklärung</a>.</p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<div class="wr-modal" id="wrModal" role="dialog" aria-modal="true" aria-labelledby="wrModalTitle">
+  <div class="wr-modal__backdrop" data-wr-close></div>
+  <div class="wr-modal__card">
+    <button type="button" class="wr-modal__close" data-wr-close aria-label="Schließen">
+      <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+    </button>
+    <div class="wr-modal__body">
+      <div class="wr-modal__icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h2 id="wrModalTitle">Ihr Widerruf wurde erfolgreich abgeschickt</h2>
+      <p class="wr-modal__lead">Vielen Dank. Wir haben Ihre Widerrufserklärung erhalten. Eine Eingangsbestätigung wurde automatisch an Ihre E-Mail-Adresse versendet.</p>
+
+      <div class="wr-receipt">
+        <div class="wr-receipt__head">
+          <span class="wr-receipt__title">Eingangsbestätigung</span>
+          <span class="wr-receipt__time" id="wrReceiptTime"></span>
+        </div>
+        <div class="wr-receipt__row"><span class="wr-receipt__k">Name</span><span class="wr-receipt__v" id="wrRName"></span></div>
+        <div class="wr-receipt__row"><span class="wr-receipt__k">E-Mail</span><span class="wr-receipt__v" id="wrREmail"></span></div>
+        <div class="wr-receipt__row"><span class="wr-receipt__k">Vertrag</span><span class="wr-receipt__v" id="wrRVertrag"></span></div>
+      </div>
+
+      <div class="wr-modal__actions">
+        <a href="https://easyfolio.de/" class="wr-btn wr-btn--blue">Zur Startseite</a>
+        <button type="button" class="wr-btn wr-btn--ghost" data-wr-close>Schließen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="wr-section wr-section--gray">
+  <div class="wr-wrap">
+    <div style="text-align:center;max-width:680px;margin:0 auto 40px">
+      <span class="wr-eyebrow">Häufige Fragen</span>
+      <h2 style="font-size:clamp(26px,3.4vw,36px);font-weight:700;color:#0f172a;line-height:1.2;letter-spacing:-.02em;margin:0">Rund um Ihren Widerruf</h2>
+    </div>
+    <div class="wr-faq">
+      <div class="wr-faq__item is-open">
+        <div class="wr-faq__q" onclick="wrToggleFaq(this)"><span class="wr-faq__q-text">Welche Frist habe ich für den Widerruf?</span><span class="wr-faq__chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+        <div class="wr-faq__a"><div class="wr-faq__a-inner">In der Regel beträgt die Widerrufsfrist 14 Tage ab Vertragsabschluss. Die genaue Frist entnehmen Sie Ihrer Widerrufsbelehrung. Mit fristgerechter Einreichung Ihrer Erklärung ist der Widerruf wirksam.</div></div>
+      </div>
+      <div class="wr-faq__item">
+        <div class="wr-faq__q" onclick="wrToggleFaq(this)"><span class="wr-faq__q-text">Erhalte ich eine Eingangsbestätigung?</span><span class="wr-faq__chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+        <div class="wr-faq__a"><div class="wr-faq__a-inner">Ja. Sie sehen den Eingang unmittelbar nach Absenden als Bestätigung – inkl. Datum und Uhrzeit. Zusätzlich erhalten Sie eine Eingangsbestätigung an die im Formular angegebene E-Mail-Adresse.</div></div>
+      </div>
+      <div class="wr-faq__item">
+        <div class="wr-faq__q" onclick="wrToggleFaq(this)"><span class="wr-faq__q-text">Was passiert nach meinem Widerruf?</span><span class="wr-faq__chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+        <div class="wr-faq__a"><div class="wr-faq__a-inner">Nach Eingang Ihres Widerrufs bearbeiten wir die Auflösung des Vertrags zeitnah und melden uns bei Rückfragen über die hinterlegte E-Mail-Adresse.</div></div>
+      </div>
+      <div class="wr-faq__item">
+        <div class="wr-faq__q" onclick="wrToggleFaq(this)"><span class="wr-faq__q-text">Kann ich nur einen Teil des Vertrags widerrufen?</span><span class="wr-faq__chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+        <div class="wr-faq__a"><div class="wr-faq__a-inner">Ja, in einigen Fällen ist ein Teilwiderruf möglich. Beschreiben Sie im Feld „Weitere Details", welcher Teil des Vertrags konkret widerrufen werden soll.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+function wrToggleFaq(q){var item=q.closest('.wr-faq__item');var open=item.classList.contains('is-open');document.querySelectorAll('.wr-faq__item.is-open').forEach(function(x){x.classList.remove('is-open')});if(!open)item.classList.add('is-open');}
+
+(function(){
+  // Web3Forms Key – registriert auf easyfolio.de/widerruf, Empfänger info@easyfolio.de
+  var WEB3FORMS_KEY = "eb8c1868-433b-43d2-b741-043c23067a50";
+
+  var form=document.getElementById('wrForm');
+  var modal=document.getElementById('wrModal');
+  var errBox=document.getElementById('wrError');
+  if(!form) return;
+
+  function fmtDateTime(d){
+    var dd=String(d.getDate()).padStart(2,'0');
+    var mm=String(d.getMonth()+1).padStart(2,'0');
+    var yy=d.getFullYear();
+    var hh=String(d.getHours()).padStart(2,'0');
+    var mi=String(d.getMinutes()).padStart(2,'0');
+    return dd+'.'+mm+'.'+yy+' · '+hh+':'+mi+' Uhr';
+  }
+  function setError(id,on){
+    var field=document.getElementById(id).closest('.wr-field, .wr-checkbox');
+    var inp=document.getElementById(id);
+    if(field)field.classList.toggle('is-invalid',on);
+    inp.classList.toggle('is-invalid',on);
+  }
+  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}
+
+  function openModal(){modal.classList.add('is-active');document.body.style.overflow='hidden'}
+  function closeModal(){modal.classList.remove('is-active');document.body.style.overflow=''}
+  modal.querySelectorAll('[data-wr-close]').forEach(function(el){el.addEventListener('click',closeModal)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('is-active'))closeModal()});
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errBox.classList.remove('is-active');
+
+    var name=document.getElementById('wrName').value.trim();
+    var email=document.getElementById('wrEmail').value.trim();
+    var phone=document.getElementById('wrPhone').value.trim();
+    var vertrag=document.getElementById('wrVertrag').value.trim();
+    var details=document.getElementById('wrDetails').value.trim();
+    var confirm=document.getElementById('wrConfirm').checked;
+    var botcheck=form.querySelector('input[name="botcheck"]').value;
+
+    var bad=false;
+    setError('wrName',!name); if(!name)bad=true;
+    setError('wrEmail',!validEmail(email)); if(!validEmail(email))bad=true;
+    setError('wrVertrag',!vertrag); if(!vertrag)bad=true;
+    setError('wrConfirm',!confirm); if(!confirm)bad=true;
+    if(bad){
+      var first=form.querySelector('.is-invalid');
+      if(first&&first.scrollIntoView)first.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+    if(botcheck)return;
+
+    var now=new Date();
+    var eingang=fmtDateTime(now);
+
+    var btn=document.getElementById('wrSubmit');
+    var orig=btn.innerHTML;
+    btn.setAttribute('disabled','disabled');
+    btn.innerHTML='Wird übermittelt…';
+
+    var payload={
+      access_key: WEB3FORMS_KEY,
+      subject: "Neuer Widerruf über easyfolio.de – " + name,
+      from_name: "easyfolio Widerruf-Formular",
+      replyto: email,
+      name: name,
+      email: email,
+      phone: phone || "—",
+      vertrag: vertrag,
+      details: details || "—",
+      erklaerung: "Hiermit widerrufe ich den oben genannten Vertrag mit easyfolio.",
+      eingang: eingang
+    };
+
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){return r.json().then(function(j){return{ok:r.ok,json:j}})})
+    .then(function(res){
+      console.log('[Widerruf] Antwort von Web3Forms:', res.json);
+      if(!res.json.success){throw new Error(res.json.message||'Versand fehlgeschlagen')}
+      document.getElementById('wrRName').textContent=name;
+      document.getElementById('wrREmail').textContent=email;
+      document.getElementById('wrRVertrag').textContent=vertrag;
+      document.getElementById('wrReceiptTime').textContent=eingang;
+      form.reset();
+      btn.removeAttribute('disabled');
+      btn.innerHTML=orig;
+      openModal();
+    })
+    .catch(function(err){
+      console.error('[Widerruf] Fehler:',err);
+      btn.removeAttribute('disabled');
+      btn.innerHTML=orig;
+      errBox.classList.add('is-active');
+      errBox.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  });
+
+  ['wrName','wrEmail','wrVertrag','wrConfirm'].forEach(function(id){
+    var el=document.getElementById(id);
+    el.addEventListener('input',function(){setError(id,false)});
+    el.addEventListener('change',function(){setError(id,false)});
+  });
+})();
+</script>
