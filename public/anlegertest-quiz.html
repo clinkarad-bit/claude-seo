@@ -49,7 +49,7 @@
 .aq-result{display:none;padding:48px 0 80px}
 .aq-result.aq-active{display:block}
 .aq-result-card{background:#fff;border-radius:20px;padding:48px 40px;border:1px solid #edf0f4;text-align:center;max-width:680px;margin:0 auto;position:relative;overflow:hidden}
-.aq-result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px}
+.aq-result-card::before{display:none}
 .aq-result-badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:20rem;margin-bottom:24px}
 .aq-result-donut{width:160px;height:160px;margin:0 auto 28px;position:relative}
 .aq-result-donut svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -323,45 +323,10 @@ function showResult(){
   ld.classList.add('aq-active');
 
   setTimeout(function(){
-    ld.classList.remove('aq-active');
     var score=calcScore();
     var pid=getPortfolio(score);
     var p=PORTFOLIOS[pid];
-
-    $('aqResultBadge').textContent='Ihre Empfehlung';
-    $('aqResultBadge').style.background='rgba(124,186,58,.1)';
-    $('aqResultBadge').style.color='rgb(124,186,58)';
-    $('aqResultCard').style.borderTop='5px solid '+p.color;
-
-    $('aqResultTitle').textContent=p.name;
-    $('aqResultDesc').textContent=p.desc;
-    $('aqStatRendite').textContent=p.rendite;
-    $('aqStatAktien').textContent=p.aktien;
-    $('aqStatKosten').textContent=p.kosten;
-    $('aqStatISIN').textContent=p.wkn;
-    $('aqResultCTA').href=p.link;
-
-    var num=parseInt(pid);
-    $('aqDonutNum').textContent=num;
-    var circumference=2*Math.PI*52;
-    var dashVal=circumference*(num/100);
-    $('aqDonutRing').setAttribute('stroke-dasharray','0 '+circumference);
-    setTimeout(function(){
-      $('aqDonutRing').style.transition='stroke-dasharray 1s cubic-bezier(.4,0,.2,1)';
-      $('aqDonutRing').setAttribute('stroke-dasharray',dashVal+' '+(circumference-dashVal));
-    },100);
-
-    $('aqRiskBar').style.width=p.risk+'%';
-    if(p.risk<=30) $('aqRiskBar').style.background='var(--aq-green)';
-    else if(p.risk<=55) $('aqRiskBar').style.background='var(--aq-blue)';
-    else $('aqRiskBar').style.background='#e67e22';
-
-    document.querySelectorAll('.aq-portfolio-mini').forEach(function(m){m.classList.remove('aq-recommended')});
-    var rec=$('aqMini'+pid);
-    if(rec) rec.classList.add('aq-recommended');
-
-    $('aqResult').classList.add('aq-active');
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.location.href=p.link;
   },2500);
 }
 
