@@ -2,12 +2,10 @@
 .aq-page{--aq-blue:rgb(76,121,199);--aq-green:rgb(124,186,58);--aq-text:#1a1a2e;--aq-muted:#6b7280;--aq-border:#e5e7eb;--aq-bg:#f4f6fc;width:100%;color:var(--aq-text);line-height:1.6;-webkit-font-smoothing:antialiased}
 .aq-page,.aq-page *{font-family:'MuseoSans','Nunito',system-ui,sans-serif!important;box-sizing:border-box!important;margin:0;padding:0}
 .aq-page a{text-decoration:none!important;color:inherit}
-.aq-page .aq-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;outline:none!important;box-shadow:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:none!important;transform:none!important}
+.aq-page .aq-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:14px 30px!important;border-radius:.35rem!important;font-size:14px!important;font-weight:700!important;border:none!important;outline:none!important;box-shadow:none!important;cursor:pointer!important;min-height:48px!important;white-space:nowrap!important;line-height:1!important;text-decoration:none!important;transition:none!important;transform:none!important}
 .aq-page .aq-btn:hover{transform:none!important;box-shadow:none!important;opacity:1!important}
 .aq-btn-green{background:var(--aq-green)!important;color:#fff!important}
-.aq-btn-blue{background:var(--aq-blue)!important;color:#fff!important}
-.aq-btn-ghost{background:transparent!important;color:var(--aq-blue)!important;border:1.5px solid var(--aq-border)!important}
-
+.aq-btn-ghost{background:transparent!important;color:var(--aq-muted)!important;border:1.5px solid var(--aq-border)!important}
 .aq-wrap{max-width:760px;margin:0 auto;padding:0 24px}
 
 /* PROGRESS */
@@ -48,55 +46,41 @@
 /* RESULT */
 .aq-result{display:none;padding:48px 0 80px}
 .aq-result.aq-active{display:block}
-.aq-result-card{background:#fff;border-radius:20px;padding:48px 40px;border:1px solid #edf0f4;text-align:center;max-width:680px;margin:0 auto;position:relative;overflow:hidden}
-.aq-result-card::before{display:none}
-.aq-result-badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:20rem;margin-bottom:24px}
-.aq-result-donut{width:160px;height:160px;margin:0 auto 28px;position:relative}
+.aq-result-card{background:#fff;border-radius:20px;padding:48px 40px;border:1px solid #edf0f4;text-align:center;max-width:560px;margin:0 auto}
+.aq-result-tag{display:inline-block;background:rgba(124,186,58,.1);color:var(--aq-green);font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:6px 18px;border-radius:20rem;margin-bottom:28px}
+.aq-result-donut{width:140px;height:140px;margin:0 auto 24px;position:relative}
 .aq-result-donut svg{width:100%;height:100%;transform:rotate(-90deg)}
 .aq-result-donut-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.aq-result-donut-num{font-size:42px;font-weight:800;color:var(--aq-blue);line-height:1}
-.aq-result-donut-sub{font-size:12px;color:var(--aq-muted);font-weight:600;margin-top:2px}
-.aq-result-card h2{font-size:28px;font-weight:800;color:var(--aq-text);margin-bottom:8px;letter-spacing:-.3px}
-.aq-result-card>p{font-size:15px;color:var(--aq-muted);line-height:1.7;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
-
-.aq-result-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
-.aq-result-stat{background:var(--aq-bg);border-radius:12px;padding:18px 14px;text-align:center}
-.aq-result-stat-val{font-size:20px;font-weight:800;color:var(--aq-blue);line-height:1;margin-bottom:4px}
+.aq-result-donut-num{font-size:38px;font-weight:800;color:var(--aq-blue);line-height:1}
+.aq-result-donut-sub{font-size:11px;color:var(--aq-muted);font-weight:600;margin-top:2px}
+.aq-result-card h2{font-size:26px;font-weight:800;color:var(--aq-text);margin-bottom:6px;letter-spacing:-.3px}
+.aq-result-subtitle{font-size:14px;color:var(--aq-muted);margin-bottom:28px}
+.aq-result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.aq-result-stat{background:var(--aq-bg);border-radius:10px;padding:14px 10px;text-align:center}
+.aq-result-stat-val{font-size:18px;font-weight:800;line-height:1;margin-bottom:3px}
 .aq-result-stat-val.aq-green{color:var(--aq-green)}
-.aq-result-stat-label{font-size:11px;font-weight:700;color:var(--aq-muted);text-transform:uppercase;letter-spacing:.5px}
+.aq-result-stat-val.aq-blue{color:var(--aq-blue)}
+.aq-result-stat-label{font-size:10px;font-weight:700;color:var(--aq-muted);text-transform:uppercase;letter-spacing:.5px}
+.aq-result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.aq-result-actions .aq-btn{flex:1;min-width:0}
 
-.aq-result-bar{background:var(--aq-bg);border-radius:12px;padding:20px 24px;margin-bottom:32px;display:flex;align-items:center;gap:16px}
-.aq-result-bar-track{flex:1;height:10px;background:#e0e4ec;border-radius:20rem;position:relative;overflow:hidden}
-.aq-result-bar-fill{height:100%;border-radius:20rem;transition:width 1s cubic-bezier(.4,0,.2,1)}
-.aq-result-bar-labels{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--aq-muted);margin-top:6px}
-.aq-result-bar-label{font-size:13px;font-weight:700;color:var(--aq-text);white-space:nowrap}
+/* JULIAN QUOTE */
+.aq-quote{max-width:560px;margin:24px auto 0;display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:16px;padding:24px;border:1px solid #edf0f4}
+.aq-quote-img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.aq-quote-text{font-size:14px;color:var(--aq-muted);line-height:1.65;font-style:italic}
+.aq-quote-name{font-size:13px;font-weight:700;color:var(--aq-text);margin-top:8px;font-style:normal}
+.aq-quote-role{font-size:12px;color:var(--aq-muted);font-style:normal}
 
-.aq-result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.aq-result-actions .aq-btn{min-width:180px}
+.aq-result-footer{text-align:center;margin-top:20px;font-size:11px;color:#b0b0b8;line-height:1.6;max-width:560px;margin-left:auto;margin-right:auto}
 
-.aq-result-footer{margin-top:24px;font-size:12px;color:var(--aq-muted);line-height:1.7;max-width:580px;margin-left:auto;margin-right:auto}
-
-/* ALL RESULTS */
-.aq-all-results{margin-top:40px;max-width:680px;margin-left:auto;margin-right:auto}
-.aq-all-results h3{font-size:20px;font-weight:800;color:var(--aq-text);text-align:center;margin-bottom:24px}
-.aq-portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.aq-portfolio-mini{background:#fff;border-radius:16px;padding:24px 16px;border:1.5px solid #edf0f4;text-align:center;cursor:pointer;transition:border-color .15s}
-.aq-portfolio-mini:hover{border-color:var(--aq-blue)}
-.aq-portfolio-mini.aq-recommended{border-color:var(--aq-green);background:rgba(124,186,58,.03)}
-.aq-portfolio-mini-tag{display:none;font-size:9px;font-weight:800;color:var(--aq-green);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.aq-portfolio-mini.aq-recommended .aq-portfolio-mini-tag{display:block}
-.aq-portfolio-mini svg{width:64px;height:64px;margin:0 auto 10px;display:block}
-.aq-portfolio-mini-name{font-size:14px;font-weight:700;color:var(--aq-text);margin-bottom:4px}
-.aq-portfolio-mini-rendite{font-size:12px;font-weight:700;color:var(--aq-green)}
-
-/* RESPONSIVE */
 @media(max-width:640px){
 .aq-wrap{padding:0 16px}
 .aq-question-wrap{padding:32px 0 60px}
 .aq-result-card{padding:32px 20px}
-.aq-result-stats{grid-template-columns:repeat(2,1fr)}
-.aq-portfolio-grid{grid-template-columns:repeat(2,1fr)}
+.aq-result-stats{grid-template-columns:repeat(3,1fr)}
+.aq-result-actions{flex-direction:column}
 .aq-result-actions .aq-btn{width:100%}
+.aq-quote{flex-direction:column;align-items:center;text-align:center}
 }
 @media(max-width:400px){
 .aq-option{padding:14px 16px}
@@ -105,7 +89,6 @@
 
 <div class="aq-page" id="aqApp">
 
-<!-- PROGRESS BAR -->
 <div class="aq-progress" id="aqProgress">
   <div class="aq-progress-inner">
     <div class="aq-progress-bar"><div class="aq-progress-fill" id="aqProgressFill" style="width:7.14%"></div></div>
@@ -113,96 +96,53 @@
   </div>
 </div>
 
-<!-- QUESTIONS CONTAINER -->
 <div class="aq-wrap">
   <div class="aq-question-wrap" id="aqQuestionWrap">
     <div class="aq-question" id="aqQuestion"></div>
   </div>
 
-  <!-- LOADING -->
   <div class="aq-loading" id="aqLoading">
     <div class="aq-spinner"></div>
     <h3>Ihr Ergebnis wird berechnet…</h3>
     <p>Wir analysieren Ihre Antworten und ermitteln das passende Portfolio.</p>
   </div>
 
-  <!-- RESULT -->
   <div class="aq-result" id="aqResult">
-    <div class="aq-result-card" id="aqResultCard">
-      <div class="aq-result-badge" id="aqResultBadge">Ihre Empfehlung</div>
+    <div class="aq-result-card">
+      <div class="aq-result-tag">Ihre Empfehlung</div>
       <div class="aq-result-donut">
         <svg viewBox="0 0 130 130">
           <circle cx="65" cy="65" r="52" fill="none" stroke="#edf0f4" stroke-width="10"/>
           <circle cx="65" cy="65" r="52" fill="none" stroke="rgb(124,186,58)" stroke-width="10" id="aqDonutRing" stroke-dasharray="0 327" stroke-linecap="round"/>
         </svg>
         <div class="aq-result-donut-label">
-          <div class="aq-result-donut-num" id="aqDonutNum">50</div>
-          <div class="aq-result-donut-sub">Aktienquote %</div>
+          <div class="aq-result-donut-num" id="aqDonutNum"></div>
+          <div class="aq-result-donut-sub">Aktienanteil</div>
         </div>
       </div>
-      <h2 id="aqResultTitle">easyfolio 50</h2>
-      <p id="aqResultDesc">Das ausgewogene Portfolio mit einer Mischung aus Sicherheit und Renditechancen.</p>
-
-      <div class="aq-result-stats" id="aqResultStats">
-        <div class="aq-result-stat"><div class="aq-result-stat-val aq-green" id="aqStatRendite">5,2%</div><div class="aq-result-stat-label">Zielrendite</div></div>
-        <div class="aq-result-stat"><div class="aq-result-stat-val" id="aqStatAktien">50%</div><div class="aq-result-stat-label">Aktienquote</div></div>
-        <div class="aq-result-stat"><div class="aq-result-stat-val" id="aqStatKosten">0,88%</div><div class="aq-result-stat-label">Kosten p.a.</div></div>
-        <div class="aq-result-stat"><div class="aq-result-stat-val" id="aqStatISIN">EASY504</div><div class="aq-result-stat-label">WKN</div></div>
+      <h2 id="aqResultTitle"></h2>
+      <div class="aq-result-subtitle" id="aqResultSub"></div>
+      <div class="aq-result-stats">
+        <div class="aq-result-stat"><div class="aq-result-stat-val aq-green" id="aqStatRendite"></div><div class="aq-result-stat-label">Zielrendite</div></div>
+        <div class="aq-result-stat"><div class="aq-result-stat-val aq-blue" id="aqStatAktien"></div><div class="aq-result-stat-label">Aktienquote</div></div>
+        <div class="aq-result-stat"><div class="aq-result-stat-val aq-blue" id="aqStatKosten"></div><div class="aq-result-stat-label">Kosten p.a.</div></div>
       </div>
-
-      <div class="aq-result-bar">
-        <span class="aq-result-bar-label">Risiko</span>
-        <div style="flex:1">
-          <div class="aq-result-bar-track"><div class="aq-result-bar-fill" id="aqRiskBar" style="width:50%;background:var(--aq-blue)"></div></div>
-          <div class="aq-result-bar-labels"><span>Konservativ</span><span>Ausgewogen</span><span>Offensiv</span></div>
-        </div>
-        <span class="aq-result-bar-label">Rendite</span>
-      </div>
-
       <div class="aq-result-actions">
-        <a class="aq-btn aq-btn-green" id="aqResultCTA" href="https://easyfolio.de/depot" style="gap:8px">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          Depot eröffnen
-        </a>
-        <button class="aq-btn aq-btn-ghost" onclick="aqRestart()" style="gap:8px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.5 15a9 9 0 1 0 .5-7.4L1 10"/></svg>
-          Test wiederholen
-        </button>
-      </div>
-
-      <p class="aq-result-footer">Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Diese Empfehlung ersetzt keine individuelle Anlageberatung.</p>
-    </div>
-
-    <!-- ALL 4 PORTFOLIOS -->
-    <div class="aq-all-results">
-      <h3>Alle easyfolio-Portfolios im Überblick</h3>
-      <div class="aq-portfolio-grid" id="aqPortfolioGrid">
-        <a class="aq-portfolio-mini" href="https://easyfolio.de/easyfolio-30" id="aqMini30">
-          <div class="aq-portfolio-mini-tag">Empfohlen</div>
-          <svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="86.7 202.3" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">30</text></svg>
-          <div class="aq-portfolio-mini-name">easyfolio 30</div>
-          <div class="aq-portfolio-mini-rendite">3,9% Zielrendite</div>
-        </a>
-        <a class="aq-portfolio-mini" href="https://easyfolio.de/easyfolio-50" id="aqMini50">
-          <div class="aq-portfolio-mini-tag">Empfohlen</div>
-          <svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="144.5 144.5" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">50</text></svg>
-          <div class="aq-portfolio-mini-name">easyfolio 50</div>
-          <div class="aq-portfolio-mini-rendite">5,2% Zielrendite</div>
-        </a>
-        <a class="aq-portfolio-mini" href="https://easyfolio.de/easyfolio-70" id="aqMini70">
-          <div class="aq-portfolio-mini-tag">Empfohlen</div>
-          <svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="202.3 86.7" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">70</text></svg>
-          <div class="aq-portfolio-mini-name">easyfolio 70</div>
-          <div class="aq-portfolio-mini-rendite">7,2% Zielrendite</div>
-        </a>
-        <a class="aq-portfolio-mini" href="https://easyfolio.de/easyfolio-90" id="aqMini90">
-          <div class="aq-portfolio-mini-tag">Empfohlen</div>
-          <svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="46" fill="none" stroke="#edf0f4" stroke-width="10"/><circle cx="65" cy="65" r="46" fill="none" stroke="rgb(124,186,58)" stroke-width="10" stroke-dasharray="260 29" stroke-linecap="round" transform="rotate(-90 65 65)"/><text x="65" y="72" text-anchor="middle" font-size="32" font-weight="800" fill="rgb(76,121,199)">90</text></svg>
-          <div class="aq-portfolio-mini-name">easyfolio 90</div>
-          <div class="aq-portfolio-mini-rendite">9,0% Zielrendite</div>
-        </a>
+        <a class="aq-btn aq-btn-green" id="aqResultCTA">Mehr erfahren</a>
+        <button class="aq-btn aq-btn-ghost" onclick="aqRestart()">Test wiederholen</button>
       </div>
     </div>
+
+    <div class="aq-quote">
+      <img class="aq-quote-img" src="https://api.easyfolio.de/fileadmin/B2C/uber_easyfolio/team/Winter_Julian-Andre.png" alt="Julian Andre Winter">
+      <div>
+        <div class="aq-quote-text" id="aqQuoteText"></div>
+        <div class="aq-quote-name">Julian Andre Winter</div>
+        <div class="aq-quote-role">Geschäftsführer, easyfolio</div>
+      </div>
+    </div>
+
+    <div class="aq-result-footer">Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Diese Empfehlung ersetzt keine individuelle Anlageberatung.</div>
   </div>
 </div>
 
@@ -228,36 +168,28 @@ var QUESTIONS=[
 ];
 
 var PORTFOLIOS={
-"30":{name:"easyfolio 30",sub:"Das konservative Portfolio",desc:"Ideal für sicherheitsorientierte Anleger. Mit 30% Aktien und 70% Anleihen bietet dieses Portfolio Stabilität bei moderatem Wachstum.",rendite:"3,9%",aktien:"30%",kosten:"0,98%",wkn:"EASY306",isin:"DE000EASY306",link:"https://easyfolio.de/easyfolio-30",risk:25,dash:"97.5 229.5",color:"#4c79c7"},
-"50":{name:"easyfolio 50",sub:"Das ausgewogene Portfolio",desc:"Die goldene Mitte zwischen Sicherheit und Rendite. 50% Aktien und 50% Anleihen für den ausgewogenen Anleger.",rendite:"5,2%",aktien:"50%",kosten:"0,88%",wkn:"EASY504",isin:"DE000EASY504",link:"https://easyfolio.de/easyfolio-50",risk:45,dash:"163.5 163.5",color:"#4c79c7"},
-"70":{name:"easyfolio 70",sub:"Das wachstumsorientierte Portfolio",desc:"Für renditeorientierte Anleger mit höherer Risikobereitschaft. 70% Aktien und 30% Anleihen für langfristiges Wachstum.",rendite:"7,2%",aktien:"70%",kosten:"0,82%",wkn:"EASY702",isin:"DE000EASY702",link:"https://easyfolio.de/easyfolio-70",risk:65,dash:"228.9 98.1",color:"#4c79c7"},
-"90":{name:"easyfolio 90",sub:"Das offensive Portfolio",desc:"Maximale Renditechancen für erfahrene, risikofreudige Anleger. 90% Aktien und 10% Anleihen für ambitionierte Wachstumsziele.",rendite:"9,0%",aktien:"90%",kosten:"0,78%",wkn:"EASY902",isin:"DE000EASY902",link:"https://easyfolio.de/easyfolio-90",risk:85,dash:"293.4 33.6",color:"#4c79c7"}
+"30":{name:"easyfolio 30",sub:"Konservativ · 30% Aktien · 70% Anleihen",rendite:"3,9%",aktien:"30%",kosten:"0,98%",link:"https://easyfolio.de/easyfolio-30",quote:"„Das easyfolio 30 eignet sich besonders für Anleger, die Wert auf Stabilität legen und ihr Vermögen mit überschaubarem Risiko langfristig wachsen lassen möchten.“"},
+"50":{name:"easyfolio 50",sub:"Ausgewogen · 50% Aktien · 50% Anleihen",rendite:"5,2%",aktien:"50%",kosten:"0,88%",link:"https://easyfolio.de/easyfolio-50",quote:"„Das easyfolio 50 ist unser meistgewähltes Portfolio – die ausgewogene Mischung aus Sicherheit und Renditechance passt zu den meisten Anlegern.“"},
+"70":{name:"easyfolio 70",sub:"Wachstum · 70% Aktien · 30% Anleihen",rendite:"7,2%",aktien:"70%",kosten:"0,82%",link:"https://easyfolio.de/easyfolio-70",quote:"„Mit dem easyfolio 70 setzen Sie auf langfristiges Wachstum. Ideal, wenn Sie einen langen Anlagehorizont haben und Schwankungen gelassen sehen.“"},
+"90":{name:"easyfolio 90",sub:"Offensiv · 90% Aktien · 10% Anleihen",rendite:"9,0%",aktien:"90%",kosten:"0,78%",link:"https://easyfolio.de/easyfolio-90",quote:"„Das easyfolio 90 ist für erfahrene Anleger mit hoher Risikobereitschaft – maximale Aktienquote für maximale Renditechancen über die Zeit.“"}
 };
 
-var current=0;
-var answers=[];
-var totalQ=QUESTIONS.length;
-
+var current=0,answers=[],totalQ=QUESTIONS.length;
 function $(id){return document.getElementById(id)}
 
 function renderQuestion(){
-  var qObj=QUESTIONS[current];
-  var html='';
-  html+='<span class="aq-category">'+qObj.cat+'</span>';
-  html+='<h2>'+qObj.q+'</h2>';
-  html+='<p class="aq-desc">'+qObj.desc+'</p>';
+  var q=QUESTIONS[current],html='';
+  html+='<span class="aq-category">'+q.cat+'</span>';
+  html+='<h2>'+q.q+'</h2>';
+  html+='<p class="aq-desc">'+q.desc+'</p>';
   html+='<div class="aq-options">';
-  for(var i=0;i<qObj.opts.length;i++){
-    var sel=answers[current]===i?' aq-selected':'';
-    html+='<div class="aq-option'+sel+'" data-idx="'+i+'" onclick="aqSelect('+i+')">';
+  for(var i=0;i<q.opts.length;i++){
+    html+='<div class="aq-option'+(answers[current]===i?' aq-selected':'')+'" onclick="aqSelect('+i+')">';
     html+='<div class="aq-option-radio"></div>';
-    html+='<div class="aq-option-text">'+qObj.opts[i]+'</div>';
-    html+='</div>';
+    html+='<div class="aq-option-text">'+q.opts[i]+'</div></div>';
   }
   html+='</div>';
-  if(current>0){
-    html+='<button class="aq-back" onclick="aqBack()"><svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Zurück</button>';
-  }
+  if(current>0) html+='<button class="aq-back" onclick="aqBack()"><svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Zurück</button>';
   $('aqQuestion').innerHTML=html;
   $('aqProgressFill').style.width=((current+1)/totalQ*100)+'%';
   $('aqProgressText').textContent=(current+1)+' / '+totalQ;
@@ -268,74 +200,72 @@ window.aqSelect=function(idx){
   var opts=document.querySelectorAll('.aq-option');
   opts.forEach(function(o){o.classList.remove('aq-selected')});
   opts[idx].classList.add('aq-selected');
-
   setTimeout(function(){
     if(current<totalQ-1){
       var el=$('aqQuestion');
       el.classList.add('aq-slide-out');
       setTimeout(function(){
-        current++;
-        renderQuestion();
+        current++;renderQuestion();
         el.classList.remove('aq-slide-out');
         el.classList.add('aq-slide-in');
         setTimeout(function(){el.classList.remove('aq-slide-in')},20);
       },250);
-    } else {
-      showResult();
-    }
+    } else { showResult(); }
   },300);
 };
 
 window.aqBack=function(){
-  if(current<=0) return;
+  if(current<=0)return;
   var el=$('aqQuestion');
   el.classList.add('aq-slide-in');
-  setTimeout(function(){
-    current--;
-    renderQuestion();
-    el.classList.remove('aq-slide-in');
-  },200);
+  setTimeout(function(){current--;renderQuestion();el.classList.remove('aq-slide-in')},200);
 };
 
 function calcScore(){
-  var total=0;
-  for(var i=0;i<totalQ;i++){
-    var a=answers[i];
-    if(typeof a==='undefined') a=0;
-    total+=QUESTIONS[i].pts[a];
-  }
-  return total;
+  var t=0;
+  for(var i=0;i<totalQ;i++){var a=answers[i];if(typeof a==='undefined')a=0;t+=QUESTIONS[i].pts[a]}
+  return t;
 }
-
-function getPortfolio(score){
-  var max=totalQ*5;
-  var pct=score/max*100;
-  if(pct<=30) return "30";
-  if(pct<=50) return "50";
-  if(pct<=72) return "70";
-  return "90";
+function getPortfolio(s){
+  var pct=s/(totalQ*5)*100;
+  if(pct<=30)return"30";if(pct<=50)return"50";if(pct<=72)return"70";return"90";
 }
 
 function showResult(){
   $('aqQuestionWrap').style.display='none';
   $('aqProgress').style.display='none';
-  var ld=$('aqLoading');
-  ld.classList.add('aq-active');
+  $('aqLoading').classList.add('aq-active');
 
   setTimeout(function(){
-    var score=calcScore();
-    var pid=getPortfolio(score);
-    var p=PORTFOLIOS[pid];
-    window.location.href=p.link;
-  },2500);
+    $('aqLoading').classList.remove('aq-active');
+    var score=calcScore(),pid=getPortfolio(score),p=PORTFOLIOS[pid],num=parseInt(pid);
+
+    $('aqResultTitle').textContent=p.name;
+    $('aqResultSub').textContent=p.sub;
+    $('aqStatRendite').textContent=p.rendite;
+    $('aqStatAktien').textContent=p.aktien;
+    $('aqStatKosten').textContent=p.kosten;
+    $('aqResultCTA').href=p.link;
+    $('aqQuoteText').textContent=p.quote;
+    $('aqDonutNum').textContent=num;
+
+    var c=2*Math.PI*52,d=c*(num/100);
+    $('aqDonutRing').setAttribute('stroke-dasharray','0 '+c);
+    setTimeout(function(){
+      $('aqDonutRing').style.transition='stroke-dasharray 1s cubic-bezier(.4,0,.2,1)';
+      $('aqDonutRing').setAttribute('stroke-dasharray',d+' '+(c-d));
+    },100);
+
+    $('aqResult').classList.add('aq-active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  },2000);
 }
 
 window.aqRestart=function(){
-  current=0;
-  answers=[];
+  current=0;answers=[];
   $('aqResult').classList.remove('aq-active');
   $('aqQuestionWrap').style.display='flex';
-  document.querySelector('.aq-progress').style.display='block';
+  $('aqProgress').style.display='block';
   $('aqDonutRing').style.transition='none';
   renderQuestion();
   window.scrollTo({top:0,behavior:'smooth'});
