@@ -1,0 +1,822 @@
+<style>
+  h2 {
+    font-weight: 900 !important;
+  }
+.ef70 *{margin:0;padding:0;box-sizing:border-box}
+.ef70{color:#1a202c;line-height:1.6}
+.ef70 h2{font-weight:800!important}
+.ef70-wrap{max-width:1100px;margin:0 auto;padding:0 40px;width:100%}
+@media(max-width:768px){.ef70-wrap{padding:0 20px}}
+@media(max-width:480px){.ef70-wrap{padding:0 16px}}
+
+.ef70-hero{background:linear-gradient(135deg,#4c79c7 0%,#3a5f9a 100%);padding:70px 0 90px;position:relative;overflow:hidden}
+.ef70-hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(120px);opacity:0.25;background:#7cba3a;top:-150px;right:-100px}
+.ef70-hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:50px;align-items:center}
+.ef70-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;color:#fff;margin-bottom:20px}
+.ef70-hero-tag-dot{width:8px;height:8px;background:#7cba3a;border-radius:50%}
+.ef70-hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:18px;letter-spacing:-0.02em}
+.ef70-hero p{font-size:16px;color:rgba(255,255,255,0.9);line-height:1.7;margin-bottom:0;max-width:460px}
+.ef70-hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.ef70-hero-btn{padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;display:inline-block!important;width:auto!important;transition:all 0.2s;border:none;cursor:pointer;white-space:nowrap!important;min-height:48px;display:inline-flex!important;align-items:center;justify-content:center;box-shadow:none!important}
+.ef70-hero-btn.primary{background:#7cba3a;color:#fff}
+.ef70-hero-btn.primary:hover{background:#6ba832}
+.ef70-hero-btn.secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4)}
+.ef70-hero-btn.secondary:hover{background:rgba(255,255,255,0.1)}
+.ef70-hero-visual{position:relative}
+.ef70-hero-img{width:100%;max-width:420px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,0.25)}
+.ef70-hero-badge{position:absolute;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:0 12px 32px rgba(0,0,0,0.12)}
+.ef70-hero-badge-1{bottom:-16px;left:-16px}
+.ef70-hero-badge-1 small{font-size:11px;color:#718096;display:block;margin-bottom:2px}
+.ef70-hero-badge-1 strong{font-size:22px;font-weight:800;color:#4c79c7}
+.ef70-hero-badge-2{top:16px;right:-16px}
+.ef70-hero-badge-2 strong{font-size:24px;font-weight:800;color:#7cba3a;display:block}
+.ef70-hero-badge-2 small{font-size:11px;color:#718096}
+
+.ef70-trust{background:#f8fafc;padding:50px 0;border-bottom:1px solid #e2e8f0}
+.ef70-trust-inner{display:flex;justify-content:space-between;align-items:center;gap:0;flex-wrap:wrap}
+.ef70-trust-logo{height:110px;opacity:0.65;filter:grayscale(40%);transition:all 0.3s}
+.ef70-trust-logo:hover{opacity:1;filter:grayscale(0%)}
+
+.ef70-section{padding:90px 0}
+.ef70-section-white{background:#fff}
+.ef70-section-gray{background:#f8fafc}
+.ef70-badge{display:inline-block!important;width:auto!important;max-width:fit-content!important;background:linear-gradient(135deg,#4c79c7,#5b8ad4);color:#fff;padding:6px 16px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px;box-shadow:none;white-space:nowrap!important}
+.ef70-heading{font-size:clamp(26px,3.8vw,38px);font-weight:800!important;color:#1a202c;line-height:1.12;margin-bottom:16px}
+.ef70-subhead{font-size:16px;color:#64748b;max-width:620px;line-height:1.7;margin:0}
+
+.ef70-features{background:#fff;padding:90px 0}
+.ef70-features-head{text-align:center;margin-bottom:50px;max-width:800px;margin-left:auto;margin-right:auto}
+.ef70-features-head .ef70-heading{max-width:100%;margin-bottom:16px}
+.ef70-features-head .ef70-subhead{max-width:100%;margin:0 auto}
+.ef70-features-wrap{position:relative}
+.ef70-features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.ef70-feature{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:36px 28px;text-align:center;transition:all 0.3s;-webkit-tap-highlight-color:transparent}
+.ef70-feature:hover{transform:translateY(-8px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.ef70-feature-icon{width:80px;height:80px;margin:0 auto 24px;position:relative}
+.ef70-feature-icon-inner{width:100%;height:100%;background:linear-gradient(135deg,#e8f4fd,#d1e9fc);border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative}
+.ef70-feature-icon-inner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.9),rgba(255,255,255,0));border-radius:16px}
+.ef70-feature-icon svg{width:36px;height:36px;stroke:#4c79c7;stroke-width:2;fill:none;position:relative;z-index:2}
+.ef70-feature h3{font-size:17px;font-weight:700;color:#1a202c;margin-bottom:12px}
+.ef70-feature p{font-size:14px;color:#64748b;line-height:1.6}
+
+.ef70-benefits-head{margin-bottom:50px;text-align:center}
+.ef70-benefits-head .ef70-subhead{margin:0 auto}
+.ef70-benefits-wrap{position:relative}
+.ef70-benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ef70-benefit{background:#fff;padding:36px 32px;border-radius:16px;border:1px solid #e8eef5;box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:all 0.3s}
+.ef70-benefit:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+.ef70-benefit-icon{width:70px;height:70px;margin-bottom:20px;background-repeat:no-repeat;background-size:contain;background-position:center}
+.icon-weltportfolio{background-image:url('https://api.easyfolio.de/fileadmin/B2C/investieren/global__1_.png')}
+.icon-ultradiv{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/colours.png')}
+.icon-bip{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/justice-scale.png')}
+.icon-einfach{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/idea.png')}
+.icon-allcap{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/graphic.png')}
+.icon-allmarket{background-image:url('https://api.easyfolio.de/fileadmin/B2C/startseite/Neue_Startseite/full-battery.png')}
+.ef70-benefit h3{font-size:18px;font-weight:800;color:#1a202c;margin-bottom:12px;line-height:1.3}
+.ef70-benefit p{font-size:14px;color:#64748b;line-height:1.7;margin:0}
+
+.ef70-product-grid{display:grid;grid-template-columns:420px 1fr;gap:50px;align-items:center;min-height:650px}
+.ef70-product-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(76,121,199,0.1);border:1px solid #e2e8f0;position:sticky;top:24px}
+.ef70-product-top{background:linear-gradient(145deg,#4c79c7 0%,#3a5f9a 100%);padding:36px 28px;text-align:center;position:relative}
+.ef70-product-top::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:50px;height:3px;background:#7cba3a;border-radius:2px}
+.ef70-product-ring{width:120px;height:120px;margin:0 auto 16px;position:relative}
+.ef70-product-ring-outer{width:100%;height:100%;border-radius:50%;border:6px solid rgba(255,255,255,0.15)}
+.ef70-product-ring-fill{position:absolute;top:0;left:0;width:100%;height:100%}
+.ef70-product-ring-fill svg{transform:rotate(-90deg)}
+.ef70-product-ring-bg{fill:none;stroke:rgba(255,255,255,0.15);stroke-width:6}
+.ef70-product-ring-progress{fill:none;stroke:#7cba3a;stroke-width:6;stroke-linecap:round;stroke-dasharray:176 251}
+.ef70-product-ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;font-weight:900;color:#fff;letter-spacing:-0.02em}
+.ef70-product-top small{font-size:12px;color:rgba(255,255,255,0.7);display:block;margin-top:4px}
+.ef70-product-top h2{font-size:20px;font-weight:800!important;color:#fff;margin:0}
+.ef70-product-content-single{padding:28px}
+.ef70-product-yield{text-align:center;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #f1f5f9}
+.ef70-product-yield strong{font-size:42px;font-weight:900;color:#4c79c7;display:block;letter-spacing:-0.02em}
+.ef70-product-yield small{font-size:13px;color:#718096;margin-top:4px;display:block}
+.ef70-product-list{margin-bottom:18px}
+.ef70-product-feat{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f1f5f9}
+.ef70-product-feat:last-child{border-bottom:none}
+.ef70-product-check{width:18px;height:18px;background:#e8f5e9;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ef70-product-check svg{width:10px;height:10px;stroke:#7cba3a;stroke-width:3}
+.ef70-product-feat span{font-size:13px;color:#475569}
+.ef70-product-btn{margin-top:8px;width:100%;background:#7cba3a;color:#fff;padding:16px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all 0.15s;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;-webkit-tap-highlight-color:transparent;box-shadow:none}
+.ef70-product-btn:hover{background:#6ba832;transform:translateY(-1px);box-shadow:none}
+.ef70-product-info{display:flex;flex-direction:column;justify-content:center;min-height:650px}
+.ef70-product-info h2{font-size:clamp(24px,3vw,32px);font-weight:800!important;color:#1a202c;line-height:1.15;margin-bottom:18px}
+.ef70-product-info p{font-size:15px;color:#475569;line-height:1.75;margin-bottom:14px}
+
+/* Portfolio Tabs Section */
+.ef70-tabs-head{margin-bottom:36px}
+.ef70-tabs-nav{display:inline-flex;background:#e2e8f0;padding:4px;border-radius:10px;gap:4px;margin-top:20px}
+.ef70-tabs-btn{padding:12px 28px;border:none;background:transparent;border-radius:8px;font-size:14px;font-weight:600;color:#64748b;cursor:pointer;transition:all 0.2s;min-height:44px}
+.ef70-tabs-btn.active{background:#fff;color:#4c79c7;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.ef70-tab-panel{display:none;animation:ef70Fade 0.3s ease}
+.ef70-tab-panel.active{display:block}
+@keyframes ef70Fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.ef70-alloc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ef70-alloc-box{background:#fff;border-radius:16px;padding:28px;border:1px solid #e2e8f0}
+.ef70-alloc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.ef70-alloc-header h3{font-size:16px;font-weight:700;color:#1a202c}
+.ef70-alloc-header span{font-size:20px;font-weight:800;color:#4c79c7}
+.ef70-alloc-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f8fafc}
+.ef70-alloc-item:last-child{border-bottom:none}
+.ef70-alloc-left{flex:1}
+.ef70-alloc-name{font-size:13px;color:#1a202c;font-weight:600}
+.ef70-alloc-market{font-size:11px;color:#94a3b8}
+.ef70-alloc-bar{width:120px;display:flex;align-items:center;gap:10px}
+.ef70-alloc-track{flex:1;height:6px;background:#e2e8f0;border-radius:3px}
+.ef70-alloc-fill{height:100%;background:linear-gradient(90deg,#4c79c7,#7cba3a);border-radius:3px}
+.ef70-alloc-num{font-size:12px;font-weight:700;color:#1a202c;min-width:42px;text-align:right}
+
+.ef70-details-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ef70-detail{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;transition:all 0.2s}
+.ef70-detail:hover{border-color:#4c79c7;box-shadow:0 4px 12px rgba(76,121,199,0.08)}
+.ef70-detail small{font-size:10px;color:#4c79c7;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:6px}
+.ef70-detail strong{font-size:14px;font-weight:700;color:#1a202c}
+
+.ef70-downloads-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.ef70-download{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;text-decoration:none;transition:all 0.2s}
+.ef70-download:hover{border-color:#7cba3a;background:#f8fafc;transform:translateY(-2px)}
+.ef70-download-ico{width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.ef70-download-ico svg{width:18px;height:18px;stroke:#7cba3a}
+.ef70-download h4{font-size:13px;font-weight:700;color:#1a202c;margin-bottom:4px}
+.ef70-download span{font-size:12px;color:#7cba3a;font-weight:600}
+
+/* Rechner Section */
+.ef70-calc-head{text-align:center;margin-bottom:50px}
+.ef70-calc-head .ef70-subhead{margin:0 auto}
+.ef70-calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+.ef70-calc-left{background:#f8fafc;border-radius:20px;padding:40px;display:flex;flex-direction:column;justify-content:center;gap:32px}
+.ef70-calc-row{}
+.ef70-calc-label{font-size:13px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;display:block}
+.ef70-calc-value{font-size:32px;font-weight:800;color:#1a202c;margin-bottom:16px}
+.ef70-calc-slider{-webkit-appearance:none;appearance:none;width:100%;height:8px;background:#e2e8f0;border-radius:4px;outline:none;cursor:pointer;touch-action:pan-x}
+.ef70-calc-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;background:#4c79c7;cursor:grab;border:4px solid #fff;box-shadow:0 2px 8px rgba(76,121,199,0.3)}
+.ef70-calc-slider::-webkit-slider-thumb:active{cursor:grabbing;transform:scale(1.1)}
+.ef70-calc-slider::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#4c79c7;cursor:grab;border:4px solid #fff;box-shadow:0 2px 8px rgba(76,121,199,0.3)}
+.ef70-calc-slider::-moz-range-thumb:active{cursor:grabbing}
+.ef70-calc-right{background:linear-gradient(145deg,#4c79c7 0%,#3a5f9a 100%);border-radius:20px;padding:40px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.ef70-calc-result-label{font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:8px}
+.ef70-calc-result{font-size:clamp(42px,6vw,56px);font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.ef70-calc-gain{font-size:18px;color:#7cba3a;font-weight:700;margin-bottom:28px}
+.ef70-calc-btn{background:#7cba3a;color:#fff;padding:16px 40px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.2s;border:none;cursor:pointer}
+.ef70-calc-btn:hover{background:#6ba832;transform:translateY(-2px)}
+.ef70-calc-note{font-size:11px;color:rgba(255,255,255,0.6);margin-top:20px;line-height:1.5;max-width:280px}
+
+/* Kosten Section */
+.ef70-costs-head{text-align:center;margin-bottom:40px;max-width:800px;margin-left:auto;margin-right:auto}
+.ef70-costs-head .ef70-subhead{margin:0 auto}
+.ef70-costs-box{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:48px 40px;margin-bottom:-40px;position:relative;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,0.04)}
+#kosten + .ef70-section{padding-top:140px}
+.ef70-costs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.ef70-costs-item{text-align:center;position:relative}
+.ef70-costs-item:not(:last-child)::after{content:'';position:absolute;right:-16px;top:10%;bottom:10%;width:1px;background:#e2e8f0}
+.ef70-costs-val{font-size:30px;font-weight:900;color:#4c79c7;line-height:1;margin-bottom:10px;letter-spacing:-0.02em}
+.ef70-costs-val.green{color:#7cba3a}
+.ef70-costs-label{font-size:13px;font-weight:700;color:#1a202c;margin-bottom:6px}
+.ef70-costs-desc{font-size:12px;color:#64748b;line-height:1.5}
+
+/* Sticky Widget */
+.ef70-sticky{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(150%);max-width:600px;width:calc(100% - 40px);background:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.1);border:1px solid #e2e8f0;z-index:1000;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1)}
+.ef70-sticky.visible{transform:translateX(-50%) translateY(0)}
+.ef70-sticky-txt{font-size:15px;font-weight:600;color:#1a202c}
+.ef70-sticky-txt span{color:#64748b;font-weight:400;display:block;font-size:13px;margin-top:2px}
+.ef70-sticky-btn{background:#7cba3a;color:#fff;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;min-height:48px;border:none;cursor:pointer;flex-shrink:0}
+.ef70-sticky-btn:hover{background:#6ba832}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:1100px){
+.ef70-hero-grid,.ef70-product-grid{grid-template-columns:1fr;gap:36px;min-height:auto}
+.ef70-hero-visual{order:-1}
+.ef70-product-card{position:static;max-width:480px;margin:0 auto}
+.ef70-features-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+.ef70-alloc-wrap{grid-template-columns:1fr}
+.ef70-details-grid{grid-template-columns:repeat(3,1fr)}
+.ef70-downloads-grid{grid-template-columns:repeat(3,1fr)}
+.ef70-benefits-grid{grid-template-columns:repeat(2,1fr)}
+.ef70-calc-grid{grid-template-columns:1fr}
+.ef70-costs-grid{grid-template-columns:repeat(2,1fr);gap:32px 24px}
+.ef70-costs-item::after{display:none}
+}
+
+@media(max-width:900px){
+.ef70-benefits-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+.ef70-features-grid{grid-template-columns:1fr;gap:20px}
+.ef70-details-grid{grid-template-columns:repeat(2,1fr)}
+.ef70-downloads-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:768px){
+.ef70-wrap{padding:0 20px;max-width:100%}
+.ef70-section{padding:60px 0}
+.ef70-heading{font-size:28px;line-height:1.2}
+.ef70-subhead{font-size:15px}
+.ef70-hero{padding:50px 0 70px}
+.ef70-hero-grid{gap:32px}
+.ef70-hero h1{font-size:32px;line-height:1.15}
+.ef70-hero-btns{flex-direction:column;gap:12px;align-items:stretch}
+.ef70-hero-btn{width:100%!important;text-align:center;padding:16px 32px}
+.ef70-hero-badge{display:none}
+.ef70-trust{padding:40px 0}
+.ef70-trust-inner{gap:30px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px;scroll-snap-type:x proximity}
+.ef70-trust-inner::-webkit-scrollbar{display:none}
+.ef70-trust-logo{flex-shrink:0;height:70px;scroll-snap-align:start}
+.ef70-features-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:20px;scrollbar-width:none;scroll-snap-type:x proximity}
+.ef70-features-wrap::-webkit-scrollbar{display:none}
+.ef70-features-grid{display:flex;gap:16px;width:max-content}
+.ef70-feature{min-width:280px;max-width:280px;flex-shrink:0;scroll-snap-align:start}
+.ef70-benefits-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:20px;scrollbar-width:none;scroll-snap-type:x proximity}
+.ef70-benefits-wrap::-webkit-scrollbar{display:none}
+.ef70-benefits-grid{display:flex;gap:16px;width:max-content;background:transparent}
+.ef70-benefit{min-width:280px;max-width:280px;flex-shrink:0;scroll-snap-align:start;border-radius:16px!important;box-shadow:0 2px 8px rgba(0,0,0,0.06)!important;border:1px solid #e8eef5}
+.ef70-product-card{max-width:100%;margin:0 auto;width:100%}
+.ef70-product-info{min-height:auto;padding:0;margin-top:32px}
+.ef70-tabs-nav{flex-direction:column;width:100%;gap:6px}
+.ef70-tabs-btn{width:100%;text-align:center}
+.ef70-alloc-wrap{grid-template-columns:1fr;gap:20px}
+.ef70-details-grid{grid-template-columns:1fr 1fr;gap:12px}
+.ef70-downloads-grid{grid-template-columns:1fr;gap:12px}
+.ef70-calc-grid{grid-template-columns:1fr;gap:24px}
+.ef70-calc-left,.ef70-calc-right{padding:28px}
+.ef70-calc-value{font-size:28px}
+.ef70-calc-result{font-size:40px}
+.ef70-sticky{flex-direction:column;gap:14px;padding:18px 20px;text-align:center}
+.ef70-sticky-txt{text-align:center}
+.ef70-sticky-txt span{display:inline}
+.ef70-sticky-btn{width:100%!important;padding:14px 28px}
+}
+
+@media(max-width:480px){
+.ef70-hero h1{font-size:26px;line-height:1.1}
+.ef70-heading{font-size:24px;line-height:1.2}
+.ef70-section{padding:50px 0}
+.ef70-hero{padding:40px 0 60px}
+.ef70-feature{min-width:260px;max-width:260px;padding:28px 20px}
+.ef70-benefit{min-width:260px;max-width:260px;padding:24px 20px}
+.ef70-details-grid{grid-template-columns:1fr}
+.ef70-detail{padding:16px}
+.ef70-download{padding:16px}
+.ef70-calc-left,.ef70-calc-right{padding:24px}
+.ef70-calc-value{font-size:24px}
+.ef70-calc-result{font-size:32px}
+.ef70-calc-gain{font-size:16px}
+.ef70-sticky{bottom:12px;width:calc(100% - 24px);padding:14px 16px}
+.ef70-sticky-btn{padding:12px 24px;font-size:13px}
+.ef70-costs-grid{grid-template-columns:1fr;gap:24px}
+.ef70-costs-box{padding:32px 24px;margin-bottom:-25px}
+#kosten + .ef70-section{padding-top:90px}
+}
+</style>
+
+<div class="ef70">
+
+<section class="ef70-hero">
+<div class="ef70-hero-glow"></div>
+<div class="ef70-wrap">
+<div class="ef70-hero-grid">
+<div>
+<div class="ef70-hero-tag"><span class="ef70-hero-tag-dot"></span>Das 70-30 Portfolio von easyfolio</div>
+<h1>Für alle, die ihr Vermögen auf das nächste Level bringen möchten.</h1>
+<p>Maximale Renditechancen mit 70% Aktien, abgesichert durch 30% Anleihen. Das perfekte Portfolio für langfristig orientierte Anleger, die auch zwischenzeitliche Kursschwankungen gelassen hinnehmen können.</p>
+<div class="ef70-hero-btns">
+<a href="https://easyfolio.de/depot" class="ef70-hero-btn primary">Jetzt Depot eröffnen</a>
+<a href="#produkt" class="ef70-hero-btn secondary">Portfolio entdecken</a>
+</div>
+</div>
+<div class="ef70-hero-visual">
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="Erfolgreiche Anleger" class="ef70-hero-img">
+<div class="ef70-hero-badge ef70-hero-badge-1">
+<small>Zielrendite p.a.</small>
+<strong>7,2%</strong>
+</div>
+<div class="ef70-hero-badge ef70-hero-badge-2">
+<strong>17.000+</strong>
+<small>Wertpapiere</small>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ef70-trust">
+<div class="ef70-wrap">
+<div class="ef70-trust-inner">
+<img src="https://api.easyfolio.de/fileadmin/B2B/Auszeichnungen/Robo-Advisors-Test-2023-Siegel_sehr-gut_m_1_.jpg" alt="Award" class="ef70-trust-logo">
+<img src="https://api.easyfolio.de/fileadmin/B2B/Auszeichnungen/Boerse_Online_Award_-Bester_ETF_2022_sehrklein.jpg" alt="Award" class="ef70-trust-logo">
+<img src="https://api.easyfolio.de/fileadmin/B2B/Auszeichnungen/HB_SV_Dtlds_Beste_Finanzdienstleister2022_easyfolio_sehrklein.jpg" alt="Award" class="ef70-trust-logo">
+<img src="https://api.easyfolio.de/fileadmin/B2C/startseite/Euro_Analyse_ETF_200.png" alt="Award" class="ef70-trust-logo">
+</div>
+</div>
+</section>
+
+<section class="ef70-section ef70-section-gray" id="produkt">
+<div class="ef70-wrap">
+<div class="ef70-product-grid">
+<div class="ef70-product-card">
+<div class="ef70-product-top">
+<div class="ef70-product-ring">
+<div class="ef70-product-ring-outer"></div>
+<div class="ef70-product-ring-fill">
+<svg viewBox="0 0 100 100">
+<circle class="ef70-product-ring-bg" cx="50" cy="50" r="40"/>
+<circle class="ef70-product-ring-progress" cx="50" cy="50" r="40"/>
+</svg>
+</div>
+<span class="ef70-product-ring-num">70</span>
+</div>
+<small>Wachstumsorientiertes ETF-Portfolio</small>
+<h2>easyfolio 70</h2>
+</div>
+<div class="ef70-product-content-single">
+<div class="ef70-product-yield">
+<strong>7,2%</strong>
+<small>Zielrendite pro Jahr</small>
+</div>
+<div class="ef70-product-list">
+<div class="ef70-product-feat"><div class="ef70-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>70% Aktien | 30% Anleihen</span></div>
+<div class="ef70-product-feat"><div class="ef70-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>WKN: EASY70</span></div>
+<div class="ef70-product-feat"><div class="ef70-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>Einmalanlage ab 100 €</span></div>
+<div class="ef70-product-feat"><div class="ef70-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>Sparplan ab 10 € monatlich</span></div>
+<div class="ef70-product-feat"><div class="ef70-product-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg></div><span>Kein Ausgabeaufschlag</span></div>
+</div>
+<a href="https://easyfolio.de/depot" class="ef70-product-btn">Jetzt investieren</a>
+</div>
+</div>
+<div class="ef70-product-info">
+<span class="ef70-badge">Anlagestrategie</span>
+<h2>Erfahren Sie mehr über easyfolio 70</h2>
+<p>Das 70/30 Portfolio easyfolio 70 ist die ideale ETF-Anlage für Anleger, die alle Chancen der Aktienmärkte langfristig wahrnehmen möchten und auch zwischenzeitliche Kursverluste verkraften können.</p>
+<p>Mit 70% Aktien nutzen Sie das volle Wachstumspotenzial der globalen Märkte. Die 30% Anleihen sorgen für Stabilität und dämpfen Schwankungen in turbulenten Marktphasen. So profitieren Sie von steigenden Kursen, ohne bei Rücksetzern gleich nervös zu werden.</p>
+<p>Anleger sollten einen eher langfristigen Anlagehorizont aufweisen und sich auch von kurzfristigen Rücksetzern nicht aus der Ruhe bringen lassen. Mit einem Zeithorizont von mindestens 7 bis 10 Jahren nutzen Sie das volle Potenzial dieses wachstumsorientierten Portfolios.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ef70-features">
+<div class="ef70-wrap">
+<div class="ef70-features-head">
+<span class="ef70-badge">easyfolio 70 vs MSCI World</span>
+<h2 class="ef70-heading">Warum geben Sie sich mit Durchschnitt zufrieden?</h2>
+<p class="ef70-subhead">Ein MSCI World ETF allein ist ein guter Start. Aber reicht Ihnen wirklich, was alle anderen auch haben? Wir bieten mehr.</p>
+</div>
+<div class="ef70-features-wrap">
+<div class="ef70-features-grid">
+<div class="ef70-feature">
+<div class="ef70-feature-icon"><div class="ef70-feature-icon-inner"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div></div>
+<h3>Echte Diversifikation</h3>
+<p>Der MSCI World enthält nur 23 Industrieländer. Sie verpassen komplett die Wachstumsmärkte in Asien, Lateinamerika und Afrika.</p>
+</div>
+<div class="ef70-feature">
+<div class="ef70-feature-icon"><div class="ef70-feature-icon-inner"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div></div>
+<h3>Stabilität durch Anleihen</h3>
+<p>100% Aktien bedeutet 100% Risiko. Mit 30% Anleihen haben Sie einen Stabilitätsanker, wenn die Börsen mal turbulent werden.</p>
+</div>
+<div class="ef70-feature">
+<div class="ef70-feature-icon"><div class="ef70-feature-icon-inner"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div></div>
+<h3>Automatisches Rebalancing</h3>
+<p>Wir halten Ihr Portfolio im Gleichgewicht. Sie müssen sich um nichts kümmern, während Ihr Geld für Sie arbeitet.</p>
+</div>
+<div class="ef70-feature">
+<div class="ef70-feature-icon"><div class="ef70-feature-icon-inner"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div></div>
+<h3>Faire Kosten</h3>
+<p>Mit nur 0,91% Gesamtkosten pro Jahr gehören wir zu den günstigsten Anbietern am Markt. Mehr Rendite bleibt bei Ihnen.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ef70-section ef70-section-gray">
+<div class="ef70-wrap">
+<div class="ef70-benefits-head">
+<span class="ef70-badge">Vorteile</span>
+<h2 class="ef70-heading">Das macht easyfolio 70 für Sie</h2>
+<p class="ef70-subhead">Ein durchdachtes Portfolio mit klaren Prinzipien für Ihren langfristigen Vermögensaufbau.</p>
+</div>
+<div class="ef70-benefits-wrap">
+<div class="ef70-benefits-grid">
+<div class="ef70-benefit">
+<div class="ef70-benefit-icon icon-weltportfolio"></div>
+<h3>Weltportfolio</h3>
+<p>Ein fertiges ETF Portfolio bestehend aus 10-15 Aktien- und Anleihen ETFs aus der ganzen Welt.</p>
+</div>
+<div class="ef70-benefit">
+<div class="ef70-benefit-icon icon-ultradiv"></div>
+<h3>Ultradiversifikation</h3>
+<p>Maximale globale Diversifikation mit über 17.000 Aktien und Anleihen.</p>
+</div>
+<div class="ef70-benefit">
+<div class="ef70-benefit-icon icon-bip"></div>
+<h3>BIP-Ländergewichtung</h3>
+<p>Innovative Regionengewichtung nach 50% Wirtschaftsleistung und 50% Marktkapitalisierung.</p>
+</div>
+<div class="ef70-benefit">
+<div class="ef70-benefit-icon icon-einfach"></div>
+<h3>Einfach</h3>
+<p>Eröffnen Sie direkt Online ein neues Depot oder nutzen Sie das vorhandene Depot bei Ihrer Hausbank.</p>
+</div>
+<div class="ef70-benefit">
+<div class="ef70-benefit-icon icon-allcap"></div>
+<h3>All-Cap</h3>
+<p>Berücksichtigung des Gesamtmarkts: Small Caps, Mid Caps und Large Caps.</p>
+</div>
+<div class="ef70-benefit">
+<div class="ef70-benefit-icon icon-allmarket"></div>
+<h3>All-Market</h3>
+<p>Abdeckung aller Weltregionen: Industrieländer und Schwellenländer.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Portfolio Tabs Section -->
+<section class="ef70-section ef70-section-white" id="portfolio">
+<div class="ef70-wrap">
+<div class="ef70-tabs-head">
+<span class="ef70-badge">Portfolio</span>
+<h2 class="ef70-heading">Transparenz bis ins kleinste Detail</h2>
+<p class="ef70-subhead">Wir zeigen Ihnen genau, wo Ihr Geld investiert ist. Keine versteckten Kosten, keine Überraschungen.</p>
+<div class="ef70-tabs-nav">
+<button class="ef70-tabs-btn active" data-tab="alloc">Portfolio-Allokation</button>
+<button class="ef70-tabs-btn" data-tab="details">Portfolio-Details</button>
+<button class="ef70-tabs-btn" data-tab="downloads">Downloads</button>
+</div>
+</div>
+
+<div class="ef70-tab-panel active" id="panel-alloc">
+<div class="ef70-alloc-wrap">
+<div class="ef70-alloc-box">
+<div class="ef70-alloc-header">
+<h3>Aktien-ETFs</h3>
+<span>70% Anteil</span>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">UBS S&P 500 UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien USA</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">18,0%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">LYXOR NASDAQ 100 UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien USA</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:58%"></div></div>
+<span class="ef70-alloc-num">10,5%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">UBS MSCI USA UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien USA</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:46%"></div></div>
+<span class="ef70-alloc-num">8,2%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">Lyxor Core STOXX Europe 600 UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien Europa</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:82%"></div></div>
+<span class="ef70-alloc-num">14,7%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">UBS MSCI Emerging Markets UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien Schwellenländer</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:47%"></div></div>
+<span class="ef70-alloc-num">8,4%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">Xtrackers Nikkei 225 UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien Japan</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:31%"></div></div>
+<span class="ef70-alloc-num">5,6%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">HSBC MSCI Pacific ex Japan UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien Asien</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:16%"></div></div>
+<span class="ef70-alloc-num">2,8%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">UBS MSCI Canada UCITS ETF</div>
+<div class="ef70-alloc-market">Aktien Kanada</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:10%"></div></div>
+<span class="ef70-alloc-num">1,8%</span>
+</div>
+</div>
+</div>
+<div class="ef70-alloc-box">
+<div class="ef70-alloc-header">
+<h3>Anleihen-ETFs</h3>
+<span>30% Anteil</span>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">iShares Core Global Aggregate Bond UCITS ETF</div>
+<div class="ef70-alloc-market">Anleihen Global</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">5,0%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">Amundi Prime Euro Govies UCITS ETF</div>
+<div class="ef70-alloc-market">Staatsanleihen Europa</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">5,0%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">Franklin Euro Short Maturity UCITS ETF</div>
+<div class="ef70-alloc-market">Staatsanleihen Europa Ultrashort</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">5,0%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">Amundi Euro Corporate 0-1Y ESG UCITS ETF</div>
+<div class="ef70-alloc-market">Staatsanleihen Europa Ultrashort</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">5,0%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">iShares EUR Ultrashort Bond UCITS ETF EUR</div>
+<div class="ef70-alloc-market">Unternehmensanleihen Europa</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">5,0%</span>
+</div>
+</div>
+<div class="ef70-alloc-item">
+<div class="ef70-alloc-left">
+<div class="ef70-alloc-name">iShares EUR Floating Rate Bond ESG UCITS ETF</div>
+<div class="ef70-alloc-market">Unternehmensanleihen Global</div>
+</div>
+<div class="ef70-alloc-bar">
+<div class="ef70-alloc-track"><div class="ef70-alloc-fill" style="width:100%"></div></div>
+<span class="ef70-alloc-num">5,0%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ef70-tab-panel" id="panel-details">
+<div class="ef70-details-grid">
+<div class="ef70-detail">
+<small>WKN</small>
+<strong>EASY70</strong>
+</div>
+<div class="ef70-detail">
+<small>ISIN</small>
+<strong>DE000EASY702</strong>
+</div>
+<div class="ef70-detail">
+<small>Ertragsverwendung</small>
+<strong>thesaurierend</strong>
+</div>
+<div class="ef70-detail">
+<small>Auflagedatum</small>
+<strong>03.04.2014</strong>
+</div>
+<div class="ef70-detail">
+<small>Geschäftsjahr</small>
+<strong>01.02-31.01</strong>
+</div>
+<div class="ef70-detail">
+<small>Depotbank</small>
+<strong>HAL Privatbank AG</strong>
+</div>
+<div class="ef70-detail">
+<small>KVG</small>
+<strong>Hauck & Aufhäuser Fund Services S.A.</strong>
+</div>
+<div class="ef70-detail">
+<small>Asset Manager</small>
+<strong>NFS Capital AG</strong>
+</div>
+<div class="ef70-detail">
+<small>SRRI</small>
+<strong>5</strong>
+</div>
+<div class="ef70-detail">
+<small>Ausgabeaufschlag</small>
+<strong>0,0%</strong>
+</div>
+<div class="ef70-detail">
+<small>Laufende Kosten</small>
+<strong>0,91%</strong>
+</div>
+<div class="ef70-detail">
+<small>Währung</small>
+<strong>Euro</strong>
+</div>
+</div>
+</div>
+
+<div class="ef70-tab-panel" id="panel-downloads">
+<div class="ef70-downloads-grid">
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/FS_DE000EASY702_de.pdf" class="ef70-download" target="_blank">
+<div class="ef70-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
+<h4>Factsheet EASY70</h4>
+<span>PDF herunterladen</span>
+</a>
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/VP_DE000EASY702_DE_de.pdf" class="ef70-download" target="_blank">
+<div class="ef70-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
+<h4>Verkaufsprospekt</h4>
+<span>PDF herunterladen</span>
+</a>
+<a href="https://www.hal-privatbank.com/Downloads/Public/fondsportfolio/PRIIPS_DE000EASY702_DE_de.pdf" class="ef70-download" target="_blank">
+<div class="ef70-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
+<h4>Anlegerinformationen</h4>
+<span>PDF herunterladen</span>
+</a>
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/HB_DE000EASY702.pdf" class="ef70-download" target="_blank">
+<div class="ef70-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
+<h4>Halbjahresbericht</h4>
+<span>PDF herunterladen</span>
+</a>
+<a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/JB_DE000EASY702.pdf" class="ef70-download" target="_blank">
+<div class="ef70-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
+<h4>Jahresbericht</h4>
+<span>PDF herunterladen</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Kosten Section -->
+<section class="ef70-section ef70-section-gray" id="kosten" style="padding-top:30px;padding-bottom:0">
+<div class="ef70-wrap">
+<div class="ef70-costs-head">
+<span class="ef70-badge">Kosten</span>
+<h2 class="ef70-heading">Was kostet easyfolio 70?</h2>
+<p class="ef70-subhead">Keine versteckten Geb&uuml;hren, kein Ausgabeaufschlag, keine Performance-Fees. Bei easyfolio zahlen Sie nur eine einzige Pauschalverg&uuml;tung. Alles inklusive.</p>
+</div>
+<div class="ef70-costs-box">
+<div class="ef70-costs-grid">
+<div class="ef70-costs-item"><div class="ef70-costs-val">0,91%</div><div class="ef70-costs-label">Pauschalverg&uuml;tung p.a.</div><div class="ef70-costs-desc">Verwaltung, Rebalancing und alle laufenden Kosten inklusive</div></div>
+<div class="ef70-costs-item"><div class="ef70-costs-val green">0 Euro</div><div class="ef70-costs-label">Ausgabeaufschlag</div><div class="ef70-costs-desc">Kein Aufschlag bei Kauf oder Verkauf Ihrer Anteile</div></div>
+<div class="ef70-costs-item"><div class="ef70-costs-val green">0 Euro</div><div class="ef70-costs-label">Performance&shy;geb&uuml;hr</div><div class="ef70-costs-desc">Wir verdienen nicht zus&auml;tzlich an Ihren Gewinnen</div></div>
+<div class="ef70-costs-item"><div class="ef70-costs-val">10 Euro</div><div class="ef70-costs-label">Mindestsparrate</div><div class="ef70-costs-desc">Sparplan ab 10 Euro monatlich oder 100 Euro Einmalanlage</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Rechner Section -->
+<section class="ef70-section ef70-section-gray" id="rechner">
+<div class="ef70-wrap">
+<div class="ef70-calc-head">
+<span class="ef70-badge">Rechner</span>
+<h2 class="ef70-heading">Was könnte aus Ihrem Geld werden?</h2>
+<p class="ef70-subhead">Berechnen Sie Ihr mögliches Vermögen mit easyfolio 70</p>
+</div>
+<div class="ef70-calc-grid">
+<div class="ef70-calc-left">
+<div class="ef70-calc-row">
+<label class="ef70-calc-label">Anlagesumme</label>
+<div class="ef70-calc-value" id="calcAmountDisplay">10.000 €</div>
+<input type="range" class="ef70-calc-slider" id="calcAmount" min="1000" max="100000" step="500" value="10000">
+</div>
+<div class="ef70-calc-row">
+<label class="ef70-calc-label">Anlagedauer</label>
+<div class="ef70-calc-value" id="calcYearsDisplay">10 Jahre</div>
+<input type="range" class="ef70-calc-slider" id="calcYears" min="1" max="30" step="1" value="10">
+</div>
+</div>
+<div class="ef70-calc-right">
+<div class="ef70-calc-result-label">Ihr mögliches Vermögen</div>
+<div class="ef70-calc-result" id="calcResult">20.042 €</div>
+<div class="ef70-calc-gain">+ <span id="calcGain">10.042 €</span> Wertzuwachs</div>
+<a href="https://easyfolio.de/depot" class="ef70-calc-btn">Los geht's</a>
+<div class="ef70-calc-note">Berechnung basiert auf 7,2% Zielrendite p.a. Keine Garantie für zukünftige Erträge.</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Sticky Widget -->
+<div class="ef70-sticky" id="ef70Sticky">
+<div class="ef70-sticky-txt">easyfolio 70 <span>• 7,2% Zielrendite • Ab 10 € monatlich</span></div>
+<a href="https://easyfolio.de/depot" class="ef70-sticky-btn">Depot eröffnen</a>
+</div>
+
+</div>
+
+<script>
+(function(){
+// Tausender-Formatierung
+function formatNum(n){
+return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+}
+
+// Rechner
+var amountSlider=document.getElementById('calcAmount');
+var yearsSlider=document.getElementById('calcYears');
+var amountDisplay=document.getElementById('calcAmountDisplay');
+var yearsDisplay=document.getElementById('calcYearsDisplay');
+var resultDisplay=document.getElementById('calcResult');
+var gainDisplay=document.getElementById('calcGain');
+
+function updateCalc(){
+var amount=parseInt(amountSlider.value);
+var years=parseInt(yearsSlider.value);
+var rate=0.072;
+var result=amount*Math.pow(1+rate,years);
+var gain=result-amount;
+amountDisplay.textContent=formatNum(amount)+' €';
+yearsDisplay.textContent=years+(years===1?' Jahr':' Jahre');
+resultDisplay.textContent=formatNum(Math.round(result))+' €';
+gainDisplay.textContent=formatNum(Math.round(gain))+' €';
+}
+
+amountSlider.addEventListener('input',updateCalc);
+yearsSlider.addEventListener('input',updateCalc);
+updateCalc();
+
+// Tabs
+var tabs=document.querySelectorAll('.ef70-tabs-btn');
+tabs.forEach(function(btn){
+btn.addEventListener('click',function(){
+var t=this.dataset.tab;
+tabs.forEach(function(b){b.classList.remove('active')});
+document.querySelectorAll('.ef70-tab-panel').forEach(function(p){p.classList.remove('active')});
+this.classList.add('active');
+document.getElementById('panel-'+t).classList.add('active');
+});
+});
+
+// Sticky Widget
+var sticky=document.getElementById('ef70Sticky');
+var ticking=false;
+function updateSticky(){
+var scrollY=window.pageYOffset;
+if(scrollY>500){
+sticky.classList.add('visible');
+}else{
+sticky.classList.remove('visible');
+}
+ticking=false;
+}
+window.addEventListener('scroll',function(){
+if(!ticking){
+window.requestAnimationFrame(updateSticky);
+ticking=true;
+}
+},{passive:true});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+a.addEventListener('click',function(e){
+e.preventDefault();
+var target=document.querySelector(this.getAttribute('href'));
+if(target){
+target.scrollIntoView({behavior:'smooth',block:'start'});
+}
+});
+});
+})();
+</script>
