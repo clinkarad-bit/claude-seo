@@ -143,15 +143,25 @@
 .ef30-calc-btn{background:#7cba3a;color:#fff;padding:16px 40px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.2s;border:none;cursor:pointer}
 .ef30-calc-btn:hover{background:#6ba832}
 .ef30-calc-note{font-size:11px;color:rgba(255,255,255,0.6);margin-top:20px;line-height:1.5;max-width:280px}
+.ef30-costs-head{text-align:center;margin-bottom:40px;max-width:800px;margin-left:auto;margin-right:auto}
+.ef30-costs-head .ef30-subhead{margin:0 auto}
+.ef30-costs-box{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:48px 40px;margin-bottom:-70px;position:relative;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,0.04)}
+.ef30-costs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.ef30-costs-item{text-align:center;position:relative}
+.ef30-costs-item:not(:last-child)::after{content:'';position:absolute;right:-16px;top:10%;bottom:10%;width:1px;background:#e2e8f0}
+.ef30-costs-val{font-size:30px;font-weight:900;color:#4c79c7;line-height:1;margin-bottom:10px;letter-spacing:-0.02em}
+.ef30-costs-val.green{color:#7cba3a}
+.ef30-costs-label{font-size:13px;font-weight:700;color:#1a202c;margin-bottom:6px}
+.ef30-costs-desc{font-size:12px;color:#64748b;line-height:1.5}
 .ef30-sticky{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(150%);max-width:600px;width:calc(100% - 40px);background:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.1);border:1px solid #e2e8f0;z-index:1000;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1)}
 .ef30-sticky.visible{transform:translateX(-50%) translateY(0)}
 .ef30-sticky-txt{font-size:15px;font-weight:600;color:#1a202c}
 .ef30-sticky-txt span{color:#64748b;font-weight:400;display:block;font-size:13px;margin-top:2px}
 .ef30-sticky-btn{background:#7cba3a;color:#fff;padding:14px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s;display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;min-height:48px;border:none;cursor:pointer;flex-shrink:0}
 .ef30-sticky-btn:hover{background:#6ba832}
-@media(max-width:1100px){.ef30-hero-grid,.ef30-product-grid{grid-template-columns:1fr;gap:36px;min-height:auto}.ef30-hero-visual{order:-1}.ef30-product-card{position:static;max-width:480px;margin:0 auto}.ef30-features-grid{grid-template-columns:repeat(2,1fr)}.ef30-alloc-wrap{grid-template-columns:1fr}.ef30-details-grid{grid-template-columns:repeat(3,1fr)}.ef30-downloads-grid{grid-template-columns:repeat(3,1fr)}.ef30-benefits-grid{grid-template-columns:repeat(2,1fr)}.ef30-calc-grid{grid-template-columns:1fr}}
+@media(max-width:1100px){.ef30-hero-grid,.ef30-product-grid{grid-template-columns:1fr;gap:36px;min-height:auto}.ef30-hero-visual{order:-1}.ef30-product-card{position:static;max-width:480px;margin:0 auto}.ef30-features-grid{grid-template-columns:repeat(2,1fr)}.ef30-alloc-wrap{grid-template-columns:1fr}.ef30-details-grid{grid-template-columns:repeat(3,1fr)}.ef30-downloads-grid{grid-template-columns:repeat(3,1fr)}.ef30-benefits-grid{grid-template-columns:repeat(2,1fr)}.ef30-calc-grid{grid-template-columns:1fr}.ef30-costs-grid{grid-template-columns:repeat(2,1fr);gap:32px 24px}.ef30-costs-item:nth-child(2)::after{display:none}.ef30-costs-item::after{display:none}}
 @media(max-width:768px){.ef30-wrap{padding:0 20px;max-width:100%}.ef30-section{padding:60px 0}.ef30-heading{font-size:28px}.ef30-hero{padding:50px 0 70px}.ef30-hero h1{font-size:32px}.ef30-hero-btns{flex-direction:column;align-items:stretch}.ef30-hero-btn{width:100%!important;text-align:center}.ef30-hero-badge{display:none}.ef30-trust{padding:40px 0}.ef30-trust-inner{gap:30px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start;padding:0 20px;margin:0 -20px}.ef30-trust-inner::-webkit-scrollbar{display:none}.ef30-trust-logo{flex-shrink:0;height:70px}.ef30-features-wrap,.ef30-benefits-wrap{overflow-x:auto;margin:0 -20px;padding:20px;scrollbar-width:none}.ef30-features-wrap::-webkit-scrollbar,.ef30-benefits-wrap::-webkit-scrollbar{display:none}.ef30-features-grid,.ef30-benefits-grid{display:flex;gap:16px;width:max-content}.ef30-feature,.ef30-benefit{min-width:280px;max-width:280px;flex-shrink:0}.ef30-product-card{max-width:100%;width:100%}.ef30-product-info{min-height:auto;margin-top:32px}.ef30-tabs-nav{flex-direction:column;width:100%;gap:6px}.ef30-tabs-btn{width:100%;text-align:center}.ef30-alloc-wrap{grid-template-columns:1fr}.ef30-details-grid{grid-template-columns:1fr 1fr}.ef30-downloads-grid{grid-template-columns:1fr}.ef30-calc-left,.ef30-calc-right{padding:28px}.ef30-calc-value{font-size:28px}.ef30-calc-result{font-size:40px}.ef30-sticky{flex-direction:column;gap:14px;padding:18px 20px;text-align:center}.ef30-sticky-btn{width:100%!important}}
-@media(max-width:480px){.ef30-hero h1{font-size:26px}.ef30-heading{font-size:24px}.ef30-section{padding:50px 0}.ef30-hero{padding:40px 0 60px}.ef30-feature,.ef30-benefit{min-width:260px;max-width:260px}.ef30-details-grid{grid-template-columns:1fr}.ef30-calc-value{font-size:24px}.ef30-calc-result{font-size:32px}.ef30-sticky{bottom:12px;width:calc(100% - 24px)}}
+@media(max-width:480px){.ef30-hero h1{font-size:26px}.ef30-heading{font-size:24px}.ef30-section{padding:50px 0}.ef30-hero{padding:40px 0 60px}.ef30-feature,.ef30-benefit{min-width:260px;max-width:260px}.ef30-details-grid{grid-template-columns:1fr}.ef30-calc-value{font-size:24px}.ef30-calc-result{font-size:32px}.ef30-sticky{bottom:12px;width:calc(100% - 24px)}.ef30-costs-grid{grid-template-columns:1fr;gap:24px}.ef30-costs-box{padding:32px 24px;margin-bottom:-50px}}
 </style>
 <div class="ef30">
 <section class="ef30-hero">
@@ -310,6 +320,23 @@
 <a href="https://www.hal-privatbank.com/Downloads/Public/fondsportfolio/PRIIPS_DE000EASY306_DE_de.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Anlegerinformationen</h4><span>PDF herunterladen</span></a>
 <a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/HB_DE000EASY306.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Halbjahresbericht</h4><span>PDF herunterladen</span></a>
 <a href="https://www.hauck-aufhaeuser.com/Downloads/Public/fondsportfolio/JB_DE000EASY306.pdf" class="ef30-download" target="_blank"><div class="ef30-download-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div><h4>Jahresbericht</h4><span>PDF herunterladen</span></a>
+</div>
+</div>
+</div>
+</section>
+<section class="ef30-section ef30-section-gray" id="kosten" style="padding-top:30px;padding-bottom:0">
+<div class="ef30-wrap">
+<div class="ef30-costs-head">
+<span class="ef30-badge">Kosten</span>
+<h2 class="ef30-heading">Eine Pauschale &mdash; und sonst nichts</h2>
+<p class="ef30-subhead">Keine versteckten Geb&uuml;hren, kein Ausgabeaufschlag, keine Performance-Fees. Bei easyfolio zahlen Sie nur eine einzige Pauschalverg&uuml;tung &mdash; alles inklusive.</p>
+</div>
+<div class="ef30-costs-box">
+<div class="ef30-costs-grid">
+<div class="ef30-costs-item"><div class="ef30-costs-val">0,98%</div><div class="ef30-costs-label">Pauschalverg&uuml;tung p.a.</div><div class="ef30-costs-desc">Verwaltung, Rebalancing und alle laufenden Kosten inklusive</div></div>
+<div class="ef30-costs-item"><div class="ef30-costs-val green">0 Euro</div><div class="ef30-costs-label">Ausgabeaufschlag</div><div class="ef30-costs-desc">Kein Aufschlag bei Kauf oder Verkauf Ihrer Anteile</div></div>
+<div class="ef30-costs-item"><div class="ef30-costs-val green">0 Euro</div><div class="ef30-costs-label">Performance&shy;geb&uuml;hr</div><div class="ef30-costs-desc">Wir verdienen nicht zus&auml;tzlich an Ihren Gewinnen</div></div>
+<div class="ef30-costs-item"><div class="ef30-costs-val">10 Euro</div><div class="ef30-costs-label">Mindestsparrate</div><div class="ef30-costs-desc">Sparplan ab 10 Euro monatlich oder 100 Euro Einmalanlage</div></div>
 </div>
 </div>
 </div>
