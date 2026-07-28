@@ -132,6 +132,22 @@
 .avd-vs .ic{display:inline-flex;align-items:flex-start;gap:11px;line-height:1.4}
 .avd-vs .ic svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 
+/* COMPARISON (divs) */
+.avd-vs2{max-width:980px;margin:0 auto;border:1px solid var(--avd-border);border-radius:22px;overflow:hidden;background:#fff}
+.avd-vs2-row{display:grid;grid-template-columns:27% 1fr 1fr}
+.avd-vs2-row+.avd-vs2-row{border-top:1px solid var(--avd-line)}
+.avd-vs2-cell{padding:18px 26px;font-size:15.5px;display:flex;align-items:center;gap:11px;color:var(--avd-ink)}
+.avd-vs2-cell.label{font-weight:800;background:#fcfdfe}
+.avd-vs2-cell.depot{background:#f7fbf3}
+.avd-vs2-cell svg{width:20px;height:20px;flex-shrink:0;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.avd-vs2-head .avd-vs2-cell{padding-top:26px;padding-bottom:22px;flex-direction:column;align-items:flex-start;gap:6px}
+.avd-vs2-head .label{background:var(--avd-bg)}
+.avd-vs2-head .depot{background:#f2f8ec}
+.avd-vs2-head .cap{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--avd-muted)}
+.avd-vs2-head .nm{font-size:21px;font-weight:800;color:var(--avd-ink);letter-spacing:-.02em}
+.avd-vs2-head .depot .nm{color:var(--avd-green-d)}
+@media(max-width:640px){.avd-vs2-row{grid-template-columns:30% 1fr 1fr}.avd-vs2-cell{padding:13px 12px;font-size:12.5px;gap:7px;line-height:1.35}.avd-vs2-cell svg{width:16px;height:16px}.avd-vs2-head .nm{font-size:15px}.avd-vs2-head .cap{font-size:9.5px}}
+
 /* INTERACTIVE CALC */
 .avd-calc2{display:grid;grid-template-columns:330px 1fr;gap:52px;align-items:center;max-width:960px;margin:0 auto}
 .avd-calc2-ctrl label{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--avd-muted)}
@@ -159,8 +175,8 @@
 @media(max-width:840px){.avd-calc2{grid-template-columns:1fr;gap:36px}.avd-c2chart{height:280px}}
 
 /* RECHNER */
-.avd-rech{display:grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid var(--avd-border);border-radius:24px;overflow:hidden;max-width:960px;margin:0 auto}
-.avd-rech-in{padding:44px 42px}
+.avd-rech{display:grid;grid-template-columns:0.78fr 1.22fr;background:#fff;border:1px solid var(--avd-border);border-radius:24px;overflow:hidden;max-width:1000px;margin:0 auto}
+.avd-rech-in{padding:42px 38px}
 .avd-field{margin-bottom:26px}
 .avd-field:last-child{margin-bottom:0}
 .avd-field-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
@@ -171,9 +187,9 @@
 .avd-seg{display:flex;gap:6px;background:#f2f4f8;border-radius:12px;padding:5px}
 .avd-seg button{flex:1;border:none;background:transparent;padding:11px 6px;border-radius:8px;font-weight:700;font-size:12.5px;color:var(--avd-muted);cursor:pointer;transition:background .2s,color .2s;line-height:1.2}
 .avd-seg button.active{background:#fff;color:var(--avd-blue);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.avd-rech-out{padding:44px 40px;background:var(--avd-blue);color:#fff;display:flex;flex-direction:column;justify-content:center}
-.avd-rech-out .lbl{font-size:14px;color:rgba(255,255,255,.82)}
-.avd-rech-out .big{font-size:clamp(38px,5.4vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1;margin:8px 0 18px}
+.avd-rech-out{padding:52px 46px;background:var(--avd-blue);color:#fff;display:flex;flex-direction:column;justify-content:center}
+.avd-rech-out .lbl{font-size:14.5px;color:rgba(255,255,255,.82);font-weight:600}
+.avd-rech-out .big{font-size:clamp(46px,6.6vw,68px);font-weight:900;letter-spacing:-.035em;line-height:1;margin:10px 0 20px}
 .avd-out-bar{height:10px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
 .avd-out-bar-fill{height:100%;width:78%;background:#a9e06a;border-radius:6px;transition:width .5s cubic-bezier(.16,1,.3,1)}
 .avd-out-barlbl{font-size:12.5px;color:rgba(255,255,255,.72);margin:9px 0 2px}
@@ -185,7 +201,7 @@
 .avd-out-rente{background:rgba(255,255,255,.14);border-radius:14px;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:12px}
 .avd-out-rente .rl{font-size:14px;color:rgba(255,255,255,.9);display:flex;flex-direction:column}
 .avd-out-rente small{font-size:11.5px;color:rgba(255,255,255,.6)}
-.avd-out-rente strong{font-size:26px;font-weight:900;letter-spacing:-.02em}
+.avd-out-rente strong{font-size:30px;font-weight:900;letter-spacing:-.02em}
 @media(max-width:840px){.avd-rech{grid-template-columns:1fr;max-width:520px}.avd-rech-in,.avd-rech-out{padding:34px 28px}}
 
 /* FRÜHSTART OVERLAP */
@@ -215,7 +231,7 @@
 .avd-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px}
 
 /* FRÜHSTART */
-.avd-fruh{background:#fffaf0;border:1px solid #ecd9a8;border-radius:24px;padding:44px 42px}
+.avd-fruh{background:#fffaf0;border-radius:24px;padding:44px 42px}
 .avd-fruh-grid{display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:center}
 .avd-fruh h2{font-size:clamp(23px,3vw,30px);margin-bottom:8px;line-height:1.16}
 .avd-fruh p{font-size:15.5px;color:var(--avd-body);line-height:1.72;margin:0}
@@ -237,8 +253,9 @@
 .avd-art:hover .avd-art-go svg{transform:translateX(4px)}
 
 /* FAQ */
-.avd-faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:11px}
-.avd-faq-item{background:#fff;border:1px solid var(--avd-border);border-radius:14px;overflow:hidden;transition:border-color .2s}
+.avd-faq{max-width:980px;margin:0 auto;column-count:2;column-gap:14px}
+@media(max-width:768px){.avd-faq{column-count:1}}
+.avd-faq-item{background:#fff;border:1px solid var(--avd-border);border-radius:14px;overflow:hidden;transition:border-color .2s;break-inside:avoid;margin-bottom:14px}
 .avd-faq-item.open{border-color:#cfe0f5}
 .avd-faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:21px 26px;cursor:pointer;user-select:none}
 .avd-faq-q h3{font-size:16.5px;font-weight:700;line-height:1.4}
@@ -404,39 +421,53 @@
 <h2 class="avd-heading">Riester oder Altersvorsorgedepot?</h2>
 <p class="avd-sub">Für die meisten Sparer ist das neue Depot die stärkere Wahl. Der direkte Vergleich zeigt, warum.</p>
 </div>
-<table class="avd-vs reveal">
-<thead><tr>
-<th></th>
-<th class="col"><span class="cap">Bis Ende 2026</span><span class="nm">Riester-Rente</span></th>
-<th class="col depot"><span class="cap">Ab 2027</span><span class="nm">Altersvorsorgedepot</span></th>
-</tr></thead>
-<tbody>
-<tr><td>Anlage</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Vorgegebene Garantieprodukte</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Freie Wahl aus ETFs und Fonds</span></td></tr>
-<tr><td>Renditechance</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Durch die Garantie gebremst</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Voll am Aktienmarkt</span></td></tr>
-<tr><td>Beitragsgarantie</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>100 % Pflicht</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Freiwillig mit 80, 100 oder ohne</span></td></tr>
-<tr><td>Kostendeckel</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Keiner</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>1,0 % beim Standardprodukt</span></td></tr>
-<tr><td>Auszahlung</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Lebenslange Verrentung Pflicht</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Auszahlplan oder Rente frei wählbar</span></td></tr>
-<tr><td>Teilentnahme</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Kaum möglich</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Bis 30 % zu Beginn</span></td></tr>
-<tr><td>Selbstständige</td>
-<td><span class="ic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Meist außen vor</span></td>
-<td class="depot"><span class="ic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Erstmals zugelassen</span></td></tr>
-<tr><td>Neuabschluss</td>
-<td>Nur noch bis Ende 2026</td>
-<td class="depot">Ab 1. Januar 2027</td></tr>
-</tbody>
-</table>
+<div class="avd-vs2 reveal">
+<div class="avd-vs2-row avd-vs2-head">
+<div class="avd-vs2-cell label"></div>
+<div class="avd-vs2-cell"><span class="cap">Bis Ende 2026</span><span class="nm">Riester-Rente</span></div>
+<div class="avd-vs2-cell depot"><span class="cap">Ab 2027</span><span class="nm">Altersvorsorgedepot</span></div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Anlage</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Vorgegebene Garantieprodukte</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Freie Wahl aus ETFs und Fonds</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Renditechance</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Durch die Garantie gebremst</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Voll am Aktienmarkt</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Beitragsgarantie</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>100 % Pflicht</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Freiwillig mit 80, 100 oder ohne</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Kostendeckel</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Keiner</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>1,0 % beim Standardprodukt</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Auszahlung</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Lebenslange Verrentung Pflicht</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Auszahlplan oder Rente frei wählbar</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Teilentnahme</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Kaum möglich</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Bis 30 % zu Beginn</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Selbstständige</div>
+<div class="avd-vs2-cell"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Meist außen vor</div>
+<div class="avd-vs2-cell depot"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Erstmals zugelassen</div>
+</div>
+<div class="avd-vs2-row">
+<div class="avd-vs2-cell label">Neuabschluss</div>
+<div class="avd-vs2-cell">Nur noch bis Ende 2026</div>
+<div class="avd-vs2-cell depot">Ab 1. Januar 2027</div>
+</div>
+</div>
 </div>
 </section>
 
@@ -445,8 +476,8 @@
 <div class="avd-wrap">
 <div class="avd-head reveal">
 <span class="avd-kicker">Rechner</span>
-<h2 class="avd-heading">Was wird aus Ihrer Sparrate?</h2>
-<p class="avd-sub">Stellen Sie Ihre Werte ein und sehen Sie live, wie viel aus Beiträgen und Zulagen bis zur Rente werden kann.</p>
+<h2 class="avd-heading">Was wird aus Ihrer monatlichen Sparrate?</h2>
+<p class="avd-sub">Die Sparrate ist der Betrag, den Sie jeden Monat ins Altersvorsorgedepot einzahlen. Stellen Sie sie zusammen mit Alter, Laufzeit und Rendite ein und sehen Sie sofort, wie Beiträge, staatliche Zulagen und Zinseszins bis zur Rente zusammenwirken.</p>
 </div>
 <div class="avd-rech reveal">
 <div class="avd-rech-in">
@@ -704,7 +735,7 @@ if(search)search.addEventListener('input',applyFilter);
 var btns=document.querySelectorAll('.avd-tab-btn');
 btns.forEach(function(b){b.addEventListener('click',function(){var t=this.dataset.tab;btns.forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.avd-tab-panel').forEach(function(p){p.classList.remove('active')});this.classList.add('active');document.getElementById('tab-'+t).classList.add('active')})});
 var faq=document.getElementById('avdFaq');
-if(faq){faq.querySelectorAll('.avd-faq-q').forEach(function(q){q.addEventListener('click',function(){var item=q.closest('.avd-faq-item');var open=item.classList.contains('open');faq.querySelectorAll('.avd-faq-item.open').forEach(function(x){x.classList.remove('open')});if(!open)item.classList.add('open')})})}
+if(faq){faq.querySelectorAll('.avd-faq-q').forEach(function(q){q.addEventListener('click',function(){q.closest('.avd-faq-item').classList.toggle('open')})})}
 document.querySelectorAll('.avd a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
 var els=document.querySelectorAll('.avd .reveal');
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -6% 0px'});els.forEach(function(el){io.observe(el)});}else{els.forEach(function(el){el.classList.add('in')})}
