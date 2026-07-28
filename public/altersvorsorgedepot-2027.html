@@ -189,7 +189,9 @@
 .avd-seg button.active{background:#fff;color:var(--avd-blue);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .avd-rech-out{padding:52px 46px;background:var(--avd-blue);color:#fff;display:flex;flex-direction:column;justify-content:center}
 .avd-rech-out .lbl{font-size:14.5px;color:rgba(255,255,255,.82);font-weight:600}
-.avd-rech-out .big{font-size:clamp(46px,6.6vw,68px);font-weight:900;letter-spacing:-.035em;line-height:1;margin:10px 0 20px}
+.avd-rech-out .big{font-size:clamp(46px,6.6vw,68px);font-weight:900;letter-spacing:-.035em;line-height:1;margin:10px 0 8px}
+.avd-out-real{font-size:13.5px;color:rgba(255,255,255,.78);font-weight:600;margin-bottom:18px}
+.avd-out-real span{color:#fff;font-weight:800}
 .avd-out-bar{height:10px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
 .avd-out-bar-fill{height:100%;width:78%;background:#a9e06a;border-radius:6px;transition:width .5s cubic-bezier(.16,1,.3,1)}
 .avd-out-barlbl{font-size:12.5px;color:rgba(255,255,255,.72);margin:9px 0 2px}
@@ -253,12 +255,16 @@
 .avd-art:hover .avd-art-go svg{transform:translateX(4px)}
 
 /* FAQ */
-.avd-faq{max-width:980px;margin:0 auto;column-count:2;column-gap:14px}
+.avd-faq{max-width:1120px;margin:0 auto;column-count:2;column-gap:16px}
 @media(max-width:768px){.avd-faq{column-count:1}}
 .avd-faq-item{background:#fff;border:1px solid var(--avd-border);border-radius:14px;overflow:hidden;transition:border-color .2s;break-inside:avoid;margin-bottom:14px}
 .avd-faq-item.open{border-color:#cfe0f5}
-.avd-faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:21px 26px;cursor:pointer;user-select:none}
-.avd-faq-q h3{font-size:16.5px;font-weight:700;line-height:1.4}
+.avd-faq-q{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:19px 24px;cursor:pointer;user-select:none}
+.avd-faq-q h3{font-size:15.5px;font-weight:700;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.avd-hc-more{display:flex;justify-content:center;margin-top:26px}
+.avd-hc-more button{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--avd-border);color:var(--avd-blue);border-radius:50px;padding:14px 28px;font-size:14.5px;font-weight:800;cursor:pointer;transition:border-color .2s,background .2s}
+.avd-hc-more button:hover{border-color:var(--avd-blue);background:#f4f8fd}
+.avd-hc-more button svg{width:16px;height:16px;stroke:var(--avd-blue);stroke-width:2.4;fill:none}
 .avd-faq-chev{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--avd-bg);display:flex;align-items:center;justify-content:center;transition:transform .28s,background .2s}
 .avd-faq-chev svg{width:14px;height:14px;stroke:var(--avd-blue);stroke-width:2.6;fill:none}
 .avd-faq-item.open .avd-faq-chev{background:var(--avd-blue);transform:rotate(180deg)}
@@ -267,7 +273,7 @@
 .avd-faq-item.open .avd-faq-a{max-height:420px}
 .avd-faq-a p{padding:0 26px 24px;font-size:14.5px;color:var(--avd-body);line-height:1.72}
 
-.avd-disc{text-align:center;color:#9aa3b2;font-size:12px;line-height:1.75;max-width:920px;margin:0 auto;padding:46px 24px 8px}
+.avd-disc{text-align:center;color:#9aa3b2;font-size:12px;line-height:1.75;max-width:920px;margin:0 auto;padding:56px 24px}
 
 @media(max-width:980px){
 .avd-tiles{grid-template-columns:repeat(2,1fr)}
@@ -502,6 +508,11 @@
 <div class="avd-scale"><span>0</span><span>5</span></div>
 </div>
 <div class="avd-field">
+<div class="avd-field-top"><label>Einmaliger Startbetrag</label><span class="val" id="rStartV">0 €</span></div>
+<input type="range" class="avd-slider" id="rStart" min="0" max="50000" step="500" value="0">
+<div class="avd-scale"><span>0 €</span><span>50.000 €</span></div>
+</div>
+<div class="avd-field">
 <label class="avd-seglabel">Rendite-Szenario pro Jahr</label>
 <div class="avd-seg" id="rScen">
 <button type="button" data-v="0.04">defensiv 4 %</button>
@@ -520,11 +531,13 @@
 <div class="avd-rech-out">
 <div class="lbl">Mögliches Endkapital mit Förderung</div>
 <div class="big" id="rEnd">678.020 €</div>
+<div class="avd-out-real">entspricht rund <span id="rReal">306.000 €</span> Kaufkraft von heute</div>
 <div class="avd-out-bar"><div class="avd-out-bar-fill" id="rBar" style="width:78%"></div></div>
 <div class="avd-out-barlbl">ohne Förderung nur <b id="rOhne">527.142 €</b></div>
 <div class="avd-out-rows">
 <div class="avd-out-row"><span class="k">Ihre Eigenbeiträge</span><span class="v" id="rEigen">72.000 €</span></div>
 <div class="avd-out-row"><span class="k">Staatliche Zulagen</span><span class="v" id="rZula">21.600 €</span></div>
+<div class="avd-out-row"><span class="k">Förderung pro Jahr</span><span class="v" id="rZulaJ">540 €</span></div>
 <div class="avd-out-row"><span class="k">Kursgewinne</span><span class="v" id="rGain">584.420 €</span></div>
 <div class="avd-out-row"><span class="k">Fördervorteil</span><span class="v" id="rVort">+ 150.878 €</span></div>
 </div>
@@ -547,28 +560,8 @@
 </div>
 </section>
 
-<!-- FRÜHSTART (overlaps into next section) -->
-<section class="avd-fruh-sec">
-<div class="avd-wrap">
-<div class="avd-fruh reveal">
-<div class="avd-fruh-grid">
-<div>
-<span class="avd-kicker amber">Geplant, noch kein Gesetz</span>
-<h2>Die Frühstart-Rente für Kinder</h2>
-<p>Für Kinder von 6 bis 18 Jahren will der Staat 10 € im Monat in ein Depot einzahlen. Der Start ist stufenweise für 2027 vorgesehen. Ein Gesetz gibt es noch nicht, der Entwurf durchläuft das parlamentarische Verfahren.</p>
-</div>
-<div class="avd-fruh-box">
-<div class="big">10 €</div><div class="l">pro Monat vom Staat</div>
-<div class="hr"></div>
-<div class="sum">1.440 €</div><div class="l">in zwölf Jahren, vor Rendite</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
 <!-- ARTIKEL -->
-<section class="avd-section avd-gray avd-after-fruh">
+<section class="avd-section avd-gray">
 <div class="avd-wrap">
 <div class="avd-head reveal">
 <span class="avd-kicker">Mehr zum Thema</span>
@@ -623,7 +616,7 @@
 <div class="avd-faq-item open" data-cat="g"><div class="avd-faq-q"><h3>Was ist das Altersvorsorgedepot?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ein staatlich gefördertes Wertpapierdepot für die private Altersvorsorge, in dem Sie renditeorientiert in Fonds und ETFs sparen. Es ist der Nachfolger der Riester-Rente.</p></div></div>
 <div class="avd-faq-item" data-cat="g"><div class="avd-faq-q"><h3>Ab wann gibt es das Altersvorsorgedepot?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ab dem 1. Januar 2027 können die geförderten Depots angeboten werden. Neue Riester-Verträge sind ab diesem Datum nicht mehr möglich.</p></div></div>
 <div class="avd-faq-item" data-cat="g"><div class="avd-faq-q"><h3>Für wen ist das Altersvorsorgedepot gedacht?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Für alle Förderberechtigten, vor allem gesetzlich Rentenversicherte und weitere Zulageberechtigte. Erstmals sind auch Selbstständige, Freiberufler und Beamte dabei. Es ergänzt die gesetzliche und betriebliche Vorsorge.</p></div></div>
-<div class="avd-faq-item" data-cat="g"><div class="avd-faq-q"><h3>Was passiert mit meinem bestehenden Riester-Vertrag?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Er läuft mit Bestandsschutz unverändert weiter und wird wie bisher gefördert. Sie können ihn behalten oder in ein Altersvorsorgedepot übertragen.</p></div></div>
+<div class="avd-faq-item" data-cat="g"><div class="avd-faq-q"><h3>Was passiert mit meinem Riester-Vertrag?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Er läuft mit Bestandsschutz unverändert weiter und wird wie bisher gefördert. Sie können ihn behalten oder in ein Altersvorsorgedepot übertragen.</p></div></div>
 <div class="avd-faq-item" data-cat="f"><div class="avd-faq-q"><h3>Wie hoch ist die Grundzulage?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Auf die ersten 360 € Eigenbeitrag im Jahr gibt es 50 Cent je Euro, darüber bis 1.800 € weitere 25 Cent je Euro. Insgesamt sind bis zu 540 € pro Jahr möglich.</p></div></div>
 <div class="avd-faq-item" data-cat="f"><div class="avd-faq-q"><h3>Wie hoch ist die Kinderzulage?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Je Kind 100 Prozent Zulage auf bis zu 300 € Eigenbeitrag, also maximal 300 € pro Kind und Jahr. Die Kinderzulage kommt zusätzlich zur Grundzulage.</p></div></div>
 <div class="avd-faq-item" data-cat="f"><div class="avd-faq-q"><h3>Was ist der Berufseinsteigerbonus?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ein einmaliger Bonus von 200 €, wenn der Vertrag vor dem 25. Geburtstag abgeschlossen wird.</p></div></div>
@@ -644,21 +637,22 @@
 <div class="avd-faq-item" data-cat="e"><div class="avd-faq-q"><h3>Sind Sonderzahlungen möglich?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja. Zulagen gibt es bis 1.800 € Eigenbeitrag, steuerlich begünstigt sind Einzahlungen bis 6.840 € pro Jahr.</p></div></div>
 <div class="avd-faq-item" data-cat="e"><div class="avd-faq-q"><h3>Ab wann kann ich mir das Geld auszahlen lassen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Frühestens ab dem 65. Lebensjahr, spätestens mit 70 muss die Auszahlung beginnen.</p></div></div>
 <div class="avd-faq-item" data-cat="e"><div class="avd-faq-q"><h3>Welche Auszahlungsformen gibt es?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Eine lebenslange monatliche Rente oder ein befristeter Auszahlplan, der mindestens bis zum 85. Lebensjahr läuft.</p></div></div>
-<div class="avd-faq-item" data-cat="e"><div class="avd-faq-q"><h3>Kann ich mir einen Teil auf einmal auszahlen lassen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja, zu Beginn der Auszahlphase ist eine einmalige Teilentnahme von bis zu 30 Prozent des Depotwerts möglich.</p></div></div>
-<div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Soll ich meinen Riester-Vertrag behalten oder wechseln?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Das hängt vom Einzelfall ab. Ein Wechsel bringt niedrigere Kosten und mehr Renditechancen, ein Verbleib sichert bestehende Garantien. Beim Wechsel wird keine bisherige Förderung zurückgefordert.</p></div></div>
+<div class="avd-faq-item" data-cat="e"><div class="avd-faq-q"><h3>Teilauszahlung auf einen Schlag möglich?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja, zu Beginn der Auszahlphase ist eine einmalige Teilentnahme von bis zu 30 Prozent des Depotwerts möglich.</p></div></div>
+<div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Riester behalten oder wechseln?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Das hängt vom Einzelfall ab. Ein Wechsel bringt niedrigere Kosten und mehr Renditechancen, ein Verbleib sichert bestehende Garantien. Beim Wechsel wird keine bisherige Förderung zurückgefordert.</p></div></div>
 <div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Was kostet ein Anbieterwechsel?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Nach fünf Jahren Laufzeit ist der Wechsel beim abgebenden Anbieter kostenfrei, der aufnehmende Anbieter darf höchstens 150 € Verwaltungspauschale verlangen.</p></div></div>
-<div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Kann ich kündigen und mir das Geld vorzeitig auszahlen lassen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Eine vorzeitige Verwendung vor dem 65. Lebensjahr ist möglich, führt aber dazu, dass erhaltene Zulagen und Steuervorteile zurückgezahlt werden müssen.</p></div></div>
-<div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Kann ich das Depot neben Rürup oder betrieblicher Vorsorge nutzen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja. Die Vorsorgeformen lassen sich parallel nutzen und kombinieren, sie haben eigene Förder- und Steuertöpfe. Das Depot ist als Ergänzung gedacht.</p></div></div>
+<div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Kann ich vorzeitig kündigen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Eine vorzeitige Verwendung vor dem 65. Lebensjahr ist möglich, führt aber dazu, dass erhaltene Zulagen und Steuervorteile zurückgezahlt werden müssen.</p></div></div>
+<div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Depot neben Rürup oder bAV nutzen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja. Die Vorsorgeformen lassen sich parallel nutzen und kombinieren, sie haben eigene Förder- und Steuertöpfe. Das Depot ist als Ergänzung gedacht.</p></div></div>
 <div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Ist das Altersvorsorgedepot vererbbar?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Grundsätzlich ja, die Regeln hängen von der Auszahlungsform und den Erben ab. Bei Vererbung außerhalb der Ehe ist die Förderung in der Regel zurückzuzahlen. Einzelne Details werden noch konkretisiert.</p></div></div>
 <div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Was passiert, wenn ich vor Rentenbeginn sterbe?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Das angesparte Kapital kann in der Regel auf das Depot des überlebenden Ehe- oder Lebenspartners übertragen werden, ohne die Förderung zu verlieren. Bei anderen Erben ist die Förderung meist zurückzuzahlen.</p></div></div>
 <div class="avd-faq-item" data-cat="w"><div class="avd-faq-q"><h3>Kann ich das Kapital für eine Immobilie nutzen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Vorgesehen ist, dass gefördertes Kapital für Kauf, Bau oder Entschuldung einer selbstgenutzten Immobilie verwendbar ist, ähnlich dem bisherigen Wohn-Riester. Die genaue Ausgestaltung wird noch final geregelt.</p></div></div>
 <div class="avd-faq-item" data-cat="fr"><div class="avd-faq-q"><h3>Was ist die Frühstart-Rente?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ein geplantes Modell, bei dem der Staat für Kinder monatlich 10 € in ein am Kapitalmarkt investiertes Depot einzahlt. Sie ist noch kein geltendes Recht, ein Entwurf liegt vor.</p></div></div>
-<div class="avd-faq-item" data-cat="fr"><div class="avd-faq-q"><h3>Für welche Kinder ist die Frühstart-Rente geplant?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Für Kinder von 6 bis 18 Jahren, die in Deutschland eine Bildungseinrichtung besuchen.</p></div></div>
+<div class="avd-faq-item" data-cat="fr"><div class="avd-faq-q"><h3>Für welche Kinder gilt die Frühstart-Rente?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Für Kinder von 6 bis 18 Jahren, die in Deutschland eine Bildungseinrichtung besuchen.</p></div></div>
 <div class="avd-faq-item" data-cat="fr"><div class="avd-faq-q"><h3>Wie viel zahlt der Staat, und ab wann?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Geplant sind 10 € pro Monat je Kind, mit stufenweisem Start ab 2027. Die genauen Jahrgänge und der Startzeitpunkt hängen vom finalen Gesetz ab.</p></div></div>
 <div class="avd-faq-item" data-cat="fr"><div class="avd-faq-q"><h3>Kann man zusätzlich privat einzahlen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Nach den Plänen sollen Eltern und Angehörige freiwillig zusätzlich einzahlen können. Ab dem 18. Geburtstag spart die oder der Erwachsene selbst weiter. Die Höchstgrenzen stehen noch nicht final fest.</p></div></div>
 <div class="avd-faq-item" data-cat="fr"><div class="avd-faq-q"><h3>Ist die Frühstart-Rente schon beschlossen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Nein. Sie ist geplant, aber noch kein Gesetz. Der Entwurf durchläuft das parlamentarische Verfahren, Details können sich noch ändern.</p></div></div>
 </div>
 <div class="avd-hc-empty" id="hcEmpty">Keine passende Frage gefunden. Versuchen Sie einen anderen Begriff.</div>
+<div class="avd-hc-more" id="hcMore"><button type="button" id="hcMoreBtn">Alle Fragen anzeigen<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
 </div>
 </section>
 
@@ -689,48 +683,54 @@ Quellen: Bundesfinanzministerium, Bundesregierung, Deutscher Bundestag, Deutsche
 (function(){
 function fmt(n){return Math.round(n).toLocaleString('de-DE')+' €';}
 function grundzulage(eig){var b=Math.min(eig,1800);return Math.min(b,360)*0.5+Math.max(0,b-360)*0.25;}
-function endkapital(m,jahre,netto,kinder,be){var rm=netto/12,kap=0,jb=m*12;for(var j=1;j<=jahre;j++){for(var mo=0;mo<12;mo++){kap=(kap+m)*(1+rm);}var z=grundzulage(jb)+kinder*300;if(j===1&&be)z+=200;kap+=z;}return kap;}
-function fvSparplan(m,jahre,netto){var i=netto/12,n=jahre*12;return m*((Math.pow(1+i,n)-1)/i)*(1+i);}
+function endkapital(m,jahre,netto,kinder,be,start){var rm=netto/12,kap=start||0,jb=m*12;for(var j=1;j<=jahre;j++){for(var mo=0;mo<12;mo++){kap=(kap+m)*(1+rm);}var z=grundzulage(jb)+kinder*300;if(j===1&&be)z+=200;kap+=z;}return kap;}
+function fvSparplan(m,jahre,netto,start){var i=netto/12,n=jahre*12;return (start||0)*Math.pow(1+netto,jahre)+m*((Math.pow(1+i,n)-1)/i)*(1+i);}
 function monatsrente(kap,jahre,r){var i=r/12,n=jahre*12;if(n<=0)return kap;return kap*i/(1-Math.pow(1+i,-n));}
 
 // RECHNER
 var rM=document.getElementById('rMrate');
 if(rM){
-var rA=document.getElementById('rAge'),rR=document.getElementById('rRet'),rK=document.getElementById('rKids');
+var rA=document.getElementById('rAge'),rR=document.getElementById('rRet'),rK=document.getElementById('rKids'),rS2=document.getElementById('rStart');
 var brutto=0.06,kosten=0.003;
 function readSeg(id){var b=document.querySelector('#'+id+' button.active');return b?parseFloat(b.dataset.v):0;}
 function bindSeg(id,cb){document.querySelectorAll('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#'+id+' button').forEach(function(x){x.classList.remove('active')});this.classList.add('active');cb();});});}
 function calc(){
-  var m=+rM.value,age=+rA.value,ret=+rR.value,kids=+rK.value;
+  var m=+rM.value,age=+rA.value,ret=+rR.value,kids=+rK.value,start=+rS2.value;
   if(ret<=age){ret=age+1;}
   var jahre=ret-age, be=age<25, netto=Math.max(0.001,brutto-kosten);
-  var mit=endkapital(m,jahre,netto,kids,be), ohne=fvSparplan(m,jahre,netto);
-  var eigen=m*12*jahre, zula=jahre*(grundzulage(m*12)+kids*300)+(be?200:0), gain=Math.max(0,mit-eigen-zula);
+  var mit=endkapital(m,jahre,netto,kids,be,start), ohne=fvSparplan(m,jahre,netto,start);
+  var eigen=start+m*12*jahre, zula=jahre*(grundzulage(m*12)+kids*300)+(be?200:0), gain=Math.max(0,mit-eigen-zula);
+  var zulaJahr=grundzulage(m*12)+kids*300, real=mit/Math.pow(1.02,jahre);
   var rentejahre=Math.max(1,85-ret), rente=monatsrente(mit,rentejahre,0.03);
   document.getElementById('rMrateV').textContent=m+' €';
   document.getElementById('rAgeV').textContent=age+' Jahre';
   document.getElementById('rRetV').textContent='mit '+ret;
   document.getElementById('rKidsV').textContent=kids;
+  document.getElementById('rStartV').textContent=fmt(start);
   document.getElementById('rEnd').textContent=fmt(mit);
+  document.getElementById('rReal').textContent=fmt(real);
   document.getElementById('rOhne').textContent=fmt(ohne);
   document.getElementById('rBar').style.width=(mit>0?Math.max(6,ohne/mit*100):0)+'%';
   document.getElementById('rEigen').textContent=fmt(eigen);
   document.getElementById('rZula').textContent=fmt(zula);
+  document.getElementById('rZulaJ').textContent=fmt(zulaJahr);
   document.getElementById('rGain').textContent=fmt(gain);
   document.getElementById('rVort').textContent='+ '+fmt(mit-ohne);
   document.getElementById('rRente').textContent=fmt(rente);
 }
-[rM,rA,rR,rK].forEach(function(el){el.addEventListener('input',calc);});
+[rM,rA,rR,rK,rS2].forEach(function(el){el.addEventListener('input',calc);});
 bindSeg('rScen',function(){brutto=readSeg('rScen');calc();});
 bindSeg('rCost',function(){kosten=readSeg('rCost');calc();});
 brutto=readSeg('rScen');kosten=readSeg('rCost');calc();
 }
 
-// HELP CENTER FILTER + SUCHE
-var chips=document.querySelectorAll('.avd-hc-chip'),search=document.getElementById('hcSearch'),items=document.querySelectorAll('#avdFaq .avd-faq-item'),empty=document.getElementById('hcEmpty'),curF='all';
-function applyFilter(){var q=(search&&search.value?search.value.toLowerCase().trim():''),shown=0;items.forEach(function(it){var catOk=curF==='all'||it.dataset.cat===curF;var txtOk=!q||it.textContent.toLowerCase().indexOf(q)>-1;var ok=catOk&&txtOk;it.style.display=ok?'':'none';if(ok)shown++;});if(empty)empty.style.display=shown?'none':'block';}
+// HELP CENTER FILTER + SUCHE + MEHR
+var chips=document.querySelectorAll('.avd-hc-chip'),search=document.getElementById('hcSearch'),items=document.querySelectorAll('#avdFaq .avd-faq-item'),empty=document.getElementById('hcEmpty'),moreWrap=document.getElementById('hcMore'),moreBtn=document.getElementById('hcMoreBtn'),curF='all',expanded=false,LIMIT=12;
+function applyFilter(){var q=(search&&search.value?search.value.toLowerCase().trim():''),active=curF!=='all'||q!=='',count=0,shown=0;items.forEach(function(it){var m=(curF==='all'||it.dataset.cat===curF)&&(!q||it.textContent.toLowerCase().indexOf(q)>-1);if(m){count++;var vis=active||expanded||count<=LIMIT;it.style.display=vis?'':'none';if(vis)shown++;}else{it.style.display='none';}});if(empty)empty.style.display=shown?'none':'block';if(moreWrap)moreWrap.style.display=(!active&&!expanded&&count>LIMIT)?'':'none';}
 chips.forEach(function(c){c.addEventListener('click',function(){chips.forEach(function(x){x.classList.remove('active')});this.classList.add('active');curF=this.dataset.f;applyFilter();});});
 if(search)search.addEventListener('input',applyFilter);
+if(moreBtn)moreBtn.addEventListener('click',function(){expanded=true;applyFilter();});
+applyFilter();
 
 var btns=document.querySelectorAll('.avd-tab-btn');
 btns.forEach(function(b){b.addEventListener('click',function(){var t=this.dataset.tab;btns.forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.avd-tab-panel').forEach(function(p){p.classList.remove('active')});this.classList.add('active');document.getElementById('tab-'+t).classList.add('active')})});
