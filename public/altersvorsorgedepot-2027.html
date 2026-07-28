@@ -1,5 +1,5 @@
 <style>
-.avd{--avd-blue:#4c79c7;--avd-blue-d:#3a5f9a;--avd-green:#7cba3a;--avd-green-d:#6ba832;--avd-ink:#0e1116;--avd-body:#3f4756;--avd-muted:#6b7280;--avd-line:#eef1f6;--avd-border:#e3e7ee;--avd-bg:#f6f8fb;color:var(--avd-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+.avd{--avd-blue:#4c79c7;--avd-blue-d:#3a5f9a;--avd-green:#7cba3a;--avd-green-d:#6ba832;--avd-ink:#0e1116;--avd-body:#3f4756;--avd-muted:#6b7280;--avd-line:#eef1f6;--avd-border:#e3e7ee;--avd-bg:#f6f8fb;color:var(--avd-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .avd *{margin:0;padding:0;box-sizing:border-box}
 .avd,.avd *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
 .avd h1,.avd h2,.avd h3,.avd h4{font-weight:800;color:var(--avd-ink);letter-spacing:-.02em}
@@ -93,6 +93,16 @@
 .avd-table td:first-child{font-weight:700;color:var(--avd-ink)}
 .avd-table .val{font-weight:800;color:var(--avd-green);white-space:nowrap}
 .avd-table .val.b{color:var(--avd-blue)}
+/* FÖRDER-LISTE (responsive) */
+.avd-flist{max-width:800px;margin:0 auto;border:1px solid var(--avd-border);border-radius:18px;overflow:hidden;background:#fff}
+.avd-frow{padding:18px 26px;border-bottom:1px solid var(--avd-line)}
+.avd-frow:last-child{border-bottom:none}
+.avd-frow-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:5px}
+.avd-frow .name{font-size:16px;font-weight:800;color:var(--avd-ink)}
+.avd-frow .fval{font-size:15.5px;font-weight:800;color:var(--avd-green);white-space:nowrap}
+.avd-frow .fval.b{color:var(--avd-blue)}
+.avd-frow .cond{font-size:14px;color:var(--avd-muted);line-height:1.55}
+@media(max-width:480px){.avd-frow{padding:16px 18px}.avd-frow-top{flex-direction:column;gap:2px}}
 
 /* STEUER SPLIT */
 .avd-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px;margin:0 auto}
@@ -181,7 +191,7 @@
 .avd-field-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
 .avd-field-top label,.avd-seglabel{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--avd-muted)}
 .avd-seglabel{display:block;margin-bottom:11px}
-.avd-field-top .val{font-size:21px;font-weight:900;color:var(--avd-ink);letter-spacing:-.02em}
+.avd-field-top .val{font-size:21px;font-weight:900;color:var(--avd-ink);letter-spacing:-.02em;white-space:nowrap}
 .avd-scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--avd-muted);font-weight:600;margin-top:9px}
 .avd-seg{display:flex;gap:6px;background:#f2f4f8;border-radius:12px;padding:5px}
 .avd-seg button{flex:1;border:none;background:transparent;padding:12px 8px;border-radius:8px;font-weight:700;font-size:13px;color:var(--avd-muted);cursor:pointer;transition:background .2s,color .2s;white-space:nowrap}
@@ -204,6 +214,7 @@
 .avd-out-rente small{font-size:11.5px;color:rgba(255,255,255,.6)}
 .avd-out-rente strong{font-size:30px;font-weight:900;letter-spacing:-.02em}
 @media(max-width:840px){.avd-rech{grid-template-columns:1fr;max-width:520px}.avd-rech-in,.avd-rech-out{padding:34px 28px}}
+@media(max-width:560px){.avd-seg{flex-direction:column}.avd-rech-in{padding:28px 20px}.avd-rech-out{padding:32px 22px}.avd-field-top .val{font-size:18px}.avd-rech-out .big{font-size:40px}}
 
 /* FRÜHSTART OVERLAP */
 .avd-fruh-sec{background:#fff;padding:92px 0 0}
@@ -255,7 +266,7 @@
 
 /* FAQ */
 .avd-faq{max-width:1120px;margin:0 auto;column-count:2;column-gap:16px}
-@media(max-width:768px){.avd-faq{column-count:1}}
+@media(max-width:768px){.avd-faq{column-count:1}.avd-faq-q h3{white-space:normal}}
 .avd-faq-item{background:#fff;border:1px solid var(--avd-border);border-radius:14px;overflow:hidden;transition:border-color .2s;break-inside:avoid;margin-bottom:14px}
 .avd-faq-item.open{border-color:#cfe0f5}
 .avd-faq-q{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:19px 24px;cursor:pointer;user-select:none}
@@ -369,16 +380,13 @@
 </div>
 <div class="avd-tabbody">
 <div class="avd-tab-panel active" id="tab-foerderung">
-<table class="avd-table">
-<thead><tr><th>Baustein</th><th>Höhe</th><th>Bedingung</th></tr></thead>
-<tbody>
-<tr><td>Grundzulage</td><td class="val">bis 540 € / Jahr</td><td>50 % auf die ersten 360 €, 25 % bis 1.800 €</td></tr>
-<tr><td>Kinderzulage</td><td class="val">bis 300 € / Kind</td><td>100 % auf bis zu 300 € je Kind und Jahr</td></tr>
-<tr><td>Berufseinsteiger-Bonus</td><td class="val">200 € einmalig</td><td>Abschluss vor dem 25. Geburtstag</td></tr>
-<tr><td>Mindestbeitrag</td><td class="val b">120 € / Jahr</td><td>nötig für den Förderanspruch</td></tr>
-<tr><td>Höchstbeitrag gefördert</td><td class="val b">1.800 € / Jahr</td><td>darüber ungefördert bis 6.840 €</td></tr>
-</tbody>
-</table>
+<div class="avd-flist">
+<div class="avd-frow"><div class="avd-frow-top"><span class="name">Grundzulage</span><span class="fval">bis 540 € / Jahr</span></div><p class="cond">50 % auf die ersten 360 €, 25 % bis 1.800 €</p></div>
+<div class="avd-frow"><div class="avd-frow-top"><span class="name">Kinderzulage</span><span class="fval">bis 300 € / Kind</span></div><p class="cond">100 % auf bis zu 300 € je Kind und Jahr</p></div>
+<div class="avd-frow"><div class="avd-frow-top"><span class="name">Berufseinsteiger-Bonus</span><span class="fval">200 € einmalig</span></div><p class="cond">Abschluss vor dem 25. Geburtstag</p></div>
+<div class="avd-frow"><div class="avd-frow-top"><span class="name">Mindestbeitrag</span><span class="fval b">120 € / Jahr</span></div><p class="cond">nötig für den Förderanspruch</p></div>
+<div class="avd-frow"><div class="avd-frow-top"><span class="name">Höchstbeitrag gefördert</span><span class="fval b">1.800 € / Jahr</span></div><p class="cond">darüber ungefördert bis 6.840 €</p></div>
+</div>
 </div>
 <div class="avd-tab-panel" id="tab-steuer">
 <div class="avd-split">
