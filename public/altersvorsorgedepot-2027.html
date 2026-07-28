@@ -3,13 +3,12 @@
 .avd *{margin:0;padding:0;box-sizing:border-box}
 .avd,.avd *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
 .avd h1,.avd h2,.avd h3,.avd h4{font-weight:800;color:var(--avd-ink);letter-spacing:-.02em}
-.avd img{max-width:100%;display:block}
 .avd a{text-decoration:none;color:inherit}
 .avd-wrap{max-width:1120px;margin:0 auto;padding:0 40px;width:100%}
-@media(max-width:768px){.avd-wrap{padding:0 22px}}
+@media(max-width:768px){.avd-wrap{padding:0 20px}}
 @media(max-width:480px){.avd-wrap{padding:0 16px}}
 
-.avd-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:9px;padding:16px 30px;border-radius:.7rem;font-size:15px;font-weight:700;border:none;outline:none;cursor:pointer;white-space:nowrap;min-height:54px;transition:transform .2s,background .2s,color .2s,box-shadow .2s}
+.avd-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:9px;padding:15px 28px;border-radius:.7rem;font-size:15px;font-weight:700;border:none;outline:none;cursor:pointer;white-space:nowrap;min-height:52px;transition:transform .2s,background .2s,color .2s,border-color .2s}
 .avd-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.2;fill:none}
 .avd-btn-green{background:var(--avd-green);color:#fff!important;box-shadow:0 8px 22px rgba(124,186,58,.32)}
 .avd-btn-green:hover{background:var(--avd-green-d);transform:translateY(-2px)}
@@ -18,231 +17,222 @@
 .avd-btn-ghost{background:rgba(255,255,255,.08);color:#fff!important;border:1.5px solid rgba(255,255,255,.45)}
 .avd-btn-ghost:hover{background:rgba(255,255,255,.16)}
 
-.avd-section{padding:96px 0}
-.avd-white{background:#fff}
-.avd-gray{background:var(--avd-bg)}
-.avd-kicker{display:inline-flex;align-items:center;gap:11px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--avd-blue);margin-bottom:18px}
-.avd-kicker::before{content:'';width:30px;height:2px;background:var(--avd-green);border-radius:2px}
-.avd-kicker.amber{color:#c98a12}
-.avd-kicker.amber::before{background:#e0a326}
-.avd-heading{font-size:clamp(28px,4vw,42px);line-height:1.1;margin-bottom:18px}
-.avd-sub{font-size:16.5px;color:var(--avd-muted);line-height:1.75;margin:0}
-.avd-head{text-align:center;max-width:720px;margin:0 auto 56px}
-.avd-head .avd-kicker{display:inline-flex}
-.avd-head .avd-sub{margin:0 auto}
+.avd-section{padding:88px 0}
+.avd-white{background:#fff}.avd-gray{background:var(--avd-bg)}
+.avd-kicker{display:inline-flex;align-items:center;gap:11px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--avd-blue);margin-bottom:16px}
+.avd-kicker::before{content:'';width:28px;height:2px;background:var(--avd-green);border-radius:2px}
+.avd-kicker.amber{color:#c98a12}.avd-kicker.amber::before{background:#e0a326}
+.avd-heading{font-size:clamp(27px,3.8vw,40px);line-height:1.12;margin-bottom:14px}
+.avd-sub{font-size:16px;color:var(--avd-muted);line-height:1.7;margin:0}
+.avd-head{text-align:center;max-width:660px;margin:0 auto 48px}
+.avd-head .avd-kicker{display:inline-flex}.avd-head .avd-sub{margin:0 auto}
 
-/* reveal */
-.avd .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.avd .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .avd .reveal.in{opacity:1;transform:none}
 
 /* HERO */
-.avd-hero{background:radial-gradient(120% 130% at 80% 0%,#5686d6 0%,#4c79c7 42%,#31548f 100%);position:relative;overflow:hidden;padding:104px 0 130px;text-align:center}
-.avd-hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:26px 26px;opacity:.5;pointer-events:none}
+.avd-hero{background:radial-gradient(120% 130% at 80% 0%,#5686d6,#4c79c7 42%,#31548f);position:relative;overflow:hidden;padding:100px 0 128px;text-align:center}
+.avd-hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:26px 26px;opacity:.5}
 .avd-hero-glow{position:absolute;width:560px;height:560px;border-radius:50%;filter:blur(140px);opacity:.4;background:#7cba3a;top:-200px;right:-100px}
-.avd-hero-inner{position:relative;z-index:2;max-width:840px;margin:0 auto}
-.avd-hero-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:13px;font-weight:600;padding:9px 18px;border-radius:50px;margin-bottom:26px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.avd-hero-in{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.avd-hero-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:13px;font-weight:600;padding:9px 18px;border-radius:50px;margin-bottom:24px}
 .avd-hero-pill svg{width:15px;height:15px;stroke:#9bdb5a;stroke-width:2.6;fill:none}
-.avd-hero h1{font-size:clamp(32px,5.6vw,58px);color:#fff;line-height:1.04;margin-bottom:22px;letter-spacing:-.03em}
+.avd-hero h1{font-size:clamp(32px,5.4vw,56px);color:#fff;line-height:1.05;margin-bottom:20px;letter-spacing:-.03em}
 .avd-hero h1 em{font-style:normal;color:#a9e06a}
-.avd-hero p{font-size:18px;color:rgba(255,255,255,.9);line-height:1.7;max-width:650px;margin:0 auto 34px}
-.avd-hero-btns{display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
-.avd-hero-note{margin-top:26px;font-size:13px;color:rgba(255,255,255,.6);font-weight:500}
+.avd-hero p{font-size:18px;color:rgba(255,255,255,.9);line-height:1.65;max-width:560px;margin:0 auto 32px}
+.avd-hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-/* STAT STRIP (overlaps hero) */
+/* STAT STRIP */
 .avd-strip{position:relative;z-index:6;margin-top:-56px}
 .avd-strip-card{background:#fff;border:1px solid var(--avd-border);border-radius:22px;box-shadow:0 24px 60px rgba(15,23,42,.12);display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden}
-.avd-strip-item{padding:32px 22px;text-align:center;border-right:1px solid var(--avd-border);position:relative}
+.avd-strip-item{padding:30px 20px;text-align:center;border-right:1px solid var(--avd-border);display:flex;flex-direction:column;align-items:center;gap:5px}
 .avd-strip-item:last-child{border-right:none}
-.avd-strip-item strong{display:block;font-size:34px;font-weight:900;color:var(--avd-ink);line-height:1;letter-spacing:-.03em;margin-bottom:7px}
+.avd-strip-ic{width:36px;height:36px;border-radius:10px;background:rgba(76,121,199,.09);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+.avd-strip-ic svg{width:19px;height:19px;stroke:var(--avd-blue);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.avd-strip-item strong{font-size:30px;font-weight:900;color:var(--avd-ink);line-height:1;letter-spacing:-.03em}
 .avd-strip-item strong em{font-style:normal;color:var(--avd-green)}
-.avd-strip-item span{font-size:13px;color:var(--avd-muted);font-weight:600}
+.avd-strip-item span{font-size:12.5px;color:var(--avd-muted);font-weight:600}
 
-/* INTRO */
-.avd-intro{display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:center}
-.avd-intro-text h2{font-size:clamp(26px,3.6vw,36px);line-height:1.14;margin-bottom:22px}
-.avd-intro-text p{font-size:16.5px;color:var(--avd-body);line-height:1.85;margin-bottom:18px}
-.avd-intro-text p b{color:var(--avd-ink)}
-.avd-panel{background:linear-gradient(160deg,#fff,#f4f8fd);border:1px solid var(--avd-border);border-radius:24px;padding:12px 32px;box-shadow:0 16px 44px rgba(76,121,199,.1)}
-.avd-panel-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:17px 0;border-bottom:1px solid #eef1f6}
-.avd-panel-row:last-child{border-bottom:none}
-.avd-panel-k{font-size:14px;color:var(--avd-muted)}
-.avd-panel-v{font-size:16px;font-weight:800;color:var(--avd-ink);text-align:right}
-.avd-panel-v.g{color:var(--avd-green)}
+/* TIMELINE WIDGET */
+.avd-tl{position:relative;display:flex;gap:18px;margin-top:8px}
+.avd-tl-item{flex:1;position:relative;padding-top:74px;text-align:center}
+.avd-tl-item::after{content:'';position:absolute;top:26px;left:50%;width:100%;height:3px;background:var(--avd-border);z-index:0}
+.avd-tl-item:last-child::after{display:none}
+.avd-tl-item.done::after{background:var(--avd-green)}
+.avd-tl-node{position:absolute;top:0;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:16px;background:#fff;border:1px solid var(--avd-border);display:flex;align-items:center;justify-content:center;z-index:1;box-shadow:0 6px 16px rgba(15,23,42,.06)}
+.avd-tl-node svg{width:24px;height:24px;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.avd-tl-item.done .avd-tl-node{background:var(--avd-green);border-color:var(--avd-green)}
+.avd-tl-item.done .avd-tl-node svg{stroke:#fff}
+.avd-tl-item.now .avd-tl-node{background:var(--avd-blue);border-color:var(--avd-blue)}
+.avd-tl-item.now .avd-tl-node svg{stroke:#fff}
+.avd-tl-date{font-size:13px;font-weight:800;color:var(--avd-green);margin-bottom:4px}
+.avd-tl-item.now .avd-tl-date{color:var(--avd-blue)}
+.avd-tl-item h4{font-size:16px;margin-bottom:5px;line-height:1.25}
+.avd-tl-item p{font-size:13px;color:var(--avd-muted);line-height:1.5;max-width:230px;margin:0 auto}
+@media(max-width:720px){
+.avd-tl{flex-direction:column;gap:0}
+.avd-tl-item{flex:none;text-align:left;padding:0 0 30px 76px;min-height:auto}
+.avd-tl-item::after{top:54px;left:26px;width:3px;height:calc(100% - 54px)}
+.avd-tl-node{left:0;transform:none;top:0}
+.avd-tl-item p{margin:0}
+}
 
-/* TIMELINE */
-.avd-tl{max-width:760px;margin:0 auto;display:flex;flex-direction:column}
-.avd-tl-item{display:flex;gap:24px;padding-bottom:38px;position:relative}
-.avd-tl-item:last-child{padding-bottom:0}
-.avd-tl-item::before{content:'';position:absolute;left:26px;top:56px;bottom:-2px;width:2px;background:var(--avd-border);transform:scaleY(0);transform-origin:top;transition:transform .9s ease .2s}
-.avd-tl-item:last-child::before{display:none}
-.avd-tl-item.in::before{transform:scaleY(1)}
-.avd-tl-item.done::before{background:linear-gradient(#7cba3a,#7cba3a)}
-.avd-tl-dot{width:54px;height:54px;border-radius:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;background:#fff;border:1px solid var(--avd-border);box-shadow:0 6px 18px rgba(15,23,42,.06)}
-.avd-tl-dot svg{width:24px;height:24px;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.avd-tl-item.done .avd-tl-dot{background:var(--avd-green);border-color:var(--avd-green)}
-.avd-tl-item.done .avd-tl-dot svg{stroke:#fff}
-.avd-tl-item.now .avd-tl-dot{background:var(--avd-blue);border-color:var(--avd-blue)}
-.avd-tl-item.now .avd-tl-dot svg{stroke:#fff}
-.avd-tl-body{padding-top:6px}
-.avd-tl-date{font-size:13px;font-weight:800;color:var(--avd-blue);margin-bottom:4px;letter-spacing:.01em}
-.avd-tl-item.done .avd-tl-date{color:var(--avd-green)}
-.avd-tl-body h3{font-size:18px;margin-bottom:5px}
-.avd-tl-body p{font-size:15px;color:var(--avd-muted);line-height:1.65}
+/* TABS */
+.avd-tabs-nav{display:flex;gap:8px;background:#fff;border:1px solid var(--avd-border);padding:7px;border-radius:16px;max-width:640px;margin:0 auto 34px;flex-wrap:wrap;justify-content:center}
+.avd-tab-btn{flex:1;min-width:120px;padding:13px 18px;border:none;background:transparent;border-radius:11px;font-size:14px;font-weight:700;color:var(--avd-muted);cursor:pointer;transition:background .2s,color .2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.avd-tab-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:2;fill:none}
+.avd-tab-btn.active{background:var(--avd-blue);color:#fff}
+.avd-tab-panel{display:none;animation:avdFade .35s ease}
+.avd-tab-panel.active{display:block}
+@keyframes avdFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* CARDS */
-.avd-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.avd-card{background:#fff;border:1px solid var(--avd-border);border-radius:22px;padding:36px 30px;transition:transform .28s,box-shadow .28s,border-color .28s}
-.avd-card:hover{transform:translateY(-8px);box-shadow:0 20px 44px rgba(15,23,42,.09);border-color:#cfe0f5}
-.avd-card-num{display:inline-flex;align-items:baseline;font-size:44px;font-weight:900;color:var(--avd-blue);line-height:1;letter-spacing:-.04em;margin-bottom:14px}
-.avd-card-num.g{color:var(--avd-green)}
-.avd-card-num sub{font-size:16px;font-weight:700;color:var(--avd-muted);margin-left:5px}
-.avd-card h3{font-size:18px;margin-bottom:9px}
-.avd-card p{font-size:14.5px;color:var(--avd-muted);line-height:1.68}
+/* TABLE */
+.avd-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--avd-border);border-radius:18px;overflow:hidden;max-width:820px;margin:0 auto}
+.avd-table th{text-align:left;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--avd-muted);padding:16px 22px;background:var(--avd-bg);border-bottom:1px solid var(--avd-border)}
+.avd-table td{padding:16px 22px;border-bottom:1px solid #f1f4f9;font-size:14.5px;vertical-align:middle}
+.avd-table tr:last-child td{border-bottom:none}
+.avd-table td:first-child{font-weight:700;color:var(--avd-ink)}
+.avd-table .val{font-weight:800;color:var(--avd-green);white-space:nowrap}
+.avd-table .val.b{color:var(--avd-blue)}
+.avd-table td small{display:block;color:var(--avd-muted);font-weight:500;font-size:13px}
 
-/* EXAMPLE BOX */
-.avd-example{background:linear-gradient(135deg,#eef4fc,#e9f6e0);border:1px solid #d8e6cf;border-radius:22px;padding:44px 42px;margin-top:32px}
-.avd-example h3{font-size:20px;margin-bottom:14px}
-.avd-example p{font-size:16px;color:var(--avd-body);line-height:1.8;max-width:860px}
-.avd-example b{color:var(--avd-blue);font-weight:800}
+/* MINI STAT TILES */
+.avd-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:820px;margin:0 auto}
+.avd-tile{background:#fff;border:1px solid var(--avd-border);border-radius:16px;padding:26px 20px;text-align:center}
+.avd-tile-ic{width:42px;height:42px;border-radius:12px;background:rgba(124,186,58,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.avd-tile-ic svg{width:21px;height:21px;stroke:var(--avd-green);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.avd-tile strong{display:block;font-size:24px;font-weight:900;color:var(--avd-ink);line-height:1;letter-spacing:-.02em;margin-bottom:6px}
+.avd-tile span{font-size:13px;color:var(--avd-muted);font-weight:600;line-height:1.4}
 
-/* COMPARE */
-.avd-compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px;margin:0 auto}
-.avd-comp{background:#fff;border:1px solid var(--avd-border);border-radius:24px;overflow:hidden}
-.avd-comp.hl{border:2px solid var(--avd-green);box-shadow:0 18px 44px rgba(124,186,58,.16)}
-.avd-comp-top{padding:28px 30px;border-bottom:1px solid var(--avd-border)}
-.avd-comp.hl .avd-comp-top{background:linear-gradient(135deg,rgba(124,186,58,.1),rgba(124,186,58,.02));border-bottom-color:rgba(124,186,58,.25)}
-.avd-comp-top h3{font-size:20px;margin-bottom:4px}
-.avd-comp-top span{font-size:13px;color:var(--avd-muted);font-weight:600}
-.avd-comp-list{padding:8px 30px 26px}
-.avd-comp-row{padding:16px 0;border-bottom:1px solid #f1f4f9;display:flex;gap:12px;align-items:flex-start}
-.avd-comp-row:last-child{border-bottom:none}
-.avd-comp-row svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.avd-comp-row .txt small{display:block;font-size:11px;color:#9aa3b2;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
-.avd-comp-row .txt p{font-size:14.5px;color:var(--avd-ink);line-height:1.5;font-weight:500}
+/* STEUER SPLIT (inside tab) */
+.avd-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:0 auto}
+.avd-splitbox{background:#fff;border:1px solid var(--avd-border);border-radius:18px;padding:30px 28px}
+.avd-splitbox h4{font-size:15px;color:var(--avd-blue);text-transform:uppercase;letter-spacing:.04em;margin-bottom:16px}
+.avd-line{display:flex;gap:11px;align-items:flex-start;padding:9px 0}
+.avd-line svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;fill:none;stroke:var(--avd-green);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.avd-line p{font-size:14.5px;color:var(--avd-body);line-height:1.55}
+.avd-line p b{color:var(--avd-ink);font-weight:700}
 
-/* SPLIT */
-.avd-split{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.avd-splitbox{background:#fff;border:1px solid var(--avd-border);border-radius:24px;padding:38px 34px}
-.avd-splitbox h3{font-size:21px;margin-bottom:18px}
-.avd-check{display:flex;gap:13px;align-items:flex-start;padding:12px 0}
-.avd-check-ic{width:26px;height:26px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
-.avd-check-ic svg{width:15px;height:15px;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
-.avd-check-g .avd-check-ic{background:rgba(124,186,58,.14)}.avd-check-g .avd-check-ic svg{stroke:var(--avd-green)}
-.avd-check-b .avd-check-ic{background:rgba(76,121,199,.12)}.avd-check-b .avd-check-ic svg{stroke:var(--avd-blue)}
-.avd-check p{font-size:15px;color:var(--avd-body);line-height:1.62}
-.avd-check p b{color:var(--avd-ink);font-weight:700}
+/* CHIPS */
+.avd-chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:760px;margin:0 auto}
+.avd-chip{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--avd-border);border-radius:50px;padding:12px 20px;font-size:14.5px;font-weight:700;color:var(--avd-ink)}
+.avd-chip svg{width:17px;height:17px;stroke:var(--avd-green);stroke-width:2.6;fill:none}
+
+/* COMPARISON TABLE */
+.avd-vs{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--avd-border);border-radius:20px;overflow:hidden;max-width:900px;margin:0 auto}
+.avd-vs th{padding:20px 22px;font-size:15px;text-align:left}
+.avd-vs th:first-child{background:var(--avd-bg);color:var(--avd-muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.avd-vs th.riester{background:var(--avd-bg);color:var(--avd-ink)}
+.avd-vs th.depot{background:linear-gradient(135deg,rgba(124,186,58,.14),rgba(124,186,58,.04));color:var(--avd-ink)}
+.avd-vs td{padding:15px 22px;border-top:1px solid #f1f4f9;font-size:14.5px;vertical-align:top}
+.avd-vs td:first-child{font-weight:700;color:var(--avd-ink);background:#fcfdfe}
+.avd-vs td.depot{background:rgba(124,186,58,.035)}
+.avd-vs .rowic{display:inline-flex;align-items:center;gap:9px}
+.avd-vs .rowic svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* CHART */
+.avd-chartwrap{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;max-width:920px;margin:0 auto}
+.avd-chart{display:flex;align-items:flex-end;justify-content:center;gap:44px;height:300px;padding:0 10px;border-bottom:2px solid var(--avd-border)}
+.avd-bar-col{display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.avd-bar-val{font-size:19px;font-weight:900;color:var(--avd-ink);margin-bottom:12px;letter-spacing:-.02em}
+.avd-bar{width:104px;height:0;border-radius:12px 12px 0 0;transition:height 1.1s cubic-bezier(.16,1,.3,1);position:relative}
+.avd-bar.b1{background:linear-gradient(180deg,#a9c3e8,#8aaede)}
+.avd-bar.b2{background:linear-gradient(180deg,#8fce4c,#7cba3a)}
+.reveal.in .avd-bar{height:var(--h)}
+.avd-bar-lbl{margin-top:12px;font-size:13px;font-weight:700;color:var(--avd-muted);text-align:center;line-height:1.3}
+.avd-chart-side h3{font-size:22px;margin-bottom:8px}
+.avd-chart-side>p{font-size:14.5px;color:var(--avd-muted);line-height:1.6;margin-bottom:20px}
+.avd-mini{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.avd-mini-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;padding:11px 16px;background:var(--avd-bg);border-radius:11px}
+.avd-mini-row .k{color:var(--avd-muted);display:inline-flex;align-items:center;gap:9px}
+.avd-mini-row .dot{width:11px;height:11px;border-radius:4px}
+.avd-mini-row .v{font-weight:800;color:var(--avd-ink)}
+.avd-delta{background:linear-gradient(135deg,#4c79c7,#3a5f9a);color:#fff;border-radius:14px;padding:18px 22px;text-align:center}
+.avd-delta strong{display:block;font-size:26px;font-weight:900;letter-spacing:-.02em}
+.avd-delta span{font-size:13px;color:rgba(255,255,255,.82)}
+.avd-calc-note{font-size:12.5px;color:var(--avd-muted);text-align:center;margin:28px auto 0;max-width:780px;line-height:1.6}
 
 /* KOSTEN */
-.avd-kosten{background:radial-gradient(130% 130% at 15% 0%,#5686d6,#4c79c7 45%,#2f5089);border-radius:28px;padding:60px 48px;text-align:center;position:relative;overflow:hidden}
+.avd-kosten{background:radial-gradient(130% 130% at 15% 0%,#5686d6,#4c79c7 45%,#2f5089);border-radius:26px;padding:56px 44px;text-align:center;position:relative;overflow:hidden}
 .avd-kosten::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:24px 24px;opacity:.6}
-.avd-kosten-in{position:relative;z-index:2;max-width:760px;margin:0 auto}
-.avd-kosten h2{font-size:clamp(26px,3.4vw,36px);color:#fff;margin-bottom:16px;line-height:1.16}
-.avd-kosten p{font-size:16.5px;color:rgba(255,255,255,.86);line-height:1.78;margin:0 auto}
-.avd-kosten-big{font-size:clamp(56px,9vw,88px);font-weight:900;color:#a9e06a;line-height:1;margin:26px 0 8px;letter-spacing:-.04em}
-.avd-kosten small{font-size:13.5px;color:rgba(255,255,255,.62);display:block;margin-bottom:26px}
-
-/* RECHNER */
-.avd-calc{display:grid;grid-template-columns:1.1fr 1fr;background:#fff;border:1px solid var(--avd-border);border-radius:26px;overflow:hidden;max-width:920px;margin:0 auto;box-shadow:0 20px 50px rgba(15,23,42,.07)}
-.avd-calc-l{padding:46px 42px}
-.avd-calc-l h3{font-size:21px;margin-bottom:6px}
-.avd-calc-l>span{font-size:14px;color:var(--avd-muted);display:block;margin-bottom:26px}
-.avd-calc-row{display:flex;justify-content:space-between;align-items:baseline;padding:15px 0;border-bottom:1px solid #f1f4f9}
-.avd-calc-row:last-child{border-bottom:none}
-.avd-calc-row .k{font-size:14.5px;color:var(--avd-muted)}
-.avd-calc-row .v{font-size:17px;font-weight:800;color:var(--avd-ink)}
-.avd-calc-r{background:radial-gradient(130% 120% at 20% 10%,#8fce4c,#7cba3a 50%,#5f9a2c);padding:46px 40px;color:#fff;display:flex;flex-direction:column;justify-content:center;text-align:center}
-.avd-calc-r .lbl{font-size:14.5px;color:rgba(255,255,255,.9);margin-bottom:10px}
-.avd-calc-r .big{font-size:clamp(40px,5.6vw,56px);font-weight:900;line-height:1;letter-spacing:-.03em;margin-bottom:14px}
-.avd-calc-r .plus{font-size:15px;font-weight:800;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.28);padding:9px 18px;border-radius:50px;display:inline-block}
-.avd-calc-note{font-size:12.5px;color:var(--avd-muted);text-align:center;margin:20px auto 0;max-width:780px;line-height:1.65}
+.avd-kosten-in{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.avd-kosten h2{font-size:clamp(24px,3.2vw,34px);color:#fff;margin-bottom:14px;line-height:1.15}
+.avd-kosten p{font-size:16px;color:rgba(255,255,255,.86);line-height:1.72;margin:0 auto}
+.avd-kosten-big{font-size:clamp(54px,9vw,84px);font-weight:900;color:#a9e06a;line-height:1;margin:22px 0 6px;letter-spacing:-.04em}
+.avd-kosten small{font-size:13px;color:rgba(255,255,255,.62);display:block;margin-bottom:22px}
 
 /* FRÜHSTART */
-.avd-fruh{background:#fff;border:1px solid #ecd9a8;border-radius:26px;padding:12px;position:relative;overflow:hidden}
-.avd-fruh-inner{background:linear-gradient(160deg,#fffdf6,#fff8e8);border-radius:20px;padding:44px 42px}
-.avd-fruh-grid{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:center}
-.avd-fruh h2{font-size:clamp(24px,3vw,32px);margin-bottom:10px;line-height:1.16}
-.avd-fruh p{font-size:15.5px;color:var(--avd-body);line-height:1.8;margin-bottom:14px}
-.avd-fruh-box{background:#fff;border:1px solid #ecd9a8;border-radius:18px;padding:30px 26px;text-align:center;box-shadow:0 10px 30px rgba(224,163,38,.1)}
-.avd-fruh-box .big{font-size:48px;font-weight:900;color:var(--avd-green);line-height:1;letter-spacing:-.03em}
-.avd-fruh-box .l{font-size:13px;color:var(--avd-muted);font-weight:600;margin-top:5px}
-.avd-fruh-box .hr{height:1px;background:#f0e6cd;margin:20px 0}
-.avd-fruh-box .sum{font-size:26px;font-weight:900;color:var(--avd-blue)}
-
-/* NOTES */
-.avd-notes{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-.avd-note{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid var(--avd-border);border-radius:18px;padding:26px 28px;transition:border-color .2s,box-shadow .2s}
-.avd-note:hover{border-color:#cfe0f5;box-shadow:0 12px 30px rgba(15,23,42,.06)}
-.avd-note-ic{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#eaf1fb,#dcebfa);flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.avd-note-ic svg{width:22px;height:22px;stroke:var(--avd-blue);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.avd-note h4{font-size:16px;margin-bottom:5px}
-.avd-note p{font-size:14.5px;color:var(--avd-muted);line-height:1.62}
+.avd-fruh{background:linear-gradient(160deg,#fffdf6,#fff7e6);border:1px solid #ecd9a8;border-radius:24px;padding:40px 40px}
+.avd-fruh-grid{display:grid;grid-template-columns:1fr 280px;gap:44px;align-items:center}
+.avd-fruh h2{font-size:clamp(23px,3vw,30px);margin-bottom:8px;line-height:1.16}
+.avd-fruh p{font-size:15px;color:var(--avd-body);line-height:1.7;margin-bottom:0}
+.avd-fruh-box{background:#fff;border:1px solid #ecd9a8;border-radius:18px;padding:28px 24px;text-align:center;box-shadow:0 10px 28px rgba(224,163,38,.1)}
+.avd-fruh-box .big{font-size:46px;font-weight:900;color:var(--avd-green);line-height:1;letter-spacing:-.03em}
+.avd-fruh-box .l{font-size:12.5px;color:var(--avd-muted);font-weight:600;margin-top:5px}
+.avd-fruh-box .hr{height:1px;background:#f0e6cd;margin:18px 0}
+.avd-fruh-box .sum{font-size:24px;font-weight:900;color:var(--avd-blue)}
 
 /* ARTIKEL */
 .avd-artikel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.avd-art{display:flex;flex-direction:column;justify-content:space-between;gap:22px;background:#fff;border:1px solid var(--avd-border);border-radius:20px;padding:28px 26px;min-height:170px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.avd-art{display:flex;flex-direction:column;justify-content:space-between;gap:20px;background:#fff;border:1px solid var(--avd-border);border-radius:18px;padding:26px 24px;min-height:172px;transition:transform .25s,box-shadow .25s,border-color .25s}
 .avd-art:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(15,23,42,.09);border-color:var(--avd-blue)}
-.avd-art-tag{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--avd-green)}
-.avd-art h3{font-size:17.5px;line-height:1.3;margin-top:8px}
-.avd-art p{font-size:13.5px;color:var(--avd-muted);line-height:1.55;margin-top:8px}
+.avd-art-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--avd-green)}
+.avd-art-tag svg{width:14px;height:14px;stroke:var(--avd-green);stroke-width:2.2;fill:none}
+.avd-art h3{font-size:17px;line-height:1.3;margin-top:9px}
 .avd-art-go{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--avd-blue)}
 .avd-art-go svg{width:17px;height:17px;stroke:var(--avd-blue);stroke-width:2.4;fill:none;transition:transform .2s}
 .avd-art:hover .avd-art-go svg{transform:translateX(4px)}
 
 /* FAQ */
-.avd-faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.avd-faq-item{background:#fff;border:1px solid var(--avd-border);border-radius:16px;overflow:hidden;transition:border-color .2s}
+.avd-faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:11px}
+.avd-faq-item{background:#fff;border:1px solid var(--avd-border);border-radius:14px;overflow:hidden;transition:border-color .2s}
 .avd-faq-item.open{border-color:#cfe0f5}
-.avd-faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 26px;cursor:pointer;user-select:none}
-.avd-faq-q h3{font-size:16.5px;font-weight:700;line-height:1.4}
-.avd-faq-chev{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:var(--avd-bg);display:flex;align-items:center;justify-content:center;transition:transform .28s,background .2s}
-.avd-faq-chev svg{width:14px;height:14px;stroke:var(--avd-blue);stroke-width:2.6;fill:none}
+.avd-faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;user-select:none}
+.avd-faq-q h3{font-size:16px;font-weight:700;line-height:1.4}
+.avd-faq-chev{width:27px;height:27px;flex-shrink:0;border-radius:50%;background:var(--avd-bg);display:flex;align-items:center;justify-content:center;transition:transform .28s,background .2s}
+.avd-faq-chev svg{width:13px;height:13px;stroke:var(--avd-blue);stroke-width:2.6;fill:none}
 .avd-faq-item.open .avd-faq-chev{background:var(--avd-blue);transform:rotate(180deg)}
 .avd-faq-item.open .avd-faq-chev svg{stroke:#fff}
-.avd-faq-a{max-height:0;overflow:hidden;transition:max-height .32s ease}
-.avd-faq-item.open .avd-faq-a{max-height:440px}
-.avd-faq-a p{padding:0 26px 24px;font-size:14.5px;color:var(--avd-body);line-height:1.72}
+.avd-faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.avd-faq-item.open .avd-faq-a{max-height:400px}
+.avd-faq-a p{padding:0 24px 22px;font-size:14.5px;color:var(--avd-body);line-height:1.7}
 
 /* CTA */
-.avd-cta{background:radial-gradient(120% 130% at 85% 0%,#5686d6,#4c79c7 45%,#31548f);border-radius:30px;padding:70px 48px;text-align:center;position:relative;overflow:hidden}
+.avd-cta{background:radial-gradient(120% 130% at 85% 0%,#5686d6,#4c79c7 45%,#31548f);border-radius:28px;padding:64px 44px;text-align:center;position:relative;overflow:hidden}
 .avd-cta::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:26px 26px;opacity:.5}
 .avd-cta-glow{position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(130px);opacity:.4;background:#7cba3a;top:-150px;left:-60px}
-.avd-cta-in{position:relative;z-index:2;max-width:660px;margin:0 auto}
-.avd-cta h2{font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:16px;line-height:1.12}
-.avd-cta p{font-size:17px;color:rgba(255,255,255,.86);line-height:1.72;margin-bottom:32px}
-.avd-cta-btns{display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
+.avd-cta-in{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.avd-cta h2{font-size:clamp(27px,3.8vw,40px);color:#fff;margin-bottom:14px;line-height:1.12}
+.avd-cta p{font-size:16.5px;color:rgba(255,255,255,.86);line-height:1.7;margin-bottom:30px}
+.avd-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-.avd-disc{text-align:center;color:#9aa3b2;font-size:12px;line-height:1.75;max-width:920px;margin:0 auto;padding:48px 24px 8px}
+.avd-disc{text-align:center;color:#9aa3b2;font-size:12px;line-height:1.75;max-width:920px;margin:0 auto;padding:44px 24px 8px}
 
-/* RESPONSIVE */
 @media(max-width:980px){
-.avd-intro{grid-template-columns:1fr;gap:40px}
-.avd-cards,.avd-artikel{grid-template-columns:1fr 1fr}
-.avd-compare{grid-template-columns:1fr;max-width:540px}
-.avd-split{grid-template-columns:1fr}
-.avd-calc{grid-template-columns:1fr;max-width:540px}
-.avd-fruh-grid{grid-template-columns:1fr;gap:32px}
+.avd-tiles{grid-template-columns:repeat(2,1fr)}
+.avd-artikel{grid-template-columns:1fr 1fr}
+.avd-chartwrap{grid-template-columns:1fr;gap:32px}
+.avd-fruh-grid{grid-template-columns:1fr;gap:28px}
 }
 @media(max-width:768px){
-.avd-section{padding:64px 0}
-.avd-hero{padding:76px 0 104px}
-.avd-hero-btns{flex-direction:column;align-items:stretch}
-.avd-hero-btns .avd-btn{width:100%}
+.avd-section{padding:60px 0}
+.avd-hero{padding:74px 0 104px}
+.avd-hero-btns{flex-direction:column;align-items:stretch}.avd-hero-btns .avd-btn{width:100%}
 .avd-strip-card{grid-template-columns:1fr 1fr}
+.avd-strip-item:nth-child(-n+2){border-bottom:1px solid var(--avd-border)}
 .avd-strip-item:nth-child(2){border-right:none}
-.avd-strip-item:nth-child(1),.avd-strip-item:nth-child(2){border-bottom:1px solid var(--avd-border)}
-.avd-cards,.avd-artikel{grid-template-columns:1fr}
-.avd-kosten,.avd-cta{padding:44px 26px}
-.avd-example,.avd-fruh-inner{padding:32px 24px}
-.avd-calc-l,.avd-calc-r{padding:34px 28px}
-.avd-cta-btns{flex-direction:column;align-items:stretch}
-.avd-cta-btns .avd-btn{width:100%}
+.avd-split{grid-template-columns:1fr}
+.avd-artikel{grid-template-columns:1fr}
+.avd-kosten,.avd-cta{padding:44px 26px}.avd-fruh{padding:30px 24px}
+.avd-vs{font-size:13px}.avd-vs th,.avd-vs td{padding:13px 14px}
+.avd-cta-btns{flex-direction:column;align-items:stretch}.avd-cta-btns .avd-btn{width:100%}
 }
-@media(max-width:480px){
-.avd-strip-item strong{font-size:28px}
-.avd-heading{font-size:26px}
-.avd-tl-dot{width:46px;height:46px}
-.avd-tl-item::before{left:22px}
+@media(max-width:560px){
+.avd-tabs-nav{flex-direction:column}.avd-tab-btn{width:100%}
+.avd-tiles{grid-template-columns:1fr 1fr}
+.avd-chart{gap:28px}.avd-bar{width:78px}
 }
+@media(max-width:480px){.avd-strip-item strong{font-size:25px}}
 </style>
 
 <div class="avd">
@@ -251,15 +241,14 @@
 <section class="avd-hero">
 <div class="avd-hero-glow"></div>
 <div class="avd-wrap">
-<div class="avd-hero-inner">
+<div class="avd-hero-in">
 <div class="avd-hero-pill"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Beschlossen von Bundestag und Bundesrat 2026</div>
-<h1>Das Altersvorsorgedepot: <em>staatlich gefördert</em> mit ETFs für die Rente sparen</h1>
-<p>Ab dem 1. Januar 2027 legen Sie Ihre geförderte Altersvorsorge in einem Wertpapierdepot an und investieren frei in ETFs. Die Zulage vom Staat fließt jedes Jahr mit ein, ohne die alte Beitragsgarantie, die bei Riester an der Rendite gezehrt hat.</p>
+<h1>Das Altersvorsorgedepot: <em>staatlich gefördert</em> mit ETFs</h1>
+<p>Ab dem 1. Januar 2027 sparen Sie geförderte Altersvorsorge in einem freien ETF-Depot. Alle Fakten kompakt und übersichtlich.</p>
 <div class="avd-hero-btns">
 <a href="https://easyfolio.de/depot" class="avd-btn avd-btn-green">Mit easyfolio vorsorgen<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-<a href="#foerderung" class="avd-btn avd-btn-ghost">Förderung ansehen</a>
+<a href="#details" class="avd-btn avd-btn-ghost">Details ansehen</a>
 </div>
-<div class="avd-hero-note">Riester-Nachfolge · Start 1. Januar 2027 · für Angestellte und Selbstständige</div>
 </div>
 </div>
 </section>
@@ -268,219 +257,184 @@
 <div class="avd-strip">
 <div class="avd-wrap">
 <div class="avd-strip-card reveal">
-<div class="avd-strip-item"><strong>2027</strong><span>Start des Depots</span></div>
-<div class="avd-strip-item"><strong><em>540 €</em></strong><span>Grundzulage pro Jahr</span></div>
-<div class="avd-strip-item"><strong>ab 10 €</strong><span>Sparrate im Monat</span></div>
-<div class="avd-strip-item"><strong>frei</strong><span>ETF-Auswahl</span></div>
+<div class="avd-strip-item"><div class="avd-strip-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><strong>2027</strong><span>Start des Depots</span></div>
+<div class="avd-strip-item"><div class="avd-strip-ic"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 7H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><strong><em>540 €</em></strong><span>Grundzulage pro Jahr</span></div>
+<div class="avd-strip-item"><div class="avd-strip-ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div><strong>ab 10 €</strong><span>Sparrate im Monat</span></div>
+<div class="avd-strip-item"><div class="avd-strip-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg></div><strong>frei</strong><span>ETF-Auswahl</span></div>
 </div>
 </div>
 </div>
 
-<!-- INTRO -->
+<!-- TIMELINE WIDGET -->
 <section class="avd-section avd-white">
-<div class="avd-wrap">
-<div class="avd-intro">
-<div class="avd-intro-text reveal">
-<span class="avd-kicker">Überblick</span>
-<h2>Was das Altersvorsorgedepot für Sie bedeutet</h2>
-<p>Das Altersvorsorgedepot ist ein Wertpapierdepot, das der Staat bezuschusst. Sie zahlen monatlich ein, wählen Ihre ETFs selbst und bekommen jedes Jahr eine Zulage obendrauf. Bei Riester war eine Beitragsgarantie Pflicht, die viel Rendite gekostet hat. Diese Pflicht fällt weg, damit Ihr Geld voll am Aktienmarkt arbeiten kann.</p>
-<p>Das Gesetz ist beschlossen. Der Bundestag stimmte am 27. März 2026 zu, der Bundesrat am 8. Mai 2026. Ab dem 1. Januar 2027 können Sie ein solches Depot abschließen. <b>Neue Riester-Verträge gibt es ab diesem Datum nicht mehr</b>, bestehende laufen mit ihren Konditionen weiter.</p>
-<p>Für easyfolio-Anleger zählt vor allem eines: Der Staat deckelt die Kosten des Standardprodukts bei 1,0 Prozent im Jahr. Günstige ETF-Portfolios liegen darunter, und genau da entscheidet sich am Ende, wie viel Rente übrig bleibt.</p>
-</div>
-<div class="avd-panel reveal">
-<div class="avd-panel-row"><span class="avd-panel-k">Start</span><span class="avd-panel-v">1. Januar 2027</span></div>
-<div class="avd-panel-row"><span class="avd-panel-k">Anlage</span><span class="avd-panel-v">ETFs, freie Wahl</span></div>
-<div class="avd-panel-row"><span class="avd-panel-k">Grundzulage</span><span class="avd-panel-v g">bis 540 € / Jahr</span></div>
-<div class="avd-panel-row"><span class="avd-panel-k">Kinderzulage</span><span class="avd-panel-v g">bis 300 € / Kind</span></div>
-<div class="avd-panel-row"><span class="avd-panel-k">Mindestbeitrag</span><span class="avd-panel-v">120 € / Jahr</span></div>
-<div class="avd-panel-row"><span class="avd-panel-k">Höchstbeitrag gefördert</span><span class="avd-panel-v">1.800 € / Jahr</span></div>
-<div class="avd-panel-row"><span class="avd-panel-k">Auszahlung ab</span><span class="avd-panel-v">65 Jahre</span></div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- ZEITPLAN -->
-<section class="avd-section avd-gray">
 <div class="avd-wrap">
 <div class="avd-head reveal">
 <span class="avd-kicker">Zeitplan</span>
-<h2 class="avd-heading">Vom Kabinettsbeschluss bis zum Start</h2>
-<p class="avd-sub">Die wichtigsten Stationen der Reform, damit Sie einordnen können, was schon gilt und was noch kommt.</p>
+<h2 class="avd-heading">Der Weg zur neuen Förderung</h2>
 </div>
-<div class="avd-tl">
-<div class="avd-tl-item done reveal">
-<div class="avd-tl-dot"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-<div class="avd-tl-body">
-<div class="avd-tl-date">17. Dezember 2025</div>
-<h3>Kabinettsbeschluss</h3>
-<p>Die Bundesregierung bringt das Altersvorsorgereformgesetz auf den Weg.</p>
+<div class="avd-tl reveal">
+<div class="avd-tl-item done">
+<div class="avd-tl-node"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+<div class="avd-tl-date">Dez 2025</div>
+<h4>Kabinettsbeschluss</h4>
+<p>Die Regierung bringt das Reformgesetz auf den Weg.</p>
 </div>
-</div>
-<div class="avd-tl-item done reveal">
-<div class="avd-tl-dot"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-<div class="avd-tl-body">
+<div class="avd-tl-item done">
+<div class="avd-tl-node"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
 <div class="avd-tl-date">27. März 2026</div>
-<h3>Der Bundestag stimmt zu</h3>
-<p>Im Finanzausschuss wurden vorher die Zulagen erhöht, der Kostendeckel gesenkt und der Zugang für Selbstständige geöffnet.</p>
+<h4>Bundestag stimmt zu</h4>
+<p>Höhere Zulagen, niedrigerer Kostendeckel, Zugang für Selbstständige.</p>
 </div>
-</div>
-<div class="avd-tl-item done reveal">
-<div class="avd-tl-dot"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-<div class="avd-tl-body">
+<div class="avd-tl-item done">
+<div class="avd-tl-node"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
 <div class="avd-tl-date">8. Mai 2026</div>
-<h3>Der Bundesrat verabschiedet die Reform</h3>
-<p>Damit ist das Gesetz beschlossen. Die Riester-Nachfolge steht.</p>
+<h4>Bundesrat verabschiedet</h4>
+<p>Das Gesetz ist beschlossen. Die Riester-Nachfolge steht.</p>
 </div>
-</div>
-<div class="avd-tl-item now reveal">
-<div class="avd-tl-dot"><svg viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 1-1h11l-2 4 2 4H5"/></svg></div>
-<div class="avd-tl-body">
+<div class="avd-tl-item now">
+<div class="avd-tl-node"><svg viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 1-1h11l-2 4 2 4H5"/></svg></div>
 <div class="avd-tl-date">1. Januar 2027</div>
-<h3>Das Altersvorsorgedepot startet</h3>
-<p>Ab jetzt können Sie abschließen. Neue Riester-Verträge sind ab diesem Tag nicht mehr möglich.</p>
-</div>
+<h4>Start des Depots</h4>
+<p>Abschluss möglich. Keine neuen Riester-Verträge mehr.</p>
 </div>
 </div>
 </div>
 </section>
 
-<!-- FÖRDERUNG -->
-<section class="avd-section avd-white" id="foerderung">
+<!-- TABS -->
+<section class="avd-section avd-gray" id="details">
 <div class="avd-wrap">
 <div class="avd-head reveal">
-<span class="avd-kicker">Förderung</span>
-<h2 class="avd-heading">So viel Geld legt der Staat drauf</h2>
-<p class="avd-sub">Die Zulagen sind prozentual geregelt und damit leichter nachzurechnen als bei Riester. Wer wenig verdient und Kinder hat, profitiert besonders stark.</p>
+<span class="avd-kicker">Auf einen Blick</span>
+<h2 class="avd-heading">Alles Wichtige, nach Thema sortiert</h2>
 </div>
-<div class="avd-cards">
-<div class="avd-card reveal">
-<div class="avd-card-num g">540<sub>€ / Jahr</sub></div>
-<h3>Grundzulage</h3>
-<p>Auf die ersten 360 € Ihrer Einzahlung gibt der Staat 50 Prozent dazu, auf den Rest bis 1.800 € noch 25 Prozent. Bei voller Einzahlung sind das 540 € geschenktes Geld jedes Jahr.</p>
+<div class="avd-tabs-nav reveal">
+<button class="avd-tab-btn active" data-tab="foerderung"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg>Förderung</button>
+<button class="avd-tab-btn" data-tab="steuer"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Steuer</button>
+<button class="avd-tab-btn" data-tab="auszahlung"><svg viewBox="0 0 24 24"><path d="M12 2v20M5 9l7-7 7 7"/></svg>Auszahlung</button>
+<button class="avd-tab-btn" data-tab="zugang"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M15 8a3 3 0 0 0 0-6M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1M17 15a5 5 0 0 1 5 5v1"/></svg>Zugang</button>
 </div>
-<div class="avd-card reveal">
-<div class="avd-card-num g">300<sub>€ / Kind</sub></div>
-<h3>Kinderzulage</h3>
-<p>Für jedes Kind verdoppelt der Staat Ihre Einzahlung bis 300 € im Jahr. Wer rund 25 € im Monat pro Kind einzahlt, holt die volle Zulage ab.</p>
-</div>
-<div class="avd-card reveal">
-<div class="avd-card-num g">200<sub>€ einmalig</sub></div>
-<h3>Bonus für Berufseinsteiger</h3>
-<p>Wer den Vertrag vor dem 25. Geburtstag abschließt, bekommt einmalig 200 € zusätzlich. Ein guter Grund, früh anzufangen.</p>
-</div>
-</div>
-<div class="avd-example reveal">
-<h3>Ein Rechenbeispiel zur Grundzulage</h3>
-<p>Nehmen wir Lea, 29 Jahre, angestellt. Sie zahlt 150 € im Monat ein, also <b>1.800 € im Jahr</b>. Auf die ersten 360 € gibt der Staat 50 Prozent, das sind 180 €. Auf die restlichen 1.440 € gibt es 25 Prozent, also 360 €. Zusammen kommen <b>540 € Zulage</b> heraus, ohne dass Lea einen Cent mehr aufbringt. Hat sie zwei Kinder und zahlt für jedes 300 € ein, steigt die Förderung um weitere 600 € auf <b>1.140 € im Jahr</b>.</p>
-</div>
-</div>
-</section>
 
-<!-- VERGLEICH -->
-<section class="avd-section avd-gray">
-<div class="avd-wrap">
-<div class="avd-head reveal">
-<span class="avd-kicker">Vergleich</span>
-<h2 class="avd-heading">Riester und das neue Depot nebeneinander</h2>
-<p class="avd-sub">Für die meisten Sparer ist das Altersvorsorgedepot die bessere Wahl, weil die Rendite nicht mehr von einer teuren Garantie ausgebremst wird.</p>
+<div class="avd-tab-panel active" id="tab-foerderung">
+<table class="avd-table reveal">
+<thead><tr><th>Baustein</th><th>Höhe</th><th>Bedingung</th></tr></thead>
+<tbody>
+<tr><td>Grundzulage</td><td class="val">bis 540 € / Jahr</td><td>50 % auf die ersten 360 €, 25 % bis 1.800 €</td></tr>
+<tr><td>Kinderzulage</td><td class="val">bis 300 € / Kind</td><td>100 % auf bis zu 300 € je Kind und Jahr</td></tr>
+<tr><td>Berufseinsteiger-Bonus</td><td class="val">200 € einmalig</td><td>Abschluss vor dem 25. Geburtstag</td></tr>
+<tr><td>Mindestbeitrag</td><td class="val b">120 € / Jahr</td><td>nötig für den Förderanspruch</td></tr>
+<tr><td>Höchstbeitrag gefördert</td><td class="val b">1.800 € / Jahr</td><td>darüber ungefördert bis 6.840 €</td></tr>
+</tbody>
+</table>
 </div>
-<div class="avd-compare">
-<div class="avd-comp reveal">
-<div class="avd-comp-top">
-<h3>Riester-Rente</h3>
-<span>Neuabschluss nur noch bis Ende 2026</span>
+
+<div class="avd-tab-panel" id="tab-steuer">
+<div class="avd-split reveal">
+<div class="avd-splitbox">
+<h4>Während Sie sparen</h4>
+<div class="avd-line"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><p><b>Bis 1.800 € plus Zulagen</b> als Sonderausgaben absetzbar</p></div>
+<div class="avd-line"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><p><b>Keine laufende Steuer</b> auf Kursgewinne und Dividenden</p></div>
+<div class="avd-line"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><p>Steuerbegünstigt <b>bis 6.840 € im Jahr</b> einzahlbar</p></div>
 </div>
-<div class="avd-comp-list">
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div class="txt"><small>Anlage</small><p>Garantieprodukte mit gedeckelter Renditechance</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div class="txt"><small>Beitragsgarantie</small><p>100 Prozent Pflicht, das kostet Rendite</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div class="txt"><small>Kosten</small><p>Oft hoch und schwer zu durchschauen</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div class="txt"><small>Auszahlung</small><p>Verpflichtende lebenslange Verrentung</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div class="txt"><small>Selbstständige</small><p>Meist außen vor</p></div></div>
+<div class="avd-splitbox">
+<h4>Wenn Sie in Rente gehen</h4>
+<div class="avd-line"><svg viewBox="0 0 24 24" stroke="#4c79c7"><path d="M20 6 9 17l-5-5"/></svg><p>Versteuerung mit dem <b>persönlichen Steuersatz</b></p></div>
+<div class="avd-line"><svg viewBox="0 0 24 24" stroke="#4c79c7"><path d="M20 6 9 17l-5-5"/></svg><p><b>Keine Kranken- und Pflegeversicherung</b> auf die Auszahlung</p></div>
+<div class="avd-line"><svg viewBox="0 0 24 24" stroke="#4c79c7"><path d="M20 6 9 17l-5-5"/></svg><p>In der Sparphase gesparte Steuer bleibt Ihnen</p></div>
 </div>
 </div>
-<div class="avd-comp hl reveal">
-<div class="avd-comp-top">
-<h3>Altersvorsorgedepot</h3>
-<span>Start ab 1. Januar 2027</span>
 </div>
-<div class="avd-comp-list">
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div class="txt"><small>Anlage</small><p>Freie ETF-Wahl, volles Marktpotenzial</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div class="txt"><small>Beitragsgarantie</small><p>Freiwillig mit 80 oder 100 Prozent, oder ganz ohne</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div class="txt"><small>Kosten</small><p>Standardprodukt bei höchstens 1,0 Prozent im Jahr gedeckelt</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div class="txt"><small>Auszahlung</small><p>Auszahlplan oder Rente, Teilentnahme bis 30 Prozent</p></div></div>
-<div class="avd-comp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div class="txt"><small>Selbstständige</small><p>Erstmals ausdrücklich zugelassen</p></div></div>
+
+<div class="avd-tab-panel" id="tab-auszahlung">
+<div class="avd-tiles reveal">
+<div class="avd-tile"><div class="avd-tile-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><strong>ab 65</strong><span>frühester Beginn, spätestens mit 70</span></div>
+<div class="avd-tile"><div class="avd-tile-ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 4-5"/></svg></div><strong>bis 30 %</strong><span>Teilauszahlung auf einen Schlag</span></div>
+<div class="avd-tile"><div class="avd-tile-ic"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h10"/></svg></div><strong>bis 85</strong><span>Auszahlplan läuft mindestens so lange</span></div>
+<div class="avd-tile"><div class="avd-tile-ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></div><strong>keine</strong><span>Pflicht zur lebenslangen Verrentung</span></div>
 </div>
+</div>
+
+<div class="avd-tab-panel" id="tab-zugang">
+<div class="avd-chips reveal">
+<span class="avd-chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Angestellte</span>
+<span class="avd-chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Selbstständige (neu)</span>
+<span class="avd-chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Freiberufler</span>
+<span class="avd-chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Gewerbetreibende</span>
+<span class="avd-chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Beamte</span>
+<span class="avd-chip"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Versorgungswerke</span>
 </div>
 </div>
 </div>
 </section>
 
-<!-- STEUER -->
+<!-- VERGLEICH TABELLE -->
 <section class="avd-section avd-white">
 <div class="avd-wrap">
 <div class="avd-head reveal">
-<span class="avd-kicker">Steuer und Auszahlung</span>
-<h2 class="avd-heading">Wie das Finanzamt mitspielt</h2>
-<p class="avd-sub">In der Sparphase senken Ihre Beiträge die Steuer, in der Rente wird nachgelagert versteuert. Bei der Auszahlung haben Sie mehr Freiheit als früher.</p>
+<span class="avd-kicker">Vergleich</span>
+<h2 class="avd-heading">Riester und Depot direkt gegenübergestellt</h2>
 </div>
-<div class="avd-split">
-<div class="avd-splitbox reveal">
-<h3>Während Sie sparen</h3>
-<div class="avd-check avd-check-g"><span class="avd-check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Bis 1.800 € plus Zulagen</b> ziehen Sie als Sonderausgaben von der Steuer ab.</p></div>
-<div class="avd-check avd-check-g"><span class="avd-check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p><b>Keine laufende Steuer</b> auf Kursgewinne und Dividenden im Depot. Ihr Geld wächst ungebremst weiter.</p></div>
-<div class="avd-check avd-check-g"><span class="avd-check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><p>Über die Förderung hinaus zahlen Sie <b>bis 6.840 € im Jahr</b> steuerbegünstigt ein.</p></div>
+<table class="avd-vs reveal">
+<thead><tr><th>Merkmal</th><th class="riester">Riester-Rente</th><th class="depot">Altersvorsorgedepot</th></tr></thead>
+<tbody>
+<tr><td>Anlage</td><td><span class="rowic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Garantieprodukte</span></td><td class="depot"><span class="rowic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Freie ETF-Wahl</span></td></tr>
+<tr><td>Beitragsgarantie</td><td><span class="rowic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>100 % Pflicht</span></td><td class="depot"><span class="rowic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>freiwillig oder ohne</span></td></tr>
+<tr><td>Kostendeckel</td><td><span class="rowic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>keiner</span></td><td class="depot"><span class="rowic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>1,0 % beim Standardprodukt</span></td></tr>
+<tr><td>Auszahlung</td><td><span class="rowic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>Zwangsverrentung</span></td><td class="depot"><span class="rowic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>Plan oder Rente, 30 % Entnahme</span></td></tr>
+<tr><td>Selbstständige</td><td><span class="rowic"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg>meist außen vor</span></td><td class="depot"><span class="rowic"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg>erstmals zugelassen</span></td></tr>
+<tr><td>Neuabschluss</td><td>bis Ende 2026</td><td class="depot">ab 1. Januar 2027</td></tr>
+</tbody>
+</table>
 </div>
-<div class="avd-splitbox reveal">
-<h3>Wenn Sie in Rente gehen</h3>
-<div class="avd-check avd-check-b"><span class="avd-check-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><p><b>Auszahlung ab 65,</b> spätestens mit 70. Sie wählen eine lebenslange Rente oder einen Auszahlplan, der mindestens bis 85 läuft.</p></div>
-<div class="avd-check avd-check-b"><span class="avd-check-ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></span><p><b>Bis zu 30 Prozent</b> des Kapitals dürfen Sie zu Beginn auf einen Schlag entnehmen.</p></div>
-<div class="avd-check avd-check-b"><span class="avd-check-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span><p>Versteuert wird mit Ihrem <b>persönlichen Steuersatz</b>. Beiträge zur Kranken- und Pflegeversicherung fallen darauf nicht an.</p></div>
+</section>
+
+<!-- RECHENBEISPIEL CHART -->
+<section class="avd-section avd-gray">
+<div class="avd-wrap">
+<div class="avd-head reveal">
+<span class="avd-kicker">Rechenbeispiel</span>
+<h2 class="avd-heading">Was aus 150 € im Monat werden kann</h2>
+<p class="avd-sub">Modellrechnung über 40 Jahre bei 8 Prozent Rendite pro Jahr.</p>
+</div>
+<div class="avd-chartwrap reveal">
+<div class="avd-chart">
+<div class="avd-bar-col">
+<div class="avd-bar-val">527.142 €</div>
+<div class="avd-bar b1" style="--h:78%"></div>
+<div class="avd-bar-lbl">ohne Förderung</div>
+</div>
+<div class="avd-bar-col">
+<div class="avd-bar-val">678.020 €</div>
+<div class="avd-bar b2" style="--h:100%"></div>
+<div class="avd-bar-lbl">mit Förderung</div>
 </div>
 </div>
+<div class="avd-chart-side">
+<h3>Die Zulagen machen den Unterschied</h3>
+<p>Über 40 Jahre zahlen Sie selbst ein, der Staat legt jedes Jahr obendrauf. Der Zinseszins verstärkt beides.</p>
+<div class="avd-mini">
+<div class="avd-mini-row"><span class="k"><span class="dot" style="background:#8aaede"></span>Ihre Eigenbeiträge</span><span class="v">72.000 €</span></div>
+<div class="avd-mini-row"><span class="k"><span class="dot" style="background:#7cba3a"></span>Staatliche Zulagen</span><span class="v">21.600 €</span></div>
+</div>
+<div class="avd-delta"><strong>+ 150.878 €</strong><span>Fördervorteil am Ende</span></div>
+</div>
+</div>
+<p class="avd-calc-note">Modellrechnung von justETF, unverbindlich. Die Wertentwicklung von ETFs schwankt und kann höher oder niedriger ausfallen.</p>
 </div>
 </section>
 
 <!-- KOSTEN -->
-<section class="avd-section avd-gray">
+<section class="avd-section avd-white">
 <div class="avd-wrap">
 <div class="avd-kosten reveal">
 <div class="avd-kosten-in">
 <span class="avd-kicker" style="color:#a9e06a;justify-content:center">Der entscheidende Hebel</span>
 <h2>Bei der Rente entscheiden die Kosten</h2>
-<p>Die Verbraucherzentrale hat es vorgerechnet: Bei 40 Jahren Laufzeit und 6 Prozent Rendite frisst eine Gebühr von 1,0 Prozent im Jahr rund ein Drittel Ihres Kapitalmarktertrags auf. Jeder Zehntelprozentpunkt weniger landet in Ihrer Rente.</p>
 <div class="avd-kosten-big">rund ⅓</div>
-<small>des Ertrags kann bei 1,0 Prozent Gebühr über 40 Jahre verloren gehen</small>
-<p>Der gesetzliche Deckel von 1,0 Prozent gilt nur für das Standardprodukt. Provisionsstarke Premiumangebote dürfen deutlich mehr verlangen, teils 1,5 bis 2,5 Prozent. Ein günstiges ETF-Portfolio ist deshalb der Ausgangspunkt für eine ordentliche Rente.</p>
+<small>des Ertrags geht bei 1,0 Prozent Gebühr über 40 Jahre verloren</small>
+<p>Der gesetzliche Deckel von 1,0 Prozent gilt nur für das Standardprodukt. Premiumangebote dürfen teils 1,5 bis 2,5 Prozent verlangen. Ein günstiges ETF-Portfolio ist der Ausgangspunkt für eine ordentliche Rente.</p>
 </div>
 </div>
-</div>
-</section>
-
-<!-- RECHENBEISPIEL -->
-<section class="avd-section avd-white">
-<div class="avd-wrap">
-<div class="avd-head reveal">
-<span class="avd-kicker">Rechenbeispiel</span>
-<h2 class="avd-heading">Was aus 150 € im Monat werden kann</h2>
-<p class="avd-sub">Eine Modellrechnung über 40 Jahre zeigt, wie stark Zulagen und Zinseszins zusammenwirken.</p>
-</div>
-<div class="avd-calc reveal">
-<div class="avd-calc-l">
-<h3>Die Annahmen</h3>
-<span>150 € im Monat, 8 Prozent Rendite pro Jahr, 40 Jahre Laufzeit</span>
-<div class="avd-calc-row"><span class="k">Ihre Eigenbeiträge</span><span class="v">72.000 €</span></div>
-<div class="avd-calc-row"><span class="k">Staatliche Zulagen</span><span class="v" style="color:#7cba3a">21.600 €</span></div>
-<div class="avd-calc-row"><span class="k">Endwert ohne Förderung</span><span class="v">527.142 €</span></div>
-<div class="avd-calc-row"><span class="k">Fördervorteil</span><span class="v" style="color:#4c79c7">+150.878 €</span></div>
-</div>
-<div class="avd-calc-r">
-<div class="lbl">Endwert im geförderten Depot</div>
-<div class="big">678.020 €</div>
-<div class="plus">+ 150.878 € durch Förderung</div>
-</div>
-</div>
-<p class="avd-calc-note">Modellrechnung von justETF, unverbindlich. Die tatsächliche Wertentwicklung von ETFs schwankt und kann höher oder niedriger ausfallen. Historische Renditen sind kein Versprechen für die Zukunft.</p>
 </div>
 </section>
 
@@ -488,13 +442,11 @@
 <section class="avd-section avd-gray">
 <div class="avd-wrap">
 <div class="avd-fruh reveal">
-<div class="avd-fruh-inner">
 <div class="avd-fruh-grid">
 <div>
 <span class="avd-kicker amber">Geplant, noch kein Gesetz</span>
 <h2>Die Frühstart-Rente für Kinder</h2>
-<p>Für Kinder von 6 bis 18 Jahren will der Staat 10 € im Monat in ein Altersvorsorgedepot einzahlen. Über zwölf Jahre kommen so 1.440 € an staatlichem Geld zusammen, bevor der Zinseszins überhaupt gewirkt hat. Ab dem 18. Geburtstag darf das Kind selbst weiter einzahlen.</p>
-<p>Der Start ist zusammen mit dem Altersvorsorgedepot für 2027 vorgesehen, zunächst für den Jahrgang 2020. Ein fertiges Gesetz gibt es noch nicht, der Entwurf wird für 2026 erwartet. Die Zahlen können sich im Verfahren noch ändern.</p>
+<p>Für Kinder von 6 bis 18 Jahren will der Staat 10 € im Monat in ein Depot einzahlen. Der Start ist für 2027 vorgesehen, zunächst für den Jahrgang 2020. Ein Gesetz gibt es noch nicht, der Entwurf wird für 2026 erwartet.</p>
 </div>
 <div class="avd-fruh-box">
 <div class="big">10 €</div>
@@ -506,69 +458,42 @@
 </div>
 </div>
 </div>
-</div>
-</section>
-
-<!-- WORAUF ACHTEN -->
-<section class="avd-section avd-white">
-<div class="avd-wrap">
-<div class="avd-head reveal">
-<span class="avd-kicker">Ehrlich gesagt</span>
-<h2 class="avd-heading">Worauf Sie achten sollten</h2>
-<p class="avd-sub">Die Reform bringt Chancen, aber auch ein paar Fallstricke. Diese Punkte gehören zu einer ehrlichen Einordnung.</p>
-</div>
-<div class="avd-notes">
-<div class="avd-note reveal">
-<div class="avd-note-ic"><svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4m0 4h.01"/></svg></div>
-<div><h4>Der Kostendeckel gilt nur für das Standardprodukt</h4><p>Andere Angebote dürfen mehr verlangen. Verbraucherschützer warnen vor einer Verkaufswelle teurer Provisionsprodukte zum Start. Rechnen Sie die Kosten nach, bevor Sie unterschreiben.</p></div>
-</div>
-<div class="avd-note reveal">
-<div class="avd-note-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
-<div><h4>Alte Riester-Verträge nicht vorschnell kündigen</h4><p>Bestehende Verträge laufen weiter. Ein Wechsel in die neue Förderung ist möglich und ab fünf Jahren Laufzeit kostenfrei, die Verwaltungspauschale liegt bei höchstens 150 €. Prüfen Sie in Ruhe, ob sich der Wechsel für Sie lohnt.</p></div>
-</div>
-<div class="avd-note reveal">
-<div class="avd-note-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div>
-<div><h4>In der Rente wird versteuert</h4><p>Die Auszahlung mindert Ihr Netto, weil sie mit dem persönlichen Steuersatz besteuert wird. Dafür sparen Sie in der Einzahlungsphase Steuern und bekommen die Zulagen.</p></div>
-</div>
-</div>
-</div>
 </section>
 
 <!-- ARTIKEL -->
-<section class="avd-section avd-gray">
+<section class="avd-section avd-white">
 <div class="avd-wrap">
 <div class="avd-head reveal">
 <span class="avd-kicker">Mehr zum Thema</span>
-<h2 class="avd-heading">Weiterlesen im easyfolio-Magazin</h2>
-<p class="avd-sub">Sieben Ratgeber, die einzelne Fragen rund um das Altersvorsorgedepot im Detail beantworten.</p>
+<h2 class="avd-heading">Ratgeber im easyfolio-Magazin</h2>
 </div>
 <div class="avd-artikel">
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-rechner">
-<div><div class="avd-art-tag">Rechner</div><h3>Der Altersvorsorgedepot-Rechner</h3><p>Rechnen Sie Zulagen, Laufzeit und Endkapital für Ihre Situation durch.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2"/></svg>Rechner</div><h3>Der Altersvorsorgedepot-Rechner</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-steuerlich-absetzbar">
-<div><div class="avd-art-tag">Steuer</div><h3>Ist das Altersvorsorgedepot steuerlich absetzbar?</h3><p>Wie Sie Ihre Beiträge als Sonderausgaben geltend machen.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Steuer</div><h3>Ist das Depot steuerlich absetzbar?</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-riester-gleichzeitig">
-<div><div class="avd-art-tag">Kombination</div><h3>Altersvorsorgedepot und Riester gleichzeitig?</h3><p>Was mit Ihrem bestehenden Riester-Vertrag passiert und ob sich beides lohnt.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M8 7h8m0 0-3-3m3 3-3 3M16 17H8m0 0 3 3m-3-3 3-3"/></svg>Kombination</div><h3>Depot und Riester gleichzeitig?</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/rueruep-altersvorsorgedepot-gleichzeitig">
-<div><div class="avd-art-tag">Kombination</div><h3>Rürup und Altersvorsorgedepot gleichzeitig?</h3><p>Wie sich die Basisrente mit dem neuen Depot verbinden lässt.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M8 7h8m0 0-3-3m3 3-3 3M16 17H8m0 0 3 3m-3-3 3-3"/></svg>Kombination</div><h3>Rürup und Depot gleichzeitig?</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-immobilie">
-<div><div class="avd-art-tag">Vermögen</div><h3>Altersvorsorgedepot und Immobilie</h3><p>Depot oder Eigenheim? Wie beide Bausteine zusammenpassen.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/></svg>Vermögen</div><h3>Altersvorsorgedepot und Immobilie</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-vererben">
-<div><div class="avd-art-tag">Nachlass</div><h3>Das Altersvorsorgedepot vererben</h3><p>Was Erben erwartet und worauf Sie zu Lebzeiten achten sollten.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>Nachlass</div><h3>Das Depot vererben</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-bei-todesfall-von-kontoinhaber">
-<div><div class="avd-art-tag">Nachlass</div><h3>Was passiert im Todesfall des Kontoinhabers?</h3><p>Wie das Kapital im Ernstfall an Partner und Kinder übergeht.</p></div>
+<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>Nachlass</div><h3>Was passiert im Todesfall?</h3></div>
 <span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
 </a>
 </div>
@@ -576,53 +501,32 @@
 </section>
 
 <!-- FAQ -->
-<section class="avd-section avd-white">
+<section class="avd-section avd-gray">
 <div class="avd-wrap">
 <div class="avd-head reveal">
 <span class="avd-kicker">Häufige Fragen</span>
-<h2 class="avd-heading">Antworten zum Altersvorsorgedepot</h2>
+<h2 class="avd-heading">Kurz beantwortet</h2>
 </div>
 <div class="avd-faq reveal" id="avdFaq">
-<div class="avd-faq-item open">
-<div class="avd-faq-q"><h3>Ab wann gibt es das Altersvorsorgedepot?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Am 1. Januar 2027. Das Gesetz ist beschlossen, Bundestag und Bundesrat haben 2026 zugestimmt. Ab diesem Datum können Sie ein Depot abschließen, neue Riester-Verträge sind dann nicht mehr möglich.</p></div>
-</div>
-<div class="avd-faq-item">
-<div class="avd-faq-q"><h3>Was passiert mit meinem Riester-Vertrag?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Ihr bestehender Vertrag läuft mit den bisherigen Konditionen weiter. Ein Wechsel in die neue Förderung ist freiwillig und ab fünf Jahren Laufzeit kostenfrei. Die bisherige Förderung müssen Sie beim Wechsel nicht zurückzahlen.</p></div>
-</div>
-<div class="avd-faq-item">
-<div class="avd-faq-q"><h3>Wie viel Förderung bekomme ich?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Bis zu 540 € Grundzulage im Jahr bei voller Einzahlung von 1.800 €. Dazu kommen 300 € je Kind und einmalig 200 € Bonus, wenn Sie vor dem 25. Geburtstag abschließen. Der Mindestbeitrag für die Förderung liegt bei 120 € im Jahr.</p></div>
-</div>
-<div class="avd-faq-item">
-<div class="avd-faq-q"><h3>Kann ich frei in ETFs anlegen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Ja. Die Pflicht zur Beitragsgarantie fällt weg, deshalb können Sie voll in ETFs investieren. Wer möchte, wählt weiterhin ein Produkt mit 80 oder 100 Prozent Garantie, gibt dafür aber Renditechance ab.</p></div>
-</div>
-<div class="avd-faq-item">
-<div class="avd-faq-q"><h3>Ab wann kann ich mir das Geld auszahlen lassen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Frühestens mit 65, spätestens mit 70. Sie wählen zwischen einer lebenslangen Rente und einem Auszahlplan, der mindestens bis zum 85. Lebensjahr läuft. Bis zu 30 Prozent des Kapitals dürfen Sie zu Beginn auf einmal entnehmen.</p></div>
-</div>
-<div class="avd-faq-item">
-<div class="avd-faq-q"><h3>Können Selbstständige mitmachen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Ja, erstmals. Neben Angestellten sind auch Selbstständige, Freiberufler und Gewerbetreibende zugelassen, sofern sie eine Steuererklärung abgeben. Auch Beamte und Mitglieder berufsständischer Versorgungswerke können ein Depot nutzen.</p></div>
-</div>
-<div class="avd-faq-item">
-<div class="avd-faq-q"><h3>Was ist die Frühstart-Rente?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div>
-<div class="avd-faq-a"><p>Ein geplantes Programm, bei dem der Staat für Kinder von 6 bis 18 Jahren 10 € im Monat in ein Altersvorsorgedepot einzahlt. Ein Gesetz gibt es dazu noch nicht, der Entwurf wird für 2026 erwartet. Der Start ist zusammen mit dem Altersvorsorgedepot für 2027 vorgesehen.</p></div>
-</div>
+<div class="avd-faq-item open"><div class="avd-faq-q"><h3>Ab wann gibt es das Altersvorsorgedepot?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Am 1. Januar 2027. Das Gesetz ist beschlossen. Ab diesem Datum können Sie abschließen, neue Riester-Verträge sind dann nicht mehr möglich.</p></div></div>
+<div class="avd-faq-item"><div class="avd-faq-q"><h3>Was passiert mit meinem Riester-Vertrag?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Er läuft mit den bisherigen Konditionen weiter. Ein Wechsel in die neue Förderung ist freiwillig und ab fünf Jahren Laufzeit kostenfrei.</p></div></div>
+<div class="avd-faq-item"><div class="avd-faq-q"><h3>Wie viel Förderung bekomme ich?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Bis zu 540 € Grundzulage im Jahr, dazu 300 € je Kind und einmalig 200 € Bonus bei Abschluss vor dem 25. Geburtstag.</p></div></div>
+<div class="avd-faq-item"><div class="avd-faq-q"><h3>Kann ich frei in ETFs anlegen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja. Die Pflicht zur Beitragsgarantie fällt weg. Wer möchte, wählt weiterhin ein Produkt mit 80 oder 100 Prozent Garantie.</p></div></div>
+<div class="avd-faq-item"><div class="avd-faq-q"><h3>Ab wann kann ich mir das Geld auszahlen lassen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Frühestens mit 65, spätestens mit 70. Möglich sind eine lebenslange Rente oder ein Auszahlplan bis mindestens zum 85. Lebensjahr.</p></div></div>
+<div class="avd-faq-item"><div class="avd-faq-q"><h3>Können Selbstständige mitmachen?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ja, erstmals. Auch Freiberufler, Gewerbetreibende, Beamte und Mitglieder von Versorgungswerken sind zugelassen.</p></div></div>
+<div class="avd-faq-item"><div class="avd-faq-q"><h3>Was ist die Frühstart-Rente?</h3><div class="avd-faq-chev"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div></div><div class="avd-faq-a"><p>Ein geplantes Programm mit 10 € im Monat vom Staat für Kinder von 6 bis 18 Jahren. Ein Gesetz gibt es noch nicht, der Start ist für 2027 vorgesehen.</p></div></div>
 </div>
 </div>
 </section>
 
 <!-- CTA -->
-<section class="avd-section avd-gray">
+<section class="avd-section avd-white">
 <div class="avd-wrap">
 <div class="avd-cta reveal">
 <div class="avd-cta-glow"></div>
 <div class="avd-cta-in">
 <h2>Fangen Sie schon heute mit ETFs an</h2>
-<p>Das geförderte Depot kommt 2027. Bis dahin bauen Sie mit einem günstigen ETF-Sparplan bei easyfolio ganz normal Vermögen auf, ab 10 € im Monat und ohne Ausgabeaufschlag. Wer früh startet, hat den Zinseszins auf seiner Seite.</p>
+<p>Das geförderte Depot kommt 2027. Bis dahin bauen Sie mit einem günstigen ETF-Sparplan bei easyfolio Vermögen auf, ab 10 € im Monat und ohne Ausgabeaufschlag.</p>
 <div class="avd-cta-btns">
 <a href="https://easyfolio.de/depot" class="avd-btn avd-btn-green">Depot eröffnen<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
 <a href="https://easyfolio.de/anlegertest" class="avd-btn avd-btn-white">Anlegertest machen</a>
@@ -633,24 +537,26 @@
 </section>
 
 <div class="avd-disc">
-Stand der Angaben: Juli 2026. Das Altersvorsorgedepot ist beschlossen, die Frühstart-Rente ist geplant und noch nicht gesetzlich geregelt, ihre Werte können sich ändern. Alle Rechenbeispiele sind unverbindliche Modellrechnungen. Historische Wertentwicklungen sind kein verlässlicher Indikator für die Zukunft. Diese Seite ist eine allgemeine Information und ersetzt keine individuelle Steuer- oder Anlageberatung.<br>
+Stand der Angaben: Juli 2026. Das Altersvorsorgedepot ist beschlossen, die Frühstart-Rente ist geplant und noch nicht gesetzlich geregelt. Alle Rechenbeispiele sind unverbindliche Modellrechnungen. Historische Wertentwicklungen sind kein verlässlicher Indikator für die Zukunft. Diese Seite ist eine allgemeine Information und ersetzt keine individuelle Steuer- oder Anlageberatung.<br>
 Quellen: Bundesfinanzministerium, Bundesregierung, Deutscher Bundestag, Deutsche Rentenversicherung, Verbraucherzentrale, justETF, Finanztip.
 </div>
 
 </div>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ab wann gibt es das Altersvorsorgedepot?","acceptedAnswer":{"@type":"Answer","text":"Am 1. Januar 2027. Das Gesetz ist beschlossen, Bundestag und Bundesrat haben 2026 zugestimmt. Ab diesem Datum können Sie ein Depot abschließen, neue Riester-Verträge sind dann nicht mehr möglich."}},{"@type":"Question","name":"Was passiert mit meinem Riester-Vertrag?","acceptedAnswer":{"@type":"Answer","text":"Ihr bestehender Vertrag läuft mit den bisherigen Konditionen weiter. Ein Wechsel in die neue Förderung ist freiwillig und ab fünf Jahren Laufzeit kostenfrei. Die bisherige Förderung müssen Sie beim Wechsel nicht zurückzahlen."}},{"@type":"Question","name":"Wie viel Förderung bekomme ich?","acceptedAnswer":{"@type":"Answer","text":"Bis zu 540 Euro Grundzulage im Jahr bei voller Einzahlung von 1.800 Euro. Dazu kommen 300 Euro je Kind und einmalig 200 Euro Bonus bei Abschluss vor dem 25. Geburtstag. Der Mindestbeitrag liegt bei 120 Euro im Jahr."}},{"@type":"Question","name":"Kann ich frei in ETFs anlegen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Pflicht zur Beitragsgarantie fällt weg, deshalb können Sie voll in ETFs investieren. Wer möchte, wählt weiterhin ein Produkt mit 80 oder 100 Prozent Garantie."}},{"@type":"Question","name":"Ab wann kann ich mir das Geld auszahlen lassen?","acceptedAnswer":{"@type":"Answer","text":"Frühestens mit 65, spätestens mit 70. Möglich sind eine lebenslange Rente oder ein Auszahlplan bis mindestens zum 85. Lebensjahr. Bis zu 30 Prozent des Kapitals sind zu Beginn auf einmal entnehmbar."}},{"@type":"Question","name":"Können Selbstständige mitmachen?","acceptedAnswer":{"@type":"Answer","text":"Ja, erstmals. Neben Angestellten sind auch Selbstständige, Freiberufler und Gewerbetreibende zugelassen, sofern sie eine Steuererklärung abgeben. Auch Beamte und Versorgungswerke können teilnehmen."}},{"@type":"Question","name":"Was ist die Frühstart-Rente?","acceptedAnswer":{"@type":"Answer","text":"Ein geplantes Programm, bei dem der Staat für Kinder von 6 bis 18 Jahren 10 Euro im Monat in ein Altersvorsorgedepot einzahlt. Ein Gesetz gibt es noch nicht, der Entwurf wird für 2026 erwartet, der Start ist für 2027 vorgesehen."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ab wann gibt es das Altersvorsorgedepot?","acceptedAnswer":{"@type":"Answer","text":"Am 1. Januar 2027. Das Gesetz ist beschlossen. Ab diesem Datum können Sie abschließen, neue Riester-Verträge sind dann nicht mehr möglich."}},{"@type":"Question","name":"Was passiert mit meinem Riester-Vertrag?","acceptedAnswer":{"@type":"Answer","text":"Er läuft mit den bisherigen Konditionen weiter. Ein Wechsel in die neue Förderung ist freiwillig und ab fünf Jahren Laufzeit kostenfrei."}},{"@type":"Question","name":"Wie viel Förderung bekomme ich?","acceptedAnswer":{"@type":"Answer","text":"Bis zu 540 Euro Grundzulage im Jahr, dazu 300 Euro je Kind und einmalig 200 Euro Bonus bei Abschluss vor dem 25. Geburtstag."}},{"@type":"Question","name":"Kann ich frei in ETFs anlegen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Pflicht zur Beitragsgarantie fällt weg. Wer möchte, wählt weiterhin ein Produkt mit 80 oder 100 Prozent Garantie."}},{"@type":"Question","name":"Ab wann kann ich mir das Geld auszahlen lassen?","acceptedAnswer":{"@type":"Answer","text":"Frühestens mit 65, spätestens mit 70. Möglich sind eine lebenslange Rente oder ein Auszahlplan bis mindestens zum 85. Lebensjahr."}},{"@type":"Question","name":"Können Selbstständige mitmachen?","acceptedAnswer":{"@type":"Answer","text":"Ja, erstmals. Auch Freiberufler, Gewerbetreibende, Beamte und Mitglieder von Versorgungswerken sind zugelassen."}},{"@type":"Question","name":"Was ist die Frühstart-Rente?","acceptedAnswer":{"@type":"Answer","text":"Ein geplantes Programm mit 10 Euro im Monat vom Staat für Kinder von 6 bis 18 Jahren. Ein Gesetz gibt es noch nicht, der Start ist für 2027 vorgesehen."}}]}
 </script>
 
 <script>
 (function(){
+var btns=document.querySelectorAll('.avd-tab-btn');
+btns.forEach(function(b){b.addEventListener('click',function(){var t=this.dataset.tab;btns.forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.avd-tab-panel').forEach(function(p){p.classList.remove('active')});this.classList.add('active');var panel=document.getElementById('tab-'+t);panel.classList.add('active');panel.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')})})});
 var faq=document.getElementById('avdFaq');
 if(faq){faq.querySelectorAll('.avd-faq-q').forEach(function(q){q.addEventListener('click',function(){var item=q.closest('.avd-faq-item');var open=item.classList.contains('open');faq.querySelectorAll('.avd-faq-item.open').forEach(function(x){x.classList.remove('open')});if(!open)item.classList.add('open')})})}
 document.querySelectorAll('.avd a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
 var els=document.querySelectorAll('.avd .reveal');
 if('IntersectionObserver' in window){
-var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){var el=en.target;var sibs=el.parentElement?Array.prototype.indexOf.call(el.parentElement.children,el):0;el.style.transitionDelay=(Math.min(sibs,5)*0.08)+'s';el.classList.add('in');io.unobserve(el)}})},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
 els.forEach(function(el){io.observe(el)});
 }else{els.forEach(function(el){el.classList.add('in')})}
 })();
