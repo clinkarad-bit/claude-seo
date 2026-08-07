@@ -216,6 +216,31 @@
 @media(max-width:840px){.avd-rech{grid-template-columns:1fr;max-width:520px}.avd-rech-in,.avd-rech-out{padding:34px 28px}}
 @media(max-width:560px){.avd-seg{flex-direction:column}.avd-rech-in{padding:28px 20px}.avd-rech-out{padding:32px 22px}.avd-field-top .val{font-size:18px}.avd-rech-out .big{font-size:40px}}
 
+/* RECHNER – MEHR DETAILS (ausklappbar) */
+.avd-more-toggle{display:block;margin:20px auto 0;max-width:1120px;text-align:center}
+.avd-more-btn{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--avd-border);border-radius:12px;padding:13px 22px;font-size:14px;font-weight:800;color:var(--avd-blue);cursor:pointer;transition:border-color .2s,background .2s;font-family:inherit}
+.avd-more-btn:hover{border-color:var(--avd-blue);background:var(--avd-bg)}
+.avd-more-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.avd-more-btn.open svg{transform:rotate(180deg)}
+.avd-more-panel{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.avd-more-panel.open{max-height:3200px}
+.avd-more-in{max-width:1120px;margin:0 auto;padding-top:18px;display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
+@media(max-width:840px){.avd-more-in{grid-template-columns:1fr}}
+.avd-mcard{background:#fff;border:1px solid var(--avd-border);border-radius:20px;overflow:hidden}
+.avd-mcard-hd{padding:16px 22px;border-bottom:1px solid var(--avd-line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.avd-mcard-hd h4{font-size:14.5px;font-weight:800;color:var(--avd-ink);margin:0}
+.avd-mcard-bd{padding:20px 22px}
+.avd-mleg{display:flex;gap:14px;flex-wrap:wrap}
+.avd-mleg-i{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--avd-muted)}
+.avd-mleg-d{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.avd-mchart-wrap{position:relative;height:260px}
+.avd-bkt{width:100%;border-collapse:collapse;font-size:13.5px}
+.avd-bkt th{text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--avd-muted);padding:10px 14px;border-bottom:1px solid var(--avd-border);background:var(--avd-bg)}
+.avd-bkt th.r,.avd-bkt td.r{text-align:right;white-space:nowrap}
+.avd-bkt td{padding:11px 14px;border-bottom:1px solid var(--avd-line);color:var(--avd-body);vertical-align:top}
+.avd-bkt td:first-child{font-weight:600;color:var(--avd-ink)}
+.avd-bkt tr:last-child td{border-bottom:none;background:var(--avd-bg);font-weight:800;color:var(--avd-ink)}
+
 /* FRÜHSTART OVERLAP */
 .avd-fruh-sec{background:#fff;padding:92px 0 0}
 .avd-fruh-sec .avd-fruh{margin-bottom:-72px;position:relative;z-index:3}
@@ -529,6 +554,34 @@
 <a href="https://easyfolio.de/depot" class="avd-btn avd-btn-green" style="width:100%;margin-top:18px">Jetzt Depot eröffnen</a>
 </div>
 </div>
+<div class="avd-more-toggle">
+<button type="button" class="avd-more-btn" id="rMoreBtn" aria-expanded="false">
+<span id="rMoreTxt">Mehr Details anzeigen</span>
+<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+</div>
+<div class="avd-more-panel" id="rMorePanel">
+<div class="avd-more-in">
+<div class="avd-mcard">
+<div class="avd-mcard-hd">
+<h4>Vermögensentwicklung bis zur Rente</h4>
+<div class="avd-mleg">
+<span class="avd-mleg-i"><span class="avd-mleg-d" style="background:#a9c3e8"></span>Eigenbeiträge</span>
+<span class="avd-mleg-i"><span class="avd-mleg-d" style="background:var(--avd-green)"></span>Zulagen</span>
+<span class="avd-mleg-i"><span class="avd-mleg-d" style="background:var(--avd-blue)"></span>Wachstum</span>
+</div>
+</div>
+<div class="avd-mcard-bd"><div class="avd-mchart-wrap"><canvas id="rChart"></canvas></div></div>
+</div>
+<div class="avd-mcard">
+<div class="avd-mcard-hd"><h4>Detaillierte Förderberechnung</h4></div>
+<table class="avd-bkt">
+<thead><tr><th>Position</th><th class="r">pro Jahr</th><th class="r">Gesamt</th></tr></thead>
+<tbody id="rBreakdown"></tbody>
+</table>
+</div>
+</div>
+</div>
 <p class="avd-calc-note">Vereinfachte Modellrechnung auf Basis des Gesetzentwurfs, Stand 2026, nominal und brutto vor Steuern. Die Renditen von 4, 6 und 8 Prozent sind Annahmen (Quelle: Finanztip, justETF), keine Garantie. Die Auszahlung wird später mit dem persönlichen Steuersatz besteuert, die Kaufkraft sinkt durch Inflation. Keine Anlage- oder Steuerberatung.</p>
 </div>
 </section>
@@ -663,6 +716,7 @@ Quellen: Bundesfinanzministerium, Bundesregierung, Deutscher Bundestag, Deutsche
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Was ist das Altersvorsorgedepot?","acceptedAnswer":{"@type":"Answer","text":"Ein staatlich gefördertes Wertpapierdepot für die private Altersvorsorge, in dem Sie renditeorientiert in Fonds und ETFs sparen. Es ist der Nachfolger der Riester-Rente."}},{"@type":"Question","name":"Ab wann gibt es das Altersvorsorgedepot?","acceptedAnswer":{"@type":"Answer","text":"Ab dem 1. Januar 2027 können die geförderten Depots angeboten werden. Neue Riester-Verträge sind ab diesem Datum nicht mehr möglich."}},{"@type":"Question","name":"Wie hoch ist die Grundzulage?","acceptedAnswer":{"@type":"Answer","text":"Auf die ersten 360 Euro Eigenbeitrag im Jahr gibt es 50 Cent je Euro, darüber bis 1.800 Euro weitere 25 Cent je Euro. Insgesamt sind bis zu 540 Euro pro Jahr möglich."}},{"@type":"Question","name":"Wie hoch ist die Kinderzulage?","acceptedAnswer":{"@type":"Answer","text":"Je Kind 100 Prozent Zulage auf bis zu 300 Euro Eigenbeitrag, also maximal 300 Euro pro Kind und Jahr, zusätzlich zur Grundzulage."}},{"@type":"Question","name":"Was kostet das Altersvorsorgedepot?","acceptedAnswer":{"@type":"Answer","text":"Für das Standardprodukt gilt ein Kostendeckel von höchstens 1,0 Prozent Effektivkosten pro Jahr, deutlich günstiger als klassische Riester-Verträge."}},{"@type":"Question","name":"Kann ich frei in ETFs anlegen?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Pflicht zur Beitragsgarantie fällt weg, Sie können bis zu 100 Prozent in Aktien-ETFs investieren. Optional gibt es Produkte mit 80 oder 100 Prozent Garantie."}},{"@type":"Question","name":"Ab wann kann ich mir das Geld auszahlen lassen?","acceptedAnswer":{"@type":"Answer","text":"Frühestens ab 65, spätestens mit 70. Möglich sind eine lebenslange Rente oder ein Auszahlplan bis mindestens zum 85. Lebensjahr, dazu eine Teilentnahme von bis zu 30 Prozent."}},{"@type":"Question","name":"Wie wird die Rente später besteuert?","acceptedAnswer":{"@type":"Answer","text":"Nachgelagert mit dem persönlichen Einkommensteuersatz, der im Ruhestand meist niedriger ist als im Berufsleben. In der Ansparphase bleiben Kursgewinne steuerfrei."}},{"@type":"Question","name":"Was passiert mit meinem bestehenden Riester-Vertrag?","acceptedAnswer":{"@type":"Answer","text":"Er läuft mit Bestandsschutz weiter und wird wie bisher gefördert. Ein Wechsel ins Altersvorsorgedepot ist freiwillig und ab fünf Jahren Laufzeit kostenfrei."}},{"@type":"Question","name":"Was ist die Frühstart-Rente?","acceptedAnswer":{"@type":"Answer","text":"Ein geplantes Modell mit 10 Euro im Monat vom Staat für Kinder von 6 bis 18 Jahren. Ein Gesetz gibt es noch nicht, der Start ist stufenweise für 2027 vorgesehen."}}]}
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
 (function(){
 function fmt(n){return Math.round(n).toLocaleString('de-DE')+' €';}
@@ -670,12 +724,13 @@ function grundzulage(eig){var b=Math.min(eig,1800);return Math.min(b,360)*0.5+Ma
 function endkapital(m,jahre,netto,kinder,be,start){var rm=netto/12,kap=start||0,jb=m*12;for(var j=1;j<=jahre;j++){for(var mo=0;mo<12;mo++){kap=(kap+m)*(1+rm);}var z=grundzulage(jb)+kinder*300;if(j===1&&be)z+=200;kap+=z;}return kap;}
 function fvSparplan(m,jahre,netto,start){var i=netto/12,n=jahre*12;return (start||0)*Math.pow(1+netto,jahre)+m*((Math.pow(1+i,n)-1)/i)*(1+i);}
 function monatsrente(kap,jahre,r){var i=r/12,n=jahre*12;if(n<=0)return kap;return kap*i/(1-Math.pow(1+i,-n));}
+function simYears(m,jahre,netto,kinder,be,start){var rm=netto/12,kap=start||0,jb=m*12,arr=[],cumE=start||0,cumZ=0;for(var j=1;j<=jahre;j++){for(var mo=0;mo<12;mo++){kap=(kap+m)*(1+rm);cumE+=m;}var z=grundzulage(jb)+kinder*300;if(j===1&&be){z+=200;}kap+=z;cumZ+=z;arr.push({j:j,e:cumE,z:cumZ,k:kap});}return arr;}
 
 // RECHNER
 var rM=document.getElementById('rMrate');
 if(rM){
 var rA=document.getElementById('rAge'),rR=document.getElementById('rRet'),rK=document.getElementById('rKids'),rS2=document.getElementById('rStart');
-var brutto=0.06,kosten=0.003;
+var brutto=0.06,kosten=0.003,rChart=null,lastSim=null;
 function readSeg(id){var b=document.querySelector('#'+id+' button.active');return b?parseFloat(b.dataset.v):0;}
 function bindSeg(id,cb){document.querySelectorAll('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#'+id+' button').forEach(function(x){x.classList.remove('active')});this.classList.add('active');cb();});});}
 function calc(){
@@ -701,11 +756,49 @@ function calc(){
   document.getElementById('rGain').textContent=fmt(gain);
   document.getElementById('rVort').textContent='+ '+fmt(mit-ohne);
   document.getElementById('rRente').textContent=fmt(rente);
+  lastSim=simYears(m,jahre,netto,kids,be,start);
+  buildDetails(m,jahre,kids,be,start,grundzulage(m*12),gain,mit);
+}
+function buildDetails(m,jahre,kids,be,start,grundJ,gain,mit){
+  var body=document.getElementById('rBreakdown');
+  if(body){
+    var rows='';
+    if(start>0)rows+='<tr><td>Einmaliger Startbetrag</td><td class="r">–</td><td class="r">'+fmt(start)+'</td></tr>';
+    rows+='<tr><td>Eigenbeitrag</td><td class="r">'+fmt(m*12)+'</td><td class="r">'+fmt(m*12*jahre)+'</td></tr>';
+    rows+='<tr><td>Grundzulage</td><td class="r">'+fmt(grundJ)+'</td><td class="r">'+fmt(grundJ*jahre)+'</td></tr>';
+    if(kids>0)rows+='<tr><td>Kinderzulage ('+kids+' Kind'+(kids>1?'er':'')+')</td><td class="r">'+fmt(kids*300)+'</td><td class="r">'+fmt(kids*300*jahre)+'</td></tr>';
+    if(be)rows+='<tr><td>Berufseinsteiger-Bonus (einmalig)</td><td class="r">200 €</td><td class="r">200 €</td></tr>';
+    rows+='<tr><td>Kursgewinne (nach Kosten)</td><td class="r">–</td><td class="r">'+fmt(gain)+'</td></tr>';
+    rows+='<tr><td>Endkapital mit Förderung</td><td class="r">–</td><td class="r">'+fmt(mit)+'</td></tr>';
+    body.innerHTML=rows;
+  }
+  if(rChart&&lastSim)renderChart();
+}
+function renderChart(){
+  if(typeof Chart==='undefined'||!lastSim)return;
+  var d=lastSim,base=(new Date().getFullYear());
+  var labels=d.map(function(x){return(base+x.j-1).toString();});
+  var eig=d.map(function(x){return Math.round(x.e);});
+  var zul=d.map(function(x){return Math.round(x.z);});
+  var wac=d.map(function(x){return Math.round(Math.max(0,x.k-x.e-x.z));});
+  if(rChart){rChart.data.labels=labels;rChart.data.datasets[0].data=eig;rChart.data.datasets[1].data=zul;rChart.data.datasets[2].data=wac;rChart.update();return;}
+  var ctx=document.getElementById('rChart');if(!ctx)return;
+  rChart=new Chart(ctx.getContext('2d'),{type:'bar',data:{labels:labels,datasets:[
+    {label:'Eigenbeiträge',data:eig,backgroundColor:'#a9c3e8',stack:'s'},
+    {label:'Zulagen',data:zul,backgroundColor:'#7cba3a',stack:'s'},
+    {label:'Wachstum',data:wac,backgroundColor:'#4c79c7',stack:'s'}
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+Math.round(c.raw).toLocaleString('de-DE')+' €';}}}},
+    scales:{x:{stacked:true,grid:{display:false},ticks:{color:'#6b7280',maxTicksLimit:8,font:{size:10}}},
+      y:{stacked:true,grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#6b7280',callback:function(v){return(v/1e3).toFixed(0)+'k €';},font:{size:10}}}}}});
 }
 [rM,rA,rR,rK,rS2].forEach(function(el){el.addEventListener('input',calc);});
 bindSeg('rScen',function(){brutto=readSeg('rScen');calc();});
 bindSeg('rCost',function(){kosten=readSeg('rCost');calc();});
 brutto=readSeg('rScen');kosten=readSeg('rCost');calc();
+// Mehr Details Toggle
+var dMoreBtn=document.getElementById('rMoreBtn'),dMorePanel=document.getElementById('rMorePanel'),dMoreTxt=document.getElementById('rMoreTxt'),dChartInit=false;
+if(dMoreBtn&&dMorePanel){dMoreBtn.addEventListener('click',function(){var open=dMorePanel.classList.toggle('open');dMoreBtn.classList.toggle('open',open);dMoreBtn.setAttribute('aria-expanded',open?'true':'false');dMoreTxt.textContent=open?'Weniger anzeigen':'Mehr Details anzeigen';if(open&&!dChartInit){dChartInit=true;setTimeout(renderChart,60);}});}
 }
 
 // HELP CENTER FILTER + SUCHE + MEHR
