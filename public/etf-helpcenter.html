@@ -1,0 +1,511 @@
+<style>
+.hc{--blue:#4c79c7;--blue-d:#3a5f9a;--green:#7cba3a;--green-d:#6ba832;--ink:#0e1116;--body:#3f4756;--muted:#6b7280;--border:#e3e7ee;--line:#eef1f6;--bg:#f6f8fb;color:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.hc *{margin:0;padding:0;box-sizing:border-box}
+.hc,.hc *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
+.hc h1,.hc h2,.hc h3{font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.hc a{text-decoration:none;color:inherit}
+.hc-wrap{max-width:920px;margin:0 auto;padding:0 40px;width:100%}
+@media(max-width:768px){.hc-wrap{padding:0 22px}}
+@media(max-width:480px){.hc-wrap{padding:0 16px}}
+.hc-kicker{display:inline-block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#bfe08c;margin-bottom:14px}
+.hc-hero{background:var(--blue);color:#fff;text-align:center;padding:82px 0 84px}
+.hc-hero h1{color:#fff;font-size:clamp(30px,4.6vw,46px);line-height:1.1;margin-bottom:16px}
+.hc-hero p{font-size:clamp(16px,2vw,18px);color:rgba(255,255,255,.88);max-width:600px;margin:0 auto;line-height:1.6}
+.hc-main{background:var(--bg);padding:52px 0 80px}
+.hc-search{position:relative;max-width:620px;margin:0 auto 20px}
+.hc-search input{width:100%;padding:16px 18px 16px 50px;border:none;border-radius:14px;font-size:15px;color:var(--ink);background:#fff;outline:none;transition:outline .15s}
+.hc-search input:focus{outline:2px solid var(--blue)}
+.hc-search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:19px;height:19px;fill:var(--muted)}
+.hc-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px}
+.hc-chip{border:none;background:var(--line);color:var(--body);border-radius:999px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:background .18s,color .18s;font-family:inherit}
+.hc-chip:hover{background:#e3e9f3;color:var(--ink)}
+.hc-chip.active{background:var(--blue);color:#fff}
+.hc-selw{display:none;position:relative;max-width:620px;margin:0 auto 40px}
+.hc-sel{width:100%;appearance:none;-webkit-appearance:none;border:none;background:#fff;border-radius:14px;padding:16px 46px 16px 18px;font-size:15px;font-weight:700;color:var(--ink);font-family:inherit;cursor:pointer;outline:none}
+.hc-sel:focus{outline:2px solid var(--blue)}
+.hc-selw svg{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--muted);pointer-events:none}
+@media(max-width:640px){.hc-chips{display:none}.hc-selw{display:block}}
+.hc-cat{margin-bottom:40px}
+.hc-cat-head{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+.hc-cat-ico{width:40px;height:40px;border-radius:11px;background:rgba(76,121,199,.09);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.hc-cat-ico svg{width:22px;height:22px;fill:var(--blue)}
+.hc-cat-head h2{font-size:20px;letter-spacing:-.02em}
+.hc-cat-n{font-size:12px;font-weight:800;color:var(--muted);background:var(--line);border-radius:999px;padding:3px 10px}
+.hc-items{display:flex;flex-direction:column;gap:10px}
+.hc-item{background:#fff;border-radius:14px;overflow:hidden}
+.hc-q{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:19px 22px;font-size:15.5px;font-weight:700;color:var(--ink)}
+.hc-q::-webkit-details-marker{display:none}
+.hc-car{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--line);display:flex;align-items:center;justify-content:center;transition:transform .25s,background .2s}
+.hc-car svg{width:13px;height:13px;fill:var(--muted)}
+.hc-item[open] .hc-car{transform:rotate(180deg);background:var(--blue)}
+.hc-item[open] .hc-car svg{fill:#fff}
+.hc-a{padding:0 22px 22px}
+.hc-a p{font-size:14.5px;color:var(--body);line-height:1.72;margin-bottom:14px}
+.hc-blog{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:800;color:var(--blue)}
+.hc-blog svg{width:15px;height:15px;fill:currentColor;transition:transform .2s}
+.hc-blog:hover svg{transform:translate(2px,-2px)}
+.hc-empty{display:none;text-align:center;color:var(--muted);font-size:15px;padding:50px 0}
+/* CONTACT */
+.hc-contact{background:#fff;border-radius:20px;padding:34px;margin-top:8px;display:flex;align-items:center;gap:26px}
+.hc-ava{width:84px;height:84px;border-radius:50%;flex-shrink:0;object-fit:cover;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;letter-spacing:.02em}
+.hc-ct-body{flex:1;min-width:0}
+.hc-ct-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green-d);margin-bottom:7px}
+.hc-ct-tag svg{width:14px;height:14px;fill:var(--green-d)}
+.hc-contact h3{font-size:20px;margin-bottom:3px}
+.hc-ct-role{font-size:13.5px;color:var(--blue);font-weight:700;margin-bottom:10px}
+.hc-ct-body p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.hc-ct-acts{display:flex;flex-wrap:wrap;gap:10px}
+.hc-ct-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:11px;font-size:13.5px;font-weight:700;background:var(--line);color:var(--ink)}
+.hc-ct-chip.pri{background:var(--blue);color:#fff}
+.hc-ct-chip svg{width:16px;height:16px;fill:currentColor}
+@media(max-width:560px){.hc-contact{flex-direction:column;text-align:center;padding:28px 22px}.hc-ct-acts{justify-content:center}}
+.hc-disc{text-align:center;color:#9aa3b2;font-size:12px;line-height:1.75;max-width:860px;margin:0 auto;padding:40px 24px 56px;background:var(--bg)}
+</style>
+
+<div class="hc">
+<section class="hc-hero"><div class="hc-wrap">
+<span class="hc-kicker">ETF-Helpcenter</span>
+<h1>Alle Antworten rund um ETFs</h1>
+<p>Von den ersten Grundlagen über Kosten und Steuern bis zu Risiken und Strategie. Finden Sie hier verständliche Antworten auf die wichtigsten Fragen rund um ETFs.</p>
+</div></section>
+<section class="hc-main"><div class="hc-wrap">
+<div class="hc-search"><svg viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg><input type="text" id="hcSearch" placeholder="Frage suchen, z. B. „Was kostet ein ETF?" oder „Sparplan"" aria-label="Frage suchen"></div>
+<div class="hc-chips" id="hcChips">
+<button class="hc-chip active" data-f="all" type="button">Alle Themen</button>
+<button class="hc-chip" data-f="grundlagen" type="button">ETF-Grundlagen</button>
+<button class="hc-chip" data-f="einstieg" type="button">Einstieg &amp; erste Schritte</button>
+<button class="hc-chip" data-f="kosten" type="button">Kosten &amp; Gebühren</button>
+<button class="hc-chip" data-f="indizes" type="button">Indizes &amp; Auswahl</button>
+<button class="hc-chip" data-f="risiken" type="button">Risiken &amp; Sicherheit</button>
+<button class="hc-chip" data-f="sparen" type="button">Sparplan &amp; Kaufen</button>
+<button class="hc-chip" data-f="steuern" type="button">Steuern</button>
+<button class="hc-chip" data-f="strategie" type="button">Strategie &amp; Portfolio</button>
+<button class="hc-chip" data-f="nachhaltig" type="button">Nachhaltigkeit</button>
+<button class="hc-chip" data-f="alternativen" type="button">ETF vs. Alternativen</button>
+</div>
+<div class="hc-selw"><select class="hc-sel" id="hcSelect" aria-label="Thema wählen">
+<option value="all">Alle Themen</option>
+<option value="grundlagen">ETF-Grundlagen</option>
+<option value="einstieg">Einstieg &amp; erste Schritte</option>
+<option value="kosten">Kosten &amp; Gebühren</option>
+<option value="indizes">Indizes &amp; Auswahl</option>
+<option value="risiken">Risiken &amp; Sicherheit</option>
+<option value="sparen">Sparplan &amp; Kaufen</option>
+<option value="steuern">Steuern</option>
+<option value="strategie">Strategie &amp; Portfolio</option>
+<option value="nachhaltig">Nachhaltigkeit</option>
+<option value="alternativen">ETF vs. Alternativen</option>
+</select><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></div>
+<div id="hcList">
+<section class="hc-cat" data-cat="grundlagen">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></svg></span><h2>ETF-Grundlagen</h2><span class="hc-cat-n">6</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="grundlagen">
+<summary class="hc-q"><span>Was ist ein ETF einfach erklärt?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ein ETF ist ein börsengehandelter Indexfonds. Er bildet einen ganzen Markt wie den MSCI World eins zu eins nach und kauft automatisch alle enthaltenen Aktien im richtigen Verhältnis. Sie investieren also mit einem einzigen Produkt breit gestreut, ohne selbst einzelne Aktien auszuwählen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-einfach-erklaert" target="_blank" rel="noopener">Passend im Blog: ETF einfach erklärt <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="grundlagen">
+<summary class="hc-q"><span>Was ist der Unterschied zwischen ETF und Fonds?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ein klassischer Fonds wird aktiv von einem Manager verwaltet, der Aktien auswählt und dafür hohe Gebühren nimmt, oft 1,5 bis 2 Prozent pro Jahr. Ein ETF bildet einfach einen Index nach und kostet meist unter 0,3 Prozent. Studien zeigen, dass die meisten aktiven Fonds ihren Index langfristig nicht schlagen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/unterschied-etf-fond" target="_blank" rel="noopener">Passend im Blog: Unterschied ETF und Fonds <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="grundlagen">
+<summary class="hc-q"><span>Wie funktioniert ein ETF?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der Anbieter kauft die Wertpapiere eines Index und gibt Anteile daran an der Börse aus. Steigt der Index, steigt der Wert Ihres Anteils im gleichen Maß. Ihre Anteile können Sie an jedem Börsentag kaufen und wieder verkaufen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/darum-sind-etfs-die-besten-portfolio-manager" target="_blank" rel="noopener">Passend im Blog: Warum ETFs so stark sind <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="grundlagen">
+<summary class="hc-q"><span>Was sind eigentlich Aktien?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Eine Aktie ist ein Anteil an einem Unternehmen. Als Aktionär gehört Ihnen ein winziger Teil der Firma, Sie profitieren von Kursgewinnen und Dividenden. Ein ETF bündelt hunderte oder tausende solcher Aktien in einem einzigen Produkt.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/was-sind-aktien" target="_blank" rel="noopener">Passend im Blog: Was sind Aktien? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="grundlagen">
+<summary class="hc-q"><span>Was ist der Unterschied zwischen ausschüttenden und thesaurierenden ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ein ausschüttender ETF zahlt Dividenden regelmäßig auf Ihr Konto aus. Ein thesaurierender ETF legt sie automatisch wieder an und verstärkt so den Zinseszinseffekt. Für den langfristigen Vermögensaufbau ist die thesaurierende Variante meist die bequemere Wahl.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/thesaurierende-etf" target="_blank" rel="noopener">Passend im Blog: Thesaurierende ETFs erklärt <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="grundlagen">
+<summary class="hc-q"><span>Ist ein ETF dasselbe wie ein Indexfonds?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Im Kern ja. Jeder ETF ist ein Indexfonds, der Unterschied liegt nur darin, dass ein ETF laufend an der Börse gehandelt wird. Klassische Indexfonds kaufen Sie dagegen einmal am Tag zum festgestellten Preis.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/unterschied-etf-fond" target="_blank" rel="noopener">Passend im Blog: ETF, Fonds und Indexfonds <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="einstieg">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M242.63,96.44l-184-64A8,8,0,0,0,48,40V216a8,8,0,0,0,16,0V173.69l178.63-62.13a8,8,0,0,0,0-15.12ZM64,156.75V51.25L215.65,104Z"/></svg></span><h2>Einstieg &amp; erste Schritte</h2><span class="hc-cat-n">7</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Wie fange ich mit ETFs an?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Sie brauchen nur ein Wertpapierdepot, einen passenden Welt-ETF und einen Sparplan. Schon ab 10 Euro im Monat können Sie starten. Wichtig ist, einfach zu beginnen und dranzubleiben, statt auf den perfekten Zeitpunkt zu warten.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/wie-in-etfs-investieren" target="_blank" rel="noopener">Passend im Blog: So investieren Sie in ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Welcher ETF ist der beste für Anfänger?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Für die meisten Einsteiger ist ein breiter Welt-ETF auf den MSCI World oder FTSE All-World die beste Basis. Er enthält über 1.400 Unternehmen aus den Industrieländern und ist schon mit einem Produkt ausreichend gestreut.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/welcher-etf-fuer-anfaenger" target="_blank" rel="noopener">Passend im Blog: Der beste ETF für Anfänger <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Wie viel Geld brauche ich, um in ETFs zu investieren?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Sehr wenig. Die meisten Sparpläne starten bei 10 bis 25 Euro im Monat, bei easyfolio schon ab 10 Euro. Regelmäßigkeit ist wichtiger als die Höhe, denn der Zinseszins arbeitet über die Jahre für Sie.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/wie-viel-geld-in-etfs" target="_blank" rel="noopener">Passend im Blog: Wie viel Geld in ETFs? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Ab welchem Alter sollte man mit dem Investieren beginnen?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>So früh wie möglich, denn Zeit ist der größte Hebel beim Vermögensaufbau. Wer mit 20 statt mit 40 beginnt, erreicht bei gleicher Sparrate oft ein Vielfaches an Endvermögen. Aber auch mit 50 oder 60 lohnt sich der Einstieg noch.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/ab-welchem-alter-investieren" target="_blank" rel="noopener">Passend im Blog: Ab welchem Alter investieren? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Wie viele ETFs sind sinnvoll?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Für die meisten Anleger reicht ein einziger breiter Welt-ETF. Wer gezielt mehr Schwellenländer oder kleinere Unternehmen beimischen möchte, kommt mit zwei bis drei ETFs aus. Mehr sorgt meist nur für Aufwand, nicht für bessere Rendite.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/wie-viele-etfs-sind-sinnvoll" target="_blank" rel="noopener">Passend im Blog: Wie viele ETFs sind sinnvoll? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Was sind typische Anfängerfehler bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Die häufigsten Fehler sind zu häufiges Umschichten, Panikverkäufe bei fallenden Kursen und das Warten auf den perfekten Einstieg. Wer breit streut, günstig kauft und ruhig bleibt, macht fast alles richtig.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-anfaengerfehler" target="_blank" rel="noopener">Passend im Blog: Die häufigsten ETF-Fehler <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="einstieg">
+<summary class="hc-q"><span>Soll ich jetzt oder später mit dem Investieren anfangen?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Historisch war fast jeder Zeitpunkt gut, solange der Anlagehorizont lang genug war. Wer auf den idealen Moment wartet, verpasst meist Rendite. Entscheidend ist die Zeit im Markt, nicht das Timing des Marktes.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/wann-fange-ich-mit-dem-investieren-an" target="_blank" rel="noopener">Passend im Blog: Wann anfangen zu investieren? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="kosten">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg></span><h2>Kosten &amp; Gebühren</h2><span class="hc-cat-n">6</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="kosten">
+<summary class="hc-q"><span>Was kostet ein ETF?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Die laufenden Kosten stecken in der TER, der Gesamtkostenquote. Breite Welt-ETFs liegen meist zwischen 0,1 und 0,3 Prozent pro Jahr. Dazu kommen beim Kauf nur kleine Handelskosten über den Spread.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-kosten" target="_blank" rel="noopener">Passend im Blog: Was kostet ein ETF? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="kosten">
+<summary class="hc-q"><span>Was bedeutet die TER bei einem ETF?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>TER steht für Total Expense Ratio, also die jährliche Gesamtkostenquote. Sie wird automatisch vom Fondsvermögen abgezogen, Sie zahlen sie also nicht separat. Je niedriger die TER, desto mehr Rendite bleibt bei Ihnen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-kosten" target="_blank" rel="noopener">Passend im Blog: TER und ETF-Kosten <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="kosten">
+<summary class="hc-q"><span>Was ist der Spread beim ETF-Kauf?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der Spread ist die Differenz zwischen An- und Verkaufskurs an der Börse. Bei großen Welt-ETFs ist er winzig, oft unter 0,1 Prozent. Am engsten ist der Spread während der Haupthandelszeiten der Börse.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/bid-ask-spread" target="_blank" rel="noopener">Passend im Blog: Bid-Ask-Spread erklärt <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="kosten">
+<summary class="hc-q"><span>Was ist die Tracking Difference?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Die Tracking Difference zeigt, wie stark die tatsächliche Wertentwicklung eines ETFs von seinem Index abweicht. Sie ist oft aussagekräftiger als die TER, weil gute ETFs ihren Index teils sogar leicht übertreffen. Ein Blick darauf lohnt sich vor dem Kauf.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/tracking-difference-etf" target="_blank" rel="noopener">Passend im Blog: Tracking Difference verstehen <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="kosten">
+<summary class="hc-q"><span>Warum sind ETFs günstiger als aktive Fonds?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ein ETF bildet einfach einen Index ab und braucht kein teures Analystenteam. Dadurch sinken die Kosten von oft 1,5 bis 2 Prozent bei aktiven Fonds auf unter 0,3 Prozent. Über 30 Jahre macht dieser Unterschied schnell einen sechsstelligen Betrag aus.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-statt-fondsmanager" target="_blank" rel="noopener">Passend im Blog: ETF statt Fondsmanager <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="kosten">
+<summary class="hc-q"><span>Unterscheiden sich ETFs verschiedener Anbieter in den Kosten?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ja, selbst auf denselben Index gibt es Preisunterschiede. Neben der TER zählen Tracking Difference, Fondsgröße und Handelbarkeit. Ein genauer Vergleich spart über die Jahre echtes Geld.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/fondskosten-etf-anbieter-unterschiede" target="_blank" rel="noopener">Passend im Blog: Kosten der ETF-Anbieter <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="indizes">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.62,87.62,0,0,1-6.4,32.94l-44.7-27.49a15.92,15.92,0,0,0-6.24-2.23l-22.82-3.08a16.11,16.11,0,0,0-16,7.86h-8.72l-3.8-7.86a15.91,15.91,0,0,0-11-8.67l-8-1.73L96.14,104h16.71a16.06,16.06,0,0,0,7.73-2l12.25-6.76a16.62,16.62,0,0,0,3-2.14l26.91-24.34A15.93,15.93,0,0,0,166,49.1l-.36-.65A88.11,88.11,0,0,1,216,128ZM143.31,41.34,152,56.9,125.09,81.24,112.85,88H96.14a16,16,0,0,0-13.88,8l-8.73,15.23L63.38,84.19,74.32,58.32a87.87,87.87,0,0,1,69-17ZM40,128a87.53,87.53,0,0,1,8.54-37.8l11.34,30.27a16,16,0,0,0,11.62,10l21.43,4.61L96.74,143a16.09,16.09,0,0,0,14.4,9h1.48l-7.23,16.23a16,16,0,0,0,2.86,17.37l.14.14L128,205.94l-1.94,10A88.11,88.11,0,0,1,40,128Zm102.58,86.78,1.13-5.81a16.09,16.09,0,0,0-4-13.9,1.85,1.85,0,0,1-.14-.14L120,174.74,133.7,144l22.82,3.08,45.72,28.12A88.18,88.18,0,0,1,142.58,214.78Z"/></svg></span><h2>Indizes &amp; Auswahl</h2><span class="hc-cat-n">7</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>Was ist der MSCI World?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der MSCI World ist ein Aktienindex mit über 1.400 großen Unternehmen aus 23 Industrieländern. Er gilt als Standard für den globalen Vermögensaufbau. Rund 70 Prozent entfallen dabei auf US-Unternehmen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/lohnt-sich-msci-world" target="_blank" rel="noopener">Passend im Blog: Lohnt sich der MSCI World? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>Reicht ein MSCI World ETF allein aus?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Für viele Anleger ja. Ein MSCI World deckt die großen Industrieländer breit ab und hat langfristig rund 7 bis 8 Prozent pro Jahr gebracht. Wer auch Schwellenländer abbilden will, ergänzt ihn um einen Emerging-Markets-ETF oder nimmt direkt einen FTSE All-World.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/reicht-ein-msci-world-etf" target="_blank" rel="noopener">Passend im Blog: Reicht ein MSCI World? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>Was ist der Unterschied zwischen MSCI World und FTSE All-World?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der MSCI World enthält nur Industrieländer, der FTSE All-World zusätzlich die Schwellenländer. Mit dem FTSE All-World decken Sie den Weltmarkt also mit einem einzigen ETF noch breiter ab. Die langfristige Rendite beider liegt eng beieinander.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/msci-world-vs-ftse" target="_blank" rel="noopener">Passend im Blog: MSCI World vs. FTSE All-World <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>Ist der MSCI World zu stark auf Technologie und die USA konzentriert?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der US-Anteil liegt bei rund 70 Prozent, Tech-Werte sind stark vertreten. Das hat die Rendite zuletzt beflügelt, erhöht aber das Klumpenrisiko. Wer gegensteuern will, mischt Schwellenländer oder Europa bei.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/ist-der-msci-world-ein-tech-index" target="_blank" rel="noopener">Passend im Blog: Ist der MSCI World ein Tech-Index? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>Was bringt ein ETF auf Schwellenländer?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Emerging-Markets-ETFs bilden Länder wie China, Indien oder Brasilien ab. Sie bieten höhere Renditechancen, schwanken dafür aber stärker. Als Beimischung von etwa 10 bis 30 Prozent ergänzen sie ein Weltportfolio sinnvoll.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-mit-oder-ohne-schwellenlaender" target="_blank" rel="noopener">Passend im Blog: ETF mit oder ohne Schwellenländer <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>Welche durchschnittliche Rendite hatte der MSCI World?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Langfristig lag die durchschnittliche Rendite bei rund 7 bis 9 Prozent pro Jahr vor Inflation. Einzelne Jahre können deutlich im Minus liegen. Entscheidend ist ein Anlagehorizont von mindestens 10 bis 15 Jahren.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/durchschnittliche-rendite-msci-world" target="_blank" rel="noopener">Passend im Blog: Rendite des MSCI World <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="indizes">
+<summary class="hc-q"><span>S&amp;P 500 oder MSCI World, was ist besser?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der S&amp;P 500 bildet die 500 größten US-Unternehmen ab, der MSCI World streut über 23 Länder. Der S&amp;P 500 war historisch oft renditestärker, der MSCI World ist breiter gestreut. Viele kombinieren daher beides oder wählen bewusst den Weltindex.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/sp-500-durchschnittliche-rendite" target="_blank" rel="noopener">Passend im Blog: Rendite des S&amp;P 500 <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="risiken">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span><h2>Risiken &amp; Sicherheit</h2><span class="hc-cat-n">7</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Wie sicher sind ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>ETFs sind sogenanntes Sondervermögen. Das heißt, Ihr Geld ist bei einer Pleite des Anbieters geschützt und zählt nicht zur Insolvenzmasse. Das Kursrisiko des Marktes tragen Sie aber selbst.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/risikoarm-investieren" target="_blank" rel="noopener">Passend im Blog: Risikoarm investieren <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Kann ich mit einem ETF einen Totalverlust erleiden?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Bei einem breiten Welt-ETF ist ein Totalverlust praktisch ausgeschlossen, dafür müssten tausende Unternehmen weltweit gleichzeitig wertlos werden. Hohe Schwankungen sind normal, ein dauerhafter Komplettverlust ist es nicht.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/totalverlust-etf" target="_blank" rel="noopener">Passend im Blog: Totalverlust bei ETFs? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Was bedeutet Volatilität bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Volatilität beschreibt, wie stark der Kurs schwankt. Ein Aktien-ETF kann in einem Jahr 30 Prozent verlieren und im nächsten ähnlich stark steigen. Über lange Zeiträume gleichen sich diese Schwankungen meist aus.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/volatilitaet-bedeutung" target="_blank" rel="noopener">Passend im Blog: Volatilität verständlich erklärt <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Was passiert mit meinem ETF bei einem Börsencrash?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>In einem Crash fällt der Wert deutlich, oft um 30 bis 50 Prozent. Historisch hat sich der Markt nach jedem Crash wieder erholt und neue Höchststände erreicht. Wer investiert bleibt und weiter spart, kauft in der Krise sogar günstig nach.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/depot-bei-krisen" target="_blank" rel="noopener">Passend im Blog: Depot in Krisenzeiten <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Gibt es ein Währungsrisiko bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ja, wenn der ETF Aktien in Fremdwährung hält, etwa in US-Dollar. Kurzfristig kann der Wechselkurs die Rendite beeinflussen. Auf lange Sicht spielt das Währungsrisiko bei breiten Welt-ETFs aber eine untergeordnete Rolle, eine Absicherung lohnt meist nicht.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-waehrungsrisiko" target="_blank" rel="noopener">Passend im Blog: Währungsrisiko bei ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Stehen wir vor einer ETF-Blase?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Diese Sorge taucht regelmäßig auf. Bisher gibt es keine belastbaren Hinweise, dass ETFs selbst eine Blase erzeugen, sie bilden nur den Markt ab. Teuer bewertet sind eher einzelne Segmente, nicht die ETF-Hülle an sich.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/befinden-wir-uns-in-einer-boersenblase" target="_blank" rel="noopener">Passend im Blog: Sind wir in einer Blase? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="risiken">
+<summary class="hc-q"><span>Warum verlieren manche Anleger trotzdem Geld mit ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Nicht der ETF ist das Problem, sondern das Verhalten. Die meisten Verluste entstehen durch Panikverkäufe im Tief und Käufe im Hoch. Wer einen Plan hat und ihn durchhält, umgeht die teuersten Fehler.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/warum-verlieren-anleger-mit-etfs-geld" target="_blank" rel="noopener">Passend im Blog: Warum Anleger Geld verlieren <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="sparen">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M192,116a12,12,0,1,1-12-12A12,12,0,0,1,192,116ZM152,64H112a8,8,0,0,0,0,16h40a8,8,0,0,0,0-16Zm96,48v32a24,24,0,0,1-24,24h-2.36l-16.21,45.38A16,16,0,0,1,190.36,224H177.64a16,16,0,0,1-15.07-10.62L160.65,208h-57.3l-1.92,5.38A16,16,0,0,1,86.36,224H73.64a16,16,0,0,1-15.07-10.62L46,178.22a87.69,87.69,0,0,1-21.44-48.38A16,16,0,0,0,16,144a8,8,0,0,1-16,0,32,32,0,0,1,24.28-31A88.12,88.12,0,0,1,112,32H216a8,8,0,0,1,0,16H194.61a87.93,87.93,0,0,1,30.17,37c.43,1,.85,2,1.25,3A24,24,0,0,1,248,112Zm-16,0a8,8,0,0,0-8-8h-3.66a8,8,0,0,1-7.64-5.6A71.9,71.9,0,0,0,144,48H112A72,72,0,0,0,58.91,168.64a8,8,0,0,1,1.64,2.71L73.64,208H86.36l3.82-10.69A8,8,0,0,1,97.71,192h68.58a8,8,0,0,1,7.53,5.31L177.64,208h12.72l18.11-50.69A8,8,0,0,1,216,152h8a8,8,0,0,0,8-8Z"/></svg></span><h2>Sparplan &amp; Kaufen</h2><span class="hc-cat-n">6</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="sparen">
+<summary class="hc-q"><span>ETF-Sparplan oder Einmalanlage, was ist besser?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Statistisch bringt eine Einmalanlage über lange Zeiträume meist etwas mehr Rendite, weil das Geld früher investiert ist. Ein Sparplan glättet dafür die Einstiegskurse und nimmt die Angst vor dem falschen Zeitpunkt. Viele kombinieren beides.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-sparplan-oder-einmalanlage" target="_blank" rel="noopener">Passend im Blog: Sparplan oder Einmalanlage? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="sparen">
+<summary class="hc-q"><span>Wie funktioniert der Cost-Average-Effekt?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Beim Sparplan kaufen Sie bei hohen Kursen weniger und bei niedrigen Kursen mehr Anteile. So ergibt sich automatisch ein mittlerer Einstiegspreis. Das nimmt Stress aus dem Timing, ist aber kein Garant für mehr Rendite.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/der-cost-average-effekt" target="_blank" rel="noopener">Passend im Blog: Der Cost-Average-Effekt <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="sparen">
+<summary class="hc-q"><span>Soll ich wöchentlich oder monatlich sparen?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der Unterschied ist langfristig minimal. Entscheidend ist, dass Sie überhaupt regelmäßig sparen. Ein monatlicher Sparplan passt für die meisten am besten zum Gehaltseingang.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-sparplan-woechentlich-oder-monatlich" target="_blank" rel="noopener">Passend im Blog: Wöchentlich oder monatlich sparen? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="sparen">
+<summary class="hc-q"><span>Wann ist der beste Zeitpunkt, um ETFs zu kaufen?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Der beste Zeitpunkt ist meist jetzt. Niemand kann den Markt zuverlässig timen, und wer auf den Tiefpunkt wartet, verpasst oft die stärksten Tage. Entscheidend ist die Zeit im Markt, nicht der perfekte Einstieg.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/wann-etfs-kaufen" target="_blank" rel="noopener">Passend im Blog: Wann ETFs kaufen? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="sparen">
+<summary class="hc-q"><span>Lohnt sich Market Timing bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>In der Praxis fast nie. Wer die zehn besten Börsentage eines Jahrzehnts verpasst, halbiert seine Rendite oft. Diese besten Tage folgen meist direkt auf die schlechtesten, weshalb Dabeibleiben das Timing schlägt.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/market-timing-mit-etfs" target="_blank" rel="noopener">Passend im Blog: Market Timing mit ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="sparen">
+<summary class="hc-q"><span>Ist ein Sparplan mit kleinen Beträgen überhaupt sinnvoll?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ja. Schon 15 oder 25 Euro im Monat summieren sich über Jahrzehnte zu einem spürbaren Vermögen. Dank Zinseszins zählt vor allem die Dauer, nicht die Höhe der Rate.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/ein-sparplan-mit-15-euro-ist-das-sinnvoll" target="_blank" rel="noopener">Passend im Blog: Sparplan mit 15 Euro? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="steuern">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></svg></span><h2>Steuern</h2><span class="hc-cat-n">6</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="steuern">
+<summary class="hc-q"><span>Wie werden ETFs in Deutschland besteuert?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Auf Gewinne und Ausschüttungen fällt die Abgeltungsteuer von 25 Prozent plus Soli und gegebenenfalls Kirchensteuer an. Ein Teil der Erträge bleibt durch die Teilfreistellung steuerfrei. Fällig wird die Steuer erst beim Verkauf oder bei einer Ausschüttung.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/kapitalertragssteuer-rechner" target="_blank" rel="noopener">Passend im Blog: Kapitalertragsteuer berechnen <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="steuern">
+<summary class="hc-q"><span>Was ist die Vorabpauschale bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Die Vorabpauschale ist eine kleine jährliche Steuer auf thesaurierende ETFs ohne Ausschüttung. Sie sorgt dafür, dass der Staat nicht bis zum Verkauf auf Steuern warten muss. Beim späteren Verkauf wird sie verrechnet, Sie zahlen also nicht doppelt.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/vorabpauschale-etf-2026" target="_blank" rel="noopener">Passend im Blog: Vorabpauschale 2026 <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="steuern">
+<summary class="hc-q"><span>Was ist der Freistellungsauftrag und wie hoch ist er?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Mit dem Freistellungsauftrag bleiben Kapitalerträge bis 1.000 Euro pro Jahr steuerfrei, bei Paaren bis 2.000 Euro. Sie erteilen ihn direkt bei Ihrer Bank. Ohne Auftrag zieht die Bank die Steuer sofort ab, Sie holen sie sonst erst über die Steuererklärung zurück.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/freistellungsauftrag-2026" target="_blank" rel="noopener">Passend im Blog: Freistellungsauftrag 2026 <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="steuern">
+<summary class="hc-q"><span>Was bedeutet Teilfreistellung bei Aktien-ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Bei Aktien-ETFs bleiben 30 Prozent der Erträge steuerfrei. Das gleicht aus, dass die Unternehmen im Fonds bereits Steuern zahlen. Sie versteuern am Ende also nur 70 Prozent Ihrer Gewinne.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/die-bedeutung-der-vorabpauschale-besteuerung-auf-etfs-und-fonds" target="_blank" rel="noopener">Passend im Blog: ETF-Besteuerung im Detail <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="steuern">
+<summary class="hc-q"><span>Werden ausschüttende und thesaurierende ETFs unterschiedlich besteuert?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Die Steuerhöhe ist am Ende sehr ähnlich. Beim ausschüttenden ETF zahlen Sie laufend auf die Ausschüttung, beim thesaurierenden über die Vorabpauschale und beim Verkauf. Der Steuervorteil des Thesaurierers ist heute gering.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/ausschuettende-etf" target="_blank" rel="noopener">Passend im Blog: Ausschüttende ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="steuern">
+<summary class="hc-q"><span>Lohnt sich ein ETF-Sparplan für Kinder steuerlich?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ja, denn Kinder haben einen eigenen Steuerfreibetrag. Läuft das Depot auf den Namen des Kindes, bleiben Erträge oft komplett steuerfrei. So lässt sich früh und günstig ein Vermögen aufbauen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/kapitalertraege-kinder-steuerfrei" target="_blank" rel="noopener">Passend im Blog: Kapitalerträge bei Kindern <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="strategie">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z"/></svg></span><h2>Strategie &amp; Portfolio</h2><span class="hc-cat-n">6</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="strategie">
+<summary class="hc-q"><span>Warum ist Diversifikation so wichtig?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Diversifikation verteilt Ihr Geld auf viele Unternehmen, Branchen und Länder. Fällt ein Teil aus, fangen die anderen das ab. Ein breiter Welt-ETF erledigt diese Streuung automatisch mit einem Produkt.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/richtig-diversifizieren-mit-easyfolio" target="_blank" rel="noopener">Passend im Blog: Richtig diversifizieren <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="strategie">
+<summary class="hc-q"><span>Was ist Rebalancing und wie oft sollte ich es machen?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Beim Rebalancing stellen Sie Ihre ursprüngliche Aufteilung wieder her, wenn sie sich durch Kursgewinne verschoben hat. Einmal im Jahr reicht meist völlig. So bleibt Ihr Risiko konstant, ohne dass Sie ständig eingreifen.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/portfolio-rebalancing" target="_blank" rel="noopener">Passend im Blog: Portfolio-Rebalancing <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="strategie">
+<summary class="hc-q"><span>Was ist ein 70/30-Portfolio?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Beim 70/30-Portfolio stecken 70 Prozent in Industrieländern und 30 Prozent in Schwellenländern. Diese Mischung bildet den Weltmarkt nach Wirtschaftskraft ab. Umsetzen lässt sie sich mit zwei ETFs ganz einfach.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etfs-fuer-70-30-portfolio" target="_blank" rel="noopener">Passend im Blog: ETFs für ein 70/30-Portfolio <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="strategie">
+<summary class="hc-q"><span>Was bedeutet Buy and Hold?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Buy and Hold heißt kaufen und langfristig halten, statt ständig zu handeln. Diese Strategie spart Kosten und Nerven und hat historisch die besten Ergebnisse gebracht. Geduld ist beim Investieren oft der stärkste Hebel.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/buy-and-hold-ansatz-vorteile-vom-passiven-investieren" target="_blank" rel="noopener">Passend im Blog: Buy and Hold <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="strategie">
+<summary class="hc-q"><span>Was ist der Home Bias und warum ist er ein Problem?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Home Bias heißt, zu stark auf das eigene Heimatland zu setzen, etwa mit einem reinen DAX-ETF. Das erhöht das Risiko, weil Deutschland nur einen kleinen Teil der Weltwirtschaft ausmacht. Ein globaler ETF streut deutlich besser.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/home-bias-wenn-heimattreue-rendite-kostet" target="_blank" rel="noopener">Passend im Blog: Home Bias vermeiden <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="strategie">
+<summary class="hc-q"><span>Was ist eine Core-Satellite-Strategie?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Beim Core-Satellite-Ansatz bildet ein breiter Welt-ETF den stabilen Kern. Darum legen Sie kleine, gezielte Satelliten, etwa einzelne Branchen oder Regionen. So bleibt das Depot stabil und lässt doch Raum für eigene Akzente.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/so-sinnvoll-ist-eine-core-satellite-strategie" target="_blank" rel="noopener">Passend im Blog: Core-Satellite-Strategie <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="nachhaltig">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49c.57,15.92,5.21,32,13.79,47.85l-19.51,19.5a8,8,0,0,0,11.32,11.32l19.5-19.51C81,210.73,97.09,215.37,113,215.94q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07ZM153.75,189.5c-22.75,13.78-49.68,14-76.71.77l88.63-88.62a8,8,0,0,0-11.32-11.32L65.73,179c-13.19-27-13-54,.77-76.71,22.09-36.47,74.6-56.44,141.31-54.06C210.2,114.89,190.22,167.41,153.75,189.5Z"/></svg></span><h2>Nachhaltigkeit</h2><span class="hc-cat-n">4</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="nachhaltig">
+<summary class="hc-q"><span>Was bedeutet ESG bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>ESG steht für Umwelt, Soziales und gute Unternehmensführung. ESG-ETFs schließen besonders kritische Firmen aus oder gewichten nachhaltige Unternehmen höher. So investieren Sie breit gestreut und zugleich nach Ihren Werten.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/esg-vs-sri-bei-etfs" target="_blank" rel="noopener">Passend im Blog: ESG und SRI bei ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="nachhaltig">
+<summary class="hc-q"><span>Was ist der Unterschied zwischen ESG und SRI?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>ESG bewertet Unternehmen nach Nachhaltigkeitskriterien und gewichtet sie entsprechend. SRI geht strenger vor und schließt ganze Branchen wie Waffen oder Tabak komplett aus. SRI-ETFs sind dadurch fokussierter, aber weniger breit gestreut.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/sri-kriterien-etfs" target="_blank" rel="noopener">Passend im Blog: SRI-Kriterien bei ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="nachhaltig">
+<summary class="hc-q"><span>Wie nachhaltig ist nachhaltiges Investieren wirklich?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Nachhaltige ETFs lenken Kapital in Richtung besserer Unternehmen, sind aber kein Allheilmittel. Die Kriterien unterscheiden sich je nach Anbieter stark. Ein genauer Blick in die Methodik lohnt sich.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/wie-nachhaltig-ist-nachhaltiges-investieren" target="_blank" rel="noopener">Passend im Blog: Wie nachhaltig ist grün? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="nachhaltig">
+<summary class="hc-q"><span>Was ist Greenwashing bei ETFs?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Greenwashing bedeutet, dass ein Produkt grüner wirkt, als es ist. Manche ETFs tragen ein Nachhaltigkeitslabel, enthalten aber trotzdem kritische Konzerne. Prüfen Sie daher die tatsächlichen Positionen und Kriterien.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-greenwashing" target="_blank" rel="noopener">Passend im Blog: Greenwashing bei ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+<section class="hc-cat" data-cat="alternativen">
+<div class="hc-cat-head"><span class="hc-cat-ico"><svg viewBox="0 0 256 256"><path d="M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z"/></svg></span><h2>ETF vs. Alternativen</h2><span class="hc-cat-n">6</span></div>
+<div class="hc-items">
+<details class="hc-item" data-cat="alternativen">
+<summary class="hc-q"><span>ETF oder Festgeld, was ist besser?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Festgeld bietet feste Zinsen ohne Schwankungen, verliert nach Inflation aber oft an Kaufkraft. ETFs schwanken, haben langfristig jedoch deutlich mehr Rendite gebracht. Für kurzfristiges Geld eignet sich Festgeld, für den langfristigen Aufbau der ETF.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/festgeld-oder-etf" target="_blank" rel="noopener">Passend im Blog: Festgeld oder ETF? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="alternativen">
+<summary class="hc-q"><span>ETF oder Tagesgeld?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Tagesgeld ist flexibel und sicher, ideal für den Notgroschen. Für Ziele ab etwa zehn Jahren ist ein ETF meist die bessere Wahl, weil er die Inflation schlägt. Beides ergänzt sich gut.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/tagesgeldkonto-nachteile-vorteile" target="_blank" rel="noopener">Passend im Blog: Tagesgeld: Vor- und Nachteile <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="alternativen">
+<summary class="hc-q"><span>ETF oder einzelne Aktien?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Einzelaktien bieten höhere Chancen, aber auch viel höheres Risiko und mehr Aufwand. Ein ETF streut automatisch über hunderte Firmen und nimmt Ihnen die Auswahl ab. Für die meisten Anleger ist der ETF die entspanntere Basis.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/einzelaktien-vs-etfs-was-soll-ins-portfolio" target="_blank" rel="noopener">Passend im Blog: Einzelaktien vs. ETFs <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="alternativen">
+<summary class="hc-q"><span>ETF oder aktiver Fonds?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Aktive Fonds versprechen, den Markt zu schlagen, schaffen das langfristig aber selten und kosten deutlich mehr. ETFs liefern die Marktrendite zu niedrigen Kosten. Über lange Zeiträume schlägt der günstige ETF die meisten aktiven Fonds.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-statt-fondsmanager" target="_blank" rel="noopener">Passend im Blog: ETF statt Fondsmanager <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="alternativen">
+<summary class="hc-q"><span>ETF oder Krypto?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Kryptowährungen schwanken extrem und eignen sich höchstens als kleine Beimischung. Ein breiter ETF ist dagegen die solide Basis für den langfristigen Vermögensaufbau. In Krypto gehört nur Geld, dessen Verlust Sie verkraften können.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/etf-oder-krypto" target="_blank" rel="noopener">Passend im Blog: ETF oder Krypto? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+<details class="hc-item" data-cat="alternativen">
+<summary class="hc-q"><span>ETF oder Bausparvertrag?</span><span class="hc-car"><svg viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></span></summary>
+<div class="hc-a"><p>Ein Bausparvertrag lohnt fast nur, wenn Sie konkret bauen oder kaufen wollen. Für den reinen Vermögensaufbau sind die Renditen niedrig. Ein ETF-Sparplan bringt langfristig meist deutlich mehr.</p>
+<a class="hc-blog" href="https://easyfolio.de/aktuelles/details/bausparvertrag-oder-etf" target="_blank" rel="noopener">Passend im Blog: Bausparvertrag oder ETF? <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></a></div>
+</details>
+</div>
+</section>
+</div>
+<div class="hc-empty" id="hcEmpty">Keine passende Frage gefunden. Versuchen Sie einen anderen Suchbegriff.</div>
+<div class="hc-contact">
+<!-- Foto von Raoul hier als <img class="hc-ava" src="..."> ersetzen, sobald die Datei-URL vorliegt -->
+<div class="hc-ava">RG</div>
+<div class="hc-ct-body">
+<span class="hc-ct-tag"><svg viewBox="0 0 256 256"><path d="M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z"/></svg> Ihr Ansprechpartner</span>
+<h3>Raoul Göldel</h3>
+<div class="hc-ct-role">easyfolio-Team</div>
+<p>Keine passende Antwort gefunden oder noch unsicher? Schreiben Sie mir, ich helfe Ihnen gern persönlich weiter.</p>
+<div class="hc-ct-acts">
+<a class="hc-ct-chip pri" href="mailto:info@easyfolio.de"><svg viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg> E-Mail schreiben</a>
+<a class="hc-ct-chip" href="tel:+498001230507"><svg viewBox="0 0 256 256"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg> 0800 12305070</a>
+</div>
+</div>
+</div>
+</div></section>
+<div class="hc-disc">Die Inhalte dieses Helpcenters dienen der allgemeinen Information und stellen keine Anlage- oder Steuerberatung dar. Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Ergebnisse. Kapitalanlagen bergen Risiken.<br>easyfolio GmbH · Heidenkampsweg 73 · 20097 Hamburg · 0800 12305070 · info@easyfolio.de</div>
+</div>
+
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Was ist ein ETF einfach erklärt?", "acceptedAnswer": {"@type": "Answer", "text": "Ein ETF ist ein börsengehandelter Indexfonds. Er bildet einen ganzen Markt wie den MSCI World eins zu eins nach und kauft automatisch alle enthaltenen Aktien im richtigen Verhältnis. Sie investieren also mit einem einzigen Produkt breit gestreut, ohne selbst einzelne Aktien auszuwählen."}}, {"@type": "Question", "name": "Was ist der Unterschied zwischen ETF und Fonds?", "acceptedAnswer": {"@type": "Answer", "text": "Ein klassischer Fonds wird aktiv von einem Manager verwaltet, der Aktien auswählt und dafür hohe Gebühren nimmt, oft 1,5 bis 2 Prozent pro Jahr. Ein ETF bildet einfach einen Index nach und kostet meist unter 0,3 Prozent. Studien zeigen, dass die meisten aktiven Fonds ihren Index langfristig nicht schlagen."}}, {"@type": "Question", "name": "Wie funktioniert ein ETF?", "acceptedAnswer": {"@type": "Answer", "text": "Der Anbieter kauft die Wertpapiere eines Index und gibt Anteile daran an der Börse aus. Steigt der Index, steigt der Wert Ihres Anteils im gleichen Maß. Ihre Anteile können Sie an jedem Börsentag kaufen und wieder verkaufen."}}, {"@type": "Question", "name": "Was sind eigentlich Aktien?", "acceptedAnswer": {"@type": "Answer", "text": "Eine Aktie ist ein Anteil an einem Unternehmen. Als Aktionär gehört Ihnen ein winziger Teil der Firma, Sie profitieren von Kursgewinnen und Dividenden. Ein ETF bündelt hunderte oder tausende solcher Aktien in einem einzigen Produkt."}}, {"@type": "Question", "name": "Was ist der Unterschied zwischen ausschüttenden und thesaurierenden ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Ein ausschüttender ETF zahlt Dividenden regelmäßig auf Ihr Konto aus. Ein thesaurierender ETF legt sie automatisch wieder an und verstärkt so den Zinseszinseffekt. Für den langfristigen Vermögensaufbau ist die thesaurierende Variante meist die bequemere Wahl."}}, {"@type": "Question", "name": "Ist ein ETF dasselbe wie ein Indexfonds?", "acceptedAnswer": {"@type": "Answer", "text": "Im Kern ja. Jeder ETF ist ein Indexfonds, der Unterschied liegt nur darin, dass ein ETF laufend an der Börse gehandelt wird. Klassische Indexfonds kaufen Sie dagegen einmal am Tag zum festgestellten Preis."}}, {"@type": "Question", "name": "Wie fange ich mit ETFs an?", "acceptedAnswer": {"@type": "Answer", "text": "Sie brauchen nur ein Wertpapierdepot, einen passenden Welt-ETF und einen Sparplan. Schon ab 10 Euro im Monat können Sie starten. Wichtig ist, einfach zu beginnen und dranzubleiben, statt auf den perfekten Zeitpunkt zu warten."}}, {"@type": "Question", "name": "Welcher ETF ist der beste für Anfänger?", "acceptedAnswer": {"@type": "Answer", "text": "Für die meisten Einsteiger ist ein breiter Welt-ETF auf den MSCI World oder FTSE All-World die beste Basis. Er enthält über 1.400 Unternehmen aus den Industrieländern und ist schon mit einem Produkt ausreichend gestreut."}}, {"@type": "Question", "name": "Wie viel Geld brauche ich, um in ETFs zu investieren?", "acceptedAnswer": {"@type": "Answer", "text": "Sehr wenig. Die meisten Sparpläne starten bei 10 bis 25 Euro im Monat, bei easyfolio schon ab 10 Euro. Regelmäßigkeit ist wichtiger als die Höhe, denn der Zinseszins arbeitet über die Jahre für Sie."}}, {"@type": "Question", "name": "Ab welchem Alter sollte man mit dem Investieren beginnen?", "acceptedAnswer": {"@type": "Answer", "text": "So früh wie möglich, denn Zeit ist der größte Hebel beim Vermögensaufbau. Wer mit 20 statt mit 40 beginnt, erreicht bei gleicher Sparrate oft ein Vielfaches an Endvermögen. Aber auch mit 50 oder 60 lohnt sich der Einstieg noch."}}, {"@type": "Question", "name": "Wie viele ETFs sind sinnvoll?", "acceptedAnswer": {"@type": "Answer", "text": "Für die meisten Anleger reicht ein einziger breiter Welt-ETF. Wer gezielt mehr Schwellenländer oder kleinere Unternehmen beimischen möchte, kommt mit zwei bis drei ETFs aus. Mehr sorgt meist nur für Aufwand, nicht für bessere Rendite."}}, {"@type": "Question", "name": "Was sind typische Anfängerfehler bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Die häufigsten Fehler sind zu häufiges Umschichten, Panikverkäufe bei fallenden Kursen und das Warten auf den perfekten Einstieg. Wer breit streut, günstig kauft und ruhig bleibt, macht fast alles richtig."}}, {"@type": "Question", "name": "Soll ich jetzt oder später mit dem Investieren anfangen?", "acceptedAnswer": {"@type": "Answer", "text": "Historisch war fast jeder Zeitpunkt gut, solange der Anlagehorizont lang genug war. Wer auf den idealen Moment wartet, verpasst meist Rendite. Entscheidend ist die Zeit im Markt, nicht das Timing des Marktes."}}, {"@type": "Question", "name": "Was kostet ein ETF?", "acceptedAnswer": {"@type": "Answer", "text": "Die laufenden Kosten stecken in der TER, der Gesamtkostenquote. Breite Welt-ETFs liegen meist zwischen 0,1 und 0,3 Prozent pro Jahr. Dazu kommen beim Kauf nur kleine Handelskosten über den Spread."}}, {"@type": "Question", "name": "Was bedeutet die TER bei einem ETF?", "acceptedAnswer": {"@type": "Answer", "text": "TER steht für Total Expense Ratio, also die jährliche Gesamtkostenquote. Sie wird automatisch vom Fondsvermögen abgezogen, Sie zahlen sie also nicht separat. Je niedriger die TER, desto mehr Rendite bleibt bei Ihnen."}}, {"@type": "Question", "name": "Was ist der Spread beim ETF-Kauf?", "acceptedAnswer": {"@type": "Answer", "text": "Der Spread ist die Differenz zwischen An- und Verkaufskurs an der Börse. Bei großen Welt-ETFs ist er winzig, oft unter 0,1 Prozent. Am engsten ist der Spread während der Haupthandelszeiten der Börse."}}, {"@type": "Question", "name": "Was ist die Tracking Difference?", "acceptedAnswer": {"@type": "Answer", "text": "Die Tracking Difference zeigt, wie stark die tatsächliche Wertentwicklung eines ETFs von seinem Index abweicht. Sie ist oft aussagekräftiger als die TER, weil gute ETFs ihren Index teils sogar leicht übertreffen. Ein Blick darauf lohnt sich vor dem Kauf."}}, {"@type": "Question", "name": "Warum sind ETFs günstiger als aktive Fonds?", "acceptedAnswer": {"@type": "Answer", "text": "Ein ETF bildet einfach einen Index ab und braucht kein teures Analystenteam. Dadurch sinken die Kosten von oft 1,5 bis 2 Prozent bei aktiven Fonds auf unter 0,3 Prozent. Über 30 Jahre macht dieser Unterschied schnell einen sechsstelligen Betrag aus."}}, {"@type": "Question", "name": "Unterscheiden sich ETFs verschiedener Anbieter in den Kosten?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, selbst auf denselben Index gibt es Preisunterschiede. Neben der TER zählen Tracking Difference, Fondsgröße und Handelbarkeit. Ein genauer Vergleich spart über die Jahre echtes Geld."}}, {"@type": "Question", "name": "Was ist der MSCI World?", "acceptedAnswer": {"@type": "Answer", "text": "Der MSCI World ist ein Aktienindex mit über 1.400 großen Unternehmen aus 23 Industrieländern. Er gilt als Standard für den globalen Vermögensaufbau. Rund 70 Prozent entfallen dabei auf US-Unternehmen."}}, {"@type": "Question", "name": "Reicht ein MSCI World ETF allein aus?", "acceptedAnswer": {"@type": "Answer", "text": "Für viele Anleger ja. Ein MSCI World deckt die großen Industrieländer breit ab und hat langfristig rund 7 bis 8 Prozent pro Jahr gebracht. Wer auch Schwellenländer abbilden will, ergänzt ihn um einen Emerging-Markets-ETF oder nimmt direkt einen FTSE All-World."}}, {"@type": "Question", "name": "Was ist der Unterschied zwischen MSCI World und FTSE All-World?", "acceptedAnswer": {"@type": "Answer", "text": "Der MSCI World enthält nur Industrieländer, der FTSE All-World zusätzlich die Schwellenländer. Mit dem FTSE All-World decken Sie den Weltmarkt also mit einem einzigen ETF noch breiter ab. Die langfristige Rendite beider liegt eng beieinander."}}, {"@type": "Question", "name": "Ist der MSCI World zu stark auf Technologie und die USA konzentriert?", "acceptedAnswer": {"@type": "Answer", "text": "Der US-Anteil liegt bei rund 70 Prozent, Tech-Werte sind stark vertreten. Das hat die Rendite zuletzt beflügelt, erhöht aber das Klumpenrisiko. Wer gegensteuern will, mischt Schwellenländer oder Europa bei."}}, {"@type": "Question", "name": "Was bringt ein ETF auf Schwellenländer?", "acceptedAnswer": {"@type": "Answer", "text": "Emerging-Markets-ETFs bilden Länder wie China, Indien oder Brasilien ab. Sie bieten höhere Renditechancen, schwanken dafür aber stärker. Als Beimischung von etwa 10 bis 30 Prozent ergänzen sie ein Weltportfolio sinnvoll."}}, {"@type": "Question", "name": "Welche durchschnittliche Rendite hatte der MSCI World?", "acceptedAnswer": {"@type": "Answer", "text": "Langfristig lag die durchschnittliche Rendite bei rund 7 bis 9 Prozent pro Jahr vor Inflation. Einzelne Jahre können deutlich im Minus liegen. Entscheidend ist ein Anlagehorizont von mindestens 10 bis 15 Jahren."}}, {"@type": "Question", "name": "S&P 500 oder MSCI World, was ist besser?", "acceptedAnswer": {"@type": "Answer", "text": "Der S&P 500 bildet die 500 größten US-Unternehmen ab, der MSCI World streut über 23 Länder. Der S&P 500 war historisch oft renditestärker, der MSCI World ist breiter gestreut. Viele kombinieren daher beides oder wählen bewusst den Weltindex."}}, {"@type": "Question", "name": "Wie sicher sind ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "ETFs sind sogenanntes Sondervermögen. Das heißt, Ihr Geld ist bei einer Pleite des Anbieters geschützt und zählt nicht zur Insolvenzmasse. Das Kursrisiko des Marktes tragen Sie aber selbst."}}, {"@type": "Question", "name": "Kann ich mit einem ETF einen Totalverlust erleiden?", "acceptedAnswer": {"@type": "Answer", "text": "Bei einem breiten Welt-ETF ist ein Totalverlust praktisch ausgeschlossen, dafür müssten tausende Unternehmen weltweit gleichzeitig wertlos werden. Hohe Schwankungen sind normal, ein dauerhafter Komplettverlust ist es nicht."}}, {"@type": "Question", "name": "Was bedeutet Volatilität bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Volatilität beschreibt, wie stark der Kurs schwankt. Ein Aktien-ETF kann in einem Jahr 30 Prozent verlieren und im nächsten ähnlich stark steigen. Über lange Zeiträume gleichen sich diese Schwankungen meist aus."}}, {"@type": "Question", "name": "Was passiert mit meinem ETF bei einem Börsencrash?", "acceptedAnswer": {"@type": "Answer", "text": "In einem Crash fällt der Wert deutlich, oft um 30 bis 50 Prozent. Historisch hat sich der Markt nach jedem Crash wieder erholt und neue Höchststände erreicht. Wer investiert bleibt und weiter spart, kauft in der Krise sogar günstig nach."}}, {"@type": "Question", "name": "Gibt es ein Währungsrisiko bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, wenn der ETF Aktien in Fremdwährung hält, etwa in US-Dollar. Kurzfristig kann der Wechselkurs die Rendite beeinflussen. Auf lange Sicht spielt das Währungsrisiko bei breiten Welt-ETFs aber eine untergeordnete Rolle, eine Absicherung lohnt meist nicht."}}, {"@type": "Question", "name": "Stehen wir vor einer ETF-Blase?", "acceptedAnswer": {"@type": "Answer", "text": "Diese Sorge taucht regelmäßig auf. Bisher gibt es keine belastbaren Hinweise, dass ETFs selbst eine Blase erzeugen, sie bilden nur den Markt ab. Teuer bewertet sind eher einzelne Segmente, nicht die ETF-Hülle an sich."}}, {"@type": "Question", "name": "Warum verlieren manche Anleger trotzdem Geld mit ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Nicht der ETF ist das Problem, sondern das Verhalten. Die meisten Verluste entstehen durch Panikverkäufe im Tief und Käufe im Hoch. Wer einen Plan hat und ihn durchhält, umgeht die teuersten Fehler."}}, {"@type": "Question", "name": "ETF-Sparplan oder Einmalanlage, was ist besser?", "acceptedAnswer": {"@type": "Answer", "text": "Statistisch bringt eine Einmalanlage über lange Zeiträume meist etwas mehr Rendite, weil das Geld früher investiert ist. Ein Sparplan glättet dafür die Einstiegskurse und nimmt die Angst vor dem falschen Zeitpunkt. Viele kombinieren beides."}}, {"@type": "Question", "name": "Wie funktioniert der Cost-Average-Effekt?", "acceptedAnswer": {"@type": "Answer", "text": "Beim Sparplan kaufen Sie bei hohen Kursen weniger und bei niedrigen Kursen mehr Anteile. So ergibt sich automatisch ein mittlerer Einstiegspreis. Das nimmt Stress aus dem Timing, ist aber kein Garant für mehr Rendite."}}, {"@type": "Question", "name": "Soll ich wöchentlich oder monatlich sparen?", "acceptedAnswer": {"@type": "Answer", "text": "Der Unterschied ist langfristig minimal. Entscheidend ist, dass Sie überhaupt regelmäßig sparen. Ein monatlicher Sparplan passt für die meisten am besten zum Gehaltseingang."}}, {"@type": "Question", "name": "Wann ist der beste Zeitpunkt, um ETFs zu kaufen?", "acceptedAnswer": {"@type": "Answer", "text": "Der beste Zeitpunkt ist meist jetzt. Niemand kann den Markt zuverlässig timen, und wer auf den Tiefpunkt wartet, verpasst oft die stärksten Tage. Entscheidend ist die Zeit im Markt, nicht der perfekte Einstieg."}}, {"@type": "Question", "name": "Lohnt sich Market Timing bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "In der Praxis fast nie. Wer die zehn besten Börsentage eines Jahrzehnts verpasst, halbiert seine Rendite oft. Diese besten Tage folgen meist direkt auf die schlechtesten, weshalb Dabeibleiben das Timing schlägt."}}, {"@type": "Question", "name": "Ist ein Sparplan mit kleinen Beträgen überhaupt sinnvoll?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Schon 15 oder 25 Euro im Monat summieren sich über Jahrzehnte zu einem spürbaren Vermögen. Dank Zinseszins zählt vor allem die Dauer, nicht die Höhe der Rate."}}, {"@type": "Question", "name": "Wie werden ETFs in Deutschland besteuert?", "acceptedAnswer": {"@type": "Answer", "text": "Auf Gewinne und Ausschüttungen fällt die Abgeltungsteuer von 25 Prozent plus Soli und gegebenenfalls Kirchensteuer an. Ein Teil der Erträge bleibt durch die Teilfreistellung steuerfrei. Fällig wird die Steuer erst beim Verkauf oder bei einer Ausschüttung."}}, {"@type": "Question", "name": "Was ist die Vorabpauschale bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Die Vorabpauschale ist eine kleine jährliche Steuer auf thesaurierende ETFs ohne Ausschüttung. Sie sorgt dafür, dass der Staat nicht bis zum Verkauf auf Steuern warten muss. Beim späteren Verkauf wird sie verrechnet, Sie zahlen also nicht doppelt."}}, {"@type": "Question", "name": "Was ist der Freistellungsauftrag und wie hoch ist er?", "acceptedAnswer": {"@type": "Answer", "text": "Mit dem Freistellungsauftrag bleiben Kapitalerträge bis 1.000 Euro pro Jahr steuerfrei, bei Paaren bis 2.000 Euro. Sie erteilen ihn direkt bei Ihrer Bank. Ohne Auftrag zieht die Bank die Steuer sofort ab, Sie holen sie sonst erst über die Steuererklärung zurück."}}, {"@type": "Question", "name": "Was bedeutet Teilfreistellung bei Aktien-ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Bei Aktien-ETFs bleiben 30 Prozent der Erträge steuerfrei. Das gleicht aus, dass die Unternehmen im Fonds bereits Steuern zahlen. Sie versteuern am Ende also nur 70 Prozent Ihrer Gewinne."}}, {"@type": "Question", "name": "Werden ausschüttende und thesaurierende ETFs unterschiedlich besteuert?", "acceptedAnswer": {"@type": "Answer", "text": "Die Steuerhöhe ist am Ende sehr ähnlich. Beim ausschüttenden ETF zahlen Sie laufend auf die Ausschüttung, beim thesaurierenden über die Vorabpauschale und beim Verkauf. Der Steuervorteil des Thesaurierers ist heute gering."}}, {"@type": "Question", "name": "Lohnt sich ein ETF-Sparplan für Kinder steuerlich?", "acceptedAnswer": {"@type": "Answer", "text": "Ja, denn Kinder haben einen eigenen Steuerfreibetrag. Läuft das Depot auf den Namen des Kindes, bleiben Erträge oft komplett steuerfrei. So lässt sich früh und günstig ein Vermögen aufbauen."}}, {"@type": "Question", "name": "Warum ist Diversifikation so wichtig?", "acceptedAnswer": {"@type": "Answer", "text": "Diversifikation verteilt Ihr Geld auf viele Unternehmen, Branchen und Länder. Fällt ein Teil aus, fangen die anderen das ab. Ein breiter Welt-ETF erledigt diese Streuung automatisch mit einem Produkt."}}, {"@type": "Question", "name": "Was ist Rebalancing und wie oft sollte ich es machen?", "acceptedAnswer": {"@type": "Answer", "text": "Beim Rebalancing stellen Sie Ihre ursprüngliche Aufteilung wieder her, wenn sie sich durch Kursgewinne verschoben hat. Einmal im Jahr reicht meist völlig. So bleibt Ihr Risiko konstant, ohne dass Sie ständig eingreifen."}}, {"@type": "Question", "name": "Was ist ein 70/30-Portfolio?", "acceptedAnswer": {"@type": "Answer", "text": "Beim 70/30-Portfolio stecken 70 Prozent in Industrieländern und 30 Prozent in Schwellenländern. Diese Mischung bildet den Weltmarkt nach Wirtschaftskraft ab. Umsetzen lässt sie sich mit zwei ETFs ganz einfach."}}, {"@type": "Question", "name": "Was bedeutet Buy and Hold?", "acceptedAnswer": {"@type": "Answer", "text": "Buy and Hold heißt kaufen und langfristig halten, statt ständig zu handeln. Diese Strategie spart Kosten und Nerven und hat historisch die besten Ergebnisse gebracht. Geduld ist beim Investieren oft der stärkste Hebel."}}, {"@type": "Question", "name": "Was ist der Home Bias und warum ist er ein Problem?", "acceptedAnswer": {"@type": "Answer", "text": "Home Bias heißt, zu stark auf das eigene Heimatland zu setzen, etwa mit einem reinen DAX-ETF. Das erhöht das Risiko, weil Deutschland nur einen kleinen Teil der Weltwirtschaft ausmacht. Ein globaler ETF streut deutlich besser."}}, {"@type": "Question", "name": "Was ist eine Core-Satellite-Strategie?", "acceptedAnswer": {"@type": "Answer", "text": "Beim Core-Satellite-Ansatz bildet ein breiter Welt-ETF den stabilen Kern. Darum legen Sie kleine, gezielte Satelliten, etwa einzelne Branchen oder Regionen. So bleibt das Depot stabil und lässt doch Raum für eigene Akzente."}}, {"@type": "Question", "name": "Was bedeutet ESG bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "ESG steht für Umwelt, Soziales und gute Unternehmensführung. ESG-ETFs schließen besonders kritische Firmen aus oder gewichten nachhaltige Unternehmen höher. So investieren Sie breit gestreut und zugleich nach Ihren Werten."}}, {"@type": "Question", "name": "Was ist der Unterschied zwischen ESG und SRI?", "acceptedAnswer": {"@type": "Answer", "text": "ESG bewertet Unternehmen nach Nachhaltigkeitskriterien und gewichtet sie entsprechend. SRI geht strenger vor und schließt ganze Branchen wie Waffen oder Tabak komplett aus. SRI-ETFs sind dadurch fokussierter, aber weniger breit gestreut."}}, {"@type": "Question", "name": "Wie nachhaltig ist nachhaltiges Investieren wirklich?", "acceptedAnswer": {"@type": "Answer", "text": "Nachhaltige ETFs lenken Kapital in Richtung besserer Unternehmen, sind aber kein Allheilmittel. Die Kriterien unterscheiden sich je nach Anbieter stark. Ein genauer Blick in die Methodik lohnt sich."}}, {"@type": "Question", "name": "Was ist Greenwashing bei ETFs?", "acceptedAnswer": {"@type": "Answer", "text": "Greenwashing bedeutet, dass ein Produkt grüner wirkt, als es ist. Manche ETFs tragen ein Nachhaltigkeitslabel, enthalten aber trotzdem kritische Konzerne. Prüfen Sie daher die tatsächlichen Positionen und Kriterien."}}, {"@type": "Question", "name": "ETF oder Festgeld, was ist besser?", "acceptedAnswer": {"@type": "Answer", "text": "Festgeld bietet feste Zinsen ohne Schwankungen, verliert nach Inflation aber oft an Kaufkraft. ETFs schwanken, haben langfristig jedoch deutlich mehr Rendite gebracht. Für kurzfristiges Geld eignet sich Festgeld, für den langfristigen Aufbau der ETF."}}, {"@type": "Question", "name": "ETF oder Tagesgeld?", "acceptedAnswer": {"@type": "Answer", "text": "Tagesgeld ist flexibel und sicher, ideal für den Notgroschen. Für Ziele ab etwa zehn Jahren ist ein ETF meist die bessere Wahl, weil er die Inflation schlägt. Beides ergänzt sich gut."}}, {"@type": "Question", "name": "ETF oder einzelne Aktien?", "acceptedAnswer": {"@type": "Answer", "text": "Einzelaktien bieten höhere Chancen, aber auch viel höheres Risiko und mehr Aufwand. Ein ETF streut automatisch über hunderte Firmen und nimmt Ihnen die Auswahl ab. Für die meisten Anleger ist der ETF die entspanntere Basis."}}, {"@type": "Question", "name": "ETF oder aktiver Fonds?", "acceptedAnswer": {"@type": "Answer", "text": "Aktive Fonds versprechen, den Markt zu schlagen, schaffen das langfristig aber selten und kosten deutlich mehr. ETFs liefern die Marktrendite zu niedrigen Kosten. Über lange Zeiträume schlägt der günstige ETF die meisten aktiven Fonds."}}, {"@type": "Question", "name": "ETF oder Krypto?", "acceptedAnswer": {"@type": "Answer", "text": "Kryptowährungen schwanken extrem und eignen sich höchstens als kleine Beimischung. Ein breiter ETF ist dagegen die solide Basis für den langfristigen Vermögensaufbau. In Krypto gehört nur Geld, dessen Verlust Sie verkraften können."}}, {"@type": "Question", "name": "ETF oder Bausparvertrag?", "acceptedAnswer": {"@type": "Answer", "text": "Ein Bausparvertrag lohnt fast nur, wenn Sie konkret bauen oder kaufen wollen. Für den reinen Vermögensaufbau sind die Renditen niedrig. Ein ETF-Sparplan bringt langfristig meist deutlich mehr."}}]}
+</script>
+
+<script>
+(function(){
+var list=document.getElementById('hcList');if(!list)return;
+var cats=Array.prototype.slice.call(list.querySelectorAll('.hc-cat'));
+var items=Array.prototype.slice.call(list.querySelectorAll('.hc-item'));
+var chips=document.getElementById('hcChips').querySelectorAll('.hc-chip');
+var sel=document.getElementById('hcSelect');
+var search=document.getElementById('hcSearch');
+var empty=document.getElementById('hcEmpty');
+var curF='all';
+function apply(){
+  var q=(search&&search.value?search.value.toLowerCase().trim():'');
+  var total=0;
+  cats.forEach(function(sec){
+    var catOk=(curF==='all'||sec.getAttribute('data-cat')===curF);
+    var shown=0;
+    sec.querySelectorAll('.hc-item').forEach(function(it){
+      var m=catOk&&(!q||it.textContent.toLowerCase().indexOf(q)>-1);
+      it.style.display=m?'':'none';
+      if(m)shown++;
+    });
+    sec.style.display=shown?'':'none';
+    total+=shown;
+  });
+  if(empty)empty.style.display=total?'none':'block';
+}
+function setF(f){curF=f;chips.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-f')===f);});if(sel&&sel.value!==f)sel.value=f;apply();}
+chips.forEach(function(c){c.addEventListener('click',function(){setF(this.getAttribute('data-f'));});});
+if(sel)sel.addEventListener('change',function(){setF(this.value);});
+if(search)search.addEventListener('input',apply);
+apply();
+})();
+</script>
