@@ -34,6 +34,19 @@
 .rch-select-wrap svg{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--muted);pointer-events:none}
 @media(max-width:640px){.rch-chips{display:none}.rch-select-wrap{display:block}}
 
+/* FEATURED (wichtigste Rechner) */
+.rch-feat-head,.rch-all-head{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);text-align:center;margin-bottom:20px}
+.rch-all-head{margin-top:8px}
+.rch-feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;margin-bottom:50px}
+@media(max-width:400px){.rch-feat-grid{grid-template-columns:1fr}}
+.rch-feat{background:rgba(76,121,199,.07);border-radius:18px;padding:22px;display:flex;align-items:center;gap:16px;transition:transform .2s,background .2s}
+.rch-feat:hover{transform:translateY(-4px);background:rgba(76,121,199,.12)}
+.rch-feat-ico{width:48px;height:48px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rch-feat-ico svg{width:25px;height:25px;fill:var(--blue)}
+.rch-feat-b{display:flex;flex-direction:column;gap:3px;min-width:0}
+.rch-feat-t{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.rch-feat-d{font-size:13px;color:var(--muted);line-height:1.45}
+
 /* GRID */
 .rch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
 @media(max-width:400px){.rch-grid{grid-template-columns:1fr}}
@@ -73,6 +86,18 @@
 <!-- MAIN: Suche, Filter, Grid -->
 <section class="rch-main">
 <div class="rch-wrap">
+
+<div class="rch-feat-head">Die wichtigsten Rechner</div>
+<div class="rch-feat-grid">
+<a class="rch-feat" href="https://easyfolio.de/aktuelles/details/etf-sparplanrechner"><span class="rch-feat-ico"><svg viewBox="0 0 256 256"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg></span><span class="rch-feat-b"><span class="rch-feat-t">ETF-Sparplanrechner</span><span class="rch-feat-d">Aus Ihrer monatlichen Rate wird Vermögen.</span></span></a>
+<a class="rch-feat" href="https://easyfolio.de/aktuelles/details/zinseszinsrechner"><span class="rch-feat-ico"><svg viewBox="0 0 256 256"><path d="M205.66,61.64l-144,144a8,8,0,0,1-11.32-11.32l144-144a8,8,0,0,1,11.32,11.31ZM50.54,101.44a36,36,0,0,1,50.92-50.91h0a36,36,0,0,1-50.92,50.91ZM56,76A20,20,0,1,0,90.14,61.84h0A20,20,0,0,0,56,76ZM216,180a36,36,0,1,1-10.54-25.46h0A35.76,35.76,0,0,1,216,180Zm-16,0a20,20,0,1,0-5.86,14.14A19.87,19.87,0,0,0,200,180Z"/></svg></span><span class="rch-feat-b"><span class="rch-feat-t">Zinseszinsrechner</span><span class="rch-feat-d">Der Zinseszinseffekt über die Jahre.</span></span></a>
+<a class="rch-feat" href="https://easyfolio.de/aktuelles/details/etf-einmalanlage-rechner"><span class="rch-feat-ico"><svg viewBox="0 0 256 256"><path d="M190,192.33a8,8,0,0,1-.63,11.3A80,80,0,0,1,56.4,152H40a8,8,0,0,1,0-16H56V120H40a8,8,0,0,1,0-16H56.4A80,80,0,0,1,189.34,52.37,8,8,0,0,1,178.66,64.3,64,64,0,0,0,72.52,104H136a8,8,0,0,1,0,16H72v16h48a8,8,0,0,1,0,16H72.52a64,64,0,0,0,106.14,39.71A8,8,0,0,1,190,192.33Z"/></svg></span><span class="rch-feat-b"><span class="rch-feat-t">ETF-Einmalanlage-Rechner</span><span class="rch-feat-d">Einmalbetrag über die Laufzeit entwickeln.</span></span></a>
+<a class="rch-feat" href="https://easyfolio.de/aktuelles/details/etf-entnahmerechner-mit-steuern-und-inflation"><span class="rch-feat-ico"><svg viewBox="0 0 256 256"><path d="M24,104H48v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16H208V104h24a8,8,0,0,0,4.19-14.81l-104-64a8,8,0,0,0-8.38,0l-104,64A8,8,0,0,0,24,104Zm40,0H96v64H64Zm80,0v64H112V104Zm48,64H160V104h32ZM128,41.39,203.74,88H52.26ZM248,208a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H240A8,8,0,0,1,248,208Z"/></svg></span><span class="rch-feat-b"><span class="rch-feat-t">ETF-Entnahmerechner</span><span class="rch-feat-d">Entnahmephase mit Steuern und Inflation.</span></span></a>
+<a class="rch-feat" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-rechner"><span class="rch-feat-ico"><svg viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg></span><span class="rch-feat-b"><span class="rch-feat-t">Altersvorsorgedepot-Rechner</span><span class="rch-feat-d">Förderung und Endkapital ab 2027.</span></span></a>
+<a class="rch-feat" href="https://easyfolio.de/aktuelles/details/kapitalertragssteuer-rechner"><span class="rch-feat-ico"><svg viewBox="0 0 256 256"><path d="M244.24,60a8,8,0,0,0-7.75-.4c-42.93,21-73.59,11.16-106,.78-34-10.89-69.25-22.14-117.95,1.64A8,8,0,0,0,8,69.24V189.17a8,8,0,0,0,11.51,7.19c42.93-21,73.59-11.16,106.05-.78,19.24,6.15,38.84,12.42,61,12.42,17.09,0,35.73-3.72,56.91-14.06a8,8,0,0,0,4.49-7.18V66.83A8,8,0,0,0,244.24,60ZM232,181.67c-40.6,18.17-70.25,8.69-101.56-1.32-19.24-6.15-38.84-12.42-61-12.42a122,122,0,0,0-45.4,9V74.33c40.6-18.17,70.25-8.69,101.56,1.32S189.14,96,232,79.09ZM128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144ZM56,96v48a8,8,0,0,1-16,0V96a8,8,0,1,1,16,0Zm144,64V112a8,8,0,1,1,16,0v48a8,8,0,1,1-16,0Z"/></svg></span><span class="rch-feat-b"><span class="rch-feat-t">Kapitalertragssteuer-Rechner</span><span class="rch-feat-d">Steuer auf Ihre Kapitalerträge.</span></span></a>
+</div>
+
+<div class="rch-all-head">Alle Rechner im Überblick</div>
 
 <div class="rch-search">
 <svg viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
