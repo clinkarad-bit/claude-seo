@@ -144,14 +144,16 @@
 /* COMPARISON (cards) */
 .avd-cmp{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:920px;margin:0 auto;align-items:start}
 .avd-cmp-card{background:#fff;border:1px solid var(--avd-border);border-radius:24px;padding:8px 32px 26px}
-.avd-cmp-card.hl{border:2px solid var(--avd-green);box-shadow:0 18px 44px rgba(124,186,58,.15)}
+.avd-cmp-card.hl{border:2px solid var(--avd-green);box-shadow:0 18px 44px rgba(124,186,58,.15);background:linear-gradient(180deg,#f1f8e8,#ffffff 52%)}
 .avd-cmp-head{padding:26px 0 20px;border-bottom:1px solid var(--avd-line);margin-bottom:6px}
 .avd-cmp-head .cap{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--avd-muted)}
 .avd-cmp-head h3{font-size:23px;margin-top:6px;letter-spacing:-.02em}
 .avd-cmp-card.hl .avd-cmp-head h3{color:var(--avd-green-d)}
 .avd-cmp-row{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-bottom:1px solid #f4f6fa}
 .avd-cmp-row:last-child{border-bottom:none}
-.avd-cmp-row svg{width:21px;height:21px;flex-shrink:0;margin-top:1px;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.avd-cmp-row svg{width:22px;height:22px;flex-shrink:0;margin-top:1px}
+.avd-cmp-row svg.neg{fill:#c0c6d0}
+.avd-cmp-row svg.pos{fill:var(--avd-green)}
 .avd-cmp-row small{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#9aa3b2;margin-bottom:3px}
 .avd-cmp-row p{font-size:15.5px;color:var(--avd-ink);font-weight:600;line-height:1.4}
 @media(max-width:760px){.avd-cmp{grid-template-columns:1fr;gap:16px}}
@@ -183,7 +185,8 @@
 @media(max-width:840px){.avd-calc2{grid-template-columns:1fr;gap:36px}.avd-c2chart{height:280px}}
 
 /* RECHNER */
-.avd-rech{display:grid;grid-template-columns:0.94fr 1.06fr;background:#fff;border:1px solid var(--avd-border);border-radius:24px;overflow:hidden;max-width:1120px;margin:0 auto}
+.avd-rech{display:grid;grid-template-columns:0.94fr 1.06fr;background:#fff;border:1px solid var(--avd-border);border-radius:24px;overflow:hidden;max-width:1240px;margin:0 auto}
+.avd-wrap-wide{max-width:1300px}
 .avd-rech-in{padding:42px 40px}
 .avd-field{margin-bottom:26px}
 .avd-field:last-child{margin-bottom:0}
@@ -264,6 +267,9 @@
 .avd-band p{font-size:16.5px;color:rgba(255,255,255,.87);line-height:1.72;max-width:680px;margin:0 auto}
 .avd-band-big{font-size:clamp(56px,9vw,88px);font-weight:900;color:#a9e06a;line-height:1;margin:24px 0 8px;letter-spacing:-.04em}
 .avd-band small{font-size:13.5px;color:rgba(255,255,255,.65);display:block;margin-bottom:26px}
+.avd-bandwrap{padding:44px 0}
+.avd-band.avd-band-round{padding:70px 48px;border-radius:32px}
+@media(max-width:480px){.avd-band.avd-band-round{padding:48px 24px;border-radius:24px}}
 .avd-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px}
 
 /* FRÜHSTART */
@@ -279,13 +285,15 @@
 
 /* ARTIKEL */
 .avd-artikel{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.avd-art{display:flex;flex-direction:column;justify-content:space-between;gap:22px;background:#fff;border:1px solid var(--avd-border);border-radius:18px;padding:28px 26px;min-height:176px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.avd-art{display:flex;flex-direction:column;justify-content:space-between;gap:20px;background:#fff;border:1px solid var(--avd-border);border-radius:20px;padding:34px 30px;min-height:236px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.avd-art-ico{width:56px;height:56px;border-radius:15px;background:rgba(76,121,199,.09);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.avd-art-ico svg{width:29px;height:29px;fill:var(--avd-blue)}
 .avd-art:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(15,23,42,.09);border-color:var(--avd-blue)}
 .avd-art-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--avd-green)}
-.avd-art-tag svg{width:14px;height:14px;stroke:var(--avd-green);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
 .avd-art h3{font-size:17.5px;line-height:1.3;margin-top:9px}
 .avd-art-go{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--avd-blue)}
-.avd-art-go svg{width:17px;height:17px;stroke:var(--avd-blue);stroke-width:2.4;fill:none;transition:transform .2s}
+.avd-art-go svg{width:18px;height:18px;fill:var(--avd-blue);transition:transform .2s}
 .avd-art:hover .avd-art-go svg{transform:translateX(4px)}
 
 /* FAQ */
@@ -461,25 +469,25 @@
 <div class="avd-cmp">
 <div class="avd-cmp-card reveal">
 <div class="avd-cmp-head"><span class="cap">Bis Ende 2026</span><h3>Riester-Rente</h3></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Anlage</small><p>Vorgegebene Garantieprodukte</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Renditechance</small><p>Durch die Garantie gebremst</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Beitragsgarantie</small><p>100 % Pflicht</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Kostendeckel</small><p>Keiner</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Auszahlung</small><p>Lebenslange Verrentung Pflicht</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Teilentnahme</small><p>Kaum möglich</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Selbstständige</small><p>Meist außen vor</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#c0c6d0"><circle cx="12" cy="12" r="9"/><path d="M15 9 9 15M9 9l6 6"/></svg><div><small>Neuabschluss</small><p>Nur noch bis Ende 2026</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Anlage</small><p>Vorgegebene Garantieprodukte</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Renditechance</small><p>Durch die Garantie gebremst</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Beitragsgarantie</small><p>100 % Pflicht</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Kostendeckel</small><p>Keiner</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Auszahlung</small><p>Lebenslange Verrentung Pflicht</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Teilentnahme</small><p>Kaum möglich</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Selbstständige</small><p>Meist außen vor</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="neg"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Neuabschluss</small><p>Nur noch bis Ende 2026</p></div></div>
 </div>
 <div class="avd-cmp-card hl reveal">
 <div class="avd-cmp-head"><span class="cap">Ab 2027</span><h3>Altersvorsorgedepot</h3></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Anlage</small><p>Freie Wahl aus ETFs und Fonds</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Renditechance</small><p>Voll am Aktienmarkt</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Beitragsgarantie</small><p>Freiwillig mit 80, 100 oder ohne</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Kostendeckel</small><p>1,0 % beim Standardprodukt</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Auszahlung</small><p>Auszahlplan oder Rente frei wählbar</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Teilentnahme</small><p>Bis 30 % zu Beginn</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Selbstständige</small><p>Erstmals zugelassen</p></div></div>
-<div class="avd-cmp-row"><svg viewBox="0 0 24 24" stroke="#7cba3a"><path d="M20 6 9 17l-5-5"/></svg><div><small>Neuabschluss</small><p>Ab 1. Januar 2027</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Anlage</small><p>Freie Wahl aus ETFs und Fonds</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Renditechance</small><p>Voll am Aktienmarkt</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Beitragsgarantie</small><p>Freiwillig mit 80, 100 oder ohne</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Kostendeckel</small><p>1,0 % beim Standardprodukt</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Auszahlung</small><p>Auszahlplan oder Rente frei wählbar</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Teilentnahme</small><p>Bis 30 % zu Beginn</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Selbstständige</small><p>Erstmals zugelassen</p></div></div>
+<div class="avd-cmp-row"><svg viewBox="0 0 256 256" class="pos"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><div><small>Neuabschluss</small><p>Ab 1. Januar 2027</p></div></div>
 </div>
 </div>
 </div>
@@ -487,7 +495,7 @@
 
 <!-- RECHNER -->
 <section class="avd-section avd-gray" id="rechner">
-<div class="avd-wrap">
+<div class="avd-wrap avd-wrap-wide">
 <div class="avd-head reveal">
 <span class="avd-kicker">Rechner</span>
 <h2 class="avd-heading">Was wird aus Ihrer monatlichen Sparrate?</h2>
@@ -599,13 +607,15 @@
 </section>
 
 <!-- KOSTEN BAND (full-bleed) -->
-<section class="avd-band">
-<div class="avd-wrap reveal">
+<section class="avd-bandwrap">
+<div class="avd-wrap">
+<div class="avd-band avd-band-round reveal">
 <span class="avd-kicker">Der entscheidende Hebel</span>
 <h2>Bei der Rente entscheiden die Kosten</h2>
 <div class="avd-band-big">rund ⅓</div>
 <small>des Ertrags geht bei 1,0 Prozent Gebühr über 40 Jahre verloren</small>
 <p>Der gesetzliche Deckel von 1,0 Prozent gilt nur für das Standardprodukt. Premiumangebote dürfen teils 1,5 bis 2,5 Prozent verlangen. Ein günstiges ETF-Portfolio ist der Ausgangspunkt für eine ordentliche Rente.</p>
+</div>
 </div>
 </section>
 
@@ -618,26 +628,23 @@
 </div>
 <div class="avd-artikel">
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-rechner">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2"/></svg>Rechner</div><h3>Der Altersvorsorgedepot-Rechner</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+<div><div class="avd-art-ico"><svg viewBox="0 0 256 256"><path d="M80,120h96a8,8,0,0,0,8-8V64a8,8,0,0,0-8-8H80a8,8,0,0,0-8,8v48A8,8,0,0,0,80,120Zm8-48h80v32H88ZM200,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V40A16,16,0,0,0,200,24Zm0,192H56V40H200ZM100,148a12,12,0,1,1-12-12A12,12,0,0,1,100,148Zm40,0a12,12,0,1,1-12-12A12,12,0,0,1,140,148Zm40,0a12,12,0,1,1-12-12A12,12,0,0,1,180,148Zm-80,40a12,12,0,1,1-12-12A12,12,0,0,1,100,188Zm40,0a12,12,0,1,1-12-12A12,12,0,0,1,140,188Zm40,0a12,12,0,1,1-12-12A12,12,0,0,1,180,188Z"/></svg></div><div class="avd-art-tag">Rechner</div><h3>Der Altersvorsorgedepot-Rechner</h3></div>
+<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-steuerlich-absetzbar">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Steuer</div><h3>Ist das Depot steuerlich absetzbar?</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+<div><div class="avd-art-ico"><svg viewBox="0 0 256 256"><path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"/></svg></div><div class="avd-art-tag">Steuer</div><h3>Ist das Depot steuerlich absetzbar?</h3></div>
+<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-riester-gleichzeitig">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M8 7h8m0 0-3-3m3 3-3 3M16 17H8m0 0 3 3m-3-3 3-3"/></svg>Kombination</div><h3>Depot und Riester gleichzeitig?</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+<div><div class="avd-art-ico"><svg viewBox="0 0 256 256"><path d="M213.66,181.66l-32,32a8,8,0,0,1-11.32-11.32L188.69,184H48a8,8,0,0,1,0-16H188.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,213.66,181.66Zm-139.32-64a8,8,0,0,0,11.32-11.32L67.31,88H208a8,8,0,0,0,0-16H67.31L85.66,53.66A8,8,0,0,0,74.34,42.34l-32,32a8,8,0,0,0,0,11.32Z"/></svg></div><div class="avd-art-tag">Kombination</div><h3>Depot und Riester gleichzeitig?</h3></div>
+<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/rueruep-altersvorsorgedepot-gleichzeitig">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M8 7h8m0 0-3-3m3 3-3 3M16 17H8m0 0 3 3m-3-3 3-3"/></svg>Kombination</div><h3>Rürup und Depot gleichzeitig?</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+<div><div class="avd-art-ico"><svg viewBox="0 0 256 256"><path d="M213.66,181.66l-32,32a8,8,0,0,1-11.32-11.32L188.69,184H48a8,8,0,0,1,0-16H188.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,213.66,181.66Zm-139.32-64a8,8,0,0,0,11.32-11.32L67.31,88H208a8,8,0,0,0,0-16H67.31L85.66,53.66A8,8,0,0,0,74.34,42.34l-32,32a8,8,0,0,0,0,11.32Z"/></svg></div><div class="avd-art-tag">Kombination</div><h3>Rürup und Depot gleichzeitig?</h3></div>
+<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-immobilie">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/></svg>Vermögen</div><h3>Altersvorsorgedepot und Immobilie</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+<div><div class="avd-art-ico"><svg viewBox="0 0 256 256"><path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"/></svg></div><div class="avd-art-tag">Vermögen</div><h3>Altersvorsorgedepot und Immobilie</h3></div>
+<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></a>
 <a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-vererben">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>Nachlass</div><h3>Das Depot vererben</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
-<a class="avd-art reveal" href="https://easyfolio.de/aktuelles/details/altersvorsorgedepot-bei-todesfall-von-kontoinhaber">
-<div><div class="avd-art-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>Nachlass</div><h3>Was passiert im Todesfall?</h3></div>
-<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+<div><div class="avd-art-ico"><svg viewBox="0 0 256 256"><path d="M216,72H180.92c.39-.33.79-.65,1.17-1A29.53,29.53,0,0,0,192,49.57,32.62,32.62,0,0,0,158.44,16,29.53,29.53,0,0,0,137,25.91a54.94,54.94,0,0,0-9,14.48,54.94,54.94,0,0,0-9-14.48A29.53,29.53,0,0,0,97.56,16,32.62,32.62,0,0,0,64,49.57,29.53,29.53,0,0,0,73.91,71c.38.33.78.65,1.17,1H40A16,16,0,0,0,24,88v32a16,16,0,0,0,16,16v64a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V136a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM149,36.51a13.69,13.69,0,0,1,10-4.5h.49A16.62,16.62,0,0,1,176,49.08a13.69,13.69,0,0,1-4.5,10c-9.49,8.4-25.24,11.36-35,12.4C137.7,60.89,141,45.5,149,36.51Zm-64.09.36A16.63,16.63,0,0,1,96.59,32h.49a13.69,13.69,0,0,1,10,4.5c8.39,9.48,11.35,25.2,12.39,34.92-9.72-1-25.44-4-34.92-12.39a13.69,13.69,0,0,1-4.5-10A16.6,16.6,0,0,1,84.87,36.87ZM40,88h80v32H40Zm16,48h64v64H56Zm144,64H136V136h64Zm16-80H136V88h80v32Z"/></svg></div><div class="avd-art-tag">Nachlass</div><h3>Das Depot vererben</h3></div>
+<span class="avd-art-go">Zum Artikel<svg viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></a>
 </div>
 </div>
 </section>
