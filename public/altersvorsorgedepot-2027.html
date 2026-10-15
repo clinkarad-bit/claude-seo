@@ -507,7 +507,7 @@
 <div class="avd-scale"><span>18</span><span>62</span></div>
 </div>
 <div class="avd-field">
-<div class="avd-field-top"><label>Renteneintritt</label><span class="val" id="rRetV">mit 67</span></div>
+<div class="avd-field-top"><label>Start der Auszahlphase</label><span class="val" id="rRetV">mit 67</span></div>
 <input type="range" class="avd-slider" id="rRet" min="65" max="70" step="1" value="67">
 <div class="avd-scale"><span>65</span><span>70</span></div>
 </div>
@@ -520,6 +520,11 @@
 <div class="avd-field-top"><label>Einmaliger Startbetrag</label><span class="val" id="rStartV">0 €</span></div>
 <input type="range" class="avd-slider" id="rStart" min="0" max="50000" step="500" value="0">
 <div class="avd-scale"><span>0 €</span><span>50.000 €</span></div>
+</div>
+<div class="avd-field">
+<div class="avd-field-top"><label>Auszahlung bis Alter</label><span class="val" id="rZielV">85 Jahre</span></div>
+<input type="range" class="avd-slider" id="rZiel" min="75" max="100" step="1" value="85">
+<div class="avd-scale"><span>75</span><span>100</span></div>
 </div>
 <div class="avd-field">
 <label class="avd-seglabel">Rendite-Szenario pro Jahr</label>
@@ -536,6 +541,14 @@
 <button type="button" data-v="0.01">Standardprodukt 1,0 %</button>
 </div>
 </div>
+<div class="avd-field">
+<label class="avd-seglabel">Steuersatz im Ruhestand</label>
+<div class="avd-seg" id="rTax">
+<button type="button" data-v="0.15">niedrig 15 %</button>
+<button type="button" class="active" data-v="0.20">mittel 20 %</button>
+<button type="button" data-v="0.25">hoch 25 %</button>
+</div>
+</div>
 </div>
 <div class="avd-rech-out">
 <div class="lbl">Mögliches Endkapital mit Förderung</div>
@@ -550,7 +563,7 @@
 <div class="avd-out-row"><span class="k">Kursgewinne</span><span class="v" id="rGain">584.420 €</span></div>
 <div class="avd-out-row"><span class="k">Fördervorteil</span><span class="v" id="rVort">+ 150.878 €</span></div>
 </div>
-<div class="avd-out-rente"><span class="rl">Grobe Monatsrente<small>Auszahlplan bis 85, brutto</small></span><strong id="rRente">3.900 €</strong></div>
+<div class="avd-out-rente"><span class="rl">Monatsrente, netto<small id="rRenteSub">Auszahlung bis 85, brutto 3.900 €</small></span><strong id="rRente">3.120 €</strong></div>
 <a href="https://easyfolio.de/depot" class="avd-btn avd-btn-green" style="width:100%;margin-top:18px">Jetzt Depot eröffnen</a>
 </div>
 </div>
@@ -582,7 +595,7 @@
 </div>
 </div>
 </div>
-<p class="avd-calc-note">Vereinfachte Modellrechnung auf Basis des Gesetzentwurfs, Stand 2026, nominal und brutto vor Steuern. Die Renditen von 4, 6 und 8 Prozent sind Annahmen (Quelle: Finanztip, justETF), keine Garantie. Die Auszahlung wird später mit dem persönlichen Steuersatz besteuert, die Kaufkraft sinkt durch Inflation. Keine Anlage- oder Steuerberatung.</p>
+<p class="avd-calc-note">Vereinfachte Modellrechnung auf Basis des Gesetzentwurfs, Stand 2026, nominal. Die Renditen von 4, 6 und 8 Prozent sind Annahmen (Quelle: Finanztip, justETF), keine Garantie. In der Auszahlphase wird das Restkapital weiter mit 3 Prozent pro Jahr verzinst und bis zum gewählten Zielalter gleichmäßig ausgezahlt. Die Netto-Monatsrente ergibt sich nach dem gewählten Steuersatz im Ruhestand, die Kaufkraft sinkt durch Inflation. Keine Anlage- oder Steuerberatung.</p>
 </div>
 </section>
 
@@ -736,11 +749,13 @@ function bindSeg(id,cb){document.querySelectorAll('#'+id+' button').forEach(func
 function calc(){
   var m=+rM.value,age=+rA.value,ret=+rR.value,kids=+rK.value,start=+rS2.value;
   if(ret<=age){ret=age+1;}
+  var ziel=+document.getElementById('rZiel').value; if(ziel<=ret){ziel=ret+1;}
+  var tax=readSeg('rTax');
   var jahre=ret-age, be=age<25, netto=Math.max(0.001,brutto-kosten);
   var mit=endkapital(m,jahre,netto,kids,be,start), ohne=fvSparplan(m,jahre,netto,start);
   var eigen=start+m*12*jahre, zula=jahre*(grundzulage(m*12)+kids*300)+(be?200:0), gain=Math.max(0,mit-eigen-zula);
   var zulaJahr=grundzulage(m*12)+kids*300, real=mit/Math.pow(1.02,jahre);
-  var rentejahre=Math.max(1,85-ret), rente=monatsrente(mit,rentejahre,0.03);
+  var rentejahre=Math.max(1,ziel-ret), renteBrutto=monatsrente(mit,rentejahre,0.03), renteNetto=renteBrutto*(1-tax);
   document.getElementById('rMrateV').textContent=m+' €';
   document.getElementById('rAgeV').textContent=age+' Jahre';
   document.getElementById('rRetV').textContent='mit '+ret;
@@ -755,7 +770,9 @@ function calc(){
   document.getElementById('rZulaJ').textContent=fmt(zulaJahr);
   document.getElementById('rGain').textContent=fmt(gain);
   document.getElementById('rVort').textContent='+ '+fmt(mit-ohne);
-  document.getElementById('rRente').textContent=fmt(rente);
+  document.getElementById('rRente').textContent=fmt(renteNetto);
+  document.getElementById('rRenteSub').textContent='Auszahlung bis '+ziel+' · brutto '+fmt(renteBrutto);
+  document.getElementById('rZielV').textContent=ziel+' Jahre';
   lastSim=simYears(m,jahre,netto,kids,be,start);
   buildDetails(m,jahre,kids,be,start,grundzulage(m*12),gain,mit);
 }
@@ -792,9 +809,10 @@ function renderChart(){
     scales:{x:{stacked:true,grid:{display:false},ticks:{color:'#6b7280',maxTicksLimit:8,font:{size:10}}},
       y:{stacked:true,grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#6b7280',callback:function(v){return(v/1e3).toFixed(0)+'k €';},font:{size:10}}}}}});
 }
-[rM,rA,rR,rK,rS2].forEach(function(el){el.addEventListener('input',calc);});
+[rM,rA,rR,rK,rS2,document.getElementById('rZiel')].forEach(function(el){el.addEventListener('input',calc);});
 bindSeg('rScen',function(){brutto=readSeg('rScen');calc();});
 bindSeg('rCost',function(){kosten=readSeg('rCost');calc();});
+bindSeg('rTax',calc);
 brutto=readSeg('rScen');kosten=readSeg('rCost');calc();
 // Mehr Details Toggle
 var dMoreBtn=document.getElementById('rMoreBtn'),dMorePanel=document.getElementById('rMorePanel'),dMoreTxt=document.getElementById('rMoreTxt'),dChartInit=false;
