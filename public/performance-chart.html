@@ -1,80 +1,122 @@
 <style>
-/* ===== easyfolio Performance-Chart (Dashboard-Widget) ===== */
-.pfc{--blue:#4c79c7;--green:#7cba3a;--green-t:#5f9e2c;--red:#e0544a;--ink:#0e1116;--body:#4b5260;--muted:#9aa1ad;--soft:#f3f4f6;color:var(--body);-webkit-font-smoothing:antialiased;max-width:960px;margin:0 auto}
+/* ===== easyfolio Performance-Chart ===== */
+.pfc{--blue:#4c79c7;--green-t:#5f9e2c;--red:#e0544a;--ink:#0e1116;--body:#4b5260;--muted:#8a92a0;--track:#f1f3f6;--pop:#eceff3;color:var(--body);-webkit-font-smoothing:antialiased;max-width:1080px;margin:0 auto;padding:64px 20px}
 .pfc *{margin:0;padding:0;box-sizing:border-box}
 .pfc,.pfc *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
-.pfc-card{background:#fff;border-radius:18px;padding:22px 24px 14px}
-.pfc-top{display:flex;align-items:center;justify-content:space-between;gap:12px 16px;flex-wrap:wrap}
-.pfc-title{font-size:15.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.pfc-tfs{display:flex;flex-wrap:wrap;gap:4px}
-.pfc-tf{flex-shrink:0;border:none;background:var(--soft);color:#5b6370;border-radius:7px;padding:5px 9px;font-size:12px;font-weight:600;line-height:1.3;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s}
-.pfc-tf:hover{background:#e8eaee;color:var(--ink)}
-.pfc-tf.active{background:var(--blue);color:#fff}
-.pfc-tf:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
-.pfc-tf-cal{display:inline-flex;align-items:center;gap:5px}
-.pfc-tf-cal svg{width:13px;height:13px;fill:currentColor}
-/* custom range */
-.pfc-range{display:none;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--soft);border-radius:12px;padding:12px 14px;margin-top:12px}
-.pfc-range.open{display:flex}
-.pfc-range-f{display:flex;flex-direction:column;gap:4px}
-.pfc-range-f label{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.pfc-range-f input{border:none;background:#fff;border-radius:8px;padding:8px 10px;font-size:13px;color:var(--ink);font-family:inherit;outline:none}
-.pfc-range-f input:focus{outline:2px solid var(--blue)}
-.pfc-range-btn{border:none;background:var(--blue);color:#fff;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit}
-.pfc-range-note{font-size:12px;color:var(--red);font-weight:600;align-self:center}
-/* legend */
-.pfc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 2px;font-size:13px}
-.pfc-leg{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-.pfc-leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.pfc-leg-n{color:#4b5260;font-weight:600}
-.pfc-leg-v{font-weight:700;font-variant-numeric:tabular-nums}
-.pfc-leg-v.up{color:var(--green-t)}.pfc-leg-v.down{color:var(--red)}
-/* chart + tooltip */
-.pfc-chart{position:relative;height:330px;margin-top:8px}
+.pfc-card{background:#fff;border-radius:24px;padding:32px 34px 22px}
+/* Kopf */
+.pfc-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"ttl seg cal";align-items:end;gap:16px 10px}
+.pfc-ttl{grid-area:ttl;min-width:0}
+.pfc-ttl h3{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.025em;line-height:1.15}
+.pfc-sub{font-size:13px;font-weight:600;color:var(--muted);margin-top:6px;height:18px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+/* Zeitraum-Leiste mit gleitendem Aktiv-Balken */
+.pfc-seg{grid-area:seg;position:relative;display:flex;background:var(--track);border-radius:14px;padding:4px;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.pfc-seg::-webkit-scrollbar{display:none}
+.pfc-ind{position:absolute;top:4px;bottom:4px;left:0;width:0;opacity:0;background:var(--blue);border-radius:10px;z-index:0;transition:transform .38s cubic-bezier(.2,.8,.2,1),width .38s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.pfc-ind.no-anim{transition:none}
+.pfc-sb{position:relative;z-index:1;flex-shrink:0;border:none;background:transparent;color:#5b6370;border-radius:10px;padding:10px 17px;font-size:13px;font-weight:700;line-height:1.2;cursor:pointer;font-family:inherit;white-space:nowrap;transition:color .25s}
+.pfc-sb:hover{color:var(--ink)}
+.pfc-sb.active,.pfc-sb.active:hover{color:#fff}
+.pfc-sb:focus-visible,.pfc-cal:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.pfc-sb .s{display:none}
+/* Eigener Zeitraum */
+.pfc-calw{grid-area:cal;position:relative}
+.pfc-cal{display:inline-flex;align-items:center;gap:7px;border:none;background:var(--track);color:#5b6370;border-radius:14px;padding:14px 17px;font-size:13px;font-weight:700;line-height:1.2;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .2s,color .2s}
+.pfc-cal svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+.pfc-cal:hover{color:var(--ink)}
+.pfc-cal.active,.pfc-cal.active:hover{background:var(--blue);color:#fff}
+.pfc-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:30;display:none;flex-wrap:wrap;align-items:flex-end;gap:10px;width:max-content;max-width:min(380px,calc(100vw - 32px));background:var(--pop);border-radius:16px;padding:14px}
+.pfc-pop.open{display:flex}
+.pfc-pf{display:flex;flex-direction:column;gap:5px}
+.pfc-pf label{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.pfc-pf input{border:none;background:#fff;border-radius:10px;padding:9px 11px;font-size:13.5px;color:var(--ink);font-family:inherit;outline:none}
+.pfc-pf input:focus{outline:2px solid var(--blue)}
+.pfc-pbtn{border:none;background:var(--blue);color:#fff;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
+.pfc-perr{flex-basis:100%;font-size:12px;font-weight:600;color:var(--red);display:none}
+/* Kennzahlen mit rollenden Ziffern */
+.pfc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.pfc-st{min-width:0}
+.pfc-st-n{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pfc-st-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pfc-st-v{margin-top:6px;font-size:25px;font-weight:800;letter-spacing:-.02em;height:1.15em;line-height:1.15em;color:var(--ink);transition:color .3s}
+.pfc-st-v.up{color:var(--green-t)}.pfc-st-v.down{color:var(--red)}
+.odo{display:inline-flex;height:1.15em;line-height:1.15em;overflow:hidden;white-space:nowrap;font-variant-numeric:tabular-nums}
+.odo-c,.odo-d{display:inline-block;height:1.15em;line-height:1.15em;vertical-align:top}
+.odo-d{overflow:hidden}
+.odo-s{display:block;transition:transform .85s cubic-bezier(.2,.8,.2,1)}
+.odo-s span{display:block;height:1.15em}
+.odo.no-anim .odo-s{transition:none}
+/* Chart */
+.pfc-chart{position:relative;height:360px;margin-top:24px}
+.pfc-chart canvas.pfc-fade{animation:pfcFade .34s ease-out}
+@keyframes pfcFade{from{opacity:.2}to{opacity:1}}
 .pfc-tip{position:absolute;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .12s;background:#2b2d31;color:#fff;border-radius:10px;padding:9px 11px 7px;min-width:172px;z-index:5}
 .pfc-tip-d{font-size:10.5px;color:#a3a7ae;margin-bottom:5px}
 .pfc-tip-r{display:flex;align-items:center;gap:7px;font-size:12px;line-height:1.75}
 .pfc-tip-bar{width:3px;height:11px;border-radius:2px;flex-shrink:0}
 .pfc-tip-n{flex:1;color:#e4e6e9}
 .pfc-tip-v{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;padding-left:12px}
-@media(max-width:560px){.pfc-card{padding:18px 14px 10px;border-radius:16px}.pfc-chart{height:260px}.pfc-top{flex-direction:column;align-items:flex-start}}
+@media(max-width:760px){
+.pfc{padding:40px 14px}
+.pfc-card{padding:22px 16px 14px;border-radius:20px}
+.pfc-head{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ttl cal" "seg seg";align-items:center}
+.pfc-ttl h3{font-size:22px}
+.pfc-seg{width:100%}
+.pfc-sb{flex:1 1 auto;padding:9px 8px}
+.pfc-sb .l{display:none}.pfc-sb .s{display:inline}
+.pfc-cal{padding:11px 12px}
+.pfc-cal .t{display:none}
+.pfc-stats{gap:10px;margin-top:22px}
+.pfc-st-v{font-size:19px}
+.pfc-chart{height:280px;margin-top:18px}
+}
+@media(prefers-reduced-motion:reduce){.pfc-ind,.odo-s,.pfc-st-v,.pfc-sb{transition:none}.pfc-chart canvas.pfc-fade{animation:none}}
 </style>
 
 <div class="pfc">
 <div class="pfc-card">
 
-<div class="pfc-top">
-<div class="pfc-title">Performance</div>
-<div class="pfc-tfs" id="pfcTf" role="group" aria-label="Zeitraum">
-<button class="pfc-tf" data-r="1m" type="button" title="1 Monat">1M</button>
-<button class="pfc-tf" data-r="6m" type="button" title="6 Monate">6M</button>
-<button class="pfc-tf" data-r="ytd" type="button" title="Seit Jahresbeginn">YTD</button>
-<button class="pfc-tf active" data-r="1y" type="button" title="1 Jahr">1J</button>
-<button class="pfc-tf" data-r="3y" type="button" title="3 Jahre">3J</button>
-<button class="pfc-tf" data-r="5y" type="button" title="5 Jahre">5J</button>
-<button class="pfc-tf" data-r="10y" type="button" title="10 Jahre">10J</button>
-<button class="pfc-tf" data-r="max" type="button" title="Seit Auflage">Seit Auflage</button>
-<button class="pfc-tf pfc-tf-cal" data-r="custom" type="button" title="Eigener Zeitraum"><svg viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg> Zeitraum</button>
+<div class="pfc-head">
+<div class="pfc-ttl">
+<h3>Performance</h3>
+<div class="pfc-sub" id="pfcSub">&nbsp;</div>
 </div>
+<div class="pfc-seg" id="pfcSeg" role="group" aria-label="Zeitraum">
+<span class="pfc-ind" id="pfcInd" aria-hidden="true"></span>
+<button class="pfc-sb" data-r="1m" type="button" title="1 Monat">1M</button>
+<button class="pfc-sb" data-r="6m" type="button" title="6 Monate">6M</button>
+<button class="pfc-sb" data-r="ytd" type="button" title="Seit Jahresbeginn">YTD</button>
+<button class="pfc-sb active" data-r="1y" type="button" title="1 Jahr">1J</button>
+<button class="pfc-sb" data-r="3y" type="button" title="3 Jahre">3J</button>
+<button class="pfc-sb" data-r="5y" type="button" title="5 Jahre">5J</button>
+<button class="pfc-sb" data-r="10y" type="button" title="10 Jahre">10J</button>
+<button class="pfc-sb" data-r="max" type="button" title="Seit Auflage"><span class="l">Seit Auflage</span><span class="s">Max</span></button>
 </div>
-
-<div class="pfc-range" id="pfcRange">
-<div class="pfc-range-f"><label for="pfcFrom">Von</label><input type="date" id="pfcFrom"></div>
-<div class="pfc-range-f"><label for="pfcTo">Bis</label><input type="date" id="pfcTo"></div>
-<button class="pfc-range-btn" id="pfcApply" type="button">Anwenden</button>
-<span class="pfc-range-note" id="pfcErr" style="display:none">Bitte gültigen Zeitraum wählen.</span>
+<div class="pfc-calw" id="pfcCalW">
+<button class="pfc-cal" id="pfcCal" type="button" title="Eigener Zeitraum" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg><span class="t">Zeitraum</span></button>
+<div class="pfc-pop" id="pfcPop">
+<div class="pfc-pf"><label for="pfcFrom">Von</label><input type="date" id="pfcFrom"></div>
+<div class="pfc-pf"><label for="pfcTo">Bis</label><input type="date" id="pfcTo"></div>
+<button class="pfc-pbtn" id="pfcApply" type="button">Anwenden</button>
+<div class="pfc-perr" id="pfcErr">Bitte einen gültigen Zeitraum wählen.</div>
 </div>
-
-<div class="pfc-legend" id="pfcLegend"></div>
-
-<div class="pfc-chart"><canvas id="pfcChart" aria-label="Wertentwicklung easyfolio 30, 50 und 70, indexiert auf 100" role="img"></canvas><div class="pfc-tip" id="pfcTip"></div></div>
-
 </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<div class="pfc-stats">
+<div class="pfc-st"><div class="pfc-st-n"><span class="pfc-st-dot" style="background:#9fb0cc"></span>easyfolio 30</div><div class="pfc-st-v" id="pfcW0"><span class="odo" id="pfcV0"></span></div></div>
+<div class="pfc-st"><div class="pfc-st-n"><span class="pfc-st-dot" style="background:#7cba3a"></span>easyfolio 50</div><div class="pfc-st-v" id="pfcW1"><span class="odo" id="pfcV1"></span></div></div>
+<div class="pfc-st"><div class="pfc-st-n"><span class="pfc-st-dot" style="background:#4c79c7"></span>easyfolio 70</div><div class="pfc-st-v" id="pfcW2"><span class="odo" id="pfcV2"></span></div></div>
+</div>
+
+<div class="pfc-chart"><canvas id="pfcChart" role="img" aria-label="Wertentwicklung easyfolio 30, 50 und 70, indexiert auf 100"></canvas><div class="pfc-tip" id="pfcTip"></div></div>
+
+</div>
+</div>
+
 <script>
 (function(){
+var CJS='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
 var MON=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 var rnd=mulberry32(284);
@@ -88,8 +130,8 @@ while(d<=TODAY){var wd=d.getDay();if(wd!==0&&wd!==6)dates.push(new Date(d));d.se
 var N=dates.length;
 var MODELS=[
  {name:'easyfolio 30',mu:0.045,vol:0.050,color:'#9fb0cc',dash:[5,4],w:1.8,order:2},
- {name:'easyfolio 50',mu:0.066,vol:0.082,color:'#7cba3a',dash:[],w:2,order:1},
- {name:'easyfolio 70',mu:0.088,vol:0.112,color:'#4c79c7',dash:[],w:2.3,order:0}
+ {name:'easyfolio 50',mu:0.066,vol:0.082,color:'#7cba3a',dash:[],w:2.1,order:1},
+ {name:'easyfolio 70',mu:0.088,vol:0.112,color:'#4c79c7',dash:[],w:2.4,order:0}
 ];
 var S=MODELS.map(function(){return new Float64Array(N);});
 MODELS.forEach(function(m,mi){S[mi][0]=100;});
@@ -97,6 +139,7 @@ for(var i=1;i<N;i++){var zc=randn();for(var mi=0;mi<MODELS.length;mi++){var m=MO
 
 // ---- Helfer ----
 function idxFromDate(dt){for(var i=0;i<N;i++){if(dates[i]>=dt)return i;}return N-1;}
+function idxUpTo(dt){for(var k=N-1;k>=0;k--){if(dates[k]<=dt)return k;}return 0;}
 function startForRange(r){var e=TODAY,s=new Date(e);
   if(r==='1m')s.setMonth(s.getMonth()-1);else if(r==='6m')s.setMonth(s.getMonth()-6);
   else if(r==='ytd')s=new Date(e.getFullYear(),0,1);else if(r==='1y')s.setFullYear(s.getFullYear()-1);
@@ -106,40 +149,50 @@ function startForRange(r){var e=TODAY,s=new Date(e);
 function fmtPct(x,dec){return(x>=0?'+':'−')+Math.abs(x).toFixed(dec).replace('.',',')+' %';}
 function fmtNum(v){return String(Math.round(v*100)/100).replace('.',',');}
 function fmtDay(dt){return dt.getDate()+'. '+MON[dt.getMonth()]+' '+dt.getFullYear();}
-
-// Achsenbeschriftung: nur an Monats-, Halbjahres- oder Jahreswechseln, je nach Zeitraum
 function buildLabels(ds,span,maxN){
   var mode=span<=45?'day':(span<=400?'month':(span<=1300?'half':'year'));
-  var out=ds.map(function(dt,k){
-    var pd=k>0?ds[k-1]:null;
+  var out=ds.map(function(dt,k){var pd=k>0?ds[k-1]:null;
     if(mode==='day'){return(k%Math.max(1,Math.round(ds.length/6))===0)?dt.getDate()+'. '+MON[dt.getMonth()]:'';}
     if(mode==='month'){if(k===0)return dt.getDate()<=7?MON[dt.getMonth()]:'';return dt.getMonth()!==pd.getMonth()?MON[dt.getMonth()]:'';}
     if(k===0)return'';
     if(mode==='half'){return(dt.getMonth()!==pd.getMonth()&&(dt.getMonth()===0||dt.getMonth()===6))?MON[dt.getMonth()]+' '+String(dt.getFullYear()).slice(2):'';}
-    return dt.getFullYear()!==pd.getFullYear()?''+dt.getFullYear():'';
-  });
+    return dt.getFullYear()!==pd.getFullYear()?''+dt.getFullYear():'';});
   var on=[];out.forEach(function(l,k){if(l)on.push(k);});
   if(on.length>maxN){var st=Math.ceil(on.length/maxN);on.forEach(function(k,j){if(j%st!==0)out[k]='';});}
   return out;
 }
 
-// Fadenkreuz-Linie beim Hover
+// ---- Rollende Ziffern ----
+var DIG='';for(var q=0;q<10;q++)DIG+='<span>'+q+'</span>';
+function isD(c){return c>='0'&&c<='9';}
+function odo(el,str){
+  var prev=el._s||'';
+  var same=prev.length===str.length&&prev.replace(/\d/g,'0')===str.replace(/\d/g,'0');
+  if(!same){
+    var off=str.length-prev.length,h='';
+    for(var k=0;k<str.length;k++){var c=str.charAt(k);
+      if(isD(c)){var pc=prev.charAt(k-off);var st=isD(pc)?+pc:0;h+='<span class="odo-d"><span class="odo-s" style="transform:translateY(-'+(st*10)+'%)">'+DIG+'</span></span>';}
+      else h+='<span class="odo-c">'+(c==='\u00a0'||c===' '?'&nbsp;':c)+'</span>';}
+    el.classList.add('no-anim');el.innerHTML=h;void el.offsetWidth;el.classList.remove('no-anim');
+  }
+  var strips=el.querySelectorAll('.odo-s'),di=0;
+  for(var k2=0;k2<str.length;k2++){var c2=str.charAt(k2);if(isD(c2)){strips[di++].style.transform='translateY(-'+(+c2*10)+'%)';}}
+  el._s=str;
+}
+
+// ---- Chart-Bausteine ----
 var crosshair={id:'pfcCross',beforeDatasetsDraw:function(c){
   var act=c.tooltip&&c.tooltip.getActiveElements?c.tooltip.getActiveElements():[];
   if(!act||!act.length)return;
   var x=act[0].element.x,top=Math.min.apply(null,act.map(function(a){return a.element.y;})),ar=c.chartArea,ctx=c.ctx;
-  ctx.save();ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,ar.bottom);ctx.lineWidth=1;ctx.strokeStyle='#c9ced6';ctx.stroke();ctx.restore();
-}};
-
-// Tooltip im Dashboard-Stil
-var curDates=[];
+  ctx.save();ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,ar.bottom);ctx.lineWidth=1;ctx.strokeStyle='#c9ced6';ctx.stroke();ctx.restore();}};
+var curDates=[],curLabels=[],curData=[];
 function extTip(context){
   var tip=document.getElementById('pfcTip'),t=context.tooltip;
   if(!t||t.opacity===0||!t.dataPoints||!t.dataPoints.length){tip.style.opacity=0;return;}
   var pts=t.dataPoints.slice().sort(function(a,b){return b.raw-a.raw;});
   var h='<div class="pfc-tip-d">'+fmtDay(curDates[pts[0].dataIndex])+'</div>';
-  pts.forEach(function(p){var m=MODELS[p.datasetIndex];
-    h+='<div class="pfc-tip-r"><span class="pfc-tip-bar" style="background:'+m.color+'"></span><span class="pfc-tip-n">'+m.name+'</span><span class="pfc-tip-v">'+fmtPct(p.raw-100,1)+'</span></div>';});
+  pts.forEach(function(p){var m=MODELS[p.datasetIndex];h+='<div class="pfc-tip-r"><span class="pfc-tip-bar" style="background:'+m.color+'"></span><span class="pfc-tip-n">'+m.name+'</span><span class="pfc-tip-v">'+fmtPct(p.raw-100,1)+'</span></div>';});
   tip.innerHTML=h;tip.style.opacity=1;
   var box=tip.parentNode,w=tip.offsetWidth,hh=tip.offsetHeight,bw=box.clientWidth;
   var topY=Math.min.apply(null,pts.map(function(p){return p.element.y;}));
@@ -148,57 +201,87 @@ function extTip(context){
   tip.style.left=left+'px';tip.style.top=top+'px';
 }
 
-var chart=null,lastSi=0,lastEi=N-1,TARGET=85;
-function render(si,ei){
-  if(ei<=si)ei=Math.min(N-1,si+1);
-  lastSi=si;lastEi=ei;
-  var span=(dates[ei]-dates[si])/86400000;
-  var step=Math.max(1,Math.ceil((ei-si+1)/TARGET));
-  var idxs=[];for(var i=si;i<=ei;i+=step)idxs.push(i);if(idxs[idxs.length-1]!==ei)idxs.push(ei);
-  curDates=idxs.map(function(i){return dates[i];});
-  var cw=document.getElementById('pfcChart').parentNode.clientWidth||600;
-  var labels=buildLabels(curDates,span,Math.max(3,Math.floor(cw/68)));
-  var data=MODELS.map(function(m,mi){var base=S[mi][si];return idxs.map(function(i){return S[mi][i]/base*100;});});
-  // Legende
-  var lg='';MODELS.forEach(function(m,mi){var perf=S[mi][ei]/S[mi][si]*100-100;
-    lg+='<span class="pfc-leg"><span class="pfc-leg-dot" style="background:'+m.color+'"></span><span class="pfc-leg-n">'+m.name+'</span><span class="pfc-leg-v '+(perf>=0?'up':'down')+'">'+fmtPct(perf,2)+'</span></span>';});
-  document.getElementById('pfcLegend').innerHTML=lg;
-  if(chart){chart.data.labels=labels;chart.data.datasets.forEach(function(x,k){x.data=data[k];});chart.update();return;}
-  var ds=MODELS.map(function(m,mi){return{label:m.name,data:data[mi],borderColor:m.color,borderWidth:m.w,borderDash:m.dash,order:m.order,
-    pointRadius:0,pointHoverRadius:6,pointHoverBorderWidth:3,pointHoverBackgroundColor:'#fff',pointHoverBorderColor:m.color,
-    tension:.12,fill:false,borderJoinStyle:'round',borderCapStyle:'round'};});
-  chart=new Chart(document.getElementById('pfcChart').getContext('2d'),{type:'line',data:{labels:labels,datasets:ds},plugins:[crosshair],
-    options:{responsive:true,maintainAspectRatio:false,animation:{duration:450},
-      interaction:{mode:'index',intersect:false},
-      layout:{padding:{top:6,right:8,left:0,bottom:0}},
-      plugins:{legend:{display:false},tooltip:{enabled:false,external:extTip}},
-      scales:{
-        x:{grid:{display:false},border:{display:false},ticks:{color:'#9aa1ad',font:{size:11.5},autoSkip:false,maxRotation:0,minRotation:0,padding:8}},
-        y:{position:'left',grace:'6%',border:{display:false,dash:[3,4]},
-          grid:{color:function(c){return c.tick&&c.tick.value===100?'#bcc3cd':'#e9ebef';},lineWidth:1,drawTicks:false},
-          ticks:{color:'#9aa1ad',font:{size:11.5},padding:10,maxTicksLimit:6,callback:function(v){return fmtNum(v);}},
-          afterBuildTicks:function(scale){var has=scale.ticks.some(function(t){return t.value===100;});if(!has){scale.ticks.push({value:100});scale.ticks.sort(function(a,b){return a.value-b.value;});}}}
-      }}});
+function boot(){
+  var canvas=document.getElementById('pfcChart');if(!canvas)return;
+  var chart=null,lastSi=0,lastEi=N-1,TARGET=85;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function compute(si,ei){
+    var span=(dates[ei]-dates[si])/86400000,step=Math.max(1,Math.ceil((ei-si+1)/TARGET));
+    var idxs=[];for(var i=si;i<=ei;i+=step)idxs.push(i);if(idxs[idxs.length-1]!==ei)idxs.push(ei);
+    curDates=idxs.map(function(i){return dates[i];});
+    var cw=canvas.parentNode.clientWidth||600;
+    curLabels=buildLabels(curDates,span,Math.max(3,Math.floor(cw/70)));
+    curData=MODELS.map(function(m,mi){var base=S[mi][si];return idxs.map(function(i){return S[mi][i]/base*100;});});
+  }
+  function drawChart(){
+    if(!window.Chart)return;
+    if(chart){chart.data.labels=curLabels;chart.data.datasets.forEach(function(x,k){x.data=curData[k];});chart.update('none');canvas.classList.remove('pfc-fade');void canvas.offsetWidth;canvas.classList.add('pfc-fade');return;}
+    var ds=MODELS.map(function(m,mi){return{label:m.name,data:curData[mi],borderColor:m.color,borderWidth:m.w,borderDash:m.dash,order:m.order,
+      pointRadius:0,pointHoverRadius:6,pointHoverBorderWidth:3,pointHoverBackgroundColor:'#fff',pointHoverBorderColor:m.color,
+      tension:.12,fill:false,borderJoinStyle:'round',borderCapStyle:'round'};});
+    chart=new window.Chart(canvas.getContext('2d'),{type:'line',data:{labels:curLabels,datasets:ds},plugins:[crosshair],
+      options:{responsive:true,maintainAspectRatio:false,animation:reduce?false:{duration:550,easing:'easeOutQuart'},
+        interaction:{mode:'index',intersect:false},layout:{padding:{top:8,right:8,left:0,bottom:0}},
+        plugins:{legend:{display:false},tooltip:{enabled:false,external:extTip}},
+        scales:{
+          x:{grid:{display:false},border:{display:false},afterFit:function(s){s.height=30;},ticks:{color:'#9aa1ad',font:{size:11.5},autoSkip:false,maxRotation:0,minRotation:0,padding:8}},
+          y:{position:'left',grace:'6%',border:{display:false,dash:[3,4]},afterFit:function(s){s.width=48;},
+            grid:{color:function(c){return c.tick&&c.tick.value===100?'#bcc3cd':'#e9ebef';},lineWidth:1,drawTicks:false},
+            ticks:{color:'#9aa1ad',font:{size:11.5},padding:10,maxTicksLimit:6,callback:function(v){return fmtNum(v);}},
+            afterBuildTicks:function(scale){if(!scale.ticks.some(function(t){return t.value===100;})){scale.ticks.push({value:100});scale.ticks.sort(function(a,b){return a.value-b.value;});}}}
+        }}});
+  }
+  function update(si,ei){
+    if(ei<=si)ei=Math.min(N-1,si+1);
+    lastSi=si;lastEi=ei;compute(si,ei);
+    MODELS.forEach(function(m,mi){var perf=S[mi][ei]/S[mi][si]*100-100,w=document.getElementById('pfcW'+mi);
+      odo(document.getElementById('pfcV'+mi),fmtPct(perf,2));w.classList.toggle('up',perf>=0);w.classList.toggle('down',perf<0);});
+    document.getElementById('pfcSub').textContent=fmtDay(dates[si])+' bis '+fmtDay(dates[ei])+', indexiert auf 100';
+    drawChart();
+  }
+  // Zeitraum-Leiste
+  var seg=document.getElementById('pfcSeg'),ind=document.getElementById('pfcInd'),btns=seg.querySelectorAll('.pfc-sb');
+  var cal=document.getElementById('pfcCal'),pop=document.getElementById('pfcPop'),calw=document.getElementById('pfcCalW');
+  var fromI=document.getElementById('pfcFrom'),toI=document.getElementById('pfcTo'),err=document.getElementById('pfcErr');
+  var activeBtn=seg.querySelector('.pfc-sb.active');
+  function moveInd(instant){
+    if(!activeBtn){ind.style.opacity=0;return;}
+    if(instant)ind.classList.add('no-anim');
+    ind.style.opacity=1;ind.style.width=activeBtn.offsetWidth+'px';ind.style.transform='translateX('+activeBtn.offsetLeft+'px)';
+    if(instant){void ind.offsetWidth;ind.classList.remove('no-anim');}
+  }
+  function setActive(b){activeBtn=b;
+    for(var k=0;k<btns.length;k++){btns[k].classList.toggle('active',btns[k]===b);btns[k].setAttribute('aria-pressed',btns[k]===b?'true':'false');}
+    cal.classList.toggle('active',!b);moveInd(false);}
+  function openPop(o){pop.classList.toggle('open',o);cal.setAttribute('aria-expanded',o?'true':'false');if(o)fromI.focus();}
+  for(var k=0;k<btns.length;k++){btns[k].addEventListener('click',function(){setActive(this);openPop(false);update(idxFromDate(startForRange(this.getAttribute('data-r'))),N-1);});}
+  function iso(dt){var z=new Date(dt.getTime()-dt.getTimezoneOffset()*60000);return z.toISOString().slice(0,10);}
+  fromI.min=iso(INCEPT);fromI.max=iso(TODAY);toI.min=iso(INCEPT);toI.max=iso(TODAY);toI.value=iso(TODAY);fromI.value=iso(startForRange('1y'));
+  cal.addEventListener('click',function(e){e.stopPropagation();openPop(!pop.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(pop.classList.contains('open')&&!calw.contains(e.target))openPop(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop.classList.contains('open')){openPop(false);cal.focus();}});
+  document.getElementById('pfcApply').addEventListener('click',function(){
+    var a=new Date(fromI.value+'T00:00:00'),z=new Date(toI.value+'T00:00:00');
+    if(!fromI.value||!toI.value||isNaN(a)||isNaN(z)||a>=z){err.style.display='block';return;}
+    err.style.display='none';if(a<INCEPT)a=new Date(INCEPT);if(z>TODAY)z=new Date(TODAY);
+    setActive(null);openPop(false);update(idxFromDate(a),idxUpTo(z));
+  });
+  var rT;window.addEventListener('resize',function(){clearTimeout(rT);rT=setTimeout(function(){moveInd(true);update(lastSi,lastEi);},150);});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){moveInd(true);});
+  // Start: Kennzahlen sofort, Chart sobald Chart.js bereit ist
+  moveInd(true);
+  update(idxFromDate(startForRange('1y')),N-1);
+  whenChart(function(){drawChart();});
 }
 
-// ---- Bedienung ----
-var tf=document.getElementById('pfcTf'),rangeBox=document.getElementById('pfcRange');
-var fromI=document.getElementById('pfcFrom'),toI=document.getElementById('pfcTo'),err=document.getElementById('pfcErr');
-function iso(dt){var z=new Date(dt.getTime()-dt.getTimezoneOffset()*60000);return z.toISOString().slice(0,10);}
-fromI.min=iso(INCEPT);fromI.max=iso(TODAY);toI.min=iso(INCEPT);toI.max=iso(TODAY);toI.value=iso(TODAY);fromI.value=iso(startForRange('1y'));
-tf.querySelectorAll('.pfc-tf').forEach(function(b){b.addEventListener('click',function(){
-  tf.querySelectorAll('.pfc-tf').forEach(function(x){x.classList.remove('active');});this.classList.add('active');
-  var r=this.getAttribute('data-r');rangeBox.classList.toggle('open',r==='custom');
-  if(r!=='custom')render(idxFromDate(startForRange(r)),N-1);
-});});
-document.getElementById('pfcApply').addEventListener('click',function(){
-  var a=new Date(fromI.value+'T00:00:00'),z=new Date(toI.value+'T00:00:00');
-  if(!fromI.value||!toI.value||isNaN(a)||isNaN(z)||a>=z){err.style.display='';return;}
-  err.style.display='none';if(a<INCEPT)a=new Date(INCEPT);if(z>TODAY)z=new Date(TODAY);
-  var zi=N-1;for(var k=N-1;k>=0;k--){if(dates[k]<=z){zi=k;break;}}
-  render(idxFromDate(a),zi);
-});
-var rT;window.addEventListener('resize',function(){clearTimeout(rT);rT=setTimeout(function(){render(lastSi,lastEi);},150);});
-render(idxFromDate(startForRange('1y')),N-1);
+// Chart.js laden bzw. abwarten (falls CMS oder Cookie-Tool es verzögert)
+function whenChart(cb){
+  if(window.Chart){cb();return;}
+  var done=false,t=null;
+  function go(){if(done||!window.Chart)return;done=true;if(t)clearInterval(t);cb();}
+  if(!document.getElementById('pfcChartJs')){var s=document.createElement('script');s.id='pfcChartJs';s.src=CJS;s.async=true;s.onload=go;document.head.appendChild(s);}
+  t=setInterval(go,120);setTimeout(function(){if(t)clearInterval(t);},30000);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
 </script>
