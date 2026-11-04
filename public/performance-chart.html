@@ -1,0 +1,215 @@
+<style>
+/* ===== easyfolio Performance-Chart ===== */
+.pfc{--blue:#4c79c7;--blue-d:#3a5f9a;--green:#7cba3a;--amber:#e0992f;--ink:#0e1116;--body:#3f4756;--muted:#6b7280;--line:#eef1f6;--border:#e3e7ee;--bg:#f6f8fb;color:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.pfc *{margin:0;padding:0;box-sizing:border-box}
+.pfc,.pfc *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
+.pfc h1,.pfc h2,.pfc h3{font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.pfc-wrap{max-width:1040px;margin:0 auto;padding:0 40px;width:100%}
+@media(max-width:768px){.pfc-wrap{padding:0 22px}}
+@media(max-width:480px){.pfc-wrap{padding:0 16px}}
+.pfc-sec{background:var(--bg);padding:56px 0 72px}
+.pfc-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:12px}
+.pfc-kicker svg{width:16px;height:16px;fill:var(--blue)}
+.pfc-head{margin-bottom:26px}
+.pfc-head h1{font-size:clamp(26px,3.6vw,38px);line-height:1.12;margin-bottom:10px}
+.pfc-head p{font-size:16px;color:var(--muted);max-width:620px;line-height:1.6}
+/* card */
+.pfc-card{background:#fff;border-radius:22px;padding:30px 30px 26px}
+@media(max-width:560px){.pfc-card{padding:22px 18px}}
+/* legend */
+.pfc-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.pfc-leg{display:flex;align-items:center;gap:11px;background:var(--bg);border-radius:14px;padding:12px 16px;flex:1;min-width:170px}
+.pfc-leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.pfc-leg-b{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.pfc-leg-name{font-size:13px;font-weight:800;color:var(--ink)}
+.pfc-leg-val{font-size:18px;font-weight:900;letter-spacing:-.02em}
+.pfc-leg-val.up{color:var(--green)}.pfc-leg-val.down{color:#d6584f}
+/* controls */
+.pfc-ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.pfc-tf{border:none;background:var(--line);color:var(--body);border-radius:999px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s,color .15s;font-family:inherit}
+.pfc-tf:hover{background:#e3e9f3;color:var(--ink)}
+.pfc-tf.active{background:var(--blue);color:#fff}
+.pfc-tf-custom{display:inline-flex;align-items:center;gap:7px}
+.pfc-tf-custom svg{width:14px;height:14px;fill:currentColor}
+/* custom range */
+.pfc-range{display:none;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--bg);border-radius:14px;padding:16px 18px;margin:14px 0 4px}
+.pfc-range.open{display:flex}
+.pfc-range-f{display:flex;flex-direction:column;gap:5px}
+.pfc-range-f label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.pfc-range-f input{border:none;background:#fff;border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink);font-family:inherit;outline:none}
+.pfc-range-f input:focus{outline:2px solid var(--blue)}
+.pfc-range-btn{border:none;background:var(--blue);color:#fff;border-radius:10px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit}
+.pfc-range-note{font-size:12px;color:#d6584f;font-weight:600;align-self:center}
+/* chart */
+.pfc-chart{position:relative;height:420px;margin-top:20px}
+@media(max-width:560px){.pfc-chart{height:320px}}
+.pfc-foot{font-size:12px;color:var(--muted);line-height:1.6;margin-top:18px}
+.pfc-disc{text-align:center;color:#9aa3b2;font-size:12px;line-height:1.7;max-width:900px;margin:0 auto;padding:34px 24px 44px;background:var(--bg)}
+</style>
+
+<div class="pfc">
+<section class="pfc-sec"><div class="pfc-wrap">
+
+<div class="pfc-head">
+<span class="pfc-kicker"><svg viewBox="0 0 256 256"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg> Wertentwicklung</span>
+<h1>Performance der easyfolio-Portfolios</h1>
+<p>Vergleichen Sie die Wertentwicklung von easyfolio 30, 50 und 70 über den Zeitraum Ihrer Wahl. Alle Kurven sind zum Startzeitpunkt auf 100 indexiert.</p>
+</div>
+
+<div class="pfc-card">
+
+<div class="pfc-legend" id="pfcLegend"></div>
+
+<div class="pfc-ctrl" id="pfcTf">
+<button class="pfc-tf" data-r="1m" type="button">1 Monat</button>
+<button class="pfc-tf" data-r="6m" type="button">6 Monate</button>
+<button class="pfc-tf" data-r="ytd" type="button">YTD</button>
+<button class="pfc-tf" data-r="1y" type="button">1 Jahr</button>
+<button class="pfc-tf active" data-r="3y" type="button">3 Jahre</button>
+<button class="pfc-tf" data-r="5y" type="button">5 Jahre</button>
+<button class="pfc-tf" data-r="10y" type="button">10 Jahre</button>
+<button class="pfc-tf" data-r="max" type="button">Seit Auflage</button>
+<button class="pfc-tf pfc-tf-custom" data-r="custom" type="button"><svg viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg> Eigener Zeitraum</button>
+</div>
+
+<div class="pfc-range" id="pfcRange">
+<div class="pfc-range-f"><label>Von</label><input type="date" id="pfcFrom"></div>
+<div class="pfc-range-f"><label>Bis</label><input type="date" id="pfcTo"></div>
+<button class="pfc-range-btn" id="pfcApply" type="button">Anwenden</button>
+<span class="pfc-range-note" id="pfcErr" style="display:none">Bitte gültigen Zeitraum wählen.</span>
+</div>
+
+<div class="pfc-chart"><canvas id="pfcChart"></canvas></div>
+
+<p class="pfc-foot">Indexiert auf 100 zu Beginn des gewählten Zeitraums. Modellhafte, vereinfachte Darstellung zu Illustrationszwecken, keine echten Fondskurse. Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Ergebnisse.</p>
+
+</div>
+</div></section>
+
+<div class="pfc-disc">Diese Darstellung dient ausschließlich der allgemeinen Information und stellt keine Anlageberatung dar. Kapitalanlagen bergen Risiken.<br>easyfolio GmbH · Heidenkampsweg 73 · 20097 Hamburg · 0800 12305070 · info@easyfolio.de</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+var MON=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+var rnd=mulberry32(284);
+function randn(){var u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+// ----- generate business-day series from inception to today -----
+var INCEPT=new Date(2014,8,1); // 01.09.2014
+var TODAY=new Date(); TODAY.setHours(0,0,0,0);
+var dates=[]; var d=new Date(INCEPT);
+while(d<=TODAY){var wd=d.getDay();if(wd!==0&&wd!==6)dates.push(new Date(d));d.setDate(d.getDate()+1);}
+var N=dates.length;
+var MODELS=[
+ {name:'easyfolio 30',mu:0.045,vol:0.050,color:'#4c79c7'},
+ {name:'easyfolio 50',mu:0.066,vol:0.082,color:'#7cba3a'},
+ {name:'easyfolio 70',mu:0.088,vol:0.112,color:'#e0992f'}
+];
+var S=MODELS.map(function(){return new Float64Array(N);});
+MODELS.forEach(function(m,mi){S[mi][0]=100;});
+for(var i=1;i<N;i++){
+  var zc=randn();
+  for(var mi=0;mi<MODELS.length;mi++){
+    var m=MODELS[mi];var zi=randn();var z=0.86*zc+0.5105*zi;
+    var dd=Math.pow(1+m.mu,1/252)-1;var vd=m.vol/Math.sqrt(252);
+    var ret=dd+vd*z;
+    S[mi][i]=S[mi][i-1]*(1+ret);
+  }
+}
+
+// ----- helpers -----
+function idxFromDate(dt){ // first index with dates[i] >= dt
+  for(var i=0;i<N;i++){if(dates[i]>=dt)return i;}return N-1;
+}
+function startForRange(r){
+  var e=TODAY,s=new Date(e);
+  if(r==='1m')s.setMonth(s.getMonth()-1);
+  else if(r==='6m')s.setMonth(s.getMonth()-6);
+  else if(r==='ytd')s=new Date(e.getFullYear(),0,1);
+  else if(r==='1y')s.setFullYear(s.getFullYear()-1);
+  else if(r==='3y')s.setFullYear(s.getFullYear()-3);
+  else if(r==='5y')s.setFullYear(s.getFullYear()-5);
+  else if(r==='10y')s.setFullYear(s.getFullYear()-10);
+  else if(r==='max')s=new Date(INCEPT);
+  if(s<INCEPT)s=new Date(INCEPT);
+  return s;
+}
+function fmtPct(x){return(x>=0?'+':'−')+Math.abs(x).toFixed(1).replace('.',',')+' %';}
+function fmtDay(dt){return dt.getDate()+'. '+MON[dt.getMonth()]+' '+dt.getFullYear();}
+function fmtTick(dt,span){
+  if(span<=70)return dt.getDate()+'. '+MON[dt.getMonth()];
+  if(span<=420)return MON[dt.getMonth()]+' '+String(dt.getFullYear()).slice(2);
+  if(span<=1600)return MON[dt.getMonth()]+' '+String(dt.getFullYear()).slice(2);
+  return ''+dt.getFullYear();
+}
+
+var chart=null, curDates=[];
+function render(si,ei){
+  if(ei<=si)ei=Math.min(N-1,si+1);
+  var span=(dates[ei]-dates[si])/86400000;
+  var step=Math.max(1,Math.ceil((ei-si+1)/450));
+  var idxs=[];for(var i=si;i<=ei;i+=step)idxs.push(i);
+  if(idxs[idxs.length-1]!==ei)idxs.push(ei);
+  curDates=idxs.map(function(i){return dates[i];});
+  var labels=idxs.map(function(i){return fmtTick(dates[i],span);});
+  var ds=MODELS.map(function(m,mi){
+    var base=S[mi][si];
+    return {label:m.name,data:idxs.map(function(i){return S[mi][i]/base*100;}),
+      borderColor:m.color,backgroundColor:m.color,borderWidth:2.4,pointRadius:0,pointHoverRadius:4,tension:.22,fill:false};
+  });
+  // legend
+  var lg='';
+  MODELS.forEach(function(m,mi){
+    var endv=S[mi][ei]/S[mi][si]*100, perf=endv-100;
+    lg+='<div class="pfc-leg"><span class="pfc-leg-dot" style="background:'+m.color+'"></span><span class="pfc-leg-b"><span class="pfc-leg-name">'+m.name+'</span><span class="pfc-leg-val '+(perf>=0?'up':'down')+'">'+fmtPct(perf)+'</span></span></div>';
+  });
+  document.getElementById('pfcLegend').innerHTML=lg;
+  if(chart){chart.data.labels=labels;chart.data.datasets.forEach(function(dsi,k){dsi.data=ds[k].data;});chart.update();return;}
+  var ctx=document.getElementById('pfcChart').getContext('2d');
+  chart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:ds},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},
+        tooltip:{backgroundColor:'#0e1116',padding:12,cornerRadius:10,titleFont:{size:12},bodyFont:{size:13},
+          callbacks:{title:function(it){return fmtDay(curDates[it[0].dataIndex]);},
+            label:function(it){return it.dataset.label+': '+it.raw.toFixed(1).replace('.',',')+'  ('+fmtPct(it.raw-100)+')';}}}},
+      scales:{
+        x:{grid:{display:false},border:{display:false},ticks:{color:'#6b7280',maxTicksLimit:7,autoSkip:true,maxRotation:0,font:{size:11}}},
+        y:{position:'right',border:{display:false},
+          grid:{color:function(c){return c.tick&&c.tick.value===100?'rgba(14,17,22,.26)':'rgba(14,17,22,.05)';},lineWidth:function(c){return c.tick&&c.tick.value===100?1.5:1;}},
+          ticks:{color:'#6b7280',font:{size:11},callback:function(v){return v;}},
+          afterBuildTicks:function(scale){var has=scale.ticks.some(function(t){return t.value===100;});if(!has){scale.ticks.push({value:100,label:'100'});scale.ticks.sort(function(a,b){return a.value-b.value;});}}
+        }
+      }
+    }});
+}
+
+// ----- controls -----
+var tf=document.getElementById('pfcTf'),rangeBox=document.getElementById('pfcRange');
+var fromI=document.getElementById('pfcFrom'),toI=document.getElementById('pfcTo'),err=document.getElementById('pfcErr');
+function iso(dt){return dt.toISOString().slice(0,10);}
+fromI.min=iso(INCEPT);fromI.max=iso(TODAY);toI.min=iso(INCEPT);toI.max=iso(TODAY);
+toI.value=iso(TODAY);fromI.value=iso(startForRange('3y'));
+function applyRange(r){
+  rangeBox.classList.toggle('open',r==='custom');
+  if(r==='custom'){return;}
+  render(idxFromDate(startForRange(r)), N-1);
+}
+tf.querySelectorAll('.pfc-tf').forEach(function(b){b.addEventListener('click',function(){
+  tf.querySelectorAll('.pfc-tf').forEach(function(x){x.classList.remove('active');});this.classList.add('active');
+  applyRange(this.getAttribute('data-r'));
+});});
+document.getElementById('pfcApply').addEventListener('click',function(){
+  var a=new Date(fromI.value),z=new Date(toI.value);
+  if(!fromI.value||!toI.value||isNaN(a)||isNaN(z)||a>=z){err.style.display='';return;}
+  err.style.display='none';
+  if(a<INCEPT)a=new Date(INCEPT);if(z>TODAY)z=new Date(TODAY);
+  render(idxFromDate(a), idxFromDate(z));
+});
+// init
+render(idxFromDate(startForRange('3y')), N-1);
+})();
+</script>
