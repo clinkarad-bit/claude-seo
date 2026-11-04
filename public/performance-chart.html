@@ -1,62 +1,75 @@
 <style>
-/* ===== easyfolio Performance-Chart (reines Widget) ===== */
-.pfc{--blue:#4c79c7;--green:#7cba3a;--amber:#e0992f;--ink:#0e1116;--body:#3f4756;--muted:#8a92a0;--line:#eef1f6;--bg:#f6f8fb;color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;max-width:900px;margin:0 auto;padding:14px 18px}
+/* ===== easyfolio Performance-Chart (Dashboard-Widget) ===== */
+.pfc{--blue:#4c79c7;--green:#7cba3a;--green-t:#5f9e2c;--red:#e0544a;--ink:#0e1116;--body:#4b5260;--muted:#9aa1ad;--soft:#f3f4f6;color:var(--body);-webkit-font-smoothing:antialiased;max-width:960px;margin:0 auto}
 .pfc *{margin:0;padding:0;box-sizing:border-box}
 .pfc,.pfc *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
-/* legend */
-.pfc-legend{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:6px}
-.pfc-leg{display:flex;align-items:center;gap:9px}
-.pfc-leg-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
-.pfc-leg-b{display:flex;flex-direction:column;line-height:1.15}
-.pfc-leg-name{font-size:12.5px;font-weight:700;color:var(--muted)}
-.pfc-leg-val{font-size:19px;font-weight:900;letter-spacing:-.02em;color:var(--ink)}
-.pfc-leg-val.up{color:var(--green)}.pfc-leg-val.down{color:#e0544a}
-/* chart */
-.pfc-chart{position:relative;height:400px;margin:4px 0 16px}
-@media(max-width:560px){.pfc-chart{height:300px}.pfc{padding:12px 12px}}
-/* controls */
-.pfc-ctrl{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
-.pfc-tf{border:none;background:transparent;color:var(--muted);border-radius:9px;padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s,color .15s;font-family:inherit}
-.pfc-tf:hover{background:var(--line);color:var(--ink)}
-.pfc-tf.active{background:var(--ink);color:#fff}
-.pfc-tf-custom{display:inline-flex;align-items:center;gap:6px;margin-left:auto}
-.pfc-tf-custom svg{width:14px;height:14px;fill:currentColor}
+.pfc-card{background:#fff;border-radius:18px;padding:22px 24px 14px}
+.pfc-top{display:flex;align-items:center;justify-content:space-between;gap:12px 16px;flex-wrap:wrap}
+.pfc-title{font-size:15.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.pfc-tfs{display:flex;flex-wrap:wrap;gap:4px}
+.pfc-tf{flex-shrink:0;border:none;background:var(--soft);color:#5b6370;border-radius:7px;padding:5px 9px;font-size:12px;font-weight:600;line-height:1.3;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s}
+.pfc-tf:hover{background:#e8eaee;color:var(--ink)}
+.pfc-tf.active{background:var(--blue);color:#fff}
+.pfc-tf:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.pfc-tf-cal{display:inline-flex;align-items:center;gap:5px}
+.pfc-tf-cal svg{width:13px;height:13px;fill:currentColor}
 /* custom range */
-.pfc-range{display:none;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--bg);border-radius:14px;padding:16px 18px;margin-top:12px}
+.pfc-range{display:none;flex-wrap:wrap;gap:10px;align-items:flex-end;background:var(--soft);border-radius:12px;padding:12px 14px;margin-top:12px}
 .pfc-range.open{display:flex}
-.pfc-range-f{display:flex;flex-direction:column;gap:5px}
-.pfc-range-f label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.pfc-range-f input{border:none;background:#fff;border-radius:10px;padding:10px 12px;font-size:14px;color:var(--ink);font-family:inherit;outline:none}
+.pfc-range-f{display:flex;flex-direction:column;gap:4px}
+.pfc-range-f label{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.pfc-range-f input{border:none;background:#fff;border-radius:8px;padding:8px 10px;font-size:13px;color:var(--ink);font-family:inherit;outline:none}
 .pfc-range-f input:focus{outline:2px solid var(--blue)}
-.pfc-range-btn{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit}
-.pfc-range-note{font-size:12px;color:#e0544a;font-weight:600;align-self:center}
+.pfc-range-btn{border:none;background:var(--blue);color:#fff;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit}
+.pfc-range-note{font-size:12px;color:var(--red);font-weight:600;align-self:center}
+/* legend */
+.pfc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 2px;font-size:13px}
+.pfc-leg{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pfc-leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pfc-leg-n{color:#4b5260;font-weight:600}
+.pfc-leg-v{font-weight:700;font-variant-numeric:tabular-nums}
+.pfc-leg-v.up{color:var(--green-t)}.pfc-leg-v.down{color:var(--red)}
+/* chart + tooltip */
+.pfc-chart{position:relative;height:330px;margin-top:8px}
+.pfc-tip{position:absolute;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .12s;background:#2b2d31;color:#fff;border-radius:10px;padding:9px 11px 7px;min-width:172px;z-index:5}
+.pfc-tip-d{font-size:10.5px;color:#a3a7ae;margin-bottom:5px}
+.pfc-tip-r{display:flex;align-items:center;gap:7px;font-size:12px;line-height:1.75}
+.pfc-tip-bar{width:3px;height:11px;border-radius:2px;flex-shrink:0}
+.pfc-tip-n{flex:1;color:#e4e6e9}
+.pfc-tip-v{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;padding-left:12px}
+@media(max-width:560px){.pfc-card{padding:18px 14px 10px;border-radius:16px}.pfc-chart{height:260px}.pfc-top{flex-direction:column;align-items:flex-start}}
 </style>
 
 <div class="pfc">
+<div class="pfc-card">
 
-<div class="pfc-legend" id="pfcLegend"></div>
-
-<div class="pfc-chart"><canvas id="pfcChart"></canvas></div>
-
-<div class="pfc-ctrl" id="pfcTf">
-<button class="pfc-tf" data-r="1m" type="button">1M</button>
-<button class="pfc-tf" data-r="6m" type="button">6M</button>
-<button class="pfc-tf" data-r="ytd" type="button">YTD</button>
-<button class="pfc-tf" data-r="1y" type="button">1J</button>
-<button class="pfc-tf active" data-r="3y" type="button">3J</button>
-<button class="pfc-tf" data-r="5y" type="button">5J</button>
-<button class="pfc-tf" data-r="10y" type="button">10J</button>
-<button class="pfc-tf" data-r="max" type="button">Max</button>
-<button class="pfc-tf pfc-tf-custom" data-r="custom" type="button"><svg viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg> Zeitraum</button>
+<div class="pfc-top">
+<div class="pfc-title">Performance</div>
+<div class="pfc-tfs" id="pfcTf" role="group" aria-label="Zeitraum">
+<button class="pfc-tf" data-r="1m" type="button" title="1 Monat">1M</button>
+<button class="pfc-tf" data-r="6m" type="button" title="6 Monate">6M</button>
+<button class="pfc-tf" data-r="ytd" type="button" title="Seit Jahresbeginn">YTD</button>
+<button class="pfc-tf active" data-r="1y" type="button" title="1 Jahr">1J</button>
+<button class="pfc-tf" data-r="3y" type="button" title="3 Jahre">3J</button>
+<button class="pfc-tf" data-r="5y" type="button" title="5 Jahre">5J</button>
+<button class="pfc-tf" data-r="10y" type="button" title="10 Jahre">10J</button>
+<button class="pfc-tf" data-r="max" type="button" title="Seit Auflage">Seit Auflage</button>
+<button class="pfc-tf pfc-tf-cal" data-r="custom" type="button" title="Eigener Zeitraum"><svg viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg> Zeitraum</button>
+</div>
 </div>
 
 <div class="pfc-range" id="pfcRange">
-<div class="pfc-range-f"><label>Von</label><input type="date" id="pfcFrom"></div>
-<div class="pfc-range-f"><label>Bis</label><input type="date" id="pfcTo"></div>
+<div class="pfc-range-f"><label for="pfcFrom">Von</label><input type="date" id="pfcFrom"></div>
+<div class="pfc-range-f"><label for="pfcTo">Bis</label><input type="date" id="pfcTo"></div>
 <button class="pfc-range-btn" id="pfcApply" type="button">Anwenden</button>
 <span class="pfc-range-note" id="pfcErr" style="display:none">Bitte gültigen Zeitraum wählen.</span>
 </div>
 
+<div class="pfc-legend" id="pfcLegend"></div>
+
+<div class="pfc-chart"><canvas id="pfcChart" aria-label="Wertentwicklung easyfolio 30, 50 und 70, indexiert auf 100" role="img"></canvas><div class="pfc-tip" id="pfcTip"></div></div>
+
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -66,20 +79,23 @@ var MON=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 var rnd=mulberry32(284);
 function randn(){var u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+// ---- Modell-Daten (Platzhalter, keine echten Kurse) ----
 var INCEPT=new Date(2014,8,1);
 var TODAY=new Date();TODAY.setHours(0,0,0,0);
 var dates=[];var d=new Date(INCEPT);
 while(d<=TODAY){var wd=d.getDay();if(wd!==0&&wd!==6)dates.push(new Date(d));d.setDate(d.getDate()+1);}
 var N=dates.length;
 var MODELS=[
- {name:'easyfolio 30',mu:0.045,vol:0.050,color:'#4c79c7'},
- {name:'easyfolio 50',mu:0.066,vol:0.082,color:'#7cba3a'},
- {name:'easyfolio 70',mu:0.088,vol:0.112,color:'#e0992f'}
+ {name:'easyfolio 30',mu:0.045,vol:0.050,color:'#9fb0cc',dash:[5,4],w:1.8,order:2},
+ {name:'easyfolio 50',mu:0.066,vol:0.082,color:'#7cba3a',dash:[],w:2,order:1},
+ {name:'easyfolio 70',mu:0.088,vol:0.112,color:'#4c79c7',dash:[],w:2.3,order:0}
 ];
 var S=MODELS.map(function(){return new Float64Array(N);});
 MODELS.forEach(function(m,mi){S[mi][0]=100;});
 for(var i=1;i<N;i++){var zc=randn();for(var mi=0;mi<MODELS.length;mi++){var m=MODELS[mi];var zi=randn();var z=0.86*zc+0.5105*zi;var dd=Math.pow(1+m.mu,1/252)-1;var vd=m.vol/Math.sqrt(252);S[mi][i]=S[mi][i-1]*(1+dd+vd*z);}}
 
+// ---- Helfer ----
 function idxFromDate(dt){for(var i=0;i<N;i++){if(dates[i]>=dt)return i;}return N-1;}
 function startForRange(r){var e=TODAY,s=new Date(e);
   if(r==='1m')s.setMonth(s.getMonth()-1);else if(r==='6m')s.setMonth(s.getMonth()-6);
@@ -87,50 +103,102 @@ function startForRange(r){var e=TODAY,s=new Date(e);
   else if(r==='3y')s.setFullYear(s.getFullYear()-3);else if(r==='5y')s.setFullYear(s.getFullYear()-5);
   else if(r==='10y')s.setFullYear(s.getFullYear()-10);else if(r==='max')s=new Date(INCEPT);
   if(s<INCEPT)s=new Date(INCEPT);return s;}
-function fmtPct(x){return(x>=0?'+':'−')+Math.abs(x).toFixed(1).replace('.',',')+' %';}
+function fmtPct(x,dec){return(x>=0?'+':'−')+Math.abs(x).toFixed(dec).replace('.',',')+' %';}
+function fmtNum(v){return String(Math.round(v*100)/100).replace('.',',');}
 function fmtDay(dt){return dt.getDate()+'. '+MON[dt.getMonth()]+' '+dt.getFullYear();}
-function fmtTick(dt,span){if(span<=70)return dt.getDate()+'. '+MON[dt.getMonth()];if(span<=1600)return MON[dt.getMonth()]+' '+String(dt.getFullYear()).slice(2);return ''+dt.getFullYear();}
-function hexA(h,a){var n=parseInt(h.slice(1),16);return'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
-function grad(chart,hex){var ar=chart.chartArea;if(!ar)return hexA(hex,0);var g=chart.ctx.createLinearGradient(0,ar.top,0,ar.bottom);g.addColorStop(0,hexA(hex,0.20));g.addColorStop(0.72,hexA(hex,0.02));g.addColorStop(1,hexA(hex,0));return g;}
 
-var chart=null,curDates=[];
-function render(si,ei){
-  if(ei<=si)ei=Math.min(N-1,si+1);
-  var span=(dates[ei]-dates[si])/86400000;
-  var step=Math.max(1,Math.ceil((ei-si+1)/450));
-  var idxs=[];for(var i=si;i<=ei;i+=step)idxs.push(i);if(idxs[idxs.length-1]!==ei)idxs.push(ei);
-  curDates=idxs.map(function(i){return dates[i];});
-  var labels=idxs.map(function(i){return fmtTick(dates[i],span);});
-  var ds=MODELS.map(function(m,mi){var base=S[mi][si];return{label:m.name,data:idxs.map(function(i){return S[mi][i]/base*100;}),
-    borderColor:m.color,borderWidth:2.4,pointRadius:0,pointHoverRadius:4,pointHoverBackgroundColor:m.color,pointHoverBorderColor:'#fff',pointHoverBorderWidth:2,tension:.3,
-    fill:true,backgroundColor:function(c){return grad(c.chart,MODELS[c.datasetIndex].color);}};});
-  var lg='';MODELS.forEach(function(m,mi){var perf=S[mi][ei]/S[mi][si]*100-100;lg+='<div class="pfc-leg"><span class="pfc-leg-dot" style="background:'+m.color+'"></span><span class="pfc-leg-b"><span class="pfc-leg-name">'+m.name+'</span><span class="pfc-leg-val '+(perf>=0?'up':'down')+'">'+fmtPct(perf)+'</span></span></div>';});
-  document.getElementById('pfcLegend').innerHTML=lg;
-  if(chart){chart.data.labels=labels;chart.data.datasets.forEach(function(x,k){x.data=ds[k].data;});chart.update();return;}
-  var ctx=document.getElementById('pfcChart').getContext('2d');
-  chart=new Chart(ctx,{type:'line',data:{labels:labels,datasets:ds},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      layout:{padding:{top:8,right:4,left:2,bottom:0}},
-      plugins:{legend:{display:false},
-        tooltip:{backgroundColor:'#0e1116',padding:12,cornerRadius:12,displayColors:true,boxWidth:8,boxHeight:8,usePointStyle:true,titleFont:{size:12,weight:'600'},bodyFont:{size:13},
-          callbacks:{title:function(it){return fmtDay(curDates[it[0].dataIndex]);},label:function(it){return'  '+it.dataset.label+': '+it.raw.toFixed(1).replace('.',',')+'  ('+fmtPct(it.raw-100)+')';}}}},
-      scales:{
-        x:{grid:{display:false},border:{display:false},ticks:{color:'#8a92a0',maxTicksLimit:6,autoSkip:true,maxRotation:0,font:{size:11}}},
-        y:{position:'right',border:{display:false},
-          grid:{color:function(c){return c.tick&&c.tick.value===100?'rgba(14,17,22,.20)':'rgba(14,17,22,.045)';},lineWidth:function(c){return c.tick&&c.tick.value===100?1.4:1;}},
-          ticks:{color:'#8a92a0',font:{size:11},padding:6,callback:function(v){return v;}},
-          afterBuildTicks:function(scale){var has=scale.ticks.some(function(t){return t.value===100;});if(!has){scale.ticks.push({value:100,label:'100'});scale.ticks.sort(function(a,b){return a.value-b.value;});}}
-        }}
-    }});
+// Achsenbeschriftung: nur an Monats-, Halbjahres- oder Jahreswechseln, je nach Zeitraum
+function buildLabels(ds,span,maxN){
+  var mode=span<=45?'day':(span<=400?'month':(span<=1300?'half':'year'));
+  var out=ds.map(function(dt,k){
+    var pd=k>0?ds[k-1]:null;
+    if(mode==='day'){return(k%Math.max(1,Math.round(ds.length/6))===0)?dt.getDate()+'. '+MON[dt.getMonth()]:'';}
+    if(mode==='month'){if(k===0)return dt.getDate()<=7?MON[dt.getMonth()]:'';return dt.getMonth()!==pd.getMonth()?MON[dt.getMonth()]:'';}
+    if(k===0)return'';
+    if(mode==='half'){return(dt.getMonth()!==pd.getMonth()&&(dt.getMonth()===0||dt.getMonth()===6))?MON[dt.getMonth()]+' '+String(dt.getFullYear()).slice(2):'';}
+    return dt.getFullYear()!==pd.getFullYear()?''+dt.getFullYear():'';
+  });
+  var on=[];out.forEach(function(l,k){if(l)on.push(k);});
+  if(on.length>maxN){var st=Math.ceil(on.length/maxN);on.forEach(function(k,j){if(j%st!==0)out[k]='';});}
+  return out;
 }
 
+// Fadenkreuz-Linie beim Hover
+var crosshair={id:'pfcCross',beforeDatasetsDraw:function(c){
+  var act=c.tooltip&&c.tooltip.getActiveElements?c.tooltip.getActiveElements():[];
+  if(!act||!act.length)return;
+  var x=act[0].element.x,top=Math.min.apply(null,act.map(function(a){return a.element.y;})),ar=c.chartArea,ctx=c.ctx;
+  ctx.save();ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,ar.bottom);ctx.lineWidth=1;ctx.strokeStyle='#c9ced6';ctx.stroke();ctx.restore();
+}};
+
+// Tooltip im Dashboard-Stil
+var curDates=[];
+function extTip(context){
+  var tip=document.getElementById('pfcTip'),t=context.tooltip;
+  if(!t||t.opacity===0||!t.dataPoints||!t.dataPoints.length){tip.style.opacity=0;return;}
+  var pts=t.dataPoints.slice().sort(function(a,b){return b.raw-a.raw;});
+  var h='<div class="pfc-tip-d">'+fmtDay(curDates[pts[0].dataIndex])+'</div>';
+  pts.forEach(function(p){var m=MODELS[p.datasetIndex];
+    h+='<div class="pfc-tip-r"><span class="pfc-tip-bar" style="background:'+m.color+'"></span><span class="pfc-tip-n">'+m.name+'</span><span class="pfc-tip-v">'+fmtPct(p.raw-100,1)+'</span></div>';});
+  tip.innerHTML=h;tip.style.opacity=1;
+  var box=tip.parentNode,w=tip.offsetWidth,hh=tip.offsetHeight,bw=box.clientWidth;
+  var topY=Math.min.apply(null,pts.map(function(p){return p.element.y;}));
+  var left=Math.max(0,Math.min(bw-w,t.caretX-w/2));
+  var top=topY-hh-16;if(top<0)top=Math.min(box.clientHeight-hh,topY+18);
+  tip.style.left=left+'px';tip.style.top=top+'px';
+}
+
+var chart=null,lastSi=0,lastEi=N-1,TARGET=85;
+function render(si,ei){
+  if(ei<=si)ei=Math.min(N-1,si+1);
+  lastSi=si;lastEi=ei;
+  var span=(dates[ei]-dates[si])/86400000;
+  var step=Math.max(1,Math.ceil((ei-si+1)/TARGET));
+  var idxs=[];for(var i=si;i<=ei;i+=step)idxs.push(i);if(idxs[idxs.length-1]!==ei)idxs.push(ei);
+  curDates=idxs.map(function(i){return dates[i];});
+  var cw=document.getElementById('pfcChart').parentNode.clientWidth||600;
+  var labels=buildLabels(curDates,span,Math.max(3,Math.floor(cw/68)));
+  var data=MODELS.map(function(m,mi){var base=S[mi][si];return idxs.map(function(i){return S[mi][i]/base*100;});});
+  // Legende
+  var lg='';MODELS.forEach(function(m,mi){var perf=S[mi][ei]/S[mi][si]*100-100;
+    lg+='<span class="pfc-leg"><span class="pfc-leg-dot" style="background:'+m.color+'"></span><span class="pfc-leg-n">'+m.name+'</span><span class="pfc-leg-v '+(perf>=0?'up':'down')+'">'+fmtPct(perf,2)+'</span></span>';});
+  document.getElementById('pfcLegend').innerHTML=lg;
+  if(chart){chart.data.labels=labels;chart.data.datasets.forEach(function(x,k){x.data=data[k];});chart.update();return;}
+  var ds=MODELS.map(function(m,mi){return{label:m.name,data:data[mi],borderColor:m.color,borderWidth:m.w,borderDash:m.dash,order:m.order,
+    pointRadius:0,pointHoverRadius:6,pointHoverBorderWidth:3,pointHoverBackgroundColor:'#fff',pointHoverBorderColor:m.color,
+    tension:.12,fill:false,borderJoinStyle:'round',borderCapStyle:'round'};});
+  chart=new Chart(document.getElementById('pfcChart').getContext('2d'),{type:'line',data:{labels:labels,datasets:ds},plugins:[crosshair],
+    options:{responsive:true,maintainAspectRatio:false,animation:{duration:450},
+      interaction:{mode:'index',intersect:false},
+      layout:{padding:{top:6,right:8,left:0,bottom:0}},
+      plugins:{legend:{display:false},tooltip:{enabled:false,external:extTip}},
+      scales:{
+        x:{grid:{display:false},border:{display:false},ticks:{color:'#9aa1ad',font:{size:11.5},autoSkip:false,maxRotation:0,minRotation:0,padding:8}},
+        y:{position:'left',grace:'6%',border:{display:false,dash:[3,4]},
+          grid:{color:function(c){return c.tick&&c.tick.value===100?'#bcc3cd':'#e9ebef';},lineWidth:1,drawTicks:false},
+          ticks:{color:'#9aa1ad',font:{size:11.5},padding:10,maxTicksLimit:6,callback:function(v){return fmtNum(v);}},
+          afterBuildTicks:function(scale){var has=scale.ticks.some(function(t){return t.value===100;});if(!has){scale.ticks.push({value:100});scale.ticks.sort(function(a,b){return a.value-b.value;});}}}
+      }}});
+}
+
+// ---- Bedienung ----
 var tf=document.getElementById('pfcTf'),rangeBox=document.getElementById('pfcRange');
 var fromI=document.getElementById('pfcFrom'),toI=document.getElementById('pfcTo'),err=document.getElementById('pfcErr');
-function iso(dt){return dt.toISOString().slice(0,10);}
-fromI.min=iso(INCEPT);fromI.max=iso(TODAY);toI.min=iso(INCEPT);toI.max=iso(TODAY);toI.value=iso(TODAY);fromI.value=iso(startForRange('3y'));
-function applyRange(r){rangeBox.classList.toggle('open',r==='custom');if(r==='custom')return;render(idxFromDate(startForRange(r)),N-1);}
-tf.querySelectorAll('.pfc-tf').forEach(function(b){b.addEventListener('click',function(){tf.querySelectorAll('.pfc-tf').forEach(function(x){x.classList.remove('active');});this.classList.add('active');applyRange(this.getAttribute('data-r'));});});
-document.getElementById('pfcApply').addEventListener('click',function(){var a=new Date(fromI.value),z=new Date(toI.value);if(!fromI.value||!toI.value||isNaN(a)||isNaN(z)||a>=z){err.style.display='';return;}err.style.display='none';if(a<INCEPT)a=new Date(INCEPT);if(z>TODAY)z=new Date(TODAY);render(idxFromDate(a),idxFromDate(z));});
-render(idxFromDate(startForRange('3y')),N-1);
+function iso(dt){var z=new Date(dt.getTime()-dt.getTimezoneOffset()*60000);return z.toISOString().slice(0,10);}
+fromI.min=iso(INCEPT);fromI.max=iso(TODAY);toI.min=iso(INCEPT);toI.max=iso(TODAY);toI.value=iso(TODAY);fromI.value=iso(startForRange('1y'));
+tf.querySelectorAll('.pfc-tf').forEach(function(b){b.addEventListener('click',function(){
+  tf.querySelectorAll('.pfc-tf').forEach(function(x){x.classList.remove('active');});this.classList.add('active');
+  var r=this.getAttribute('data-r');rangeBox.classList.toggle('open',r==='custom');
+  if(r!=='custom')render(idxFromDate(startForRange(r)),N-1);
+});});
+document.getElementById('pfcApply').addEventListener('click',function(){
+  var a=new Date(fromI.value+'T00:00:00'),z=new Date(toI.value+'T00:00:00');
+  if(!fromI.value||!toI.value||isNaN(a)||isNaN(z)||a>=z){err.style.display='';return;}
+  err.style.display='none';if(a<INCEPT)a=new Date(INCEPT);if(z>TODAY)z=new Date(TODAY);
+  var zi=N-1;for(var k=N-1;k>=0;k--){if(dates[k]<=z){zi=k;break;}}
+  render(idxFromDate(a),zi);
+});
+var rT;window.addEventListener('resize',function(){clearTimeout(rT);rT=setTimeout(function(){render(lastSi,lastEi);},150);});
+render(idxFromDate(startForRange('1y')),N-1);
 })();
 </script>
