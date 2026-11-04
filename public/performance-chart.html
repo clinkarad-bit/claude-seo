@@ -5,10 +5,9 @@
 .pfc,.pfc *{font-family:'MuseoSans','Nunito',system-ui,sans-serif}
 .pfc-card{background:#fff;border-radius:24px;padding:32px 34px 22px}
 /* Kopf */
-.pfc-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"ttl seg cal";align-items:end;gap:16px 10px}
+.pfc-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"ttl seg cal";align-items:center;gap:16px 10px}
 .pfc-ttl{grid-area:ttl;min-width:0}
-.pfc-ttl h3{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.025em;line-height:1.15}
-.pfc-sub{font-size:13px;font-weight:600;color:var(--muted);margin-top:6px;height:18px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.pfc-sub{font-size:13px;font-weight:600;color:var(--muted);height:18px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
 /* Zeitraum-Leiste mit gleitendem Aktiv-Balken */
 .pfc-seg{grid-area:seg;position:relative;display:flex;background:var(--track);border-radius:14px;padding:4px;max-width:100%;overflow-x:auto;scrollbar-width:none}
 .pfc-seg::-webkit-scrollbar{display:none}
@@ -60,7 +59,6 @@
 .pfc{padding:40px 14px}
 .pfc-card{padding:22px 16px 14px;border-radius:20px}
 .pfc-head{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"ttl cal" "seg seg";align-items:center}
-.pfc-ttl h3{font-size:22px}
 .pfc-seg{width:100%}
 .pfc-sb{flex:1 1 auto;padding:9px 8px}
 .pfc-sb .l{display:none}.pfc-sb .s{display:inline}
@@ -78,7 +76,6 @@
 
 <div class="pfc-head">
 <div class="pfc-ttl">
-<h3>Performance</h3>
 <div class="pfc-sub" id="pfcSub">&nbsp;</div>
 </div>
 <div class="pfc-seg" id="pfcSeg" role="group" aria-label="Zeitraum">
