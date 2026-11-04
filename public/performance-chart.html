@@ -143,7 +143,7 @@ function startForRange(r){var e=TODAY,s=new Date(e);
   else if(r==='3y')s.setFullYear(s.getFullYear()-3);else if(r==='5y')s.setFullYear(s.getFullYear()-5);
   else if(r==='10y')s.setFullYear(s.getFullYear()-10);else if(r==='max')s=new Date(INCEPT);
   if(s<INCEPT)s=new Date(INCEPT);return s;}
-function fmtPct(x,dec){return(x>=0?'+':'−')+Math.abs(x).toFixed(dec).replace('.',',')+' %';}
+function fmtPct(x,dec){return(x>=0?'+':'\u2212')+Math.abs(x).toFixed(dec).replace('.',',')+'\u00a0%';}
 function fmtNum(v){return String(Math.round(v*100)/100).replace('.',',');}
 function fmtDay(dt){return dt.getDate()+'. '+MON[dt.getMonth()]+' '+dt.getFullYear();}
 function buildLabels(ds,span,maxN){
