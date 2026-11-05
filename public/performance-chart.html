@@ -55,6 +55,21 @@
 .pfc-tip-bar{width:3px;height:11px;border-radius:2px;flex-shrink:0}
 .pfc-tip-n{flex:1;color:#e4e6e9}
 .pfc-tip-v{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;padding-left:12px}
+/* Performance-Tabelle */
+.pfc-tbl-w{margin-top:30px}
+.pfc-tbl{width:100%;border-collapse:collapse;table-layout:fixed;font-variant-numeric:tabular-nums}
+.pfc-tbl col.c-f{width:22%}.pfc-tbl col.c-w{width:12%}
+.pfc-tbl th,.pfc-tbl td{text-align:left;padding:15px 12px;font-size:14px;vertical-align:middle}
+.pfc-tbl thead th{font-size:12px;font-weight:700;color:var(--muted);padding-top:0;padding-bottom:12px;vertical-align:bottom}
+.pfc-th-s{display:block;font-size:11px;font-weight:600;color:#a7adb8;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pfc-tbl tbody tr{border-top:1px solid #eef0f3}
+.pfc-tbl tbody th{font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pfc-tbl tbody th .pfc-st-dot{display:inline-block;margin-right:9px;vertical-align:1px}
+.pfc-tbl td{font-weight:700;color:var(--ink);white-space:nowrap}
+.pfc-tbl td.up{color:var(--green-t)}.pfc-tbl td.down{color:var(--red)}
+.pfc-tbl td.wkn{font-weight:600;color:var(--body);letter-spacing:.03em}
+.pfc-note{font-size:12px;color:var(--muted);line-height:1.7;text-align:center;max-width:840px;margin:24px auto 0;padding:0 8px}
+.pfc-note a{color:var(--body);text-decoration:underline;text-underline-offset:2px}
 @media(max-width:760px){
 .pfc{padding:40px 14px}
 .pfc-card{padding:22px 16px 14px;border-radius:20px}
@@ -67,6 +82,14 @@
 .pfc-stats{gap:10px;margin-top:22px}
 .pfc-st-v{font-size:19px}
 .pfc-chart{height:280px;margin-top:18px}
+.pfc-tbl-w{margin-top:22px}
+.pfc-tbl,.pfc-tbl tbody,.pfc-tbl tr,.pfc-tbl th,.pfc-tbl td{display:block;width:auto}
+.pfc-tbl thead,.pfc-tbl colgroup{display:none}
+.pfc-tbl tbody tr{border-top:none;background:var(--track);border-radius:14px;padding:12px 14px;margin-top:10px}
+.pfc-tbl tbody th{padding:0 0 6px;font-size:14px}
+.pfc-tbl td{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:13.5px}
+.pfc-tbl td::before{content:attr(data-l);font-weight:600;color:var(--muted)}
+.pfc-note{margin-top:18px;text-align:left;padding:0}
 }
 @media(prefers-reduced-motion:reduce){.pfc-ind,.odo-s,.pfc-st-v,.pfc-sb{transition:none}.pfc-chart canvas.pfc-fade{animation:none}}
 </style>
@@ -108,7 +131,20 @@
 
 <div class="pfc-chart"><canvas id="pfcChart" role="img" aria-label="Wertentwicklung easyfolio 30, 50 und 70, indexiert auf 100"></canvas><div class="pfc-tip" id="pfcTip"></div></div>
 
+<div class="pfc-tbl-w">
+<table class="pfc-tbl">
+<colgroup><col class="c-f"><col><col><col><col><col class="c-w"></colgroup>
+<thead><tr><th scope="col">Portfolio</th><th scope="col">Seit Auflage<span class="pfc-th-s" id="pfcIncRange">&nbsp;</span></th><th scope="col">Heute</th><th scope="col">Seit Jahresbeginn</th><th scope="col">1 Jahr</th><th scope="col">WKN</th></tr></thead>
+<tbody>
+<tr><th scope="row"><span class="pfc-st-dot" style="background:#9fb0cc"></span>easyfolio 30</th><td data-l="Seit Auflage" id="pfcT0a">&ndash;</td><td data-l="Heute" id="pfcT0b">&ndash;</td><td data-l="Seit Jahresbeginn" id="pfcT0c">&ndash;</td><td data-l="1 Jahr" id="pfcT0d">&ndash;</td><td data-l="WKN" class="wkn">EASY30</td></tr>
+<tr><th scope="row"><span class="pfc-st-dot" style="background:#7cba3a"></span>easyfolio 50</th><td data-l="Seit Auflage" id="pfcT1a">&ndash;</td><td data-l="Heute" id="pfcT1b">&ndash;</td><td data-l="Seit Jahresbeginn" id="pfcT1c">&ndash;</td><td data-l="1 Jahr" id="pfcT1d">&ndash;</td><td data-l="WKN" class="wkn">EASY50</td></tr>
+<tr><th scope="row"><span class="pfc-st-dot" style="background:#4c79c7"></span>easyfolio 70</th><td data-l="Seit Auflage" id="pfcT2a">&ndash;</td><td data-l="Heute" id="pfcT2b">&ndash;</td><td data-l="Seit Jahresbeginn" id="pfcT2c">&ndash;</td><td data-l="1 Jahr" id="pfcT2d">&ndash;</td><td data-l="WKN" class="wkn">EASY70</td></tr>
+</tbody>
+</table>
 </div>
+
+</div>
+<p class="pfc-note">Hinweis: Historische Wertentwicklungen sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Die Wertentwicklung in der Zukunft kann von der historischen Wertentwicklung abweichen. Bitte beachten Sie, dass Kapitalanlagen Risiken bergen, und lesen Sie hierzu unseren <a href="https://easyfolio.de/risikohinweis">Risikohinweis</a>.</p>
 </div>
 
 <script>
@@ -116,11 +152,11 @@
 var CJS='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
 var MON=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
 function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
-var rnd=mulberry32(284);
+var rnd=mulberry32(136);
 function randn(){var u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
 
 // ---- Modell-Daten (Platzhalter, keine echten Kurse) ----
-var INCEPT=new Date(2014,8,1);
+var INCEPT=new Date(2014,3,3);
 var TODAY=new Date();TODAY.setHours(0,0,0,0);
 var dates=[];var d=new Date(INCEPT);
 while(d<=TODAY){var wd=d.getDay();if(wd!==0&&wd!==6)dates.push(new Date(d));d.setDate(d.getDate()+1);}
@@ -139,7 +175,7 @@ function idxFromDate(dt){for(var i=0;i<N;i++){if(dates[i]>=dt)return i;}return N
 function idxUpTo(dt){for(var k=N-1;k>=0;k--){if(dates[k]<=dt)return k;}return 0;}
 function startForRange(r){var e=TODAY,s=new Date(e);
   if(r==='1m')s.setMonth(s.getMonth()-1);else if(r==='6m')s.setMonth(s.getMonth()-6);
-  else if(r==='ytd')s=new Date(e.getFullYear(),0,1);else if(r==='1y')s.setFullYear(s.getFullYear()-1);
+  else if(r==='ytd')s=new Date(e.getFullYear()-1,11,31);else if(r==='1y')s.setFullYear(s.getFullYear()-1);
   else if(r==='3y')s.setFullYear(s.getFullYear()-3);else if(r==='5y')s.setFullYear(s.getFullYear()-5);
   else if(r==='10y')s.setFullYear(s.getFullYear()-10);else if(r==='max')s=new Date(INCEPT);
   if(s<INCEPT)s=new Date(INCEPT);return s;}
@@ -236,6 +272,17 @@ function boot(){
     document.getElementById('pfcSub').textContent=fmtDay(dates[si])+' bis '+fmtDay(dates[ei])+', indexiert auf 100';
     drawChart();
   }
+  function fmtD(dt){return dt.getDate()+'.'+(dt.getMonth()+1)+'.'+dt.getFullYear();}
+  function fillTable(){
+    var last=N-1,prev=Math.max(0,N-2),ytd=idxUpTo(new Date(TODAY.getFullYear()-1,11,31)),y1=idxUpTo(startForRange('1y'));
+    MODELS.forEach(function(m,mi){
+      var v=[S[mi][last]/S[mi][0],S[mi][last]/S[mi][prev],S[mi][last]/S[mi][ytd],S[mi][last]/S[mi][y1]];
+      ['a','b','c','d'].forEach(function(c,ci){var el=document.getElementById('pfcT'+mi+c),p=(v[ci]-1)*100;
+        el.textContent=fmtPct(p,2);el.classList.toggle('up',p>=0);el.classList.toggle('down',p<0);
+        if(c==='a')el.setAttribute('data-l','Seit Auflage ('+fmtD(dates[0])+')');});
+    });
+    document.getElementById('pfcIncRange').textContent=fmtD(dates[0])+' bis '+fmtD(dates[last]);
+  }
   // Zeitraum-Leiste
   var seg=document.getElementById('pfcSeg'),ind=document.getElementById('pfcInd'),btns=seg.querySelectorAll('.pfc-sb');
   var cal=document.getElementById('pfcCal'),pop=document.getElementById('pfcPop'),calw=document.getElementById('pfcCalW');
@@ -251,7 +298,7 @@ function boot(){
     for(var k=0;k<btns.length;k++){btns[k].classList.toggle('active',btns[k]===b);btns[k].setAttribute('aria-pressed',btns[k]===b?'true':'false');}
     cal.classList.toggle('active',!b);moveInd(false);}
   function openPop(o){pop.classList.toggle('open',o);cal.setAttribute('aria-expanded',o?'true':'false');if(o)fromI.focus();}
-  for(var k=0;k<btns.length;k++){btns[k].addEventListener('click',function(){setActive(this);openPop(false);update(idxFromDate(startForRange(this.getAttribute('data-r'))),N-1);});}
+  for(var k=0;k<btns.length;k++){btns[k].addEventListener('click',function(){setActive(this);openPop(false);update(idxUpTo(startForRange(this.getAttribute('data-r'))),N-1);});}
   function iso(dt){var z=new Date(dt.getTime()-dt.getTimezoneOffset()*60000);return z.toISOString().slice(0,10);}
   fromI.min=iso(INCEPT);fromI.max=iso(TODAY);toI.min=iso(INCEPT);toI.max=iso(TODAY);toI.value=iso(TODAY);fromI.value=iso(startForRange('1y'));
   cal.addEventListener('click',function(e){e.stopPropagation();openPop(!pop.classList.contains('open'));});
@@ -261,13 +308,13 @@ function boot(){
     var a=new Date(fromI.value+'T00:00:00'),z=new Date(toI.value+'T00:00:00');
     if(!fromI.value||!toI.value||isNaN(a)||isNaN(z)||a>=z){err.style.display='block';return;}
     err.style.display='none';if(a<INCEPT)a=new Date(INCEPT);if(z>TODAY)z=new Date(TODAY);
-    setActive(null);openPop(false);update(idxFromDate(a),idxUpTo(z));
+    setActive(null);openPop(false);update(idxUpTo(a),idxUpTo(z));
   });
   var rT;window.addEventListener('resize',function(){clearTimeout(rT);rT=setTimeout(function(){moveInd(true);update(lastSi,lastEi);},150);});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){moveInd(true);});
   // Start: Kennzahlen sofort, Chart sobald Chart.js bereit ist
   moveInd(true);
-  update(idxFromDate(startForRange('1y')),N-1);
+  update(idxUpTo(startForRange('1y')),N-1);fillTable();
   whenChart(function(){drawChart();});
 }
 
